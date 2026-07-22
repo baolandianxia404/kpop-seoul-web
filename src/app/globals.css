@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #7c3aed;
+  --color-primary-light: #a78bfa;
+  --color-primary-dark: #5b21b6;
+  --color-company: #7c3aed;
+  --color-restaurant: #f59e0b;
+  --color-mv-spot: #3b82f6;
+  --color-store: #10b981;
+  --color-entertainment: #ec4899;
+  --font-sans: var(--font-inter);
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* Map page full-height */
+.map-container {
+  height: calc(100vh - 64px);
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    height: calc(100vh - 56px - 64px);
+  }
+}
+
+/* Hide scrollbar for horizontal scrollable rows */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Safe area for mobile bottom nav */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
