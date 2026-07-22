@@ -23,8 +23,7 @@ function ItineraryContent() {
   const [activeDay, setActiveDay] = useState(0)
   const [error, setError] = useState("")
 
-  const mapKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""
-
+  
   useEffect(() => {
     const dataParam = searchParams.get("data")
     if (dataParam) {
@@ -108,7 +107,7 @@ function ItineraryContent() {
             <p className="text-xs text-purple-700 mt-1">{currentDay.description}</p>
           </div>
 
-          <DayRouteMap spots={currentDay.spots} mapKey={mapKey} />
+          <DayRouteMap spots={currentDay.spots} />
 
           <ItineraryTimeline spots={currentDay.spots} />
         </>

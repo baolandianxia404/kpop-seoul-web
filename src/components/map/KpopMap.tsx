@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useCallback, useMemo } from "react"
-import { APIProvider, Map, AdvancedMarker, Pin } from "@vis.gl/react-google-maps"
+import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet"
+import L from "leaflet"
 import type { Location, LocationType } from "@/types"
-import type { MapCameraChangedEvent } from "@vis.gl/react-google-maps"
 import { LOCATION_TYPES, MARKER_COLORS, SEOUL_CENTER, DEFAULT_ZOOM, MAX_MAP_MARKERS } from "@/lib/utils/constants"
 import { getVisibleTypes, getVisibleBounds, isInBounds } from "@/lib/utils/filters"
 import { getDistance, formatDistance } from "@/lib/utils/distance"
@@ -12,10 +12,38 @@ import MarkerPopup from "./MarkerPopup"
 
 interface Props {
   locations: Location[]
-  mapKey: string
 }
 
-export default function KpopMap({ locations, mapKey }: Props) {
+const iconCache: Record<string, L.DivIcon> = {}
+
+function getMarkerIcon(type: LocationType): L.DivIcon {
+  if (iconCache[type]) return iconCache[type]
+  const color = MARKER_COLORS[type]
+  const emoji = LOCATION_TYPES[type].icon
+  iconCache[type] = L.divIcon({
+    className: "",
+    html: `<div style="display:flex;flex-direction:column;align-items:center;transform:translateY(-50%);cursor:pointer">
+      <div style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background-color:${color};border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.25);font-size:14px;color:white;font-weight:bold">${emoji}</div>
+      <div style="width:4px;height:8px;border-radius:0 0 4px 4px;background-color:${color}"></div>
+    </div>`,
+    iconSize: [32, 44],
+    iconAnchor: [16, 44],
+  })
+  return iconCache[type]
+}
+
+function MapEvents({ onMoveEnd }: { onMoveEnd: (center: { lat: number; lng: number }, zoom: number) => void }) {
+  useMapEvents({
+    moveend: (e) => {
+      const map = e.target
+      const c = map.getCenter()
+      onMoveEnd({ lat: c.lat, lng: c.lng }, map.getZoom())
+    },
+  })
+  return null
+}
+
+export default function KpopMap({ locations }: Props) {
   const [zoom, setZoom] = useState(DEFAULT_ZOOM)
   const [center, setCenter] = useState(SEOUL_CENTER)
   const [activeType, setActiveType] = useState<LocationType | "">("")
@@ -23,7 +51,14 @@ export default function KpopMap({ locations, mapKey }: Props) {
   const [selectedLoc, setSelectedLoc] = useState<Location | null>(null)
   const [pendingSpots, setPendingSpots] = useState<string[]>([])
 
-  // Filter and compute visible markers
+  const handleViewportChange = useCallback(
+    (newCenter: { lat: number; lng: number }, newZoom: number) => {
+      setCenter(newCenter)
+      setZoom(newZoom)
+    },
+    []
+  )
+
   const visibleMarkers = useMemo(() => {
     const visibleTypes = getVisibleTypes(zoom)
     const bounds = getVisibleBounds(center, zoom)
@@ -46,7 +81,6 @@ export default function KpopMap({ locations, mapKey }: Props) {
       filtered = filtered.slice(0, MAX_MAP_MARKERS)
     }
 
-    // Sort by distance from center for better visual distribution
     filtered.sort(
       (a, b) =>
         getDistance(center.lat, center.lng, a.location.latitude, a.location.longitude) -
@@ -56,17 +90,7 @@ export default function KpopMap({ locations, mapKey }: Props) {
     return filtered
   }, [locations, zoom, center, activeType, activeDistrict])
 
-  const handleBoundsChanged = useCallback(
-    (e: MapCameraChangedEvent) => {
-      if (e.detail.center && e.detail.zoom != null) {
-        setCenter({ lat: e.detail.center.lat, lng: e.detail.center.lng })
-        setZoom(e.detail.zoom)
-      }
-    },
-    []
-  )
-
-  const addToPlan = (loc: Location) => {
+  const addToPlan = useCallback((loc: Location) => {
     setPendingSpots((prev) => [...prev, loc.id])
     try {
       const stored = JSON.parse(localStorage.getItem("kpop_pending_spots") || "[]")
@@ -80,82 +104,71 @@ export default function KpopMap({ locations, mapKey }: Props) {
       }
     } catch {}
     setSelectedLoc(null)
-  }
+  }, [])
 
   return (
-    <APIProvider apiKey={mapKey}>
-      <div className="relative w-full h-full">
-        <Map
-          mapId="kpop-seoul-map"
-          defaultCenter={SEOUL_CENTER}
-          defaultZoom={DEFAULT_ZOOM}
-          gestureHandling="greedy"
-          disableDefaultUI={false}
-          onBoundsChanged={handleBoundsChanged}
-          style={{ width: "100%", height: "100%" }}
-        >
-          {visibleMarkers.map((loc) => (
-            <AdvancedMarker
-              key={loc.id}
-              position={{ lat: loc.location.latitude, lng: loc.location.longitude }}
-              onClick={() => setSelectedLoc(loc)}
-              title={loc.name}
-            >
-              <div
-                className="flex flex-col items-center cursor-pointer group"
-                style={{ transform: "translateY(-50%)" }}
-              >
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center shadow-md border-2 border-white text-xs font-bold text-white group-hover:scale-125 transition-transform"
-                  style={{ backgroundColor: MARKER_COLORS[loc.type] }}
-                >
-                  {LOCATION_TYPES[loc.type].icon}
-                </div>
-                <div
-                  className="w-1 h-2 rounded-b"
-                  style={{ backgroundColor: MARKER_COLORS[loc.type] }}
-                />
-              </div>
-            </AdvancedMarker>
-          ))}
-        </Map>
+    <div className="relative w-full h-full">
+      <MapContainer
+        center={[SEOUL_CENTER.lat, SEOUL_CENTER.lng]}
+        zoom={DEFAULT_ZOOM}
+        scrollWheelZoom
+        zoomControl={false}
+        style={{ width: "100%", height: "100%" }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
 
-        {/* Filter Bar */}
-        <div className="absolute top-3 left-3 right-3 z-10">
-          <MapFilterBar
-            activeType={activeType}
-            activeDistrict={activeDistrict}
-            onTypeChange={setActiveType}
-            onDistrictChange={setActiveDistrict}
+        <MapEvents onMoveEnd={handleViewportChange} />
+
+        {visibleMarkers.map((loc) => (
+          <Marker
+            key={loc.id}
+            position={[loc.location.latitude, loc.location.longitude]}
+            icon={getMarkerIcon(loc.type)}
+            eventHandlers={{
+              click: () => setSelectedLoc(loc),
+            }}
+          />
+        ))}
+      </MapContainer>
+
+      {/* Filter Bar */}
+      <div className="absolute top-3 left-3 right-3 z-[1000]">
+        <MapFilterBar
+          activeType={activeType}
+          activeDistrict={activeDistrict}
+          onTypeChange={setActiveType}
+          onDistrictChange={setActiveDistrict}
+        />
+      </div>
+
+      {/* Marker Popup */}
+      {selectedLoc && (
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-[1000]">
+          <MarkerPopup
+            location={selectedLoc}
+            distance={formatDistance(
+              getDistance(
+                center.lat,
+                center.lng,
+                selectedLoc.location.latitude,
+                selectedLoc.location.longitude
+              )
+            )}
+            onAddToPlan={() => addToPlan(selectedLoc)}
+            onClose={() => setSelectedLoc(null)}
           />
         </div>
+      )}
 
-        {/* Marker Popup */}
-        {selectedLoc && (
-          <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-10">
-            <MarkerPopup
-              location={selectedLoc}
-              distance={formatDistance(
-                getDistance(
-                  center.lat,
-                  center.lng,
-                  selectedLoc.location.latitude,
-                  selectedLoc.location.longitude
-                )
-              )}
-              onAddToPlan={() => addToPlan(selectedLoc)}
-              onClose={() => setSelectedLoc(null)}
-            />
-          </div>
-        )}
-
-        {/* Marker count badge */}
-        <div className="absolute bottom-6 right-3 z-10">
-          <div className="bg-white/90 backdrop-blur px-3 py-1.5 rounded-full text-xs text-gray-500 shadow">
-            {visibleMarkers.length} markers shown
-          </div>
+      {/* Marker count badge */}
+      <div className="absolute bottom-6 right-3 z-[1000]">
+        <div className="bg-white/90 backdrop-blur px-3 py-1.5 rounded-full text-xs text-gray-500 shadow">
+          {visibleMarkers.length} markers shown
         </div>
       </div>
-    </APIProvider>
+    </div>
   )
 }

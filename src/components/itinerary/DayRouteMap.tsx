@@ -1,61 +1,55 @@
 "use client"
 
 import { useMemo } from "react"
-import { APIProvider, Map, AdvancedMarker, Pin } from "@vis.gl/react-google-maps"
+import { MapContainer, TileLayer, Marker } from "react-leaflet"
+import L from "leaflet"
 import type { ItinerarySpot } from "@/types"
 
 interface Props {
   spots: ItinerarySpot[]
-  mapKey: string
 }
 
-export default function DayRouteMap({ spots, mapKey }: Props) {
-  const center = useMemo(() => {
-    if (spots.length === 0) return { lat: 37.5665, lng: 126.978 }
+function getNumIcon(n: number): L.DivIcon {
+  return L.divIcon({
+    className: "",
+    html: `<div style="display:flex;flex-direction:column;align-items:center;transform:translateY(-50%)">
+      <div style="width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;background-color:#7c3aed;border:2px solid white;box-shadow:0 2px 4px rgba(0,0,0,0.3);font-size:10px;color:white;font-weight:bold">${n}</div>
+      <div style="width:3px;height:6px;border-radius:0 0 3px 3px;background-color:#7c3aed"></div>
+    </div>`,
+    iconSize: [24, 34],
+    iconAnchor: [12, 34],
+  })
+}
+
+export default function DayRouteMap({ spots }: Props) {
+  const center: [number, number] = useMemo(() => {
+    if (spots.length === 0) return [37.5665, 126.978]
     const avgLat = spots.reduce((s, p) => s + p.lat, 0) / spots.length
     const avgLng = spots.reduce((s, p) => s + p.lng, 0) / spots.length
-    return { lat: avgLat, lng: avgLng }
-  }, [spots])
-
-  const bounds = useMemo(() => {
-    if (spots.length < 2) return undefined
-    const lats = spots.map((s) => s.lat)
-    const lngs = spots.map((s) => s.lng)
-    return {
-      north: Math.max(...lats) + 0.01,
-      south: Math.min(...lats) - 0.01,
-      east: Math.max(...lngs) + 0.01,
-      west: Math.min(...lngs) - 0.01,
-    }
+    return [avgLat, avgLng]
   }, [spots])
 
   return (
-    <APIProvider apiKey={mapKey}>
-      <div className="w-full h-64 rounded-xl overflow-hidden">
-        <Map
-          mapId="kpop-route-map"
-          defaultCenter={center}
-          defaultZoom={14}
-          gestureHandling="greedy"
-          disableDefaultUI
-          style={{ width: "100%", height: "100%" }}
-        >
-          {spots.map((spot, i) => (
-            <AdvancedMarker
-              key={`${spot.locationId}-${i}`}
-              position={{ lat: spot.lat, lng: spot.lng }}
-              title={spot.locationName}
-            >
-              <div className="flex flex-col items-center" style={{ transform: "translateY(-50%)" }}>
-                <div className="w-6 h-6 rounded-full bg-purple-600 border-2 border-white flex items-center justify-center text-white text-[10px] font-bold shadow">
-                  {i + 1}
-                </div>
-                <div className="w-1 h-2 bg-purple-600 rounded-b" />
-              </div>
-            </AdvancedMarker>
-          ))}
-        </Map>
-      </div>
-    </APIProvider>
+    <div className="w-full h-64 rounded-xl overflow-hidden">
+      <MapContainer
+        center={center}
+        zoom={14}
+        scrollWheelZoom={false}
+        dragging={false}
+        zoomControl={false}
+        attributionControl={false}
+        style={{ width: "100%", height: "100%" }}
+      >
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+        {spots.map((spot, i) => (
+          <Marker
+            key={`${spot.locationId}-${i}`}
+            position={[spot.lat, spot.lng]}
+            icon={getNumIcon(i + 1)}
+          />
+        ))}
+      </MapContainer>
+    </div>
   )
 }

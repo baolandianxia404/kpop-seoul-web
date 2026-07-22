@@ -15,6 +15,6 @@ const KpopMap = dynamic(() => import("./KpopMap"), {
   ),
 })
 
-export default function MapWrapper({ locations, mapKey }: { locations: Location[]; mapKey: string }) {
-  return <KpopMap locations={locations} mapKey={mapKey} />
+export default function MapWrapper({ locations }: { locations: Location[] }) {
+  return <KpopMap locations={locations} />
 }
