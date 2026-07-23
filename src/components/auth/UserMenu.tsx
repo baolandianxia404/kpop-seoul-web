@@ -38,7 +38,7 @@ export default function UserMenu() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-64 bg-white border-2 border-slate-200 shadow-lg z-50 animate-pop-in">
+        <div className="absolute right-0 top-full mt-2 w-64 bg-white border-2 border-slate-200 shadow-lg z-[9999] animate-pop-in">
           <div className="p-3 border-b border-slate-100">
             <p className="text-sm font-bold pixel-font text-slate-800 truncate">
               {profile?.display_name || user.email}
