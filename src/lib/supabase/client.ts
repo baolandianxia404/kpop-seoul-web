@@ -1,8 +1,23 @@
-import { createBrowserClient } from "@supabase/ssr"
+import { createClient as createSupabaseClient } from "@supabase/supabase-js"
+import type { SupabaseClient } from "@supabase/supabase-js"
 
-export function createClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
+let cached: SupabaseClient | null = null
+
+export function createClient(): SupabaseClient {
+  if (cached) return cached
+
+  // During SSR, return a stub that won't be used
+  if (typeof window === "undefined") {
+    return createSupabaseClient("https://placeholder.ssr.supabase.co", "placeholder", {
+      auth: { persistSession: false },
+    })
+  }
+
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || ""
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
+
+  cached = createSupabaseClient(url, key, {
+    auth: { persistSession: true, autoRefreshToken: true },
+  })
+  return cached
 }
