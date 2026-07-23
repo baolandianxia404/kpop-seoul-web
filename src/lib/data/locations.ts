@@ -68,6 +68,7 @@ export const locations: Location[] = [
     "type": "company",
     "category": "company_building",
     "groupNames": [
+      "Super Junior",
       "NCT 127",
       "NCT DREAM",
       "aespa",
@@ -230,6 +231,7 @@ export const locations: Location[] = [
     "type": "company",
     "category": "company_shop",
     "groupNames": [
+      "Super Junior",
       "NCT 127",
       "NCT DREAM",
       "aespa",
@@ -1277,6 +1279,7 @@ export const locations: Location[] = [
     "type": "entertainment",
     "category": "broadcast",
     "groupNames": [
+      "Super Junior",
       "BTS",
       "TWICE",
       "IVE",
@@ -6037,6 +6040,7 @@ export const locations: Location[] = [
     "type": "entertainment",
     "category": "broadcast",
     "groupNames": [
+      "Wanna One",
       "BTS",
       "TWICE",
       "IVE",
@@ -7015,6 +7019,185 @@ export const locations: Location[] = [
     },
     "estimatedDuration": 40,
     "rating": 4.2,
+    "verified": true
+  },
+  {
+    "id": "mouse-rabbit-cafe",
+    "name": "Mouse Rabbit Cafe（艺声咖啡厅）",
+    "nameKo": "마우스 래빗",
+    "type": "restaurant",
+    "category": "idol_cafe",
+    "groupNames": [
+      "Super Junior"
+    ],
+    "location": {
+      "latitude": 37.5562,
+      "longitude": 127.0381,
+      "address": "首尔特别市广津区华阳洞5-32",
+      "addressKo": "서울특별시 광진구 화양동 5-32",
+      "district": "广津区",
+      "neighborhood": "华阳洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "2号线/7号线",
+        "station": "建大入口站",
+        "exit": "2号出口",
+        "walkingMinutes": 5
+      }
+    },
+    "hours": {
+      "weekday": "10:00-23:00",
+      "weekend": "10:00-23:00"
+    },
+    "description": "Super Junior艺声和弟弟共同经营的咖啡厅。店内充满艺声亲自设计的细节，以老鼠和兔子为主题。ELF必打卡的圣地，经常能看到艺声妈妈在店里帮忙。",
+    "checkInTips": [
+      "招牌是艺声亲自调配的咖啡",
+      "店内有很多艺声周边和签名",
+      "幸运的话能遇到艺声妈妈",
+      "建大入口站2号出口步行5分钟"
+    ],
+    "price": {
+      "isFree": false,
+      "range": "5000-12000韩元"
+    },
+    "estimatedDuration": 60,
+    "rating": 4.7,
+    "verified": true
+  },
+  {
+    "id": "sm-old-apgujeong",
+    "name": "SM旧大楼（狎鸥亭）",
+    "nameKo": "SM 구사옥",
+    "type": "company",
+    "category": "company_building",
+    "groupNames": [
+      "Super Junior",
+      "SHINee",
+      "EXO",
+      "Red Velvet"
+    ],
+    "location": {
+      "latitude": 37.5296,
+      "longitude": 127.0279,
+      "address": "首尔特别市江南区狎鸥亭洞521",
+      "addressKo": "서울특별시 강남구 압구정동 521",
+      "district": "江南区",
+      "neighborhood": "狎鸥亭洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "盆唐线",
+        "station": "狎鸥亭罗德奥站",
+        "exit": "2号出口",
+        "walkingMinutes": 8
+      }
+    },
+    "hours": {
+      "weekday": "外观不限时",
+      "note": "SM已搬到圣水洞新大楼，旧大楼仍有练习室在使用"
+    },
+    "description": "SM娱乐2007-2024年的总部大楼，Super Junior、少女时代、SHINee、EXO等二代三代团体的诞生地。虽然SM已搬到圣水洞新大楼，但这栋楼对所有老SM粉丝来说意义重大。外观和地下练习室入口都是经典打卡点。",
+    "checkInTips": [
+      "大楼外观可以自由拍照",
+      "对面就是SM旧练习室入口（有粉丝留言墙）",
+      "楼下曾是SM粉丝常蹲点的地点",
+      "步行8分钟到罗德奥街"
+    ],
+    "price": {
+      "isFree": true,
+      "range": "免费（外观）"
+    },
+    "estimatedDuration": 30,
+    "rating": 4.8,
+    "verified": true
+  },
+  {
+    "id": "sukira-kbs",
+    "name": "KBS《Super Junior's Kiss The Radio》",
+    "nameKo": "슈퍼주니어의 키스 더 라디오",
+    "type": "entertainment",
+    "category": "broadcast",
+    "groupNames": [
+      "Super Junior"
+    ],
+    "location": {
+      "latitude": 37.5254,
+      "longitude": 126.9167,
+      "address": "首尔特别市永登浦区汝矣岛洞18 KBS",
+      "addressKo": "서울특별시 영등포구 여의도동 18 KBS",
+      "district": "永登浦区",
+      "neighborhood": "汝矣岛"
+    },
+    "transport": {
+      "subway": {
+        "line": "9号线",
+        "station": "国会议事堂站",
+        "exit": "4号出口",
+        "walkingMinutes": 7
+      }
+    },
+    "hours": {
+      "weekday": "22:00-00:00（电台直播时间）",
+      "note": "可视电台，KBS本馆有玻璃窗可观看直播"
+    },
+    "description": "Super Junior主持的长寿电台节目《Kiss The Radio》（Sukira），自2006年开播至今。目前在KBS本馆进行，设有可视电台窗口，粉丝可以透过玻璃观看直播。利特和银赫是经典MC组合。",
+    "checkInTips": [
+      "电台直播时KBS一楼有可视窗口可以观看",
+      "直播时间通常是晚上10点",
+      "建议提前查看每周播出日程",
+      "KBS本馆附近有便利店可以买应援零食"
+    ],
+    "price": {
+      "isFree": true,
+      "range": "免费观看"
+    },
+    "estimatedDuration": 60,
+    "rating": 4.9,
+    "verified": true
+  },
+  {
+    "id": "produce-101-ilsan",
+    "name": "CJ ENM一山制作中心（Produce 101录制地）",
+    "nameKo": "CJ ENM 일산 제작센터",
+    "type": "entertainment",
+    "category": "broadcast",
+    "groupNames": [
+      "Wanna One"
+    ],
+    "location": {
+      "latitude": 37.6586,
+      "longitude": 126.7735,
+      "address": "京畿道高阳市一山东区獐项洞731",
+      "addressKo": "경기도 고양시 일산동구 장항동 731",
+      "district": "京畿道",
+      "neighborhood": "一山"
+    },
+    "transport": {
+      "subway": {
+        "line": "3号线",
+        "station": "注叶站",
+        "exit": "2号出口",
+        "walkingMinutes": 15
+      },
+      "note": "建议从注叶站打车，约5分钟"
+    },
+    "hours": {
+      "note": "办公区域不对外开放，但外部可以拍照"
+    },
+    "description": "CJ ENM一山制作中心是《Produce 101》第二季的录制场地，Wanna One诞生的地方。大楼外部有Mnet标志，是Wannable的朝圣地。现在Mnet大部分制作已搬至上岩洞新大楼，但一山制作中心仍在运营。",
+    "checkInTips": [
+      "大楼外观可以拍照，有Mnet标志",
+      "离首尔市区较远，建议预留半天时间",
+      "注叶站打车约5000韩元",
+      "附近有一山湖水公园可以一起游览"
+    ],
+    "price": {
+      "isFree": true,
+      "range": "免费（外观）"
+    },
+    "estimatedDuration": 30,
+    "rating": 4.3,
     "verified": true
   }
 ]

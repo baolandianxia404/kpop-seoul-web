@@ -421,6 +421,34 @@ export const groups: Group[] = [
     "fandomName": "UAENA",
     "color": "#CD853F",
     "popularity": 95
+  },
+  {
+    "id": "super-junior",
+    "name": "Super Junior",
+    "nameKo": "슈퍼주니어",
+    "fullName": "Super Junior",
+    "type": "boy_group",
+    "company": "SM",
+    "generation": "2nd",
+    "debutYear": 2005,
+    "memberCount": 9,
+    "fandomName": "ELF",
+    "color": "#69B4E6",
+    "popularity": 88
+  },
+  {
+    "id": "wanna-one",
+    "name": "Wanna One",
+    "nameKo": "워너원",
+    "fullName": "Wanna One",
+    "type": "boy_group",
+    "company": "Swing",
+    "generation": "3rd",
+    "debutYear": 2017,
+    "memberCount": 11,
+    "fandomName": "Wannable",
+    "color": "#FADA5E",
+    "popularity": 85
   }
 ]
 
