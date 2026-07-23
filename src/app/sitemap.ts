@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next"
 import { getLocationIds } from "@/lib/data/locations"
 import { getGroupIds } from "@/lib/data/groups"
 
+export const dynamic = "force-static"
+
 const BASE_URL = "https://kpopseoulmap.com"
 
 export default function sitemap(): MetadataRoute.Sitemap {
