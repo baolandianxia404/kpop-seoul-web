@@ -1,6 +1,7 @@
 "use client"
 
 import MapWrapper from "@/components/map/MapWrapper"
+import HotPlaces from "@/components/home/HotPlaces"
 import { useLang } from "@/components/LanguageProvider"
 import { locations } from "@/lib/data/locations"
 import { groups } from "@/lib/data/groups"
@@ -105,6 +106,9 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+
+        {/* Hot Places Ranking */}
+        <HotPlaces />
 
         {/* Quick stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
