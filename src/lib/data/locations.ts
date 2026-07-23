@@ -1148,7 +1148,8 @@ export const locations: Location[] = [
     "category": "dessert",
     "groupNames": [
       "aespa",
-      "NewJeans"
+      "NewJeans",
+      "BLACKPINK"
     ],
     "location": {
       "latitude": 37.5438,
@@ -1536,7 +1537,9 @@ export const locations: Location[] = [
     "category": "cafe",
     "groupNames": [
       "IVE",
-      "aespa"
+      "aespa",
+      "BTS",
+      "BLACKPINK"
     ],
     "location": {
       "latitude": 37.5442,
@@ -7198,6 +7201,512 @@ export const locations: Location[] = [
     },
     "estimatedDuration": 30,
     "rating": 4.3,
+    "verified": true
+  },
+  {
+    "id": "haru-oneday",
+    "name": "Haru & Oneday（李东海咖啡厅）",
+    "nameKo": "하루앤원데이",
+    "type": "restaurant",
+    "category": "idol_cafe",
+    "groupNames": [
+      "Super Junior"
+    ],
+    "location": {
+      "latitude": 37.5445,
+      "longitude": 127.0567,
+      "address": "首尔特别市城东区峨嵯山路92 S Tower 1层",
+      "addressKo": "서울특별시 성동구 아차산로 92 S타워 1층",
+      "district": "城东区",
+      "neighborhood": "圣水洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "2号线",
+        "station": "圣水站",
+        "exit": "4号出口",
+        "walkingMinutes": 1
+      }
+    },
+    "hours": {
+      "weekday": "08:00-22:30",
+      "weekend": "09:00-22:00",
+      "note": "周日22:00关门"
+    },
+    "description": "Super Junior李东海经营的咖啡厅，圣水洞热门打卡地。现代简约风，店内设有拍照区、免费相机打印、留言本和同款对镜自拍角落。招牌蜜桃红茶和手工蛋糕是必点。演唱会期间人潮暴增。",
+    "checkInTips": [
+      "蜜桃红茶和胡萝卜蛋糕是招牌",
+      "店内免费相机可以打印照片留念",
+      "有东海同款对镜自拍打卡角",
+      "圣水站4号出口步行1分钟即到"
+    ],
+    "price": {
+      "isFree": false,
+      "range": "6000-15000韩元"
+    },
+    "estimatedDuration": 60,
+    "rating": 4.8,
+    "verified": true
+  },
+  {
+    "id": "cafe-armoire",
+    "name": "Cafe Armoire（艺声衣橱咖啡厅）",
+    "nameKo": "카페 아르무아",
+    "type": "restaurant",
+    "category": "idol_cafe",
+    "groupNames": [
+      "Super Junior"
+    ],
+    "location": {
+      "latitude": 37.5423,
+      "longitude": 127.0718,
+      "address": "首尔特别市广津区东一路22街117-27",
+      "addressKo": "서울특별시 광진구 동일로22길 117-27",
+      "district": "广津区",
+      "neighborhood": "华阳洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "2号线/7号线",
+        "station": "建大入口站",
+        "exit": "5号出口",
+        "walkingMinutes": 5
+      }
+    },
+    "hours": {
+      "weekday": "12:00-23:00",
+      "weekend": "12:00-23:00"
+    },
+    "description": "Super Junior艺声经营的第二家咖啡厅，隐藏在建大入口站附近。最大特色是入口藏在衣橱中，推开衣橱门进入优雅复古空间，仿佛展覧馆。艺声妈妈和弟弟常亲自招呼客人，幸运的话可偶遇艺声本人。招牌起司蛋糕和24奶茶必点。",
+    "checkInTips": [
+      "衣橱门入口是标志性打卡点，一定要拍照",
+      "招牌起司蛋糕和24奶茶是必点",
+      "抹茶司康也很推荐",
+      "幸运的话能遇到艺声本人或家人"
+    ],
+    "price": {
+      "isFree": false,
+      "range": "6000-15000韩元"
+    },
+    "estimatedDuration": 60,
+    "rating": 4.9,
+    "verified": true
+  },
+  {
+    "id": "dageuro-ga",
+    "name": "向鸡家辣炒鸡（银赫同款）",
+    "nameKo": "닭으로가",
+    "type": "restaurant",
+    "category": "restaurant",
+    "groupNames": [
+      "Super Junior"
+    ],
+    "location": {
+      "latitude": 37.5212,
+      "longitude": 127.0337,
+      "address": "首尔特别市江南区彦州路172街55",
+      "addressKo": "서울특별시 강남구 언주로172길 55",
+      "district": "江南区",
+      "neighborhood": "狎鸥亭洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "盆唐线",
+        "station": "狎鸥亭罗德奥站",
+        "exit": "4号出口",
+        "walkingMinutes": 10
+      }
+    },
+    "hours": {
+      "weekday": "11:30-22:30",
+      "weekend": "11:30-22:30"
+    },
+    "description": "Super Junior银赫从练习生时期就经常光顾至今的辣炒鸡肉店。辣炒鸡肉鲜嫩入味，可加年糕、拉面、炒饭。银赫在多个综艺节目中推荐过这家店，是ELF必吃的同款美食。",
+    "checkInTips": [
+      "银赫同款必点辣炒鸡+炒饭组合",
+      "可以加年糕和拉面",
+      "离SM旧大楼和K-STAR ROAD很近，可以一起打卡"
+    ],
+    "price": {
+      "isFree": false,
+      "range": "15000-25000韩元"
+    },
+    "estimatedDuration": 60,
+    "rating": 4.5,
+    "verified": true
+  },
+  {
+    "id": "youngdong-bridge",
+    "name": "永东桥家烤肉（东海同款）",
+    "nameKo": "영동교집",
+    "type": "restaurant",
+    "category": "restaurant",
+    "groupNames": [
+      "Super Junior",
+      "BTS",
+      "ASTRO"
+    ],
+    "location": {
+      "latitude": 37.5183,
+      "longitude": 127.0330,
+      "address": "首尔特别市江南区宣陵路148街11",
+      "addressKo": "서울특별시 강남구 선릉로148길 11",
+      "district": "江南区",
+      "neighborhood": "清潭洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "盆唐线",
+        "station": "狎鸥亭罗德奥站",
+        "exit": "3号出口",
+        "walkingMinutes": 12
+      }
+    },
+    "hours": {
+      "weekday": "11:30-22:30",
+      "weekend": "11:30-22:30"
+    },
+    "description": "Super Junior东海经常光顾的济州黑猪肉烤肉店。主打猪五花、松阪猪、烤猪皮，还有海鲜嫩豆腐汤和大酱汤。BTS柾国、车银优也曾被目击在此用餐。是江南区人气烤肉名店。",
+    "checkInTips": [
+      "济州黑猪五花肉是招牌",
+      "烤猪皮也是必点",
+      "海鲜嫩豆腐汤配烤肉绝佳",
+      "BTS柾国和车银优也常来"
+    ],
+    "price": {
+      "isFree": false,
+      "range": "25000-40000韩元"
+    },
+    "estimatedDuration": 90,
+    "rating": 4.6,
+    "verified": true
+  },
+  {
+    "id": "cheolgil-tteokbokki",
+    "name": "铁路旁年糕（Cheolgil Tteokbokki）",
+    "nameKo": "철길떡볶이",
+    "type": "restaurant",
+    "category": "restaurant",
+    "groupNames": [
+      "Super Junior"
+    ],
+    "location": {
+      "latitude": 37.5645,
+      "longitude": 126.9640,
+      "address": "首尔特别市西大门区忠正路35-6",
+      "addressKo": "서울특별시 서대문구 충정로 35-6",
+      "district": "西大门区",
+      "neighborhood": "忠正路"
+    },
+    "transport": {
+      "subway": {
+        "line": "5号线",
+        "station": "忠正路站",
+        "exit": "5号出口",
+        "walkingMinutes": 3
+      }
+    },
+    "hours": {
+      "weekday": "11:00-20:00",
+      "note": "周六休息"
+    },
+    "description": "圭贤、艺声、银赫都推荐过的路边年糕店。特色是坐在户外可以边看火车经过边吃年糕，氛围独特。价格便宜味道好，是Super Junior成员们练习生时期的美食回忆。",
+    "checkInTips": [
+      "户外座位可以看火车经过",
+      "价格便宜，5000韩元就能吃饱",
+      "周六休息，注意安排时间"
+    ],
+    "price": {
+      "isFree": false,
+      "range": "3000-7000韩元"
+    },
+    "estimatedDuration": 30,
+    "rating": 4.4,
+    "verified": true
+  },
+  {
+    "id": "kstar-road",
+    "name": "K-STAR ROAD 熊仔街（狎鸥亭）",
+    "nameKo": "K-STAR 로드",
+    "type": "entertainment",
+    "category": "landmark",
+    "groupNames": [
+      "Super Junior",
+      "BTS",
+      "EXO",
+      "SHINee",
+      "TWICE",
+      "BLACKPINK",
+      "Red Velvet",
+      "NCT 127"
+    ],
+    "location": {
+      "latitude": 37.5286,
+      "longitude": 127.0296,
+      "address": "首尔特别市江南区狎鸥亭罗德奥街",
+      "addressKo": "서울특별시 강남구 압구정로데오거리",
+      "district": "江南区",
+      "neighborhood": "狎鸥亭洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "盆唐线",
+        "station": "狎鸥亭罗德奥站",
+        "exit": "2号出口",
+        "walkingMinutes": 1
+      }
+    },
+    "hours": {
+      "note": "户外开放空间，全天可参观"
+    },
+    "description": "狎鸥亭罗德奥街上的Kpop偶像熊雕塑街，共有17个组合的专属小熊雕塑，每只熊的颜色和设计代表不同团体。Super Junior的蓝色小熊是ELF必打卡点。整条街每5-10米一个熊，非常好逛。Galleria百货对面还有更多。",
+    "checkInTips": [
+      "找到SJ蓝色小熊拍照打卡",
+      "17只熊沿街分布，每5-10米一只",
+      "Galleria百货对面还有更多",
+      "离向鸡家和SM旧大楼都很近"
+    ],
+    "price": {
+      "isFree": true,
+      "range": "免费"
+    },
+    "estimatedDuration": 30,
+    "rating": 4.7,
+    "verified": true
+  },
+  {
+    "id": "kwangya-seoul",
+    "name": "KWANGYA 旷野（SM新大楼B1）",
+    "nameKo": "광야",
+    "type": "store",
+    "category": "company_shop",
+    "groupNames": [
+      "Super Junior",
+      "NCT 127",
+      "NCT DREAM",
+      "aespa",
+      "Red Velvet",
+      "EXO",
+      "SHINee",
+      "RIIZE"
+    ],
+    "location": {
+      "latitude": 37.5447,
+      "longitude": 127.0468,
+      "address": "首尔特别市城东区圣水洞1街656-355 B1",
+      "addressKo": "서울특별시 성동구 성수동1가 656-355 B1",
+      "district": "城东区",
+      "neighborhood": "圣水洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "盆唐线",
+        "station": "首尔林站",
+        "exit": "5号出口",
+        "walkingMinutes": 10
+      }
+    },
+    "hours": {
+      "weekday": "11:00-20:00",
+      "weekend": "11:00-20:00"
+    },
+    "description": "SM娱乐新大楼B1层的官方周边商店「KWANGYA旷野」。售卖SM旗下所有艺人的专辑、应援棒、官方小卡和周边商品。店内设有打印照片机和人生四格拍照机。大楼后面的首尔林公园还有爱豆专属椅子（东海、利特的椅子都在！）。马路对面的中华料理店是李东海推荐的美食。",
+    "checkInTips": [
+      "SM所有艺人专辑和应援棒都有售",
+      "可以打印照片和拍人生四格",
+      "首尔林公园有爱豆专属椅子",
+      "对面中华料理店是东海推荐"
+    ],
+    "price": {
+      "isFree": true,
+      "range": "免费进入（购物另计）"
+    },
+    "estimatedDuration": 45,
+    "rating": 4.8,
+    "verified": true
+  },
+  {
+    "id": "sm-hand-wall-coex",
+    "name": "SM艺人手印墙（COEX Mall）",
+    "nameKo": "SM 아티스트 핸드프린팅",
+    "type": "entertainment",
+    "category": "landmark",
+    "groupNames": [
+      "Super Junior",
+      "EXO",
+      "SHINee",
+      "NCT 127",
+      "NCT DREAM",
+      "Red Velvet",
+      "aespa"
+    ],
+    "location": {
+      "latitude": 37.5117,
+      "longitude": 127.0592,
+      "address": "首尔特别市江南区三成洞159 COEX Mall",
+      "addressKo": "서울특별시 강남구 삼성동 159 코엑스몰",
+      "district": "江南区",
+      "neighborhood": "三成洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "2号线",
+        "station": "三成站",
+        "exit": "6号出口",
+        "walkingMinutes": 5
+      }
+    },
+    "hours": {
+      "weekday": "10:30-20:00",
+      "weekend": "10:30-20:30"
+    },
+    "description": "COEX Mall内的SM艺人手印墙，Super Junior全员手印都在这里！可以和偶像的手印比大小、拍照留念。附近还有ktown4u周边店和SM TOWN COEX，是SM家族粉丝的朝圣路线。另有乐天免税店星光大道也有艺人手印（乙支路入口站）。",
+    "checkInTips": [
+      "SJ全员手印都在，和偶像比手大小",
+      "附近有ktown4u可以买周边",
+      "SM TOWN COEX就在旁边一起逛",
+      "三成站6号出口直达COEX Mall"
+    ],
+    "price": {
+      "isFree": true,
+      "range": "免费"
+    },
+    "estimatedDuration": 30,
+    "rating": 4.6,
+    "verified": true
+  },
+  {
+    "id": "cafe-black-drum",
+    "name": "Cafe Black Drum（HYBE后门BTS主题咖啡）",
+    "nameKo": "카페 블랙드럼",
+    "type": "restaurant",
+    "category": "idol_cafe",
+    "groupNames": [
+      "BTS"
+    ],
+    "location": {
+      "latitude": 37.5284,
+      "longitude": 126.9642,
+      "address": "首尔特别市龙山区汉江大路10街11-21 1层",
+      "addressKo": "서울특별시 용산구 한강대로10길 11-21 1층",
+      "district": "龙山区",
+      "neighborhood": "汉南洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "4号线",
+        "station": "汉南站",
+        "exit": "1号出口",
+        "walkingMinutes": 8
+      }
+    },
+    "hours": {
+      "weekday": "09:00-21:00",
+      "weekend": "09:00-21:00"
+    },
+    "description": "HYBE大楼后门停车场旁边的BTS主题咖啡店。店内全是BTS主题装饰：成员海报、国王签名、相框立牌、海报墙，电视循环播放BTS舞台。还有秋千可以复刻成员同款照片。逛完HYBE大楼必去的阿米圣地。",
+    "checkInTips": [
+      "店内秋千可以复刻BTS同款照片",
+      "满墙BTS海报和签名",
+      "逛完HYBE大楼步行2分钟即到",
+      "电视循环播放BTS舞台视频"
+    ],
+    "price": {
+      "isFree": false,
+      "range": "5000-12000韩元"
+    },
+    "estimatedDuration": 45,
+    "rating": 4.9,
+    "verified": true
+  },
+  {
+    "id": "yoojung-sikdang",
+    "name": "有贞食堂（BTS练习生同款）",
+    "nameKo": "유정식당",
+    "type": "restaurant",
+    "category": "restaurant",
+    "groupNames": [
+      "BTS"
+    ],
+    "location": {
+      "latitude": 37.5286,
+      "longitude": 126.9651,
+      "address": "首尔特别市龙山区汉南洞",
+      "addressKo": "서울특별시 용산구 한남동",
+      "district": "龙山区",
+      "neighborhood": "汉南洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "4号线",
+        "station": "汉南站",
+        "exit": "1号出口",
+        "walkingMinutes": 10
+      }
+    },
+    "hours": {
+      "weekday": "10:00-21:00",
+      "weekend": "10:00-21:00",
+      "closed": "周日休息"
+    },
+    "description": "BTS未成名前最常去的餐厅，距离HYBE旧大楼很近。店内挂满防弹周边和粉丝礼物，充满回忆。防弹同款黑猪肉拌饭是必点招牌。阿米追忆初心必打卡之地，能感受到防弹练习生时期的日常氛围。",
+    "checkInTips": [
+      "防弹同款黑猪肉拌饭必点",
+      "店内满是防弹周边和粉丝礼物",
+      "离HYBE旧大楼很近，可以一起打卡",
+      "周日休息注意安排时间"
+    ],
+    "price": {
+      "isFree": false,
+      "range": "8000-15000韩元"
+    },
+    "estimatedDuration": 45,
+    "rating": 4.7,
+    "verified": true
+  },
+  {
+    "id": "samee-cafe",
+    "name": "TheSameE Cafe（YG对面追星咖啡厅）",
+    "nameKo": "더세임이",
+    "type": "restaurant",
+    "category": "idol_cafe",
+    "groupNames": [
+      "BLACKPINK",
+      "TREASURE"
+    ],
+    "location": {
+      "latitude": 37.5489,
+      "longitude": 126.9162,
+      "address": "首尔特别市麻浦区合井洞",
+      "addressKo": "서울특별시 마포구 합정동",
+      "district": "麻浦区",
+      "neighborhood": "合井洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "2号线/6号线",
+        "station": "合井站",
+        "exit": "8号出口",
+        "walkingMinutes": 3
+      }
+    },
+    "hours": {
+      "weekday": "10:00-22:00",
+      "weekend": "10:00-22:00"
+    },
+    "description": "YG大楼正对面的追星咖啡厅，共三层。满墙BLACKPINK、TREASURE、BIGBANG的周边和海报，Jennie《You & Me》黑胶唱片展示是标志性打卡点。B1层有YG官方周边店，应援棒、专辑、爱豆同款服饰齐全，可当场退税。适合在YG楼下等偶像下班时休息。",
+    "checkInTips": [
+      "Jennie黑胶唱片墙是必拍打卡点",
+      "B1层YG官方周边店可退税",
+      "三楼窗口能看到YG大楼",
+      "适合等偶像下班时休息充电"
+    ],
+    "price": {
+      "isFree": false,
+      "range": "5000-12000韩元"
+    },
+    "estimatedDuration": 45,
+    "rating": 4.5,
     "verified": true
   }
 ]
