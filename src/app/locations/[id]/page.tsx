@@ -150,18 +150,38 @@ export default async function LocationDetailPage({
             <h3 className="font-semibold text-sm mb-1">Address</h3>
             <p className="text-sm text-gray-600">{loc.location.address}</p>
             <p className="text-xs text-gray-400 mt-1">{loc.location.addressKo}</p>
-            <a
-              href={`https://www.google.com/maps/dir/?api=1&destination=${loc.location.latitude},${loc.location.longitude}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-3 px-4 py-2 bg-purple-100 text-purple-700 rounded-lg text-sm font-medium hover:bg-purple-200"
-            >
-              Open in Google Maps
-            </a>
+            <div className="flex flex-wrap gap-1.5 mt-3">
+              <a
+                href={`https://map.kakao.com/link/to/${encodeURIComponent(loc.name)},${loc.location.latitude},${loc.location.longitude}`}
+                target="_blank" rel="noopener noreferrer"
+                className="px-3 py-1.5 bg-yellow-400 text-black rounded-lg text-xs font-bold hover:bg-yellow-500 transition"
+              >
+                KakaoMap
+              </a>
+              <a
+                href={`https://map.naver.com/v5/search/${encodeURIComponent(`${loc.location.latitude},${loc.location.longitude}`)}`}
+                target="_blank" rel="noopener noreferrer"
+                className="px-3 py-1.5 bg-green-500 text-white rounded-lg text-xs font-bold hover:bg-green-600 transition"
+              >
+                Naver Map
+              </a>
+              <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${loc.location.latitude},${loc.location.longitude}`}
+                target="_blank" rel="noopener noreferrer"
+                className="px-3 py-1.5 bg-blue-500 text-white rounded-lg text-xs font-bold hover:bg-blue-600 transition"
+              >
+                Google Maps
+              </a>
+            </div>
           </div>
 
           {/* Transport */}
-          <TransportSection transport={loc.transport} />
+          <TransportSection
+            transport={loc.transport}
+            lat={loc.location.latitude}
+            lng={loc.location.longitude}
+            name={loc.name}
+          />
 
           {/* Hours */}
           <HoursSection hours={loc.hours} />

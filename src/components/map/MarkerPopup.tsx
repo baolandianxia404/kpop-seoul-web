@@ -57,6 +57,12 @@ export default function MarkerPopup({ location, distance, onAddToPlan, onClose }
         {location.location.district} · {location.location.neighborhood}
       </p>
 
+      {location.transport.subway && (
+        <p className="text-[10px] text-gray-400 mb-2 font-mono">
+          🚇 {location.transport.subway.station} Exit {location.transport.subway.exit} · {location.transport.subway.walkingMinutes}min walk
+        </p>
+      )}
+
       {location.description && (
         <p className="text-xs text-gray-500 line-clamp-2 mb-3 leading-relaxed">
           {location.description}
