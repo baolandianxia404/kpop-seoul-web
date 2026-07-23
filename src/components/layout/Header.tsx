@@ -32,6 +32,7 @@ export default function Header() {
             <Link href="/locations" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">📍 {t("header_locations")}</Link>
             <Link href="/groups" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">💜 {t("header_groups")}</Link>
             <Link href="/planner" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">📌 {t("header_add_spot")}</Link>
+            <Link href="/routes" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">🗺️ {t("header_routes")}</Link>
 
             {/* Language toggle */}
             <button

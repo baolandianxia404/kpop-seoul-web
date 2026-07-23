@@ -5,7 +5,8 @@ export const translations = {
   header_map: { en: "Map", zh: "地图" },
   header_locations: { en: "Locations", zh: "地点" },
   header_groups: { en: "Groups", zh: "团体" },
-  header_add_spot: { en: "Add Spot", zh: "添加地点" },
+  header_add_spot: { en: "Add Spot", zh: "添加" },
+  header_routes: { en: "Routes", zh: "路线" },
   header_sign_in: { en: "Sign In", zh: "登录" },
   header_join: { en: "Join", zh: "注册" },
 
@@ -19,6 +20,7 @@ export const translations = {
   nav_locations: { en: "Spots", zh: "地点" },
   nav_groups: { en: "Groups", zh: "团体" },
   nav_planner: { en: "Add", zh: "添加" },
+  nav_routes: { en: "Routes", zh: "路线" },
   nav_saved: { en: "Saved", zh: "收藏" },
   nav_house: { en: "House", zh: "小屋" },
 
