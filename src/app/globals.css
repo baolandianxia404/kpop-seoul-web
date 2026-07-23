@@ -17,6 +17,22 @@
 
 body {
   font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  touch-action: manipulation;
+}
+
+/* Minimal tap target size */
+button, a, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+@media (min-width: 768px) {
+  button, a, [role="button"] {
+    min-height: auto;
+    min-width: auto;
+  }
 }
 
 /* Map page full-height */

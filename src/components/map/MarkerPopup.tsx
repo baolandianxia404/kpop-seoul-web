@@ -15,7 +15,7 @@ export default function MarkerPopup({ location, distance, onAddToPlan, onClose }
   const typeInfo = LOCATION_TYPES[location.type]
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl shadow-blue-100/50 p-4 min-w-[260px] max-w-[320px] animate-pop-in border border-blue-50">
+    <div className="bg-white rounded-2xl shadow-xl shadow-blue-100/50 p-4 w-[calc(100vw-32px)] max-w-[340px] animate-pop-in border border-blue-50">
       {/* Gradient top bar */}
       <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl gradient-cute" />
 

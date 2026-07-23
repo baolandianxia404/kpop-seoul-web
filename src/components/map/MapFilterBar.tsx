@@ -29,10 +29,10 @@ export default function MapFilterBar({
             <button
               key={t}
               onClick={() => onTypeChange(t)}
-              className={`flex-shrink-0 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+              className={`flex-shrink-0 px-3.5 py-2.5 md:py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 min-h-[44px] md:min-h-0 flex items-center ${
                 isActive
                   ? "text-white shadow-lg scale-105"
-                  : "bg-white/90 backdrop-blur text-gray-500 hover:bg-white hover:shadow-sm"
+                  : "bg-white/90 backdrop-blur text-gray-500 active:bg-white"
               }`}
               style={isActive ? { backgroundColor: color } : {}}
             >
@@ -46,10 +46,10 @@ export default function MapFilterBar({
       <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
         <button
           onClick={() => onDistrictChange("")}
-          className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+          className={`flex-shrink-0 px-3 py-2.5 md:py-1.5 rounded-full text-xs font-medium transition-all duration-200 min-h-[44px] md:min-h-0 flex items-center ${
             activeDistrict === ""
               ? "bg-blue-500 text-white shadow-md"
-              : "bg-white/80 backdrop-blur text-gray-500 hover:bg-white hover:shadow-sm"
+              : "bg-white/80 backdrop-blur text-gray-500 active:bg-white"
           }`}
         >
           🗺 All Areas
@@ -58,10 +58,10 @@ export default function MapFilterBar({
           <button
             key={d}
             onClick={() => onDistrictChange(d)}
-            className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+            className={`flex-shrink-0 px-3 py-2.5 md:py-1.5 rounded-full text-xs font-medium transition-all duration-200 min-h-[44px] md:min-h-0 flex items-center ${
               activeDistrict === d
                 ? "bg-amber-400 text-white shadow-md"
-                : "bg-white/80 backdrop-blur text-gray-500 hover:bg-white hover:shadow-sm"
+                : "bg-white/80 backdrop-blur text-gray-500 active:bg-white"
             }`}
           >
             {d}

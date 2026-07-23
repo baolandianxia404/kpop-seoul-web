@@ -84,7 +84,7 @@ export default function LocationsPage() {
           <button
             key={key}
             onClick={() => setActiveType(key)}
-            className={`pixel-btn px-4 py-2 text-xs flex items-center gap-1 ${
+            className={`pixel-btn px-3 py-2.5 md:py-2 text-xs flex items-center gap-1 min-h-[44px] md:min-h-0 ${
               activeType === key
                 ? "bg-slate-800 text-white active"
                 : "bg-white text-slate-600 hover:bg-amber-50"
