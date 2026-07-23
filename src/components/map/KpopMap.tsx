@@ -51,6 +51,7 @@ export default function KpopMap({ locations }: Props) {
   const [activeDistrict, setActiveDistrict] = useState("")
   const [selectedLoc, setSelectedLoc] = useState<Location | null>(null)
   const [pendingSpots, setPendingSpots] = useState<string[]>([])
+  const [interactive, setInteractive] = useState(false)
 
   const resetMap = useCallback(() => {
     setMapKey((k) => k + 1)
@@ -122,8 +123,11 @@ export default function KpopMap({ locations }: Props) {
         key={mapKey}
         center={[SEOUL_CENTER.lat, SEOUL_CENTER.lng]}
         zoom={DEFAULT_ZOOM}
-        scrollWheelZoom
-        zoomControl={false}
+        scrollWheelZoom={interactive}
+        dragging={interactive}
+        zoomControl={interactive}
+        doubleClickZoom={interactive}
+        touchZoom={interactive}
         style={{ width: "100%", height: "100%" }}
       >
         <TileLayer
@@ -144,6 +148,28 @@ export default function KpopMap({ locations }: Props) {
           />
         ))}
       </MapContainer>
+
+      {/* Click-to-activate overlay */}
+      {!interactive && (
+        <div
+          className="absolute inset-0 z-[900] flex items-center justify-center cursor-pointer group"
+          onClick={() => setInteractive(true)}
+        >
+          <div className="absolute inset-0 bg-white/40 group-hover:bg-white/20 transition-colors" />
+          <div className="relative px-5 py-3 bg-white/90 backdrop-blur border-2 border-slate-300 text-slate-500 font-mono text-xs font-bold group-hover:text-blue-500 group-hover:border-blue-400 transition-all animate-bounce-gentle shadow-lg">
+            👆 Click to explore the map
+          </div>
+        </div>
+      )}
+
+      {interactive && (
+        <button
+          onClick={() => setInteractive(false)}
+          className="absolute bottom-6 left-3 z-[1000] bg-white/90 backdrop-blur px-3 py-1.5 text-[10px] font-mono text-slate-400 border border-slate-200 hover:text-slate-600 shadow-sm"
+        >
+          🔒 Lock map
+        </button>
+      )}
 
       {/* Filter Bar */}
       <div className="absolute top-3 left-3 right-3 z-[1000]">
