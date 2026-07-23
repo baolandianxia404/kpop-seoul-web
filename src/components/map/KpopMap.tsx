@@ -21,13 +21,13 @@ function getMarkerIcon(type: LocationType): L.DivIcon {
   const color = MARKER_COLORS[type]
   const emoji = LOCATION_TYPES[type].icon
   iconCache[type] = L.divIcon({
-    className: "",
-    html: `<div style="display:flex;flex-direction:column;align-items:center;transform:translateY(-50%);cursor:pointer">
-      <div style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background-color:${color};border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.25);font-size:14px;color:white;font-weight:bold">${emoji}</div>
-      <div style="width:4px;height:8px;border-radius:0 0 4px 4px;background-color:${color}"></div>
+    className: "kpop-marker",
+    html: `<div style="display:flex;flex-direction:column;align-items:center;transform:translateY(-50%);cursor:pointer;filter:drop-shadow(0 3px 4px rgba(0,0,0,0.2));transition:transform 0.15s ease">
+      <div style="width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:white;border:3px solid ${color};box-shadow:0 2px 8px rgba(0,0,0,0.12);font-size:15px">${emoji}</div>
+      <div style="width:6px;height:6px;border-radius:50%;background-color:${color};margin-top:-1px"></div>
     </div>`,
-    iconSize: [32, 44],
-    iconAnchor: [16, 44],
+    iconSize: [36, 46],
+    iconAnchor: [18, 46],
   })
   return iconCache[type]
 }
@@ -165,8 +165,9 @@ export default function KpopMap({ locations }: Props) {
 
       {/* Marker count badge */}
       <div className="absolute bottom-6 right-3 z-[1000]">
-        <div className="bg-white/90 backdrop-blur px-3 py-1.5 rounded-full text-xs text-gray-500 shadow">
-          {visibleMarkers.length} markers shown
+        <div className="bg-white/90 backdrop-blur px-3.5 py-2 rounded-full text-xs font-medium text-gray-400 shadow-md border border-blue-50 flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+          {visibleMarkers.length} spots
         </div>
       </div>
     </div>

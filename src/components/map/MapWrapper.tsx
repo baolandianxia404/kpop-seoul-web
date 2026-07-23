@@ -6,10 +6,15 @@ import type { Location } from "@/types"
 const KpopMap = dynamic(() => import("./KpopMap"), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-        <p className="text-gray-500">Loading map...</p>
+    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-amber-50">
+      <div className="text-center animate-float">
+        <div className="text-5xl mb-3">🗺️</div>
+        <div className="flex items-center justify-center gap-1 mb-2">
+          <div className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: "0s" }} />
+          <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: "0.15s" }} />
+          <div className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: "0.3s" }} />
+        </div>
+        <p className="text-sm text-gray-400">Loading map...</p>
       </div>
     </div>
   ),
