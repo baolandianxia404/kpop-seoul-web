@@ -7708,6 +7708,347 @@ export const locations: Location[] = [
     "estimatedDuration": 45,
     "rating": 4.5,
     "verified": true
+  },
+  {
+    "id": "camptong",
+    "name": "Cafe CAMPTONG（BTS同款）",
+    "nameKo": "카페 캠프통",
+    "type": "restaurant",
+    "category": "idol_cafe",
+    "groupNames": ["BTS"],
+    "location": {
+      "latitude": 37.5268,
+      "longitude": 127.0368,
+      "address": "首尔特别市江南区狎鸥亭路42街27",
+      "addressKo": "서울특별시 강남구 압구정로42길 27",
+      "district": "江南区",
+      "neighborhood": "狎鸥亭洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "盆唐线",
+        "station": "狎鸥亭罗德奥站",
+        "exit": "3号出口",
+        "walkingMinutes": 8
+      }
+    },
+    "hours": { "weekday": "10:00-22:00", "weekend": "10:00-22:00" },
+    "description": "因BTS《Run BTS》节目闻名的露营风咖啡厅，阿米必去的朝圣地。店内满满BTS痕迹，整面墙的防弹照片和周边。户外庭院座位可以复刻成员同款照片角度。招牌是露营主题甜品和手冲咖啡。",
+    "checkInTips": ["《Run BTS》同款拍摄角度", "满墙BTS照片打卡", "户外庭院座位很出片"],
+    "price": { "isFree": false, "range": "6000-15000韩元" },
+    "estimatedDuration": 45,
+    "rating": 4.7,
+    "verified": true
+  },
+  {
+    "id": "cercle",
+    "name": "Cercle（SEVENTEEN净汉同款）",
+    "nameKo": "썰끌",
+    "type": "restaurant",
+    "category": "idol_cafe",
+    "groupNames": ["SEVENTEEN"],
+    "location": {
+      "latitude": 37.5342,
+      "longitude": 126.9947,
+      "address": "首尔特别市龙山区梨泰院路223-5",
+      "addressKo": "서울특별시 용산구 이태원로 223-5",
+      "district": "龙山区",
+      "neighborhood": "梨泰院洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "6号线",
+        "station": "梨泰院站",
+        "exit": "2号出口",
+        "walkingMinutes": 10
+      }
+    },
+    "hours": { "weekday": "11:00-22:00", "weekend": "11:00-22:00", "note": "周一、周二休息" },
+    "description": "SEVENTEEN尹净汉打卡过的独栋小白楼咖啡厅，法式复古风。净汉同款位置在室外二楼阳台，克拉必拍的圣地。周一、周二休息别跑空。推荐丹麦酥和冰美式。",
+    "checkInTips": ["净汉同款在室外二楼", "独栋白楼很出片", "周一、周二休息"],
+    "price": { "isFree": false, "range": "7000-15000韩元" },
+    "estimatedDuration": 50,
+    "rating": 4.6,
+    "verified": true
+  },
+  {
+    "id": "kamong",
+    "name": "KAMONG（EXO KAI姐姐咖啡厅）",
+    "nameKo": "카몽",
+    "type": "restaurant",
+    "category": "idol_cafe",
+    "groupNames": ["EXO"],
+    "location": {
+      "latitude": 37.4847,
+      "longitude": 127.0171,
+      "address": "首尔特别市瑞草区瑞草洞",
+      "addressKo": "서울특별시 서초구 서초동",
+      "district": "瑞草区",
+      "neighborhood": "瑞草洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "2号线",
+        "station": "瑞草站",
+        "exit": "1号出口",
+        "walkingMinutes": 5
+      }
+    },
+    "hours": { "weekday": "09:00-22:00", "weekend": "10:00-22:00" },
+    "description": "EXO KAI（金钟仁）姐姐经营的咖啡厅。店内温馨可爱，有大量EXO周边和KAI的个人收藏。幸运的话能遇到KAI本人或家人。抹茶拿铁和提拉米苏是招牌。EXO-L必打卡的圣地。",
+    "checkInTips": ["抹茶拿铁和提拉米苏必点", "KAI周边和签名", "幸运可偶遇KAI本人"],
+    "price": { "isFree": false, "range": "5000-12000韩元" },
+    "estimatedDuration": 45,
+    "rating": 4.8,
+    "verified": true
+  },
+  {
+    "id": "todays-enough",
+    "name": "Todays Enough（泰民&Hoshi同款）",
+    "nameKo": "투데이즈이너프",
+    "type": "restaurant",
+    "category": "idol_cafe",
+    "groupNames": ["SHINee", "SEVENTEEN"],
+    "location": {
+      "latitude": 37.5455,
+      "longitude": 127.0479,
+      "address": "首尔特别市城东区首尔林2街44-13 B1",
+      "addressKo": "서울특별시 성동구 서울숲2길 44-13 B1",
+      "district": "城东区",
+      "neighborhood": "圣水洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "盆唐线",
+        "station": "首尔林站",
+        "exit": "5号出口",
+        "walkingMinutes": 5
+      }
+    },
+    "hours": { "weekday": "11:00-21:00", "weekend": "12:00-21:00" },
+    "description": "SHINee泰民和SEVENTEEN Hoshi被粉丝目击同游的咖啡厅。地下空间别有洞天，安静有格调。浓缩咖啡评价颇高，甜点精致。是Shawol和克拉的双重朝圣地。",
+    "checkInTips": ["泰民&Hoshi同款", "浓缩咖啡评价很高", "地下空间安静适合久坐"],
+    "price": { "isFree": false, "range": "6000-12000韩元" },
+    "estimatedDuration": 45,
+    "rating": 4.5,
+    "verified": true
+  },
+  {
+    "id": "mamma-mia",
+    "name": "Mamma Mia（BLACKPINK Jennie同款）",
+    "nameKo": "맘마미아",
+    "type": "restaurant",
+    "category": "idol_cafe",
+    "groupNames": ["BLACKPINK"],
+    "location": {
+      "latitude": 37.5265,
+      "longitude": 127.0370,
+      "address": "首尔特别市江南区狎鸥亭路42街45号",
+      "addressKo": "서울특별시 강남구 압구정로42길 45",
+      "district": "江南区",
+      "neighborhood": "狎鸥亭洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "盆唐线",
+        "station": "狎鸥亭罗德奥站",
+        "exit": "3号出口",
+        "walkingMinutes": 7
+      }
+    },
+    "hours": { "weekday": "10:00-22:00", "weekend": "10:00-22:00" },
+    "description": "外观超可爱的少女心咖啡厅，BLACKPINK Jennie打卡过的同款店。粉色系装修，每个角落都能出片。招牌下午茶套餐和手工蛋糕是闺蜜同款首选。适合和好朋友一起来拍Jennie同款照片。",
+    "checkInTips": ["外观超级可爱必拍", "下午茶套餐是Jennie同款", "和闺蜜一起来最适合"],
+    "price": { "isFree": false, "range": "10000-20000韩元" },
+    "estimatedDuration": 60,
+    "rating": 4.4,
+    "verified": true
+  },
+  {
+    "id": "krappom",
+    "name": "Krappom泰餐（BLACKPINK Lisa同款）",
+    "nameKo": "크랍폼",
+    "type": "restaurant",
+    "category": "restaurant",
+    "groupNames": ["BLACKPINK"],
+    "location": {
+      "latitude": 37.5275,
+      "longitude": 127.0345,
+      "address": "首尔特别市江南区宣陵路153街18号B1",
+      "addressKo": "서울특별시 강남구 선릉로153길 18 B1",
+      "district": "江南区",
+      "neighborhood": "狎鸥亭洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "盆唐线",
+        "station": "狎鸥亭罗德奥站",
+        "exit": "4号出口",
+        "walkingMinutes": 8
+      }
+    },
+    "hours": { "weekday": "11:30-22:00", "weekend": "12:00-22:00", "note": "火山排骨限量，建议早去" },
+    "description": "BLACKPINK Lisa认证的泰国餐厅。招牌火山排骨限量供应，辣度地道。店内Lisa签名海报是打卡必备。是泰国成员Lisa思乡时最爱来的店，味道正宗不踩雷。",
+    "checkInTips": ["火山排骨限量必点", "Lisa签名海报打卡", "辣度地道，泰国料理爱好者必来"],
+    "price": { "isFree": false, "range": "15000-30000韩元" },
+    "estimatedDuration": 60,
+    "rating": 4.6,
+    "verified": true
+  },
+  {
+    "id": "autumn-breeze-bbq",
+    "name": "秋风岭刀五花肉（SM艺人食堂）",
+    "nameKo": "추풍령칼삼겹살",
+    "type": "restaurant",
+    "category": "restaurant",
+    "groupNames": ["Super Junior", "SHINee", "EXO", "NCT 127", "TWICE"],
+    "location": {
+      "latitude": 37.5225,
+      "longitude": 127.0368,
+      "address": "首尔特别市江南区岛山大路51街",
+      "addressKo": "서울특별시 강남구 도산대로51길",
+      "district": "江南区",
+      "neighborhood": "狎鸥亭洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "盆唐线",
+        "station": "狎鸥亭罗德奥站",
+        "exit": "2号出口",
+        "walkingMinutes": 10
+      }
+    },
+    "hours": { "weekday": "11:30-23:00", "weekend": "11:30-23:00" },
+    "description": "SM/FNC公司附近的传奇五花肉店，SJ、SHINee、EXO、NCT、TWICE多团认证。厚切五花肉是招牌，店员会全程帮烤。爱豆偶遇机率超高，墙上有大量艺人签名。",
+    "checkInTips": ["厚切五花肉必点", "墙上有超多艺人签名", "离SM旧大楼很近"],
+    "price": { "isFree": false, "range": "20000-35000韩元" },
+    "estimatedDuration": 75,
+    "rating": 4.7,
+    "verified": true
+  },
+  {
+    "id": "chosun-fire-grill",
+    "name": "朝鲜火炉烤肉（YG艺人烤肉店）",
+    "nameKo": "조선화로구이",
+    "type": "restaurant",
+    "category": "restaurant",
+    "groupNames": ["BIGBANG", "BLACKPINK", "TREASURE"],
+    "location": {
+      "latitude": 37.5532,
+      "longitude": 126.9225,
+      "address": "首尔特别市麻浦区世界杯北路5号",
+      "addressKo": "서울특별시 마포구 월드컵북로 5",
+      "district": "麻浦区",
+      "neighborhood": "合井洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "2号线/6号线",
+        "station": "合井站",
+        "exit": "3号出口",
+        "walkingMinutes": 10
+      }
+    },
+    "hours": { "weekday": "11:30-22:30", "weekend": "11:30-23:00" },
+    "description": "YG艺人多年爱店，老字号韩牛烤肉。使用最高等级1++A级韩牛与猪肉，牛排骨肉、横膈膜、调味猪肋条是招牌。墙上有BIGBANG等YG艺人签名。离YG大楼很近，吃完可以去YG楼下蹲点。",
+    "checkInTips": ["1++A级韩牛必点", "YG艺人签名墙", "离YG大楼走路15分钟"],
+    "price": { "isFree": false, "range": "30000-50000韩元" },
+    "estimatedDuration": 90,
+    "rating": 4.5,
+    "verified": true
+  },
+  {
+    "id": "rubys-cafe",
+    "name": "Ruby's Cafe（SM艺人食堂咖啡厅）",
+    "nameKo": "루비스 카페",
+    "type": "restaurant",
+    "category": "idol_cafe",
+    "groupNames": ["EXO", "SHINee", "NCT 127", "aespa", "Red Velvet"],
+    "location": {
+      "latitude": 37.5452,
+      "longitude": 127.0475,
+      "address": "首尔特别市城东区圣水洞1街656-1571",
+      "addressKo": "서울특별시 성동구 성수동1가 656-1571",
+      "district": "城东区",
+      "neighborhood": "圣水洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "盆唐线",
+        "station": "首尔林站",
+        "exit": "5号出口",
+        "walkingMinutes": 5
+      }
+    },
+    "hours": { "weekday": "10:00-22:00", "weekend": "10:00-22:00" },
+    "description": "被SM粉丝称为艺人食堂的咖啡厅，SM练习生和艺人都常光顾。离SM新大楼很近，偶遇机率超高。简洁北欧风装修，咖啡品质稳定。很多SM爱豆的泡泡自拍都在这里拍的。",
+    "checkInTips": ["SM艺人偶遇圣地", "离SM大楼走路3分钟", "爱豆泡泡同款背景"],
+    "price": { "isFree": false, "range": "5000-10000韩元" },
+    "estimatedDuration": 40,
+    "rating": 4.6,
+    "verified": true
+  },
+  {
+    "id": "teddy-beurre",
+    "name": "Teddy Beurre House（首尔三大可颂）",
+    "nameKo": "테디뵈르 하우스",
+    "type": "restaurant",
+    "category": "dessert",
+    "groupNames": ["SEVENTEEN", "aespa", "ENHYPEN", "RIIZE"],
+    "location": {
+      "latitude": 37.5254,
+      "longitude": 126.9274,
+      "address": "首尔特别市永登浦区汝矣岛洞22 现代百货B1",
+      "addressKo": "서울특별시 영등포구 여의도동 22 현대백화점 B1",
+      "district": "永登浦区",
+      "neighborhood": "汝矣岛"
+    },
+    "transport": {
+      "subway": {
+        "line": "5号线",
+        "station": "汝矣岛站",
+        "exit": "3号出口",
+        "walkingMinutes": 5
+      }
+    },
+    "hours": { "weekday": "10:30-20:00", "weekend": "10:30-20:30" },
+    "description": "首尔三大可颂之一，RIIZE、ENHYPEN、SEVENTEEN、aespa Winter都打卡过的网红面包店。焦糖布丁可颂、抹茶可颂、开心果可颂是招牌三件套。在汝矣岛现代百货B1层，逛百货时顺便打卡。",
+    "checkInTips": ["焦糖布丁可颂是招牌", "抹茶和开心果口味也很火", "现代百货B1逛完直接吃"],
+    "price": { "isFree": false, "range": "5000-10000韩元" },
+    "estimatedDuration": 30,
+    "rating": 4.5,
+    "verified": true
+  },
+  {
+    "id": "aburasoba-39",
+    "name": "Aburasoba 39（SEVENTEEN同款面馆）",
+    "nameKo": "아부라소바 39",
+    "type": "restaurant",
+    "category": "restaurant",
+    "groupNames": ["SEVENTEEN"],
+    "location": {
+      "latitude": 37.5212,
+      "longitude": 127.0345,
+      "address": "首尔特别市江南区岛山大路39街",
+      "addressKo": "서울특별시 강남구 도산대로39길",
+      "district": "江南区",
+      "neighborhood": "狎鸥亭洞"
+    },
+    "transport": {
+      "subway": {
+        "line": "盆唐线",
+        "station": "狎鸥亭罗德奥站",
+        "exit": "3号出口",
+        "walkingMinutes": 10
+      }
+    },
+    "hours": { "weekday": "11:00-21:00", "weekend": "11:00-21:30" },
+    "description": "SEVENTEEN成员经常光顾的日式油荞麦面馆。克拉圈内公认的次人同款，店内可以看到SEVENTEEN成员的签名。油荞麦面清爽不腻，溏心蛋是灵魂。江南区厅站附近，排队是常态。",
+    "checkInTips": ["溏心蛋+油荞麦面是经典搭配", "店内有SVT签名", "排队人多建议错峰"],
+    "price": { "isFree": false, "range": "9000-15000韩元" },
+    "estimatedDuration": 45,
+    "rating": 4.4,
+    "verified": true
   }
 ]
 
