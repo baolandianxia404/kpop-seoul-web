@@ -387,7 +387,7 @@ export const groups: Group[] = [
     "fullName": "THE BOYZ",
     "type": "boy_group",
     "company": "IST",
-    "generation": "4th",
+    "generation": "3rd",
     "debutYear": 2017,
     "memberCount": 11,
     "fandomName": "THE B",
