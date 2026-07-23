@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useCallback, useMemo } from "react"
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet"
+import { useState, useCallback, useMemo, useEffect } from "react"
+import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from "react-leaflet"
 import L from "leaflet"
 import type { Location, LocationType } from "@/types"
 import { LOCATION_TYPES, MARKER_COLORS, SEOUL_CENTER, DEFAULT_ZOOM, MAX_MAP_MARKERS } from "@/lib/utils/constants"
@@ -40,6 +40,26 @@ function MapEvents({ onMoveEnd }: { onMoveEnd: (center: { lat: number; lng: numb
       onMoveEnd({ lat: c.lat, lng: c.lng }, map.getZoom())
     },
   })
+  return null
+}
+
+function MapInteractionToggle({ active }: { active: boolean }) {
+  const map = useMap()
+  useEffect(() => {
+    if (active) {
+      map.scrollWheelZoom.enable()
+      map.dragging.enable()
+      map.doubleClickZoom.enable()
+      map.touchZoom.enable()
+      map.zoomControl?.addTo(map)
+    } else {
+      map.scrollWheelZoom.disable()
+      map.dragging.disable()
+      map.doubleClickZoom.disable()
+      map.touchZoom.disable()
+      map.zoomControl?.remove()
+    }
+  }, [active, map])
   return null
 }
 
@@ -123,11 +143,11 @@ export default function KpopMap({ locations }: Props) {
         key={mapKey}
         center={[SEOUL_CENTER.lat, SEOUL_CENTER.lng]}
         zoom={DEFAULT_ZOOM}
-        scrollWheelZoom={interactive}
-        dragging={interactive}
-        zoomControl={interactive}
-        doubleClickZoom={interactive}
-        touchZoom={interactive}
+        scrollWheelZoom={false}
+        dragging={false}
+        zoomControl={false}
+        doubleClickZoom={false}
+        touchZoom={false}
         style={{ width: "100%", height: "100%" }}
       >
         <TileLayer
@@ -136,6 +156,7 @@ export default function KpopMap({ locations }: Props) {
         />
 
         <MapEvents onMoveEnd={handleViewportChange} />
+        <MapInteractionToggle active={interactive} />
 
         {visibleMarkers.map((loc) => (
           <Marker
