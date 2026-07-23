@@ -33,13 +33,13 @@ export default function Header() {
               💜 Groups
             </Link>
             <Link href="/planner" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">
-              ✨ Planner
+              📌 Add Spot
             </Link>
             <Link
               href="/planner"
-              className="px-5 py-2 btn-cute text-sm font-semibold rounded-xl hover:shadow-lg transition-all duration-200"
+              className="px-5 py-2 btn-accent text-sm font-semibold rounded-xl hover:shadow-lg transition-all duration-200"
             >
-              Plan My Trip
+              Add Spot
             </Link>
           </nav>
 

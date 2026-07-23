@@ -50,7 +50,6 @@ export interface Group {
   fullName: string
   type: GroupType
   company: string
-  generation: string
   debutYear: number
   memberCount: number
   fandomName: string

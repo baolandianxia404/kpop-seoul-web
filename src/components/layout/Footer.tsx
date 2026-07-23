@@ -23,7 +23,7 @@ export default function Footer() {
               Groups
             </Link>
             <Link href="/planner" className="text-sm text-gray-400 hover:text-blue-500 transition">
-              Planner
+              Add Spot
             </Link>
           </nav>
           <p className="text-xs text-gray-400">
