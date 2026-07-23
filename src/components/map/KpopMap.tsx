@@ -44,12 +44,22 @@ function MapEvents({ onMoveEnd }: { onMoveEnd: (center: { lat: number; lng: numb
 }
 
 export default function KpopMap({ locations }: Props) {
+  const [mapKey, setMapKey] = useState(0)
   const [zoom, setZoom] = useState(DEFAULT_ZOOM)
   const [center, setCenter] = useState(SEOUL_CENTER)
   const [activeType, setActiveType] = useState<LocationType | "">("")
   const [activeDistrict, setActiveDistrict] = useState("")
   const [selectedLoc, setSelectedLoc] = useState<Location | null>(null)
   const [pendingSpots, setPendingSpots] = useState<string[]>([])
+
+  const resetMap = useCallback(() => {
+    setMapKey((k) => k + 1)
+    setActiveType("")
+    setActiveDistrict("")
+    setSelectedLoc(null)
+    setZoom(DEFAULT_ZOOM)
+    setCenter(SEOUL_CENTER)
+  }, [])
 
   const handleViewportChange = useCallback(
     (newCenter: { lat: number; lng: number }, newZoom: number) => {
@@ -109,6 +119,7 @@ export default function KpopMap({ locations }: Props) {
   return (
     <div className="relative w-full h-full">
       <MapContainer
+        key={mapKey}
         center={[SEOUL_CENTER.lat, SEOUL_CENTER.lng]}
         zoom={DEFAULT_ZOOM}
         scrollWheelZoom
@@ -163,8 +174,14 @@ export default function KpopMap({ locations }: Props) {
         </div>
       )}
 
-      {/* Marker count badge */}
-      <div className="absolute bottom-6 right-3 z-[1000]">
+      {/* Marker count badge + Reset */}
+      <div className="absolute bottom-6 right-3 z-[1000] flex items-center gap-2">
+        <button
+          onClick={resetMap}
+          className="bg-white/90 backdrop-blur px-3 py-2 rounded-full text-xs font-medium text-blue-500 shadow-md border border-blue-50 hover:bg-white transition"
+        >
+          🔄 Reset
+        </button>
         <div className="bg-white/90 backdrop-blur px-3.5 py-2 rounded-full text-xs font-medium text-gray-400 shadow-md border border-blue-50 flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
           {visibleMarkers.length} spots
