@@ -134,3 +134,80 @@ body {
 .gradient-cute {
   background: linear-gradient(135deg, #3b82f6, #f59e0b);
 }
+
+/* ===== Pixel Art Style ===== */
+
+.pixel-font {
+  font-family: "Courier New", "SimHei", monospace;
+  letter-spacing: 0.05em;
+}
+
+.pixel-card {
+  border: 3px solid #1e293b;
+  border-radius: 0;
+  box-shadow:
+    3px 3px 0 0 #cbd5e1,
+    6px 6px 0 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+  image-rendering: pixelated;
+}
+.pixel-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow:
+    5px 5px 0 0 #94a3b8,
+    8px 8px 0 0 rgba(0, 0, 0, 0.08);
+}
+
+.pixel-btn {
+  border: 2px solid #1e293b;
+  border-radius: 0;
+  box-shadow: 2px 2px 0 0 #cbd5e1;
+  transition: all 0.1s ease;
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+}
+.pixel-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 0 #94a3b8;
+}
+.pixel-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 0 #cbd5e1;
+}
+
+.pixel-btn.active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 0 #475569;
+}
+
+.pixel-tag {
+  border: 2px solid #1e293b;
+  border-radius: 0;
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 8px;
+}
+
+.pixel-icon {
+  image-rendering: pixelated;
+  display: inline-block;
+}
+
+/* Pixel border decoration */
+.pixel-border-dashed {
+  border: 2px dashed #1e293b;
+  border-radius: 0;
+}
+
+/* Checkerboard bg */
+.bg-pixel-checker {
+  background-image:
+    linear-gradient(45deg, #f1f5f9 25%, transparent 25%),
+    linear-gradient(-45deg, #f1f5f9 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #f1f5f9 75%),
+    linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
+  background-size: 8px 8px;
+  background-position:
+    0 0, 0 4px, 4px -4px, -4px 0;
+}

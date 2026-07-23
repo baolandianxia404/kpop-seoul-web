@@ -2,59 +2,88 @@ import Link from "next/link"
 import type { Location } from "@/types"
 import { LOCATION_TYPES, TYPE_NAME_CN } from "@/lib/utils/constants"
 
+const PIXEL_ICONS: Record<string, string> = {
+  company: "▣",
+  restaurant: "◆",
+  mv_spot: "▶",
+  store: "◉",
+  entertainment: "★",
+}
+
 export default function LocationCard({ location }: { location: Location }) {
   const typeInfo = LOCATION_TYPES[location.type]
+  const pixelIcon = PIXEL_ICONS[location.type] || "●"
 
   return (
     <Link
       href={`/locations/${location.id}`}
-      className="block p-4 bg-white rounded-xl border border-gray-100 hover:border-purple-200 hover:shadow-md transition"
+      className="pixel-card block p-4 bg-white cursor-pointer group"
     >
-      <div className="flex items-start justify-between mb-2">
+      {/* Top row: pixel icon + title + rating */}
+      <div className="flex items-start gap-3 mb-3">
+        <div
+          className="w-10 h-10 flex-shrink-0 flex items-center justify-center text-lg text-white font-mono font-bold"
+          style={{ backgroundColor: typeInfo.color, border: "2px solid #1e293b" }}
+        >
+          {pixelIcon}
+        </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-sm truncate">{location.name}</h3>
-          <p className="text-xs text-gray-400 truncate">{location.nameKo}</p>
+          <h3 className="font-bold text-sm text-slate-800 pixel-font truncate group-hover:text-blue-600 transition-colors">
+            {location.name}
+          </h3>
+          <p className="text-xs text-slate-400 truncate">{location.nameKo}</p>
         </div>
         {location.rating && (
-          <span className="ml-2 flex-shrink-0 text-sm text-yellow-500">
-            ★ {location.rating}
-          </span>
+          <div className="flex-shrink-0 text-right">
+            <span className="text-amber-400 text-sm font-mono font-bold">
+              ★ {location.rating}
+            </span>
+          </div>
         )}
       </div>
 
-      <div className="flex flex-wrap gap-1 mb-2">
-        <span
-          className="px-2 py-0.5 rounded-full text-xs text-white"
-          style={{ backgroundColor: typeInfo.color }}
-        >
+      {/* Tags */}
+      <div className="flex flex-wrap gap-1.5 mb-2">
+        <span className="pixel-tag text-white" style={{ backgroundColor: typeInfo.color }}>
           {TYPE_NAME_CN[location.type]}
         </span>
         {location.groupNames.slice(0, 2).map((g) => (
           <span
             key={g}
-            className="px-2 py-0.5 rounded-full text-xs bg-purple-50 text-purple-600"
+            className="pixel-tag bg-amber-50 text-amber-700"
+            style={{ borderColor: "#d97706" }}
           >
             {g}
           </span>
         ))}
         {location.groupNames.length > 2 && (
-          <span className="text-xs text-gray-400">
+          <span className="text-xs font-mono text-slate-400 self-center">
             +{location.groupNames.length - 2}
           </span>
         )}
       </div>
 
-      <p className="text-xs text-gray-500 line-clamp-2 mb-2">
+      {/* Description */}
+      <p className="text-xs text-slate-500 line-clamp-2 mb-3 leading-relaxed font-mono">
         {location.description}
       </p>
 
-      <div className="flex items-center justify-between text-xs text-gray-400">
-        <span>
-          {location.location.district} · {location.location.neighborhood}
+      {/* Bottom bar */}
+      <div className="flex items-center justify-between pt-2 border-t-2 border-dashed border-slate-200">
+        <span className="text-xs font-mono text-slate-400">
+          📍 {location.location.district}
         </span>
-        <span>
-          {location.price.isFree ? "Free" : location.price.range}
+        <span className="text-xs font-mono text-slate-400">
+          {location.price.isFree ? "FREE" : location.price.range}
         </span>
+      </div>
+
+      {/* Pixel decoration dots */}
+      <div className="flex gap-1 mt-2">
+        <div className="w-1.5 h-1.5 bg-slate-300" />
+        <div className="w-1.5 h-1.5 bg-blue-400" />
+        <div className="w-1.5 h-1.5 bg-amber-400" />
+        <div className="w-1.5 h-1.5 bg-slate-300" />
       </div>
     </Link>
   )
