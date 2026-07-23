@@ -1,168 +1,164 @@
 import { NextRequest, NextResponse } from "next/server"
 
-// Domain whitelist to prevent SSRF abuse
 const ALLOWED_DOMAINS = [
-  "xiaohongshu.com",
-  "www.xiaohongshu.com",
-  "xhslink.com",
-  "www.xhslink.com",
+  "xiaohongshu.com", "www.xiaohongshu.com",
+  "xhslink.com", "www.xhslink.com",
+  "xhslink.cn", "www.xhslink.cn",
 ]
 
 function isAllowedUrl(url: string): boolean {
   try {
     const hostname = new URL(url).hostname
     return ALLOWED_DOMAINS.some((d) => hostname === d || hostname.endsWith("." + d))
-  } catch {
-    return false
-  }
+  } catch { return false }
 }
 
-// Extract Korean address patterns from text
-const ADDRESS_PATTERNS = [
-  // Korean: 서울특별시 XX구 XX동 XX로 XX길
-  /(?:서울|부산|인천|대구|대전|광주|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주)(?:\s*(?:특별시|광역시|특별자치시|특별자치도|시|도|군|구))?\s*(?:\S+(?:구|군|시|읍|면|동|가|로|길))\s*(?:\S+(?:동|가|로|길))?\s*(?:\d+(?:-\d+)?(?:\s*(?:번지|호|층))?)?/g,
-  // Chinese: 首尔XX区XX洞XX号 / 首尔特别市
-  /首尔(?:特别市|特别自治市)?\s*(?:\S+(?:区|洞|街|路))\s*(?:\S+(?:洞|街|路|号))?\s*(?:\d+(?:-\d+)?(?:号|楼|层))?/g,
-  // General address with Korean postcode
-  /(?:서울|Seoul)\s*.{2,}(?:구|gu|동|dong|로|ro|길|gil).{2,}(?:\d+(?:-\d+)?)/gi,
-]
+// Extract title and description from XHS share format:
+// 【Title】Description text... http://xhslink.cn/xxx 【小红书】里有答案，快去围观~
+export function parseXhsShareText(input: string): {
+  url: string | null
+  title: string | null
+  snippet: string | null
+  isShareText: boolean
+} {
+  // Pattern: 【...】 or [...] followed by description and URL
+  const sharePattern = /【(.+?)】\s*(.+?)?\s*(https?:\/\/[^\s]+)/;
+  const match = input.match(sharePattern);
 
-// Extract store/restaurant name patterns from XHS content
-function extractStoreName(text: string): string | null {
-  // Common XHS patterns for store names
+  if (match) {
+    return {
+      title: match[1].trim(),
+      snippet: (match[2] || "").replace(/【小红书】里有答案.*$/, "").trim(),
+      url: match[3],
+      isShareText: true,
+    };
+  }
+
+  // Try another format: plain text followed by URL
+  const altPattern = /(.+?)\s+(https?:\/\/[^\s]+)/;
+  const altMatch = input.match(altPattern);
+  if (altMatch) {
+    return {
+      title: altMatch[1].replace(/【小红书】里有答案.*$/, "").trim().slice(0, 80),
+      snippet: null,
+      url: altMatch[2],
+      isShareText: true,
+    };
+  }
+
+  return { url: null, title: null, snippet: null, isShareText: false };
+}
+
+// Extract possible address from text snippets
+export function extractAddress(text: string): string | null {
   const patterns = [
-    // "店名：XXX" or "店铺：XXX"
-    /(?:店名|店铺|点名|店鋪)[:：]\s*(.+?)(?:[\n，。,.]|$)/,
-    // "📍XXX" or "🏪XXX" emoji-prefixed names
-    /(?:📍|🏪|🏬|🏢|🍽️|☕|🍜|🍰)\s*(.+?)(?:[\n，。,.]|$)/,
-    // "地址：XXX" has more context, store name usually before it
-    /(.+?)\s*(?:地址|위치|주소)[:：]/,
-    // XHS note title format: "探店 | XXX" or "打卡 XXX"
-    /(?:探店|打卡|推荐|방문|맛집)\s*[|｜]\s*(.+?)(?:[\n，。,.]|$)/,
-    // Quoted names
-    /[「「](.+?)[」」]/,
-  ]
+    // Korean full address
+    /(?:서울|부산|인천|대구|대전|광주|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주)\s*\S*?(?:특별시|광역시|시|도)?\s+\S+[구군]\s+\S+[동읍면리]\s*(?:\S+[로길가]\s*)?\d*(?:[번\-]\d*)?(?:호|층)?/g,
+    // Short form: XX구 XX동
+    /\S{2,}[구군]\s+\S{2,}[동읍면리가로길]\s*\d*(?:[번\-]\d*)?(?:호|층)?/g,
+    // Chinese: 首尔XX区XX洞
+    /首尔(?:特别市|特别自治市)?\s*\S{2,}[区洞街路]\s*\S{2,}[洞街路号]?\s*\d*(?:-\d+)?(?:号|楼|层)?/g,
+    // Address prefixed
+    /(?:地址|위치|주소|서울|首尔)[:：]\s*(.+?)(?:[\n，。,.]|$)/gi,
+    // General: contains dong/ro/gil with numbers
+    /\S+(?:동|로|길|가)\s*\d+(?:[번\-]\d*)?(?:호|층)?/g,
+  ];
 
   for (const pattern of patterns) {
-    const match = text.match(pattern)
-    if (match && match[1]?.trim().length > 1) {
-      return match[1].trim().slice(0, 60)
+    const matches = text.match(pattern);
+    if (matches?.length) {
+      const best = matches.find((m) => m.length > 4 && m.length < 120);
+      if (best) return best.trim();
     }
   }
-
-  return null
-}
-
-function extractAddress(text: string): string | null {
-  for (const pattern of ADDRESS_PATTERNS) {
-    const match = text.match(pattern)
-    if (match && match[0]?.trim().length > 4) {
-      return match[0].trim().slice(0, 120)
-    }
-  }
-  return null
+  return null;
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json().catch(() => ({}))
-    const url = body.url as string
+    const body = await request.json().catch(() => ({}));
+    const input = (body.text as string) || (body.url as string) || "";
 
-    if (!url || !isAllowedUrl(url)) {
-      return NextResponse.json(
-        { success: false, error: "Invalid URL. Only Xiaohongshu links are supported." },
-        { status: 400 }
-      )
+    if (!input) {
+      return NextResponse.json({ success: false, error: "No input provided." }, { status: 400 });
     }
 
-    // Try to fetch with browser-like headers
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 8000)
+    // Step 1: Parse XHS share text format
+    const parsed = parseXhsShareText(input);
+    let title = parsed.title;
+    let snippet = parsed.snippet;
+    let address: string | null = null;
+    let description: string | null = null;
+    const url = parsed.url || (body.url as string) || null;
 
-    try {
-      const res = await fetch(url, {
-        signal: controller.signal,
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
-          Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-          "Accept-Language": "zh-CN,zh;q=0.9,ko;q=0.8,en;q=0.7",
-        },
-        redirect: "follow",
-      })
-
-      clearTimeout(timeout)
-
-      if (!res.ok) {
-        return NextResponse.json({
-          success: false,
-          error: `XHS returned ${res.status}. The note may require login.`,
-        })
-      }
-
-      const html = await res.text()
-
-      // Extract metadata from HTML
-      const titleMatch = html.match(/<title>([^<]+)<\/title>/)
-      const title = titleMatch
-        ? titleMatch[1]
-            .replace(/\s*[-–—|｜]\s*(?:小红书|RedNote|Xiaohongshu).*$/i, "")
-            .trim()
-        : null
-
-      const ogTitleMatch = html.match(/<meta[^>]+property="og:title"[^>]+content="([^"]+)"/)
-      const ogTitle = ogTitleMatch?.[1]?.trim() || null
-
-      const descMatch = html.match(
-        /<meta[^>]+name="(?:description|Description)"[^>]+content="([^"]+)"/
-      )
-      const metaDesc = descMatch?.[1]?.trim() || null
-
-      const ogDescMatch = html.match(
-        /<meta[^>]+property="og:description"[^>]+content="([^"]+)"/
-      )
-      const ogDesc = ogDescMatch?.[1]?.trim() || null
-
-      const description = metaDesc || ogDesc || null
-      const bestTitle = title || ogTitle || null
-
-      // Try to extract address and store name from the full text
-      // Strip HTML tags for text analysis
-      const textContent = html
-        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
-        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
-        .replace(/<[^>]+>/g, " ")
-        .replace(/&nbsp;/g, " ")
-        .replace(/&amp;/g, "&")
-        .replace(/&lt;/g, "<")
-        .replace(/&gt;/g, ">")
-        .replace(/&quot;/g, '"')
-        .replace(/\s+/g, " ")
-        .trim()
-
-      const extractedAddress = extractAddress(textContent)
-      const extractedStoreName = extractStoreName(textContent)
-
-      // Build result
-      const result: Record<string, string | null> = {
-        title: extractedStoreName || bestTitle || null,
-        address: extractedAddress || null,
-        description: description?.slice(0, 300) || null,
-      }
-
-      return NextResponse.json({ success: true, data: result })
-    } catch (fetchErr) {
-      clearTimeout(timeout)
-      return NextResponse.json({
-        success: false,
-        error: "Could not reach Xiaohongshu. The note may require login or the link is invalid.",
-      })
+    // Step 2: If we got share text, extract address from the snippet
+    if (parsed.isShareText && snippet) {
+      address = extractAddress(snippet);
     }
+
+    // Step 3: Try to fetch the URL if available and we don't have enough info
+    if (url && isAllowedUrl(url) && !address) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+
+      try {
+        const res = await fetch(url, {
+          signal: controller.signal,
+          headers: {
+            "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+            Accept: "text/html,application/xhtml+xml",
+            "Accept-Language": "zh-CN,zh;q=0.9,ko;q=0.8",
+          },
+          redirect: "follow",
+        });
+        clearTimeout(timeout);
+
+        if (res.ok) {
+          const html = await res.text();
+          const textContent = html
+            .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
+            .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+            .replace(/<[^>]+>/g, " ")
+            .replace(/&nbsp;/g, " ")
+            .replace(/&amp;/g, "&")
+            .replace(/\s+/g, " ")
+            .trim();
+
+          address = extractAddress(textContent);
+
+          if (!title) {
+            const titleMatch = html.match(/<title>([^<]+)<\/title>/);
+            if (titleMatch) {
+              title = titleMatch[1].replace(/\s*[-–—|｜]\s*(?:小红书|RedNote).*$/i, "").trim();
+            }
+          }
+
+          const descMatch = html.match(/<meta[^>]+name="description"[^>]+content="([^"]+)"/);
+          description = descMatch?.[1]?.slice(0, 200) || null;
+        }
+      } catch {
+        // Fetch failed, that's fine - we have share text data
+      }
+    }
+
+    // Step 4: If input is just text (no URL), extract what we can
+    if (!parsed.isShareText && !url) {
+      title = title || input.slice(0, 80);
+      address = extractAddress(input);
+    }
+
+    return NextResponse.json({
+      success: true,
+      data: {
+        title: title?.slice(0, 80) || null,
+        address: address?.slice(0, 150) || null,
+        description: description || snippet?.slice(0, 200) || null,
+        url: url || null,
+        isShareText: parsed.isShareText,
+      },
+    });
   } catch (err) {
-    console.error("XHS parse error:", err)
-    return NextResponse.json(
-      { success: false, error: "Failed to parse link." },
-      { status: 500 }
-    )
+    console.error("XHS parse error:", err);
+    return NextResponse.json({ success: false, error: "Failed to parse." }, { status: 500 });
   }
 }

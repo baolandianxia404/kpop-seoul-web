@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import type { LocationType } from "@/types"
 import { groups } from "@/lib/data/groups"
 import { LOCATION_TYPES, TYPE_NAME_CN } from "@/lib/utils/constants"
@@ -19,129 +19,85 @@ interface CommunitySpot {
 const STORAGE_KEY = "kpop_community_spots"
 const TYPE_OPTIONS: LocationType[] = ["restaurant", "store", "mv_spot", "entertainment", "company"]
 
-// Regex patterns for extracting addresses and store names from pasted text
-const ADDRESS_EXTRACT_PATTERNS = [
-  // Korean: 서울특별시/서울시 XX구 XX동 XX로 XX길 + street number
-  /(?:서울|부산|인천|대구|대전|광주|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주)(?:\s*(?:특별시|광역시|특별자치시|특별자치도|시|도|군|구))?\s*\S*?(?:구|군|시)\s+\S+(?:동|읍|면|가|로|길)\s*(?:\d+(?:[번\-]\d*)?(?:\s*(?:번지|호|층))?)?/g,
-  // Chinese: 首尔XX区XX洞XX号
-  /首尔(?:特别市|特别自治市)?\s*\S*?(?:区|洞|街|路)\s*\S*(?:洞|街|路|号)?\s*\d*(?:-\d+)?(?:号|楼|层)?/g,
-  // Address keyword pattern: "地址：XXX" or "地址: XXX"
-  /(?:地址|위치|주소|서울|首尔)[:：]\s*(.+?)(?:[\n，。,.]|$)/gi,
-  // Korean address with dong/ro/gil
-  /(?:서울|Seoul)[\s\w]*(?:구|gu|동|dong|로|ro|길|gil)[\s\w]*\d*(?:-\d+)?/gi,
-  // General: XX区XX洞 / XX구XX동
-  /\S{2,}(?:구|区)\s+\S{2,}(?:동|洞)\s*\d*(?:-\d+)?(?:번지|호)?/g,
-]
-
-const STORE_NAME_PATTERNS = [
-  /(?:店名|店铺|点名|店鋪|餐厅|饭店|咖啡厅|咖啡店|小店|烤肉店)[:：]\s*(.+?)(?:[\n，。,.]|$)/,
-  /(?:📍|🏪|🏬|🏢|🍽️|☕|🍜|🍰|🥩|🍗)\s*(.+?)(?:[\n，。,.]|$)/,
-  /(.+?)\s*(?:地址|위치|주소)[:：]/,
-  /(?:探店|打卡|推荐|방문|맛집)\s*[|｜]\s*(.+?)(?:[\n，。,.]|$)/,
-  /[「"]([^「"」"]{2,40})[」"]/,
-  // XHS note title often has store name first
-  /^(.{2,40}?)(?:探店|打卡|攻略|测评|同款|推荐|地址|📍)/,
-]
-
-function extractFromPastedText(text: string): { name: string | null; address: string | null } {
-  let name: string | null = null
-  let address: string | null = null
-
-  // Try store name extraction
-  for (const pattern of STORE_NAME_PATTERNS) {
-    const match = text.match(pattern)
-    if (match && match[1]?.trim().length > 1) {
-      name = match[1].trim().slice(0, 60)
-      break
+// Parse XHS share text: 【Title】Description... URL 【小红书】里有答案
+function parseXhsShareText(input: string): {
+  title: string | null
+  snippet: string | null
+  url: string | null
+  isShareText: boolean
+} {
+  // Pattern 1: 【Title】Description... URL
+  const sharePattern = /【(.+?)】\s*(.+?)?\s*(https?:\/\/[^\s]+)/
+  const match = input.match(sharePattern)
+  if (match) {
+    return {
+      title: match[1].trim(),
+      snippet: (match[2] || "").replace(/【小红书】里有答案.*$/, "").trim(),
+      url: match[3],
+      isShareText: true,
     }
   }
-
-  // Try address extraction - iterate through all patterns
-  for (const pattern of ADDRESS_EXTRACT_PATTERNS) {
-    const matches = text.matchAll(new RegExp(pattern.source, pattern.flags))
-    for (const match of matches) {
-      const addr = (match[1] || match[0])?.trim()
-      if (addr && addr.length > 4 && addr.length < 150) {
-        address = addr
-        break
-      }
-    }
-    if (address) break
-  }
-
-  // If no store name found from patterns, try line-by-line heuristic:
-  // First non-empty short line is often the store name in XHS posts
-  if (!name) {
-    const lines = text.split(/[\n\r]+/).map((l) => l.trim()).filter(Boolean)
-    for (const line of lines) {
-      // Skip lines that look like addresses, dates, tags
-      if (
-        line.length > 3 &&
-        line.length < 50 &&
-        !/^(?:#|地址|위치|주소|位置|时间|营业|电话|价格|路线|交通|停车)/.test(line) &&
-        !/\d{1,2}[:：]\d{2}/.test(line)
-      ) {
-        name = line
-        break
-      }
+  // Pattern 2: Plain text + URL
+  const altPattern = /(.+?)\s+(https?:\/\/[^\s]+)/
+  const altMatch = input.match(altPattern)
+  if (altMatch) {
+    return {
+      title: altMatch[1].replace(/【小红书】里有答案.*$/, "").trim().slice(0, 80),
+      snippet: null,
+      url: altMatch[2],
+      isShareText: true,
     }
   }
-
-  return { name, address }
+  return { title: null, snippet: null, url: null, isShareText: false }
 }
 
-// Try multiple CORS proxies in parallel
-async function tryProxies(url: string): Promise<{ name: string | null; address: string | null; desc: string | null }> {
-  const proxies = [
-    `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    `https://corsproxy.io/?${encodeURIComponent(url)}`,
-    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+// Extract address from text
+function extractAddressFromText(text: string): string | null {
+  const patterns = [
+    /(?:서울|부산|인천|대구|대전|광주|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주)\s*\S*?(?:특별시|광역시|시|도)?\s+\S+[구군]\s+\S+[동읍면리]\s*(?:\S+[로길가]\s*)?\d*(?:[번\-]\d*)?(?:호|층)?/g,
+    /\S{2,}[구군]\s+\S{2,}[동읍면리가로길]\s*\d*(?:[번\-]\d*)?(?:호|층)?/g,
+    /首尔(?:特别市|特别自治市)?\s*\S{2,}[区洞街路]\s*\S{2,}[洞街路号]?\s*\d*(?:-\d+)?(?:号|楼|层)?/g,
+    /(?:地址|위치|주소)[:：]\s*(.+?)(?:[\n，。,.]|$)/gi,
+    /\S+(?:동|로|길|가)\s*\d+(?:[번\-]\d*)?(?:호|층)?/g,
   ]
-
-  const results = await Promise.allSettled(
-    proxies.map(async (proxyUrl) => {
-      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(6000) })
-      if (!res.ok) throw new Error("proxy failed")
-      return res.text()
-    })
-  )
-
-  for (const result of results) {
-    if (result.status !== "fulfilled") continue
-    const html = result.value
-
-    const titleMatch = html.match(/<title>([^<]+)<\/title>/)
-    const title = titleMatch
-      ? titleMatch[1].replace(/\s*[-–—|｜]\s*(?:小红书|RedNote|Xiaohongshu).*$/i, "").trim()
-      : null
-
-    const descMatch = html.match(/<meta[^>]+name="description"[^>]+content="([^"]+)"/)
-    const desc = descMatch?.[1]?.slice(0, 200) || null
-
-    const ogDescMatch = html.match(/<meta[^>]+property="og:description"[^>]+content="([^"]+)"/)
-    const ogDesc = ogDescMatch?.[1]?.slice(0, 200) || null
-
-    const textContent = html
-      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
-      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
-      .replace(/<[^>]+>/g, " ")
-      .replace(/&nbsp;/g, " ")
-      .replace(/&amp;/g, "&")
-      .replace(/\s+/g, " ")
-      .trim()
-
-    const { name, address } = extractFromPastedText(textContent)
-
-    if (name || title) {
-      return { name: name || title, address, desc: desc || ogDesc }
+  for (const pattern of patterns) {
+    const matches = text.matchAll(new RegExp(pattern.source, pattern.flags))
+    for (const m of matches) {
+      const addr = (m[1] || m[0]).trim()
+      if (addr.length > 4 && addr.length < 120) return addr
     }
   }
+  return null
+}
 
-  return { name: null, address: null, desc: null }
+// Extract restaurant/store name from text
+function extractStoreNameFromText(text: string): string | null {
+  const patterns = [
+    /(?:店名|店铺|点名|店鋪|餐厅|饭店|咖啡厅|咖啡店|小店|烤肉店|食堂|美食)[:：]\s*(.+?)(?:[\n，。,.]|$)/,
+    /(?:📍|🏪|🏬|🏢|🍽️|☕|🍜|🍰|🥩|🍗|🍲|🥘)\s*(.+?)(?:[\n，。,.]|$)/,
+    /(.+?)\s*(?:地址|위치|주소)[:：]/,
+    /(?:探店|打卡|推荐|방문|맛집|同款|严选)\s*[|｜]\s*(.+?)(?:[\n，。,.]|$)/,
+    /[「"]([^「"」"]{2,40})[」"]/,
+  ]
+  for (const pattern of patterns) {
+    const match = text.match(pattern)
+    const name = match?.[1]?.trim()
+    if (name && name.length > 1) return name.slice(0, 60)
+  }
+  // Fallback: first short line
+  const lines = text.split(/[\n\r]+/).map((l) => l.trim()).filter(Boolean)
+  for (const line of lines) {
+    if (line.length > 3 && line.length < 50 &&
+      !/^(?:#|地址|위치|주소|位置|时间|营业|电话|价格|路线|交通|停车|韩文|中文)/.test(line) &&
+      !/\d{1,2}[:：]\d{2}/.test(line)) {
+      return line
+    }
+  }
+  return null
 }
 
 export default function ContributePage() {
-  const [xhsLink, setXhsLink] = useState("")
+  const [xhsInput, setXhsInput] = useState("")
   const [selectedGroups, setSelectedGroups] = useState<string[]>([])
   const [locationName, setLocationName] = useState("")
   const [address, setAddress] = useState("")
@@ -159,77 +115,94 @@ export default function ContributePage() {
     )
   }
 
-  // Fill form fields from extracted data
-  const fillFromExtracted = (name: string | null, addr: string | null, desc: string | null) => {
-    if (name && !locationName) setLocationName(name)
-    if (addr && !address) setAddress(addr)
-    if (desc && !description) setDescription(desc)
-  }
+  const fillFields = useCallback(
+    (title: string | null, addr: string | null, desc: string | null, link: string | null) => {
+      if (title && !locationName) setLocationName(title)
+      if (addr && !address) setAddress(addr)
+      if (desc && !description) setDescription(desc)
+      if (link && !xhsInput.includes(link)) setXhsInput(link)
+    },
+    [locationName, address, description, xhsInput]
+  )
+
+  // Step 1: Client-side parse of XHS share text (instant, no network)
+  const clientParse = useCallback(() => {
+    if (!xhsInput.trim()) return null
+    const parsed = parseXhsShareText(xhsInput)
+
+    if (parsed.isShareText) {
+      const combinedText = [parsed.title, parsed.snippet].filter(Boolean).join(" ")
+      const addr = extractAddressFromText(combinedText)
+      const name = parsed.title || extractStoreNameFromText(combinedText)
+
+      if (name || addr) {
+        fillFields(name, addr, parsed.snippet?.slice(0, 200) || null, parsed.url)
+        return { name, addr, url: parsed.url }
+      }
+    }
+    return null
+  }, [xhsInput, fillFields])
 
   const handleFetchXHS = async () => {
-    if (!xhsLink.trim()) return
+    if (!xhsInput.trim()) return
     setFetching(true)
-    setFetchStatus("Trying server API...")
+    setFetchStatus("Parsing...")
 
-    const url = xhsLink.trim()
+    // Step 1: Client-side instant parse of share text format
+    const clientResult = clientParse()
+    if (clientResult?.name || clientResult?.addr) {
+      const parts = [clientResult.name && "title", clientResult.addr && "address"].filter(Boolean)
+      setFetchStatus(parts.length > 0 ? `Extracted ${parts.join(" & ")} from share text! Review below.` : "")
+      setFetching(false)
+      return
+    }
 
-    // Step 1: Try server-side API first
+    // Step 2: Try server API
+    setFetchStatus("Trying server...")
     try {
       const res = await fetch("/api/parse-xhs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ text: xhsInput }),
         signal: AbortSignal.timeout(10000),
       })
 
       if (res.ok) {
         const json = await res.json()
         if (json.success && json.data) {
-          const { title, address: addr, description: desc } = json.data
+          const { title, address: addr, description: desc, url: link, isShareText } = json.data
           if (title || addr) {
-            fillFromExtracted(title, addr, desc)
-            setFetchStatus("📝 Info extracted! Review and fill remaining fields below.")
+            fillFields(title, addr, desc, link)
+            if (isShareText) {
+              setFetchStatus("Parsed share text! Please verify the extracted info below.")
+            } else {
+              setFetchStatus("Info extracted! Review and fill remaining fields.")
+            }
             setFetching(false)
             return
           }
         }
       }
-    } catch {
-      // Server API failed, try proxies
-    }
+    } catch { /* fall through */ }
 
-    // Step 2: Try CORS proxies
-    setFetchStatus("Trying proxy services...")
-    try {
-      const { name, address: addr, desc } = await tryProxies(url)
-      if (name || addr) {
-        fillFromExtracted(name, addr, desc)
-        setFetchStatus("📝 Partial info extracted. Please verify and fill remaining fields.")
-      } else {
-        setFetchStatus("Can't auto-extract from this link (XHS requires login). You can paste the note content below for auto-fill, or fill in manually.")
-        setShowPasteArea(true)
-      }
-    } catch {
-      setFetchStatus("Can't auto-extract. Paste the note content below for smart fill, or enter details manually.")
-      setShowPasteArea(true)
-    } finally {
-      setFetching(false)
-    }
+    // Step 3: Nothing worked - show paste area
+    setFetchStatus("Can't extract from this link. You can paste the note text content below, or fill in manually.")
+    setShowPasteArea(true)
+    setFetching(false)
   }
 
   const handlePasteText = () => {
     if (!pastedText.trim()) return
-    const { name, address: addr } = extractFromPastedText(pastedText)
+    const combined = pastedText
+    const name = extractStoreNameFromText(combined)
+    const addr = extractAddressFromText(combined)
 
     if (name || addr) {
-      fillFromExtracted(name, addr, null)
-      setFetchStatus(
-        [name && "name", addr && "address"].filter(Boolean).length > 0
-          ? `Extracted: ${[name && "name", addr && "address"].filter(Boolean).join(" & ")}. Please verify!`
-          : ""
-      )
+      fillFields(name, addr, null, null)
+      const parts = [name && "name", addr && "address"].filter(Boolean)
+      setFetchStatus(`Extracted ${parts.join(" & ")}! Please verify.`)
     } else {
-      setFetchStatus("Couldn't find address or name patterns. Please type them in manually.")
+      setFetchStatus("Couldn't find address/name patterns. Please type them in manually.")
     }
   }
 
@@ -242,7 +215,7 @@ export default function ContributePage() {
       address: address.trim(),
       type: spotType,
       groupNames: selectedGroups,
-      xhsLink: xhsLink.trim(),
+      xhsLink: xhsInput.trim(),
       description: description.trim(),
       submittedAt: new Date().toISOString(),
     }
@@ -268,7 +241,7 @@ export default function ContributePage() {
         <button
           onClick={() => {
             setSubmitted(false)
-            setXhsLink("")
+            setXhsInput("")
             setSelectedGroups([])
             setLocationName("")
             setAddress("")
@@ -295,43 +268,51 @@ export default function ContributePage() {
         </p>
       </div>
 
-      {/* Xiaohongshu Link */}
+      {/* Xiaohongshu Link / Share Text */}
       <div className="space-y-2">
         <label className="text-sm font-bold pixel-font text-slate-700">
-          📱 Xiaohongshu Link (optional)
+          📱 Xiaohongshu Link or Share Text
         </label>
+        <p className="text-[10px] font-mono text-slate-400">
+          Paste the full share message from XHS app (with title text) for best results.
+        </p>
         <div className="flex gap-2">
-          <input
-            type="url"
-            placeholder="https://www.xiaohongshu.com/explore/..."
-            value={xhsLink}
-            onChange={(e) => setXhsLink(e.target.value)}
-            className="flex-1 px-3 py-2 text-sm font-mono border-2 border-slate-300 focus:border-blue-400 outline-none bg-white"
+          <textarea
+            placeholder="Paste XHS share text or link here...&#10;e.g. 【SJ同款食堂】金希澈严选❗️一人食火锅😋 https://xhslink.cn/..."
+            value={xhsInput}
+            onChange={(e) => setXhsInput(e.target.value)}
+            rows={2}
+            className="flex-1 px-3 py-2 text-sm font-mono border-2 border-slate-300 focus:border-blue-400 outline-none bg-white resize-none"
           />
           <button
             onClick={handleFetchXHS}
-            disabled={!xhsLink.trim() || fetching}
-            className="pixel-btn px-3 py-2 text-xs bg-amber-50 text-amber-700 whitespace-nowrap disabled:opacity-40"
+            disabled={!xhsInput.trim() || fetching}
+            className="pixel-btn px-4 py-2 text-xs bg-amber-50 text-amber-700 whitespace-nowrap disabled:opacity-40 self-start"
           >
-            {fetching ? "..." : "FETCH"}
+            {fetching ? "..." : "PARSE"}
           </button>
         </div>
         {fetchStatus && (
-          <p className={`text-xs font-mono ${fetchStatus.startsWith("📝") || fetchStatus.startsWith("Extracted") ? "text-green-600" : "text-amber-600"}`}>
+          <p
+            className={`text-xs font-mono ${
+              fetchStatus.startsWith("Extracted") || fetchStatus.startsWith("Parsed") || fetchStatus.startsWith("Info")
+                ? "text-green-600"
+                : "text-amber-600"
+            }`}
+          >
             {fetchStatus}
           </p>
         )}
       </div>
 
-      {/* Paste note content (shown when auto-fetch fails or user expands) */}
+      {/* Paste note content (fallback) */}
       {showPasteArea && (
         <div className="space-y-2 p-3 border-2 border-dashed border-amber-300 bg-amber-50/50">
           <label className="text-sm font-bold pixel-font text-slate-700 flex items-center gap-1">
-            📋 Paste XHS Note Content
-            <span className="text-[10px] font-normal text-amber-500">(for auto-extraction)</span>
+            📋 Paste XHS Note Text for Auto-Extraction
           </label>
           <textarea
-            placeholder="Paste the text content of the Xiaohongshu note here...&#10;We'll try to extract the store name and address automatically."
+            placeholder="Open the XHS note, copy the text content, and paste here..."
             value={pastedText}
             onChange={(e) => setPastedText(e.target.value)}
             rows={3}
@@ -342,18 +323,9 @@ export default function ContributePage() {
             disabled={!pastedText.trim()}
             className="pixel-btn px-4 py-1.5 text-[10px] bg-amber-100 text-amber-700 disabled:opacity-30"
           >
-            🔍 EXTRACT INFO
+            EXTRACT INFO
           </button>
         </div>
-      )}
-
-      {!showPasteArea && fetchStatus && fetchStatus.includes("paste the note content") && (
-        <button
-          onClick={() => setShowPasteArea(true)}
-          className="w-full py-2 pixel-border-dashed text-xs font-mono text-amber-600 hover:text-amber-700 hover:bg-amber-50 transition"
-        >
-          📋 Paste note content for auto-extraction instead →
-        </button>
       )}
 
       {/* Select Groups */}
@@ -397,7 +369,7 @@ export default function ContributePage() {
         </label>
         <input
           type="text"
-          placeholder="e.g. 金钟国HAHA的401烤肉店"
+          placeholder="e.g. 金希澈严选一人食火锅"
           value={locationName}
           onChange={(e) => setLocationName(e.target.value)}
           className="w-full px-3 py-2 text-sm border-2 border-slate-300 focus:border-blue-400 outline-none bg-white font-mono"
@@ -429,9 +401,7 @@ export default function ContributePage() {
               key={t}
               onClick={() => setSpotType(t)}
               className={`pixel-btn px-3 py-1.5 text-[10px] ${
-                spotType === t
-                  ? "text-white"
-                  : "bg-white text-slate-500"
+                spotType === t ? "text-white" : "bg-white text-slate-500"
               }`}
               style={
                 spotType === t
