@@ -131,3 +131,38 @@ export interface MapViewport {
   center: { latitude: number; longitude: number }
   scale: number
 }
+
+// Supabase types
+export interface UserProfile {
+  id: string
+  email: string
+  display_name: string | null
+  fan_group_id: string
+  created_at: string
+}
+
+export interface CommunitySpotRow {
+  id: string
+  location_name: string
+  address: string
+  type: LocationType
+  group_ids: string[]
+  xhs_link: string
+  description: string
+  submitted_by: string | null
+  status: 'draft' | 'complete'
+  created_at: string
+}
+
+export interface CheckInRow {
+  id: string
+  user_id: string
+  group_id: string
+  spot_name: string
+  spot_location: string
+  content: string
+  photos: string[]
+  created_at: string
+  // Joined fields
+  profile?: UserProfile
+}

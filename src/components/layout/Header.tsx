@@ -3,9 +3,12 @@
 import { useState } from "react"
 import Link from "next/link"
 import SearchDialog from "./SearchDialog"
+import { useAuth } from "@/components/auth/AuthProvider"
+import UserMenu from "@/components/auth/UserMenu"
 
 export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false)
+  const { user, loading } = useAuth()
 
   return (
     <>
@@ -22,25 +25,26 @@ export default function Header() {
             </span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-6">
-            <Link href="/" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">
-              🗺 Map
-            </Link>
-            <Link href="/locations" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">
-              📍 Locations
-            </Link>
-            <Link href="/groups" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">
-              💜 Groups
-            </Link>
-            <Link href="/planner" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">
-              📌 Add Spot
-            </Link>
-            <Link
-              href="/planner"
-              className="px-5 py-2 btn-accent text-sm font-semibold rounded-xl hover:shadow-lg transition-all duration-200"
-            >
-              Add Spot
-            </Link>
+          <nav className="hidden md:flex items-center gap-4">
+            <Link href="/" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">🗺 Map</Link>
+            <Link href="/locations" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">📍 Locations</Link>
+            <Link href="/groups" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">💜 Groups</Link>
+            <Link href="/planner" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">📌 Add Spot</Link>
+
+            {!loading && (
+              user ? (
+                <UserMenu />
+              ) : (
+                <div className="flex items-center gap-2 ml-2">
+                  <Link href="/auth/login" className="text-sm text-slate-500 hover:text-blue-500 font-mono">
+                    Sign In
+                  </Link>
+                  <Link href="/auth/register" className="px-4 py-1.5 btn-accent text-xs font-semibold rounded-xl">
+                    Join
+                  </Link>
+                </div>
+              )
+            )}
           </nav>
 
           <div className="flex items-center gap-2 md:hidden">
@@ -49,14 +53,12 @@ export default function Header() {
               className="p-2 text-gray-400 hover:text-blue-500 transition"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.3-4.3" />
+                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
               </svg>
             </button>
           </div>
         </div>
       </header>
-
       <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   )

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google"
 import Header from "@/components/layout/Header"
 import MobileNav from "@/components/layout/MobileNav"
 import Footer from "@/components/layout/Footer"
+import ClientWrapper from "@/components/auth/ClientWrapper"
 import "./globals.css"
 
 const inter = Inter({
@@ -50,10 +51,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-gray-50 text-gray-900 antialiased">
-        <Header />
-        <main className="flex-1 pb-16 md:pb-0">{children}</main>
-        <Footer />
-        <MobileNav />
+        <ClientWrapper>
+          <Header />
+          <main className="flex-1 pb-16 md:pb-0">{children}</main>
+          <Footer />
+          <MobileNav />
+        </ClientWrapper>
       </body>
     </html>
   )
