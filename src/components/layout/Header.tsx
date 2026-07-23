@@ -4,11 +4,13 @@ import { useState } from "react"
 import Link from "next/link"
 import SearchDialog from "./SearchDialog"
 import { useAuth } from "@/components/auth/AuthProvider"
+import { useLang } from "@/components/LanguageProvider"
 import UserMenu from "@/components/auth/UserMenu"
 
 export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false)
   const { user, loading } = useAuth()
+  const { t, lang, toggleLang } = useLang()
 
   return (
     <>
@@ -26,10 +28,18 @@ export default function Header() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-4">
-            <Link href="/" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">🗺 Map</Link>
-            <Link href="/locations" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">📍 Locations</Link>
-            <Link href="/groups" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">💜 Groups</Link>
-            <Link href="/planner" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">📌 Add Spot</Link>
+            <Link href="/" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">🗺 {t("header_map")}</Link>
+            <Link href="/locations" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">📍 {t("header_locations")}</Link>
+            <Link href="/groups" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">💜 {t("header_groups")}</Link>
+            <Link href="/planner" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">📌 {t("header_add_spot")}</Link>
+
+            {/* Language toggle */}
+            <button
+              onClick={toggleLang}
+              className="text-xs px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-300 hover:bg-blue-50 transition font-mono text-slate-400"
+            >
+              {lang === "zh" ? "EN" : "中"}
+            </button>
 
             {!loading && (
               user ? (
@@ -37,10 +47,10 @@ export default function Header() {
               ) : (
                 <div className="flex items-center gap-2 ml-2">
                   <Link href="/auth/login" className="text-sm text-slate-500 hover:text-blue-500 font-mono">
-                    Sign In
+                    {t("header_sign_in")}
                   </Link>
                   <Link href="/auth/register" className="px-4 py-1.5 btn-accent text-xs font-semibold rounded-xl">
-                    Join
+                    {t("header_join")}
                   </Link>
                 </div>
               )
@@ -48,6 +58,12 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-2 md:hidden">
+            <button
+              onClick={toggleLang}
+              className="text-xs px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-300 transition font-mono text-slate-400"
+            >
+              {lang === "zh" ? "EN" : "中"}
+            </button>
             <button
               onClick={() => setSearchOpen(true)}
               className="p-2 text-gray-400 hover:text-blue-500 transition"

@@ -1,4 +1,7 @@
+"use client"
+
 import MapWrapper from "@/components/map/MapWrapper"
+import { useLang } from "@/components/LanguageProvider"
 import { locations } from "@/lib/data/locations"
 import { groups } from "@/lib/data/groups"
 
@@ -27,43 +30,42 @@ const floatingEmojis = [
 ]
 
 export default function HomePage() {
+  const { t } = useLang()
+
+  const stats = [
+    { icon: "📍", label: t("home_spots"), value: String(locations.length), color: "text-blue-500" },
+    { icon: "💜", label: t("home_groups"), value: String(groups.length), color: "text-purple-500" },
+    { icon: "🏪", label: t("home_categories"), value: "5", color: "text-amber-500" },
+    { icon: "🗺️", label: t("home_district"), value: t("home_seoul"), color: "text-emerald-500" },
+  ]
+
   return (
     <div className="min-h-[calc(100dvh-64px)] relative overflow-hidden bg-gradient-to-b from-[#f0f4ff] via-white to-[#fffdf0]">
-      {/* Floating decorative dots */}
       {dots.map((d, i) => (
         <span
           key={`dot-${i}`}
           className="absolute rounded-full pointer-events-none animate-float opacity-70"
           style={{
-            left: d.x,
-            top: d.y,
-            width: d.size,
-            height: d.size,
-            backgroundColor: d.color,
-            animationDelay: d.delay,
+            left: d.x, top: d.y, width: d.size, height: d.size,
+            backgroundColor: d.color, animationDelay: d.delay,
             animationDuration: `${3 + (i % 3)}s`,
           }}
         />
       ))}
 
-      {/* Floating emojis */}
       {floatingEmojis.map((e, i) => (
         <span
           key={`emoji-${i}`}
           className="absolute text-lg pointer-events-none animate-float select-none"
           style={{
-            left: e.x,
-            top: e.y,
-            animationDelay: e.delay,
-            animationDuration: `${3.5 + (i % 3)}s`,
-            opacity: 0.6,
+            left: e.x, top: e.y, animationDelay: e.delay,
+            animationDuration: `${3.5 + (i % 3)}s`, opacity: 0.6,
           }}
         >
           {e.emoji}
         </span>
       ))}
 
-      {/* Main content */}
       <div className="max-w-5xl mx-auto px-4 py-6 md:py-10 relative z-10">
         {/* Title */}
         <div className="text-center mb-6 md:mb-8">
@@ -77,50 +79,36 @@ export default function HomePage() {
             <span className="text-2xl animate-bounce-gentle" style={{ animationDelay: "0.5s" }}>💜</span>
           </div>
           <p className="text-sm md:text-base text-gray-400 max-w-md mx-auto font-medium">
-            Discover {locations.length}+ Kpop filming spots, idol restaurants & album shops in Seoul
+            {t("home_subtitle")}
           </p>
         </div>
 
         {/* Map with pixel frame */}
         <div className="relative mb-8">
-          {/* Pixel frame border */}
           <div className="pixel-map-frame relative rounded-none overflow-hidden"
             style={{
               border: "4px solid #1e293b",
-              boxShadow: `
-                6px 6px 0 0 #3b82f6,
-                12px 12px 0 0 rgba(0,0,0,0.05),
-                inset 0 0 0 1px rgba(30,41,59,0.1)
-              `,
+              boxShadow: "6px 6px 0 0 #3b82f6, 12px 12px 0 0 rgba(0,0,0,0.05), inset 0 0 0 1px rgba(30,41,59,0.1)",
             }}
           >
-            {/* Corner pixel decorations */}
             <div className="absolute top-0 left-0 w-4 h-4 bg-blue-400 z-[1001] pointer-events-none" />
             <div className="absolute top-0 right-0 w-4 h-4 bg-amber-400 z-[1001] pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-4 h-4 bg-pink-400 z-[1001] pointer-events-none" />
             <div className="absolute bottom-0 right-0 w-4 h-4 bg-emerald-400 z-[1001] pointer-events-none" />
-
-            {/* Corner pixel inner squares */}
             <div className="absolute top-[4px] left-[4px] w-2 h-2 bg-white z-[1001] pointer-events-none" />
             <div className="absolute top-[4px] right-[4px] w-2 h-2 bg-white z-[1001] pointer-events-none" />
             <div className="absolute bottom-[4px] left-[4px] w-2 h-2 bg-white z-[1001] pointer-events-none" />
             <div className="absolute bottom-[4px] right-[4px] w-2 h-2 bg-white z-[1001] pointer-events-none" />
 
-            {/* Map container */}
             <div className="h-[380px] md:h-[480px] w-full">
               <MapWrapper locations={locations} />
             </div>
           </div>
         </div>
 
-        {/* Quick stats row */}
+        {/* Quick stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
-          {[
-            { icon: "📍", label: "Spots", value: String(locations.length), color: "text-blue-500", bg: "bg-blue-50" },
-            { icon: "💜", label: "Groups", value: String(groups.length), color: "text-purple-500", bg: "bg-purple-50" },
-            { icon: "🏪", label: "Categories", value: "5", color: "text-amber-500", bg: "bg-amber-50" },
-            { icon: "🗺️", label: "District", value: "Seoul", color: "text-emerald-500", bg: "bg-emerald-50" },
-          ].map((stat, i) => (
+          {stats.map((stat, i) => (
             <div
               key={stat.label}
               className="pixel-card bg-white p-4 text-center animate-slide-up"
@@ -133,11 +121,8 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* Bottom CTA */}
         <div className="text-center pb-4">
-          <p className="text-xs text-gray-300 font-mono">
-            ✨ Click markers to explore · Drag to pan · Scroll to zoom ✨
-          </p>
+          <p className="text-xs text-gray-300 font-mono">{t("home_hint")}</p>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useAuth } from "./AuthProvider"
+import { useLang } from "@/components/LanguageProvider"
 
 export default function LoginForm() {
   const [email, setEmail] = useState("")
@@ -12,6 +13,7 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false)
   const { signIn } = useAuth()
   const router = useRouter()
+  const { t } = useLang()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -27,30 +29,23 @@ export default function LoginForm() {
     <div className="max-w-sm mx-auto px-4 py-12">
       <div className="text-center mb-8">
         <p className="text-4xl mb-2">🏠</p>
-        <h1 className="text-2xl font-bold pixel-font text-slate-800">WELCOME BACK</h1>
-        <p className="text-xs text-slate-400 font-mono mt-1">Sign in to your idol house</p>
+        <h1 className="text-2xl font-bold pixel-font text-slate-800">{t("auth_login_title")}</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">Email</label>
+          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">{t("auth_email")}</label>
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            type="email" value={email} onChange={(e) => setEmail(e.target.value)} required
             placeholder="fan@kpop.com"
             className="w-full px-3 py-2.5 text-sm border-2 border-slate-300 focus:border-blue-400 outline-none bg-white font-mono"
           />
         </div>
 
         <div>
-          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">Password</label>
+          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">{t("auth_password")}</label>
           <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
+            type="password" value={password} onChange={(e) => setPassword(e.target.value)} required
             placeholder="••••••••"
             className="w-full px-3 py-2.5 text-sm border-2 border-slate-300 focus:border-blue-400 outline-none bg-white font-mono"
           />
@@ -61,18 +56,15 @@ export default function LoginForm() {
         )}
 
         <button
-          type="submit"
-          disabled={loading}
+          type="submit" disabled={loading}
           className="w-full py-3 btn-cute text-white font-bold rounded-xl disabled:opacity-40 text-sm"
         >
-          {loading ? "Signing in..." : "SIGN IN"}
+          {loading ? "..." : t("auth_submit_login")}
         </button>
 
         <p className="text-xs font-mono text-slate-400 text-center">
-          Don&apos;t have an account?{" "}
-          <Link href="/auth/register" className="text-blue-500 underline">
-            Register
-          </Link>
+          {t("auth_no_account")}{" "}
+          <Link href="/auth/register" className="text-blue-500 underline">{t("auth_register_link")}</Link>
         </p>
       </form>
     </div>

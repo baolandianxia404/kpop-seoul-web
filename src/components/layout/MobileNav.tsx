@@ -3,27 +3,29 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/components/auth/AuthProvider"
+import { useLang } from "@/components/LanguageProvider"
 
 export default function MobileNav() {
   const pathname = usePathname()
   const { user, profile } = useAuth()
+  const { t } = useLang()
 
   const houseHref = profile?.fan_group_id ? `/groups/${profile.fan_group_id}/house` : "/auth/login"
 
   const navItems = [
-    { href: "/", label: "Map", icon: "🗺️" },
-    { href: "/locations", label: "Spots", icon: "📍" },
-    { href: "/planner", label: "Add", icon: "📌" },
-    { href: "/groups", label: "Groups", icon: "💜" },
-    ...(user ? [{ href: houseHref, label: "House", icon: "🏠" }] : []),
-    { href: "/saved", label: "Saved", icon: "⭐" },
+    { href: "/", label: t("nav_map"), icon: "🗺️", match: "/" },
+    { href: "/locations", label: t("nav_locations"), icon: "📍", match: "/locations" },
+    { href: "/planner", label: t("nav_planner"), icon: "📌", match: "/planner" },
+    { href: "/groups", label: t("nav_groups"), icon: "💜", match: "/groups" },
+    ...(user ? [{ href: houseHref, label: t("nav_house"), icon: "🏠", match: "/house" }] : []),
+    { href: "/saved", label: t("nav_saved"), icon: "⭐", match: "/saved" },
   ]
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-t border-blue-50 safe-area-bottom">
       <div className="flex items-center justify-around h-16">
-        {navItems.map(({ href, label, icon }) => {
-          const active = pathname === href || (label === "House" && pathname.startsWith("/groups/") && pathname.includes("/house"))
+        {navItems.map(({ href, label, icon, match }) => {
+          const active = pathname === href || (match === "/" && pathname === "/") || (match === "/house" && pathname.includes("/house"))
           return (
             <Link
               key={href}

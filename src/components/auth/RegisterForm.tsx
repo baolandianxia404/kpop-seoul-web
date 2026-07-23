@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useAuth } from "./AuthProvider"
+import { useLang } from "@/components/LanguageProvider"
 import { groups } from "@/lib/data/groups"
 
 export default function RegisterForm() {
@@ -16,6 +17,7 @@ export default function RegisterForm() {
   const [success, setSuccess] = useState(false)
   const { signUp } = useAuth()
   const router = useRouter()
+  const { t } = useLang()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -38,66 +40,55 @@ export default function RegisterForm() {
     return (
       <div className="max-w-sm mx-auto px-4 py-16 text-center">
         <p className="text-5xl mb-4">🎉</p>
-        <h1 className="text-xl font-bold pixel-font text-slate-800 mb-2">WELCOME TO THE FANDOM!</h1>
-        <p className="text-sm text-slate-400 font-mono">Check your email to confirm, or start exploring now.</p>
+        <h1 className="text-xl font-bold pixel-font text-slate-800 mb-2">
+          {t("auth_register_success_title")}
+        </h1>
+        <p className="text-sm text-slate-400 font-mono">{t("auth_register_success")}</p>
       </div>
     )
   }
-
-  const sortedGroups = [...groups].sort((a, b) => b.popularity - a.popularity)
 
   return (
     <div className="max-w-sm mx-auto px-4 py-8">
       <div className="text-center mb-6">
         <p className="text-4xl mb-2">🏠</p>
-        <h1 className="text-2xl font-bold pixel-font text-slate-800">JOIN THE FANDOM</h1>
-        <p className="text-xs text-slate-400 font-mono mt-1">Create your idol house account</p>
+        <h1 className="text-2xl font-bold pixel-font text-slate-800">{t("auth_register_title")}</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">Email</label>
+          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">{t("auth_email")}</label>
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            type="email" value={email} onChange={(e) => setEmail(e.target.value)} required
             placeholder="fan@kpop.com"
             className="w-full px-3 py-2.5 text-sm border-2 border-slate-300 focus:border-blue-400 outline-none bg-white font-mono"
           />
         </div>
 
         <div>
-          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">Password (6+ chars)</label>
+          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">{t("auth_password")}</label>
           <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
+            type="password" value={password} onChange={(e) => setPassword(e.target.value)} required
             placeholder="••••••••"
             className="w-full px-3 py-2.5 text-sm border-2 border-slate-300 focus:border-blue-400 outline-none bg-white font-mono"
           />
         </div>
 
         <div>
-          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">Confirm Password</label>
+          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">{t("auth_confirm_password")}</label>
           <input
-            type="password"
-            value={confirm}
-            onChange={(e) => setConfirm(e.target.value)}
-            required
+            type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} required
             placeholder="••••••••"
             className="w-full px-3 py-2.5 text-sm border-2 border-slate-300 focus:border-blue-400 outline-none bg-white font-mono"
           />
         </div>
 
         <div>
-          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">Your Fan Group *</label>
+          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">{t("auth_select_group")}</label>
           <div className="flex flex-wrap gap-1 max-h-36 overflow-y-auto p-2 border-2 border-slate-200 bg-white">
-            {sortedGroups.map((g) => (
+            {[...groups].sort((a, b) => b.popularity - a.popularity).map((g) => (
               <button
-                key={g.id}
-                type="button"
+                key={g.id} type="button"
                 onClick={() => setFanGroupId(g.id)}
                 className={`pixel-btn px-2 py-1 text-[10px] transition ${
                   fanGroupId === g.id ? "text-white border-slate-800" : "bg-white text-slate-500"
@@ -108,11 +99,6 @@ export default function RegisterForm() {
               </button>
             ))}
           </div>
-          {fanGroupId && (
-            <p className="text-xs font-mono text-slate-400 mt-1">
-              Selected: {groups.find((g) => g.id === fanGroupId)?.name}
-            </p>
-          )}
         </div>
 
         {error && (
@@ -120,16 +106,15 @@ export default function RegisterForm() {
         )}
 
         <button
-          type="submit"
-          disabled={loading}
+          type="submit" disabled={loading}
           className="w-full py-3 btn-cute text-white font-bold rounded-xl disabled:opacity-40 text-sm"
         >
-          {loading ? "Creating..." : "CREATE ACCOUNT"}
+          {loading ? "..." : t("auth_submit_register")}
         </button>
 
         <p className="text-xs font-mono text-slate-400 text-center">
-          Already have an account?{" "}
-          <Link href="/auth/login" className="text-blue-500 underline">Sign in</Link>
+          {t("auth_has_account")}{" "}
+          <Link href="/auth/login" className="text-blue-500 underline">{t("auth_login_link")}</Link>
         </p>
       </form>
     </div>

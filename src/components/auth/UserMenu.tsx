@@ -3,10 +3,12 @@
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { useAuth } from "./AuthProvider"
+import { useLang } from "@/components/LanguageProvider"
 import { groups } from "@/lib/data/groups"
 
 export default function UserMenu() {
   const { user, profile, signOut } = useAuth()
+  const { t } = useLang()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -60,20 +62,20 @@ export default function UserMenu() {
               onClick={() => setOpen(false)}
               className="block px-3 py-2 text-sm font-mono text-slate-600 hover:bg-blue-50 transition"
             >
-              🏠 My House
+              🏠 {t("menu_my_house")}
             </Link>
             <Link
               href="/profile"
               onClick={() => setOpen(false)}
               className="block px-3 py-2 text-sm font-mono text-slate-600 hover:bg-blue-50 transition"
             >
-              ⚙️ Settings
+              ⚙️ {t("menu_settings")}
             </Link>
             <button
               onClick={() => { setOpen(false); signOut() }}
               className="w-full text-left px-3 py-2 text-sm font-mono text-red-500 hover:bg-red-50 transition"
             >
-              🚪 Sign Out
+              🚪 {t("menu_sign_out")}
             </button>
           </div>
         </div>
