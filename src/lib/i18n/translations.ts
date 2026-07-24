@@ -128,6 +128,7 @@ export const translations = {
   add_spot_success_title: { en: "SPOT SHARED!", zh: "分享成功！" },
   add_spot_success_msg: { en: "Thanks for contributing!", zh: "感谢你的贡献！" },
   add_spot_success_draft: { en: "This spot needs more info — other fans can help complete it.", zh: "这个地点信息还不够完整，其他粉丝可以帮忙完善。" },
+  add_spot_success_view: { en: "View your spot on:", zh: "查看你的投稿：" },
   add_spot_success_another: { en: "SHARE ANOTHER SPOT", zh: "继续分享" },
   add_spot_footer: { en: "Only group selection is required. Other fans can help fill in the details!", zh: "只需选择团体即可提交，其他粉丝可以帮忙完善信息！" },
   add_spot_draft_notice: { en: "Login to save spots permanently. Currently using local storage.", zh: "登录后可永久保存地点，当前使用本地存储。" },

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
+import Link from "next/link"
 import type { LocationType } from "@/types"
 import { groups } from "@/lib/data/groups"
 import { LOCATION_TYPES, TYPE_NAME_CN } from "@/lib/utils/constants"
@@ -404,16 +405,45 @@ export default function ContributePage() {
   }
 
   if (submitted) {
+    const selectedGroupData = selectedGroups
+      .map((id) => groups.find((g) => g.id === id))
+      .filter(Boolean) as typeof groups
+
     return (
       <div className="max-w-lg mx-auto px-4 py-12 text-center">
         <p className="text-5xl mb-4">🎉</p>
         <h1 className="text-xl font-bold pixel-font text-slate-800 mb-2">{t("add_spot_success_title")}</h1>
         <p className="text-sm text-slate-500 font-mono mb-2">{t("add_spot_success_msg")}</p>
+
         {(!locationName.trim() || !address.trim()) && (
           <p className="text-xs text-amber-500 font-mono mb-4 bg-amber-50 p-2 border border-amber-200 inline-block">
             {t("add_spot_success_draft")}
           </p>
         )}
+
+        {/* Links to group pages */}
+        <div className="space-y-2 mb-6">
+          <p className="text-xs font-mono text-slate-400">{t("add_spot_success_view")}</p>
+          {selectedGroupData.map((g) => (
+            <Link
+              key={g.id}
+              href={`/groups/${g.id}`}
+              className="flex items-center justify-center gap-2 p-3 border-2 border-slate-200 hover:border-blue-300 hover:bg-blue-50 transition group"
+            >
+              <span
+                className="w-6 h-6 flex items-center justify-center text-[10px] text-white font-bold font-mono"
+                style={{ backgroundColor: g.color }}
+              >
+                {g.name[0]}
+              </span>
+              <span className="text-sm font-bold pixel-font text-slate-700 group-hover:text-blue-600">
+                {g.name}
+              </span>
+              <span className="text-xs text-slate-300 group-hover:text-blue-400">→</span>
+            </Link>
+          ))}
+        </div>
+
         <button
           onClick={() => {
             setSubmitted(false)
