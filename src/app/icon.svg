@@ -1,93 +1,83 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
-  <defs>
-    <!-- Palette: B=#3b82f6 D=#1d4ed8 A=#f59e0b G=#fbbf24 W=#ffffff S=#1e293b -->
-  </defs>
+  <!-- Background fill - rounded square -->
+  <rect x="1" y="1" width="30" height="30" rx="4" fill="#3b82f6"/>
 
-  <!-- Map pin shadow (bottom-right dark outline) -->
-  <rect x="16" y="19" width="1" height="1" fill="#1d4ed8"/>
-  <rect x="15" y="20" width="1" height="1" fill="#1d4ed8"/>
-  <rect x="14" y="21" width="1" height="1" fill="#1d4ed8"/>
-  <rect x="14" y="22" width="1" height="1" fill="#1d4ed8"/>
-  <rect x="13" y="23" width="1" height="1" fill="#1d4ed8"/>
+  <!-- Body outline -->
+  <rect x="2" y="2" width="28" height="28" fill="#3b82f6"/>
 
-  <!-- Map pin body (blue) -->
-  <!-- Row 2 -->
-  <rect x="11" y="2" width="10" height="1" fill="#3b82f6"/>
-  <!-- Row 3 -->
-  <rect x="9" y="3" width="14" height="1" fill="#3b82f6"/>
-  <!-- Row 4 -->
-  <rect x="7" y="4" width="18" height="1" fill="#3b82f6"/>
-  <!-- Rows 5-6 -->
-  <rect x="6" y="5" width="20" height="2" fill="#3b82f6"/>
-  <!-- Rows 7-15 pin body -->
-  <rect x="5" y="7" width="22" height="9" fill="#3b82f6"/>
-  <!-- Rows 16-17 -->
-  <rect x="6" y="16" width="20" height="2" fill="#3b82f6"/>
-  <!-- Row 18 pin taper -->
-  <rect x="8" y="18" width="16" height="1" fill="#3b82f6"/>
-  <!-- Row 19 -->
-  <rect x="10" y="19" width="12" height="1" fill="#3b82f6"/>
-  <!-- Row 20 -->
-  <rect x="12" y="20" width="8" height="1" fill="#3b82f6"/>
-  <!-- Row 21 -->
-  <rect x="13" y="21" width="6" height="1" fill="#3b82f6"/>
-  <!-- Row 22 -->
-  <rect x="14" y="22" width="4" height="1" fill="#3b82f6"/>
-  <!-- Row 23 -->
-  <rect x="15" y="23" width="2" height="1" fill="#3b82f6"/>
-  <!-- Row 24 (tip) -->
-  <rect x="16" y="24" width="1" height="1" fill="#3b82f6"/>
+  <!-- Left ear (long, sticking up from head) -->
+  <!-- Ear outer -->
+  <rect x="7" y="1" width="6" height="10" fill="#3b82f6"/>
+  <rect x="6" y="2" width="8" height="8" fill="#3b82f6"/>
+  <rect x="6" y="1" width="1" height="1" fill="#1d4ed8"/>
+  <rect x="12" y="1" width="1" height="1" fill="#1d4ed8"/>
+  <rect x="5" y="2" width="1" height="2" fill="#1d4ed8"/>
+  <rect x="13" y="2" width="1" height="2" fill="#1d4ed8"/>
+  <!-- Ear inner (light pink) -->
+  <rect x="9" y="3" width="3" height="5" fill="#f9a8d4"/>
 
-  <!-- Pin border (dark blue outline - top and sides) -->
-  <rect x="10" y="2" width="1" height="1" fill="#1d4ed8"/>
-  <rect x="9" y="3" width="1" height="1" fill="#1d4ed8"/>
-  <rect x="8" y="4" width="1" height="1" fill="#1d4ed8"/>
-  <rect x="7" y="5" width="1" height="2" fill="#1d4ed8"/>
-  <rect x="6" y="7" width="1" height="9" fill="#1d4ed8"/>
-  <rect x="5" y="16" width="1" height="2" fill="#1d4ed8"/>
-  <!-- Right border -->
-  <rect x="22" y="5" width="1" height="2" fill="#1d4ed8"/>
-  <rect x="23" y="7" width="1" height="2" fill="#1d4ed8"/>
-  <rect x="24" y="9" width="1" height="2" fill="#1d4ed8"/>
-  <!-- Right top curve -->
-  <rect x="21" y="2" width="1" height="1" fill="#1d4ed8"/>
-  <rect x="23" y="3" width="1" height="1" fill="#1d4ed8"/>
-  <rect x="25" y="4" width="1" height="1" fill="#1d4ed8"/>
+  <!-- Right ear -->
+  <rect x="19" y="1" width="6" height="10" fill="#3b82f6"/>
+  <rect x="18" y="2" width="8" height="8" fill="#3b82f6"/>
+  <rect x="18" y="1" width="1" height="1" fill="#1d4ed8"/>
+  <rect x="24" y="1" width="1" height="1" fill="#1d4ed8"/>
+  <rect x="17" y="2" width="1" height="2" fill="#1d4ed8"/>
+  <rect x="25" y="2" width="1" height="2" fill="#1d4ed8"/>
+  <!-- Ear inner -->
+  <rect x="20" y="3" width="3" height="5" fill="#f9a8d4"/>
 
-  <!-- Map pin highlight (top-left light area) -->
-  <rect x="7" y="5" width="3" height="1" fill="#60a5fa"/>
-  <rect x="6" y="7" width="2" height="2" fill="#60a5fa"/>
-  <rect x="5" y="9" width="2" height="1" fill="#2563eb"/>
+  <!-- Head (round shape) -->
+  <rect x="6" y="10" width="20" height="16" fill="#3b82f6"/>
+  <rect x="4" y="11" width="24" height="14" fill="#3b82f6"/>
+  <rect x="5" y="10" width="22" height="1" fill="#60a5fa"/>
+  <rect x="4" y="11" width="24" height="1" fill="#60a5fa"/>
+  <rect x="4" y="12" width="24" height="1" fill="#93c5fd"/>
+  <!-- Head outline top -->
+  <rect x="5" y="10" width="1" height="2" fill="#1d4ed8"/>
+  <rect x="26" y="10" width="1" height="2" fill="#1d4ed8"/>
+  <rect x="3" y="11" width="1" height="1" fill="#1d4ed8"/>
+  <rect x="28" y="11" width="1" height="1" fill="#1d4ed8"/>
 
-  <!-- Heart inside pin (amber/gold) -->
-  <!-- Row 9: top of heart -->
-  <rect x="11" y="9" width="3" height="1" fill="#f59e0b"/>
-  <rect x="17" y="9" width="3" height="1" fill="#f59e0b"/>
-  <!-- Row 10 -->
-  <rect x="10" y="10" width="5" height="1" fill="#f59e0b"/>
-  <rect x="16" y="10" width="5" height="1" fill="#f59e0b"/>
-  <!-- Row 11 -->
-  <rect x="9" y="11" width="6" height="1" fill="#f59e0b"/>
-  <rect x="15" y="11" width="6" height="1" fill="#f59e0b"/>
-  <!-- Row 12 -->
-  <rect x="9" y="12" width="13" height="1" fill="#fbbf24"/>
-  <!-- Row 13 -->
-  <rect x="10" y="13" width="11" height="1" fill="#f59e0b"/>
-  <!-- Row 14 -->
-  <rect x="11" y="14" width="9" height="1" fill="#f59e0b"/>
-  <!-- Row 15 -->
-  <rect x="13" y="15" width="5" height="1" fill="#f59e0b"/>
-  <!-- Row 16 (heart tip) -->
-  <rect x="15" y="16" width="1" height="1" fill="#d97706"/>
+  <!-- Head outline sides -->
+  <rect x="3" y="12" width="1" height="12" fill="#1d4ed8"/>
+  <rect x="28" y="12" width="1" height="12" fill="#1d4ed8"/>
 
-  <!-- Heart highlight -->
-  <rect x="10" y="10" width="1" height="1" fill="#fbbf24"/>
-  <rect x="9" y="11" width="1" height="1" fill="#fbbf24"/>
+  <!-- Head outline bottom -->
+  <rect x="4" y="24" width="24" height="1" fill="#1d4ed8"/>
+  <rect x="5" y="25" width="22" height="1" fill="#1d4ed8"/>
 
-  <!-- Sparkle pixels -->
-  <rect x="24" y="2" width="2" height="1" fill="#fbbf24"/>
-  <rect x="25" y="1" width="1" height="1" fill="#f59e0b"/>
-  <rect x="25" y="3" width="1" height="1" fill="#f59e0b"/>
-  <rect x="2" y="12" width="1" height="2" fill="#fbbf24"/>
-  <rect x="3" y="13" width="2" height="1" fill="#f59e0b"/>
+  <!-- Cheeks (white puffy) -->
+  <rect x="6" y="17" width="4" height="3" fill="#ffffff"/>
+  <rect x="22" y="17" width="4" height="3" fill="#ffffff"/>
+  <rect x="5" y="18" width="1" height="2" fill="#ffffff"/>
+  <rect x="26" y="18" width="1" height="2" fill="#ffffff"/>
+
+  <!-- Blush (pink dots on cheeks) -->
+  <rect x="8" y="20" width="2" height="2" fill="#fca5a5"/>
+  <rect x="22" y="20" width="2" height="2" fill="#fca5a5"/>
+
+  <!-- Eyes (black pixels) -->
+  <!-- Left eye -->
+  <rect x="11" y="15" width="4" height="4" fill="#1e293b"/>
+  <rect x="11" y="15" width="1" height="1" fill="#ffffff"/>
+  <rect x="14" y="16" width="1" height="1" fill="#ffffff"/>
+  <!-- Right eye -->
+  <rect x="17" y="15" width="4" height="4" fill="#1e293b"/>
+  <rect x="17" y="15" width="1" height="1" fill="#ffffff"/>
+  <rect x="20" y="16" width="1" height="1" fill="#ffffff"/>
+
+  <!-- Nose (small amber triangle) -->
+  <rect x="15" y="19" width="2" height="1" fill="#f59e0b"/>
+  <rect x="14" y="20" width="4" height="1" fill="#f59e0b"/>
+
+  <!-- Mouth (cute w shape) -->
+  <rect x="13" y="22" width="2" height="1" fill="#1d4ed8"/>
+  <rect x="17" y="22" width="2" height="1" fill="#1d4ed8"/>
+  <rect x="15" y="23" width="2" height="1" fill="#1d4ed8"/>
+
+  <!-- Whiskers -->
+  <rect x="2" y="19" width="2" height="1" fill="#60a5fa"/>
+  <rect x="2" y="21" width="2" height="1" fill="#60a5fa"/>
+  <rect x="28" y="19" width="2" height="1" fill="#60a5fa"/>
+  <rect x="28" y="21" width="2" height="1" fill="#60a5fa"/>
 </svg>
