@@ -11,12 +11,17 @@ import { createClient } from "@/lib/supabase/client"
 const STORAGE_KEY = "kpop_community_spots"
 const TYPE_OPTIONS: LocationType[] = ["restaurant", "store", "mv_spot", "entertainment", "company"]
 
-// Seoul districts for quick-select
-const SEOUL_DISTRICTS = [
-  "마포구", "강남구", "용산구", "성동구", "중구", "종로구",
-  "영등포구", "광진구", "서대문구", "동대문구", "송파구", "서초구",
-  "강서구", "금천구", "구로구", "관악구", "동작구", "은평구",
-  "강북구", "도봉구", "노원구", "중랑구", "강동구", "양천구", "성북구",
+// Seoul districts for quick-select (display in Chinese, value in Korean)
+const SEOUL_DISTRICTS: { cn: string; kr: string }[] = [
+  { cn: "麻浦区", kr: "마포구" }, { cn: "江南区", kr: "강남구" }, { cn: "龙山区", kr: "용산구" },
+  { cn: "城东区", kr: "성동구" }, { cn: "中区", kr: "중구" }, { cn: "钟路区", kr: "종로구" },
+  { cn: "永登浦区", kr: "영등포구" }, { cn: "广津区", kr: "광진구" }, { cn: "西大门区", kr: "서대문구" },
+  { cn: "东大门区", kr: "동대문구" }, { cn: "松坡区", kr: "송파구" }, { cn: "瑞草区", kr: "서초구" },
+  { cn: "江西区", kr: "강서구" }, { cn: "衿川区", kr: "금천구" }, { cn: "九老区", kr: "구로구" },
+  { cn: "冠岳区", kr: "관악구" }, { cn: "铜雀区", kr: "동작구" }, { cn: "恩平区", kr: "은평구" },
+  { cn: "江北区", kr: "강북구" }, { cn: "道峰区", kr: "도봉구" }, { cn: "芦原区", kr: "노원구" },
+  { cn: "中浪区", kr: "중랑구" }, { cn: "江东区", kr: "강동구" }, { cn: "阳川区", kr: "양천구" },
+  { cn: "城北区", kr: "성북구" },
 ]
 
 // XHS share text format: 【Title】Description... URL
@@ -523,28 +528,28 @@ export default function ContributePage() {
         <div className="flex flex-wrap gap-1">
           {SEOUL_DISTRICTS.map((d) => (
             <button
-              key={d}
+              key={d.kr}
               type="button"
               onClick={() => {
                 const current = address.trim()
-                const hasDistrict = SEOUL_DISTRICTS.some((x) => current.includes(x))
+                const krDistricts = SEOUL_DISTRICTS.map((x) => x.kr)
+                const hasDistrict = krDistricts.some((x) => current.includes(x))
                 if (hasDistrict) {
-                  // Replace existing district
                   const parts = current.split(/\s+/)
-                  const idx = parts.findIndex((p) => SEOUL_DISTRICTS.some((x) => p === x))
-                  if (idx >= 0) parts[idx] = d
+                  const idx = parts.findIndex((p) => krDistricts.includes(p))
+                  if (idx >= 0) parts[idx] = d.kr
                   setAddress(parts.join(" "))
                 } else {
-                  setAddress(d + (current ? " " + current : ""))
+                  setAddress(d.kr + (current ? " " + current : ""))
                 }
               }}
               className={`text-[10px] px-1.5 py-0.5 font-mono border transition ${
-                address.includes(d)
+                address.includes(d.kr)
                   ? "bg-blue-100 text-blue-700 border-blue-300"
                   : "bg-white text-slate-400 border-slate-200 hover:border-blue-300 hover:text-blue-500"
               }`}
             >
-              {d}
+              {d.cn}
             </button>
           ))}
         </div>
