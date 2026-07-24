@@ -12,6 +12,8 @@ export const translations = {
 
   // User menu
   menu_my_house: { en: "My House", zh: "我的小屋" },
+  menu_saved: { en: "Saved Spots", zh: "收藏地点" },
+  menu_routes: { en: "Routes", zh: "路线规划" },
   menu_settings: { en: "Settings", zh: "设置" },
   menu_sign_out: { en: "Sign Out", zh: "退出" },
 

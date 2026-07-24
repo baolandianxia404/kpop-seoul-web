@@ -1,6 +1,10 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import type { Location } from "@/types"
 import { LOCATION_TYPES, TYPE_NAME_CN } from "@/lib/utils/constants"
+import { isFavorite, toggleFavorite } from "@/lib/store/favorites"
 
 const PIXEL_ICONS: Record<string, string> = {
   company: "▣",
@@ -13,6 +17,17 @@ const PIXEL_ICONS: Record<string, string> = {
 export default function LocationCard({ location }: { location: Location }) {
   const typeInfo = LOCATION_TYPES[location.type]
   const pixelIcon = PIXEL_ICONS[location.type] || "●"
+  const [fav, setFav] = useState(false)
+
+  useEffect(() => {
+    setFav(isFavorite(location.id))
+  }, [location.id])
+
+  const handleFav = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setFav(toggleFavorite(location.id))
+  }
 
   return (
     <Link
@@ -33,13 +48,20 @@ export default function LocationCard({ location }: { location: Location }) {
           </h3>
           <p className="text-xs text-slate-400 truncate">{location.nameKo}</p>
         </div>
-        {location.rating && (
-          <div className="flex-shrink-0 text-right">
+        <div className="flex-shrink-0 flex items-center gap-1.5">
+          <button
+            onClick={handleFav}
+            className="text-sm hover:scale-110 transition-transform"
+            aria-label="Toggle favorite"
+          >
+            {fav ? "❤️" : "🤍"}
+          </button>
+          {location.rating && (
             <span className="text-amber-400 text-sm font-mono font-bold">
               ★ {location.rating}
             </span>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Tags */}

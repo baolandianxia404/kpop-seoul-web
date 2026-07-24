@@ -65,6 +65,20 @@ export default function UserMenu() {
               🏠 {t("menu_my_house")}
             </Link>
             <Link
+              href="/saved"
+              onClick={() => setOpen(false)}
+              className="block px-3 py-2 text-sm font-mono text-slate-600 hover:bg-blue-50 transition"
+            >
+              💾 {t("menu_saved")}
+            </Link>
+            <Link
+              href="/routes"
+              onClick={() => setOpen(false)}
+              className="block px-3 py-2 text-sm font-mono text-slate-600 hover:bg-blue-50 transition"
+            >
+              🗺️ {t("menu_routes")}
+            </Link>
+            <Link
               href="/profile"
               onClick={() => setOpen(false)}
               className="block px-3 py-2 text-sm font-mono text-slate-600 hover:bg-blue-50 transition"

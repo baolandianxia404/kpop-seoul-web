@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { notFound } from "next/navigation"
 import { getLocationById, locations } from "@/lib/data/locations"
 import { LOCATION_TYPES, TYPE_NAME_CN } from "@/lib/utils/constants"
@@ -9,6 +10,7 @@ import HoursSection from "@/components/location/HoursSection"
 import TipsSection from "@/components/location/TipsSection"
 import Link from "next/link"
 import { useLang } from "@/components/LanguageProvider"
+import { isFavorite, toggleFavorite } from "@/lib/store/favorites"
 
 interface Props {
   id: string
@@ -17,6 +19,12 @@ interface Props {
 export default function LocationDetailContent({ id }: Props) {
   const { t } = useLang()
   const loc = getLocationById(id)
+  const [fav, setFav] = useState(false)
+
+  useEffect(() => {
+    setFav(isFavorite(id))
+  }, [id])
+
   if (!loc) notFound()
 
   const typeInfo = LOCATION_TYPES[loc.type]
@@ -58,7 +66,16 @@ export default function LocationDetailContent({ id }: Props) {
 
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-bold mb-1">{loc.name}</h1>
+        <div className="flex items-center gap-3 mb-1">
+          <h1 className="text-3xl font-bold">{loc.name}</h1>
+          <button
+            onClick={() => setFav(toggleFavorite(id))}
+            className="text-2xl hover:scale-110 transition-transform"
+            aria-label="Toggle favorite"
+          >
+            {fav ? "❤️" : "🤍"}
+          </button>
+        </div>
         <p className="text-lg text-gray-500 mb-3">{loc.nameKo}</p>
         <div className="flex flex-wrap gap-2">
           <span className={`px-3 py-1 rounded-full text-sm font-medium text-white`} style={{ backgroundColor: typeInfo.color }}>
