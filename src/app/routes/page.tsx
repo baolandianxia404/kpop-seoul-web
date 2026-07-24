@@ -129,7 +129,7 @@ export default function RoutesPage() {
             className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl font-bold text-sm text-white transition-all hover:scale-105 hover:shadow-lg"
             style={{ background: "linear-gradient(135deg, #3b82f6, #f59e0b)" }}
           >
-            ✨ Want a personalized route? Plan with AI →
+            ✨ Want a personalized route? Customize your own →
           </Link>
           {savedCount > 0 && (
             <Link
