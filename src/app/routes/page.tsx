@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { locations } from "@/lib/data/locations"
 import { useLang } from "@/components/LanguageProvider"
@@ -29,14 +29,14 @@ interface Route {
 }
 
 const districtMeta: Record<string, { ko: string; emoji: string; desc: string }> = {
-  "麻浦区": { ko: "마포구", emoji: "🎵", desc: "弘大、合井、上水一带，年轻人最爱的潮流街区，爱豆常去的咖啡厅和餐厅密集。" },
-  "江南区": { ko: "강남구", emoji: "✨", desc: "狎鸥亭、清潭洞、新沙洞，高端时尚+娱乐公司+爱豆同款名店。" },
-  "龙山区": { ko: "용산구", emoji: "🏢", desc: "梨泰院、汉南洞，HYBE大楼所在地，国际化氛围+网红打卡地。" },
-  "城东区": { ko: "성동구", emoji: "☕", desc: "圣水洞咖啡街，旧工厂改造的艺术区，SM新大楼也在这里。" },
-  "中区": { ko: "중구", emoji: "🏰", desc: "明洞、乙支路，购物天堂+经典追星地标。" },
-  "钟路区": { ko: "종로구", emoji: "🏯", desc: "景福宫、北村、仁寺洞，传统文化+韩服体验+MV拍摄地。" },
-  "永登浦区": { ko: "영등포구", emoji: "🛍️", desc: "汝矣岛、KBS，汉江公园+电视台打卡。" },
-  "广津区": { ko: "광진구", emoji: "🎬", desc: "建大入口、乐天世界，大型娱乐设施+拍摄地。" },
+  "麻浦区": { ko: "마포구", emoji: "🎵", desc: "弘大、合井，潮流街区" },
+  "江南区": { ko: "강남구", emoji: "✨", desc: "狎鸥亭、清潭洞高端名店" },
+  "龙山区": { ko: "용산구", emoji: "🏢", desc: "梨泰院、汉南洞，HYBE大本营" },
+  "城东区": { ko: "성동구", emoji: "☕", desc: "圣水洞咖啡街+SM新大楼" },
+  "中区": { ko: "중구", emoji: "🏰", desc: "明洞、乙支路购物天堂" },
+  "钟路区": { ko: "종로구", emoji: "🏯", desc: "景福宫、北村韩屋MV拍摄地" },
+  "永登浦区": { ko: "영등포구", emoji: "🛍️", desc: "汝矣岛+KBS电视台" },
+  "广津区": { ko: "광진구", emoji: "🎬", desc: "建大+乐天世界拍摄地" },
 }
 
 function buildRoutes(): Route[] {
@@ -85,18 +85,30 @@ export default function RoutesPage() {
   const [showToast, setShowToast] = useState(false)
   const [toastMsg, setToastMsg] = useState("")
   const [savedCount, setSavedCount] = useState(0)
+  const [openDistrict, setOpenDistrict] = useState<string | null>(null)
+  const [visible, setVisible] = useState(false)
 
   const routes = buildRoutes()
+  const selectedRoute = routes.find((r) => r.district === openDistrict)
+
+  useEffect(() => {
+    if (openDistrict) {
+      requestAnimationFrame(() => setVisible(true))
+    } else {
+      setVisible(false)
+    }
+  }, [openDistrict])
+
+  const closeOverlay = () => {
+    setVisible(false)
+    setTimeout(() => setOpenDistrict(null), 250)
+  }
 
   const addToPlan = (spot: RouteSpot) => {
     try {
       const stored = JSON.parse(localStorage.getItem("kpop_pending_spots") || "[]")
       if (!stored.some((s: { locationId: string }) => s.locationId === spot.id)) {
-        stored.push({
-          locationId: spot.id,
-          locationName: spot.name,
-          locationType: spot.type,
-        })
+        stored.push({ locationId: spot.id, locationName: spot.name, locationType: spot.type })
         localStorage.setItem("kpop_pending_spots", JSON.stringify(stored))
       }
     } catch {}
@@ -108,11 +120,23 @@ export default function RoutesPage() {
     setTimeout(() => setShowToast(false), 2000)
   }
 
+  // Card color palette
+  const cardColors = [
+    { bg: "#eff6ff", accent: "#3b82f6", border: "#bfdbfe" },
+    { bg: "#fffbeb", accent: "#f59e0b", border: "#fde68a" },
+    { bg: "#fdf2f8", accent: "#ec4899", border: "#fbcfe8" },
+    { bg: "#ecfdf5", accent: "#10b981", border: "#a7f3d0" },
+    { bg: "#f5f3ff", accent: "#8b5cf6", border: "#ddd6fe" },
+    { bg: "#fef2f2", accent: "#ef4444", border: "#fecaca" },
+    { bg: "#f0f9ff", accent: "#0ea5e9", border: "#bae6fd" },
+    { bg: "#fff7ed", accent: "#f97316", border: "#fed7aa" },
+  ]
+
   return (
     <div className="min-h-[calc(100dvh-64px)] bg-gradient-to-b from-[#f0f4ff] via-white to-[#fffdf0]">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-3">
             <span className="text-3xl animate-bounce-gentle">🗺️</span>
             <h1 className="text-2xl md:text-3xl font-black tracking-tight">
@@ -122,7 +146,7 @@ export default function RoutesPage() {
             <span className="text-3xl animate-bounce-gentle" style={{ animationDelay: "0.5s" }}>✨</span>
           </div>
           <p className="text-sm text-gray-400 max-w-md mx-auto mb-4">
-            Pick an area, add spots to your plan, follow the route!
+            Tap a district to explore its Kpop route
           </p>
           <Link
             href="/plan"
@@ -141,94 +165,170 @@ export default function RoutesPage() {
           )}
         </div>
 
-        {/* Routes grid */}
-        <div className="space-y-6">
-          {routes.map((route) => (
-            <div key={route.district} className="pixel-card bg-white overflow-hidden">
-              <div className="p-5 border-b-2 border-slate-100 flex items-start justify-between flex-wrap gap-3"
-                style={{ borderLeft: "4px solid #3b82f6" }}
+        {/* District card grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {routes.map((route, i) => {
+            const palette = cardColors[i % cardColors.length]
+            return (
+              <button
+                key={route.district}
+                onClick={() => setOpenDistrict(route.district)}
+                className="group text-left p-5 rounded-2xl border-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl active:scale-[0.98] relative overflow-hidden"
+                style={{
+                  backgroundColor: palette.bg,
+                  borderColor: palette.border,
+                }}
               >
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-2xl">{route.emoji}</span>
-                    <h2 className="text-lg font-black pixel-font text-slate-800">
-                      {route.district}
-                      <span className="text-xs text-slate-400 font-normal ml-1">{route.districtKo}</span>
-                    </h2>
-                  </div>
-                  <p className="text-xs text-slate-400 leading-relaxed max-w-lg">{route.description}</p>
+                {/* Decorative corner pixel */}
+                <div className="absolute top-2 right-2 w-2 h-2 opacity-40" style={{ backgroundColor: palette.accent }} />
+                <div className="absolute bottom-2 left-2 w-2 h-2 opacity-40" style={{ backgroundColor: palette.accent }} />
+
+                <div className="text-3xl mb-3">{route.emoji}</div>
+                <h3 className="font-black text-sm text-slate-800 mb-1">
+                  {route.district}
+                </h3>
+                <p className="text-[10px] text-slate-400 font-mono mb-3">{route.districtKo}</p>
+                <p className="text-[10px] text-slate-500 leading-relaxed mb-3 line-clamp-2">
+                  {route.description}
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold font-mono px-2 py-0.5 rounded-full text-white"
+                    style={{ backgroundColor: palette.accent }}
+                  >
+                    {route.spots.length} spots
+                  </span>
+                  <span className="text-[10px] text-slate-300 font-mono opacity-0 group-hover:opacity-100 transition-opacity">
+                    →
+                  </span>
                 </div>
-                <div className="flex items-center gap-3 text-xs font-mono text-slate-400">
-                  <span>📍 {route.spots.length} spots</span>
-                  <span>⏱ ~{Math.floor(route.totalTime / 60)}h{route.totalTime % 60 > 0 ? ` ${route.totalTime % 60}m` : ""}</span>
-                </div>
-              </div>
-
-              <div className="p-3">
-                <div className="relative">
-                  <div className="absolute left-[19px] top-4 bottom-4 w-0.5 bg-slate-100" />
-
-                  <div className="space-y-1">
-                    {route.spots.map((spot, i) => (
-                      <div
-                        key={spot.id}
-                        className="flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 transition group relative"
-                      >
-                        <div className="relative z-10 w-[38px] flex-shrink-0 flex justify-center">
-                          <div
-                            className="w-2.5 h-2.5 rounded-full border-2 border-white shadow-sm"
-                            style={{ backgroundColor: spot.typeColor }}
-                          />
-                        </div>
-
-                        <Link
-                          href={`/locations/${spot.id}`}
-                          className="flex-1 min-w-0 flex items-center gap-2"
-                        >
-                          <span className="text-sm">{spot.typeIcon}</span>
-                          <span className="text-sm font-medium text-slate-700 group-hover:text-blue-500 transition truncate">
-                            {spot.name}
-                          </span>
-                          {spot.subway && (
-                            <span className="hidden sm:inline text-[10px] text-slate-300 font-mono flex-shrink-0">
-                              🚇 {spot.subway}
-                              {spot.walkMin && ` ${spot.walkMin}min`}
-                            </span>
-                          )}
-                        </Link>
-
-                        <button
-                          onClick={(e) => { e.preventDefault(); addToPlan(spot) }}
-                          className={`flex-shrink-0 px-2.5 py-1 text-[10px] font-bold font-mono transition ${
-                            addedSpots.has(spot.id)
-                              ? "bg-amber-100 text-amber-600"
-                              : "text-slate-300 hover:text-amber-500 hover:bg-amber-50"
-                          }`}
-                        >
-                          {addedSpots.has(spot.id) ? "✓" : "+"}
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+              </button>
+            )
+          })}
         </div>
-
-        {/* Toast */}
-        {showToast && (
-          <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[9999] px-4 py-2 bg-slate-800 text-white text-xs font-mono rounded-full shadow-lg animate-pop-in">
-            ⭐ Added to plan: {toastMsg}
-          </div>
-        )}
 
         <div className="text-center mt-10 pb-4">
           <p className="text-xs text-gray-300 font-mono">
-            ✨ Click + to add spots to your plan · View all in ⭐ Saved ✨
+            ✨ Tap a card to explore · Add spots to your plan ✨
           </p>
         </div>
       </div>
+
+      {/* Overlay modal for selected district */}
+      {openDistrict && selectedRoute && (
+        <div
+          className={`fixed inset-0 z-50 flex items-end sm:items-center justify-center transition-all duration-300 ${
+            visible ? "bg-black/40 backdrop-blur-sm" : "bg-transparent"
+          }`}
+          onClick={closeOverlay}
+        >
+          <div
+            className={`relative bg-white w-full sm:max-w-lg sm:rounded-2xl max-h-[85dvh] overflow-y-auto transition-all duration-300 ease-out ${
+              visible ? "translate-y-0 sm:scale-100 opacity-100" : "translate-y-full sm:translate-y-8 sm:scale-95 opacity-0"
+            }`}
+            style={{
+              boxShadow: "0 -8px 40px rgba(0,0,0,0.15)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close handle (mobile) */}
+            <div className="sm:hidden flex justify-center pt-3 pb-1 sticky top-0 bg-white z-10">
+              <div className="w-10 h-1 rounded-full bg-slate-300" />
+            </div>
+
+            {/* Header */}
+            <div className="sticky top-0 bg-white/95 backdrop-blur z-10 px-5 py-4 border-b border-slate-100">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">{selectedRoute.emoji}</span>
+                  <div>
+                    <h2 className="text-lg font-black pixel-font text-slate-800">
+                      {selectedRoute.district}
+                      <span className="text-xs text-slate-400 font-normal ml-1.5">{selectedRoute.districtKo}</span>
+                    </h2>
+                    <p className="text-[10px] text-slate-400 font-mono mt-0.5">
+                      📍 {selectedRoute.spots.length} spots · ⏱ ~{Math.floor(selectedRoute.totalTime / 60)}h
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={closeOverlay}
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition font-mono text-sm"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* Timeline */}
+            <div className="px-5 py-4">
+              <div className="relative">
+                <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-slate-100" />
+
+                <div className="space-y-1">
+                  {selectedRoute.spots.map((spot, i) => (
+                    <div
+                      key={spot.id}
+                      className="flex items-center gap-3 px-2 py-2.5 hover:bg-blue-50 transition group relative rounded-lg"
+                    >
+                      <div className="relative z-10 w-[30px] flex-shrink-0 flex justify-center">
+                        <div
+                          className="w-2.5 h-2.5 rounded-full border-2 border-white shadow-sm"
+                          style={{ backgroundColor: spot.typeColor }}
+                        />
+                      </div>
+
+                      <Link
+                        href={`/locations/${spot.id}`}
+                        className="flex-1 min-w-0 flex items-center gap-2"
+                        onClick={closeOverlay}
+                      >
+                        <span className="text-sm">{spot.typeIcon}</span>
+                        <span className="text-sm font-medium text-slate-700 group-hover:text-blue-500 transition truncate">
+                          {spot.name}
+                        </span>
+                        {spot.subway && (
+                          <span className="hidden sm:inline text-[10px] text-slate-300 font-mono flex-shrink-0">
+                            🚇 {spot.subway}
+                            {spot.walkMin && ` ${spot.walkMin}min`}
+                          </span>
+                        )}
+                      </Link>
+
+                      <button
+                        onClick={(e) => { e.preventDefault(); addToPlan(spot) }}
+                        className={`flex-shrink-0 px-2.5 py-1 text-[10px] font-bold font-mono rounded-lg transition ${
+                          addedSpots.has(spot.id)
+                            ? "bg-amber-100 text-amber-600"
+                            : "text-slate-300 hover:text-amber-500 hover:bg-amber-50"
+                        }`}
+                      >
+                        {addedSpots.has(spot.id) ? "✓" : "+"}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="sticky bottom-0 bg-white border-t border-slate-100 px-5 py-3 text-center">
+              <button
+                onClick={closeOverlay}
+                className="text-xs font-mono text-slate-400 hover:text-slate-600 transition"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Toast */}
+      {showToast && (
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[9999] px-4 py-2 bg-slate-800 text-white text-xs font-mono rounded-full shadow-lg animate-pop-in">
+          ⭐ Added to plan: {toastMsg}
+        </div>
+      )}
     </div>
   )
 }
