@@ -24,9 +24,10 @@ const SEOUL_DISTRICTS: { cn: string; kr: string }[] = [
   { cn: "城北区", kr: "성북구" },
 ]
 
-// XHS share text format: 【Title】Description... URL
+// XHS share text format variants:
+// Old: 【Title】Description... URL
+// New: Title...Description... URL \n 先复制一下，打开【小红书】看看这篇好文！
 const XHS_SHARE_PATTERN = /【(.+?)】\s*(.+?)?\s*(https?:\/\/[^\s]+)/
-const XHS_ALT_PATTERN = /(.+?)\s+(https?:\/\/[^\s]+)/
 const XHS_URL_PATTERN = /xhslink\.com|xiaohongshu\.com|xhslink\.cn/
 
 // Map Chinese district names → Korean
@@ -99,29 +100,43 @@ function parseXhsShareText(input: string): ExtractionResult {
     xhsLocation: null, subwayInfo: null, possibleDistrict: null, possibleAddress: null,
   }
 
+  // Strip XHS promotional footer
+  const cleanedInput = input
+    .replace(/先复制一下[，,]\s*打开[【\[]小红书[】\]]看看这篇好文[！!]\s*/g, "")
+    .replace(/打开[【\[]小红书[】\]]看看这篇好文[！!]\s*/g, "")
+    .trim()
+
   // Try main XHS share pattern: 【Title】Description... URL
-  const shareMatch = input.match(XHS_SHARE_PATTERN)
+  const shareMatch = cleanedInput.match(XHS_SHARE_PATTERN)
   if (shareMatch) {
     result.title = shareMatch[1].trim()
     result.snippet = (shareMatch[2] || "").replace(/【小红书】里有答案.*$/, "").trim()
     result.url = shareMatch[3]
     result.isShareText = true
   } else {
-    const altMatch = input.match(XHS_ALT_PATTERN)
-    if (altMatch && XHS_URL_PATTERN.test(altMatch[2])) {
-      result.title = altMatch[1].replace(/【小红书】里有答案.*$/, "").trim().slice(0, 80)
-      result.url = altMatch[2]
-      result.isShareText = true
-    } else {
-      const urlMatch = input.match(/(https?:\/\/[^\s]+)/)
-      result.url = urlMatch?.[1] || null
+    // Try URL extraction — find the URL in the text
+    const urlMatch = cleanedInput.match(/(https?:\/\/[^\s]+)/)
+    const url = urlMatch?.[1] || null
+
+    if (url) {
+      result.url = url
+      // Everything before the URL is title/description
+      const beforeUrl = cleanedInput.substring(0, cleanedInput.indexOf(url)).trim()
+      if (beforeUrl) {
+        const trimmed = beforeUrl.replace(/…|\.\.\./g, "").trim()
+        if (trimmed.length > 0) {
+          result.title = trimmed.slice(0, 80)
+          result.snippet = trimmed.length > 80 ? trimmed.slice(80, 200) : trimmed.slice(20, 200)
+          result.isShareText = true
+        }
+      }
     }
   }
 
   // Build full text to analyze
-  const fullText = [result.title, result.snippet, input].filter(Boolean).join(" ")
+  const fullText = [result.title, result.snippet, cleanedInput].filter(Boolean).join(" ")
 
-  // Extract XHS location tag: "— at XX·YY", "在 XX", "📍XX", "— 位于XX"
+  // Extract XHS location tag: "— at XX·YY", "在 XX", "📍XX"
   const locTagPatterns = [
     /(?:—|—|at|在|位于|📍)\s*([^\s,，。…]{2,30}?(?:·[^\s,，。…]{2,20})?)/i,
     /(?:서울|首尔|釜山|부산|济州|제주)\s*[·⋅]\s*\S+/g,
@@ -131,7 +146,7 @@ function parseXhsShareText(input: string): ExtractionResult {
     if (m) { result.xhsLocation = m[1] || m[0]; break }
   }
 
-  // Extract subway info: "X号出口", "XX站", "XX역"
+  // Extract subway info
   const subwayPatterns = [
     /(\S{1,4}(?:역|站)\s*\d*[호번]?\s*출구)/g,
     /(\S{1,3}号线?\s*\S{0,3}站)/g,
@@ -221,25 +236,14 @@ export default function ContributePage() {
     const parsed = parseXhsShareText(xhsInput)
 
     if (parsed.isShareText) {
-      // Extract everything we can from share text
       if (parsed.title && !locationName) setLocationName(parsed.title)
       if (parsed.snippet && !description) setDescription(parsed.snippet.slice(0, 200))
 
-      // Build best address from available signals
       const addrParts: string[] = []
-      if (parsed.possibleAddress) {
-        addrParts.push(parsed.possibleAddress)
-      } else if (parsed.possibleDistrict) {
-        addrParts.push(parsed.possibleDistrict)
-      }
-      // If we have subway info but no address, use district+subway as hint
-      if (parsed.subwayInfo && !parsed.possibleAddress) {
-        addrParts.push(parsed.subwayInfo)
-      }
-
-      if (addrParts.length > 0 && !address) {
-        setAddress(addrParts.join(" "))
-      }
+      if (parsed.possibleAddress) addrParts.push(parsed.possibleAddress)
+      else if (parsed.possibleDistrict) addrParts.push(parsed.possibleDistrict)
+      if (parsed.subwayInfo && !parsed.possibleAddress) addrParts.push(parsed.subwayInfo)
+      if (addrParts.length > 0 && !address) setAddress(addrParts.join(" "))
 
       const what = [
         parsed.title && "title",
@@ -248,9 +252,34 @@ export default function ContributePage() {
         parsed.subwayInfo && "subway",
         parsed.xhsLocation && "location tag",
       ].filter(Boolean)
-      setParseMsg(what.length > 0 ? `Extracted: ${what.join(", ")}` : t("add_spot_parse_title_only"))
+
+      // If we have an XHS URL but no address, try fetching from the page
+      if (!parsed.possibleAddress && !parsed.possibleDistrict && parsed.url && XHS_URL_PATTERN.test(parsed.url)) {
+        setParseMsg(t("add_spot_fetching_url"))
+        try {
+          const res = await fetch(`/api/fetch-meta?url=${encodeURIComponent(parsed.url)}`)
+          if (res.ok) {
+            const meta = await res.json()
+            if (meta.title && meta.title !== parsed.title && !locationName) setLocationName(meta.title)
+            if (meta.possibleAddress && !address) setAddress(meta.possibleAddress)
+            if (meta.description && !description) setDescription(meta.description.slice(0, 200))
+            if (meta.possibleAddress) {
+              setParseMsg(`Extracted address from page: ${meta.possibleAddress}`)
+            } else if (meta.title) {
+              setParseMsg(`Got full title from page: ${meta.title.slice(0, 50)}...`)
+            } else {
+              setParseMsg(t("add_spot_fetch_url_failed"))
+            }
+          } else {
+            setParseMsg(what.length > 0 ? `Extracted: ${what.join(", ")}` : t("add_spot_parse_title_only"))
+          }
+        } catch {
+          setParseMsg(what.length > 0 ? `Extracted: ${what.join(", ")}` : t("add_spot_parse_title_only"))
+        }
+      } else {
+        setParseMsg(what.length > 0 ? `Extracted: ${what.join(", ")}` : t("add_spot_parse_title_only"))
+      }
     } else if (parsed.url) {
-      // Just a URL — try server-side fetch via Cloudflare Function
       setParseMsg(t("add_spot_fetching_url"))
       try {
         const res = await fetch(`/api/fetch-meta?url=${encodeURIComponent(parsed.url)}`)
@@ -259,13 +288,8 @@ export default function ContributePage() {
           if (meta.title && !locationName) setLocationName(meta.title)
           if (meta.description && !description) setDescription(meta.description.slice(0, 200))
           if (meta.possibleAddress && !address) setAddress(meta.possibleAddress)
-
           const extracted = [meta.title && "title", meta.possibleAddress && "address"].filter(Boolean)
-          if (extracted.length > 0) {
-            setParseMsg(`Extracted ${extracted.join(" & ")} from URL.`)
-          } else {
-            setParseMsg(t("add_spot_fetch_url_failed"))
-          }
+          setParseMsg(extracted.length > 0 ? `Extracted ${extracted.join(" & ")} from URL.` : t("add_spot_fetch_url_failed"))
         } else {
           setParseMsg(t("add_spot_fetch_url_failed"))
         }
@@ -273,16 +297,11 @@ export default function ContributePage() {
         setParseMsg(t("add_spot_fetch_url_failed"))
       }
     } else {
-      // Plain text — try extraction
       const addr = extractKoreanAddress(xhsInput)
       const district = inferDistrict(xhsInput)
       if (addr && !address) setAddress(addr)
       else if (district && !address) setAddress(district)
-      setParseMsg(
-        addr || district
-          ? t("add_spot_parse_title")
-          : t("add_spot_xhs_url_only")
-      )
+      setParseMsg(addr || district ? t("add_spot_parse_title") : t("add_spot_xhs_url_only"))
     }
     setParsing(false)
   }, [xhsInput, locationName, address, description, t])
