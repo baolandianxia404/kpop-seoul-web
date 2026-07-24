@@ -116,6 +116,7 @@ export const translations = {
   add_spot_xhs_url_only: { en: "It looks like you only pasted a URL. For auto-extraction, use Xiaohongshu's \"Copy Share Text\" instead of \"Copy Link\".", zh: "检测到你只粘贴了链接。想要自动提取信息，请使用小红书的「复制分享文案」而非「复制链接」。" },
   add_spot_parse_title: { en: "Extracted title & address from share text!", zh: "已从分享文案中提取标题和地址！" },
   add_spot_parse_title_only: { en: "Extracted title from share text. Please fill in the address manually.", zh: "已从分享文案中提取标题，请手动填写地址。" },
+  add_spot_parse_details: { en: "Extracted: {what}", zh: "已提取：{what}" },
   add_spot_fetching_url: { en: "Fetching page info from URL...", zh: "正在从链接获取页面信息..." },
   add_spot_fetch_url_failed: { en: "Couldn't fetch page info (site may block automated access). Try pasting the full share text instead!", zh: "无法获取页面信息（网站可能限制访问），试试粘贴完整的分享文案吧！" },
   add_spot_parse_btn: { en: "Extract", zh: "提取信息" },
