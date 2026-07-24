@@ -35,6 +35,11 @@ export const metadata: Metadata = {
     "seoul kpop tour",
     "kpop album shops seoul",
   ],
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
   openGraph: {
     title: "Kpop Seoul Map — Discover Kpop Spots in Seoul",
     description: "Interactive map of 170+ Kpop locations. Plan your ultimate Kpop trip.",
