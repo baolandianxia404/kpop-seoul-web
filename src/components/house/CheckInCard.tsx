@@ -125,38 +125,43 @@ export default function CheckInCard({ checkIn, onDelete }: Props) {
   }
 
   return (
-    <div className="bg-white animate-slide-up" style={{
+    <div className="bg-white animate-slide-up overflow-hidden" style={{
       border: "2px solid #e2e8f0",
-      boxShadow: "3px 3px 0 0 rgba(0,0,0,0.03)",
+      boxShadow: "3px 3px 0 0 rgba(0,0,0,0.04)",
     }}>
       {/* User info row */}
-      <div className="flex items-center gap-2 p-4 pb-2">
-        <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold font-mono text-blue-600 flex-shrink-0">
-          {(profile?.display_name || "?").slice(0, 2).toUpperCase()}
+      <div className="flex items-center gap-3 p-4 pb-2">
+        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center text-xs font-bold font-mono text-blue-600 flex-shrink-0 border-2 border-blue-100">
+          {(profile?.display_name || checkIn.user_id).slice(0, 2).toUpperCase()}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-bold font-mono text-slate-700 truncate">
-            {profile?.display_name || "Unknown"}
+          <p className="text-xs font-bold text-slate-700 truncate">
+            {profile?.display_name || checkIn.user_id.slice(0, 8)}
           </p>
-          <p className="text-[10px] font-mono text-slate-400">{timeAgo(checkIn.created_at, t)}</p>
+          <p className="text-[10px] text-slate-400">{timeAgo(checkIn.created_at, t)}</p>
         </div>
         {isOwner && (
-          <button onClick={handleDelete} className="text-[10px] font-mono text-slate-300 hover:text-red-400 transition">
+          <button onClick={handleDelete} className="text-xs text-slate-300 hover:text-red-400 transition px-1">
             🗑
           </button>
         )}
       </div>
 
-      {/* Content */}
+      {/* Spot + Location */}
       <div className="px-4 pb-2">
-        <p className="text-sm font-bold font-mono text-slate-800">📍 {checkIn.spot_name}</p>
+        <div className="flex items-center gap-2">
+          <span className="text-sm">📍</span>
+          <p className="text-sm font-bold text-slate-800">{checkIn.spot_name}</p>
+        </div>
         {checkIn.spot_location && (
-          <p className="text-[10px] font-mono text-slate-400 mt-0.5">{checkIn.spot_location}</p>
+          <p className="text-[10px] text-slate-400 mt-0.5 ml-6">{checkIn.spot_location}</p>
         )}
       </div>
 
       {checkIn.content && (
-        <p className="px-4 pb-3 text-sm text-slate-600 leading-relaxed whitespace-pre-wrap">{checkIn.content}</p>
+        <div className="px-4 pb-3">
+          <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-wrap pl-6 border-l-2 border-blue-100">{checkIn.content}</p>
+        </div>
       )}
 
       {checkIn.photos && checkIn.photos.length > 0 && (
@@ -164,10 +169,10 @@ export default function CheckInCard({ checkIn, onDelete }: Props) {
       )}
 
       {/* Actions bar */}
-      <div className="flex items-center gap-1 px-4 py-2 border-t border-slate-100 mt-2">
+      <div className="flex items-center gap-1 px-4 py-2.5 border-t border-slate-100 mt-2 bg-slate-50/50">
         <button
           onClick={toggleLike}
-          className={`flex items-center gap-1 px-3 py-1.5 text-xs font-mono transition ${
+          className={`flex items-center gap-1 px-3 py-1.5 text-xs font-mono rounded-lg transition ${
             liked ? "text-red-500 bg-red-50" : "text-slate-400 hover:text-red-400 hover:bg-red-50"
           }`}
         >
@@ -175,7 +180,7 @@ export default function CheckInCard({ checkIn, onDelete }: Props) {
         </button>
         <button
           onClick={() => setShowComments(!showComments)}
-          className={`flex items-center gap-1 px-3 py-1.5 text-xs font-mono transition ${
+          className={`flex items-center gap-1 px-3 py-1.5 text-xs font-mono rounded-lg transition ${
             showComments ? "text-blue-500 bg-blue-50" : "text-slate-400 hover:text-blue-400 hover:bg-blue-50"
           }`}
         >
@@ -185,33 +190,33 @@ export default function CheckInCard({ checkIn, onDelete }: Props) {
 
       {/* Comments section */}
       {showComments && (
-        <div className="border-t border-slate-100 bg-slate-50/50">
-          <div className="px-4 py-2 space-y-2 max-h-48 overflow-y-auto">
+        <div className="border-t border-slate-100 bg-white">
+          <div className="px-4 py-3 space-y-2.5 max-h-52 overflow-y-auto">
             {comments.length === 0 && (
-              <p className="text-[10px] font-mono text-slate-300 text-center py-2">{t("checkin_no_comments")}</p>
+              <p className="text-[10px] text-slate-300 text-center py-2">{t("checkin_no_comments")}</p>
             )}
             {comments.map((c) => (
               <div key={c.id} className="flex gap-2">
-                <span className="text-[10px] font-bold font-mono text-slate-500 flex-shrink-0">
+                <span className="text-[10px] font-bold text-slate-400 flex-shrink-0 bg-slate-50 px-1.5 py-0.5 rounded">
                   {c.profile?.display_name || "?"}
                 </span>
-                <p className="text-xs text-slate-600">{c.content}</p>
+                <p className="text-xs text-slate-600 leading-relaxed">{c.content}</p>
               </div>
             ))}
           </div>
           {user && (
-            <div className="flex items-center gap-2 px-4 py-2 border-t border-slate-100 bg-white">
+            <div className="flex items-center gap-2 px-4 py-2.5 border-t border-slate-100 bg-slate-50/30">
               <input
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && addComment()}
                 placeholder={t("checkin_comment_placeholder")}
-                className="flex-1 text-xs px-2 py-1.5 border border-slate-200 outline-none font-mono focus:border-blue-300"
+                className="flex-1 text-xs px-3 py-1.5 rounded-lg border border-slate-200 outline-none bg-white focus:border-blue-300 transition"
               />
               <button
                 onClick={addComment}
                 disabled={submitting || !commentText.trim()}
-                className="text-xs px-3 py-1.5 bg-blue-500 text-white font-mono disabled:opacity-30 hover:bg-blue-600 transition"
+                className="text-xs px-3 py-1.5 rounded-lg bg-blue-500 text-white font-bold disabled:opacity-30 hover:bg-blue-600 transition"
               >
                 →
               </button>

@@ -123,13 +123,19 @@ export default function CheckInForm({ groupId, onSuccess }: Props) {
           onChange={(e) => setSpotLocation(e.target.value)}
           className="w-full px-3 py-2 text-sm border-2 border-slate-300 focus:border-blue-400 outline-none font-mono"
         />
-        <textarea
-          placeholder={t("house_post_placeholder")}
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          rows={3}
-          className="w-full px-3 py-2 text-sm border-2 border-slate-300 focus:border-blue-400 outline-none font-mono resize-none"
-        />
+        <div className="relative">
+          <textarea
+            placeholder={t("house_post_placeholder")}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            rows={3}
+            maxLength={500}
+            className="w-full px-3 py-2 text-sm border-2 border-slate-300 focus:border-blue-400 outline-none font-mono resize-none"
+          />
+          <span className={`absolute bottom-2 right-2 text-[10px] font-mono ${content.length > 400 ? "text-amber-500" : "text-slate-300"}`}>
+            {content.length}/500
+          </span>
+        </div>
 
         {/* Photo previews */}
         {previews.length > 0 && (

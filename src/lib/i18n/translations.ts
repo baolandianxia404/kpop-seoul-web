@@ -93,6 +93,7 @@ export const translations = {
   house_new_checkin: { en: "📝 NEW CHECK-IN", zh: "📝 新打卡" },
   house_loading: { en: "Loading check-ins...", zh: "加载打卡中..." },
   house_empty_msg: { en: "Be the first to share your pilgrimage story.", zh: "来做第一个打卡的粉丝吧！" },
+  house_my_fandom: { en: "My Fandom", zh: "我的本命" },
 
   // Check in card
   checkin_delete: { en: "Delete", zh: "删除" },
