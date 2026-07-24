@@ -43,26 +43,14 @@ export default function LocationsPage() {
   const [search, setSearch] = useState("")
   const [sortBy, setSortBy] = useState<"rating" | "name">("rating")
   const [clickCount, setClickCount] = useState(0)
+  const [filtered, setFiltered] = useState(locations)
   const resultsRef = useRef<HTMLDivElement>(null)
-
-  // Debug: log state changes
-  useEffect(() => {
-    console.log("[STATE]", { activeType, activeDistrict, activeSubwayLine, search, sortBy, clickCount })
-  }, [activeType, activeDistrict, activeSubwayLine, search, sortBy, clickCount])
-
-  // Scroll to results when filters change
-  useEffect(() => {
-    if (activeType || activeDistrict || activeSubwayLine || search) {
-      resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
-    }
-  }, [activeType, activeDistrict, activeSubwayLine, search])
 
   // Pre-compute counts per filter
   const counts = useMemo(() => {
     const byType: Record<string, number> = {}
     const byDistrict: Record<string, number> = {}
     const bySubway: Record<string, number> = {}
-
     for (const l of locations) {
       byType[l.type] = (byType[l.type] || 0) + 1
       byDistrict[l.location.district] = (byDistrict[l.location.district] || 0) + 1
@@ -73,14 +61,13 @@ export default function LocationsPage() {
     return { byType, byDistrict, bySubway }
   }, [])
 
-  const filtered = useMemo(() => {
-    console.log("[FILTER] computing, activeDistrict:", JSON.stringify(activeDistrict), "activeSubwayLine:", JSON.stringify(activeSubwayLine))
+  // Compute filtered list via useEffect instead of useMemo
+  useEffect(() => {
     let result = [...locations]
-    console.log("[FILTER] initial count:", result.length)
 
-    if (activeType) { result = result.filter((l) => l.type === activeType); console.log("[FILTER] after type:", result.length) }
-    if (activeDistrict) { result = result.filter((l) => l.location.district === activeDistrict); console.log("[FILTER] after district:", result.length) }
-    if (activeSubwayLine) { result = result.filter((l) => matchesSubwayLine(l, activeSubwayLine)); console.log("[FILTER] after subway:", result.length) }
+    if (activeType) result = result.filter((l) => l.type === activeType)
+    if (activeDistrict) result = result.filter((l) => l.location.district === activeDistrict)
+    if (activeSubwayLine) result = result.filter((l) => matchesSubwayLine(l, activeSubwayLine))
     if (search) {
       const q = search.toLowerCase()
       result = result.filter(
@@ -92,15 +79,14 @@ export default function LocationsPage() {
           l.transport?.subway?.station?.toLowerCase().includes(q) ||
           getSubwayLines(l).some((line) => line.toLowerCase().includes(q))
       )
-      console.log("[FILTER] after search:", result.length)
     }
 
     if (sortBy === "rating") result.sort((a, b) => (b.rating || 0) - (a.rating || 0))
     else result.sort((a, b) => a.name.localeCompare(b.name))
 
-    console.log("[FILTER] final count:", result.length)
-    return result
-  }, [activeType, activeDistrict, activeSubwayLine, search, sortBy])
+    console.log("[EFFECT] filter applied:", { activeDistrict, activeSubwayLine, before: filtered.length, after: result.length })
+    setFiltered(result)
+  }, [activeType, activeDistrict, activeSubwayLine, search, sortBy]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const hasActiveFilters = !!(activeType || activeDistrict || activeSubwayLine || search)
 
