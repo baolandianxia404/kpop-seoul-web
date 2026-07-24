@@ -402,7 +402,7 @@ export const groups: Group[] = [
     "debutYear": 2005,
     "memberCount": 9,
     "fandomName": "ELF",
-    "color": "#69B4E6",
+    "color": "#0056A7",
     "popularity": 88
   },
   {
