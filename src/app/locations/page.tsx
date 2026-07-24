@@ -1,9 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { locations } from "@/lib/data/locations"
 import { DISTRICTS } from "@/lib/utils/constants"
-import LocationCard from "@/components/location/LocationCard"
 
 function getSubwayLines(loc: (typeof locations)[number]): string[] {
   const raw = loc.transport?.subway?.line
@@ -16,8 +15,12 @@ const ALL_SUBWAY_LINES = [...new Set(locations.flatMap((l) => getSubwayLines(l))
 export default function LocationsPage() {
   const [district, setDistrict] = useState("")
   const [subway, setSubway] = useState("")
+  const [mounted, setMounted] = useState(false)
 
-  // Simple inline filter
+  // Skip hydration: only render after client-side mount
+  useEffect(() => { setMounted(true) }, [])
+
+  // Inline filter
   let result = [...locations]
   if (district) result = result.filter((l) => l.location.district === district)
   if (subway) result = result.filter((l) => getSubwayLines(l).includes(subway))
@@ -26,7 +29,7 @@ export default function LocationsPage() {
     <div className="max-w-6xl mx-auto px-4 py-6">
       <h1 className="text-2xl font-bold mb-4">Locations</h1>
 
-      {/* District filter */}
+      {/* Filters — always interactive */}
       <div className="flex flex-wrap gap-2 mb-4">
         <button onClick={() => setDistrict("")} className={`px-3 py-1 text-sm rounded ${district === "" ? "bg-black text-white" : "bg-gray-100"}`}>
           All ({locations.length})
@@ -38,7 +41,6 @@ export default function LocationsPage() {
         ))}
       </div>
 
-      {/* Subway filter */}
       <div className="flex flex-wrap gap-2 mb-4">
         <button onClick={() => setSubway("")} className={`px-3 py-1 text-sm rounded ${subway === "" ? "bg-black text-white" : "bg-gray-100"}`}>
           All
@@ -50,20 +52,22 @@ export default function LocationsPage() {
         ))}
       </div>
 
-      {/* Status */}
       <p className="mb-4 text-sm text-gray-500">
         district="{district}" subway="{subway}" → {result.length} results
+        {!mounted && " (hydrating...)"}
       </p>
 
-      {/* Results — force remount on filter change */}
-      <div key={`${district}|${subway}`} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {result.map((loc, i) => (
-          <div key={loc.id} className="p-2 border text-sm">
-            <span className="text-gray-400 text-xs">{i + 1}.</span> {loc.name}
-            <span className="text-gray-300 text-xs ml-1">— {loc.location.district}</span>
-          </div>
-        ))}
-      </div>
+      {/* Only render results after client-side mount to avoid hydration conflicts */}
+      {mounted && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {result.map((loc) => (
+            <div key={loc.id} className="p-2 border text-sm">
+              {loc.name}
+              <span className="text-gray-300 text-xs ml-1">— {loc.location.district}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
