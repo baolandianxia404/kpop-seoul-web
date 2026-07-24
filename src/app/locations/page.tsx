@@ -55,13 +55,15 @@ export default function LocationsPage() {
         district="{district}" subway="{subway}" → {result.length} results
       </p>
 
-      {/* Results */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {result.map((loc) => (
-          <div key={loc.id} className="p-2 border">{loc.name}</div>
+      {/* Results — force remount on filter change */}
+      <div key={`${district}|${subway}`} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {result.map((loc, i) => (
+          <div key={loc.id} className="p-2 border text-sm">
+            <span className="text-gray-400 text-xs">{i + 1}.</span> {loc.name}
+            <span className="text-gray-300 text-xs ml-1">— {loc.location.district}</span>
+          </div>
         ))}
       </div>
-      <LocationCard location={locations[0]} />
     </div>
   )
 }
