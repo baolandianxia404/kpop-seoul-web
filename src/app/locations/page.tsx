@@ -1,21 +1,25 @@
 "use client"
 
-import { useState, useMemo } from "react"
-import Link from "next/link"
+import { useState, useMemo, useRef, useEffect } from "react"
 import { locations } from "@/lib/data/locations"
 import { LOCATION_TYPES, TYPE_NAME_CN, DISTRICTS } from "@/lib/utils/constants"
 import LocationCard from "@/components/location/LocationCard"
 import type { LocationType } from "@/types"
 import { useLang } from "@/components/LanguageProvider"
 
+function getSubwayLines(loc: (typeof locations)[number]): string[] {
+  const raw = loc.transport?.subway?.line
+  if (!raw) return []
+  return raw.split("/").map((s) => s.trim()).filter(Boolean)
+}
+
+function matchesSubwayLine(loc: (typeof locations)[number], line: string): boolean {
+  return getSubwayLines(loc).includes(line)
+}
+
 // Extract unique subway lines from data
 const ALL_SUBWAY_LINES = [...new Set(
-  locations
-    .filter((l) => l.transport?.subway?.line)
-    .map((l) => l.transport!.subway!.line.split("/"))
-    .flat()
-    .map((line) => line.trim())
-    .filter(Boolean)
+  locations.flatMap((l) => getSubwayLines(l))
 )].sort((a, b) => {
   const na = parseInt(a.replace(/[^0-9]/g, "")) || 99
   const nb = parseInt(b.replace(/[^0-9]/g, "")) || 99
@@ -38,6 +42,14 @@ export default function LocationsPage() {
   const [activeSubwayLine, setActiveSubwayLine] = useState("")
   const [search, setSearch] = useState("")
   const [sortBy, setSortBy] = useState<"rating" | "name">("rating")
+  const resultsRef = useRef<HTMLDivElement>(null)
+
+  // Scroll to results when filters change
+  useEffect(() => {
+    if (activeType || activeDistrict || activeSubwayLine || search) {
+      resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+  }, [activeType, activeDistrict, activeSubwayLine, search])
 
   // Pre-compute counts per filter
   const counts = useMemo(() => {
@@ -48,11 +60,8 @@ export default function LocationsPage() {
     for (const l of locations) {
       byType[l.type] = (byType[l.type] || 0) + 1
       byDistrict[l.location.district] = (byDistrict[l.location.district] || 0) + 1
-      if (l.transport?.subway?.line) {
-        for (const line of l.transport.subway.line.split("/")) {
-          const trimmed = line.trim()
-          if (trimmed) bySubway[trimmed] = (bySubway[trimmed] || 0) + 1
-        }
+      for (const line of getSubwayLines(l)) {
+        bySubway[line] = (bySubway[line] || 0) + 1
       }
     }
     return { byType, byDistrict, bySubway }
@@ -63,11 +72,7 @@ export default function LocationsPage() {
 
     if (activeType) result = result.filter((l) => l.type === activeType)
     if (activeDistrict) result = result.filter((l) => l.location.district === activeDistrict)
-    if (activeSubwayLine) {
-      result = result.filter((l) =>
-        l.transport?.subway?.line?.split("/").map((s) => s.trim()).includes(activeSubwayLine)
-      )
-    }
+    if (activeSubwayLine) result = result.filter((l) => matchesSubwayLine(l, activeSubwayLine))
     if (search) {
       const q = search.toLowerCase()
       result = result.filter(
@@ -77,7 +82,7 @@ export default function LocationsPage() {
           l.description.toLowerCase().includes(q) ||
           l.groupNames.some((g) => g.toLowerCase().includes(q)) ||
           l.transport?.subway?.station?.toLowerCase().includes(q) ||
-          l.transport?.subway?.line?.toLowerCase().includes(q)
+          getSubwayLines(l).some((line) => line.toLowerCase().includes(q))
       )
     }
 
@@ -86,6 +91,8 @@ export default function LocationsPage() {
 
     return result
   }, [activeType, activeDistrict, activeSubwayLine, search, sortBy])
+
+  const hasActiveFilters = !!(activeType || activeDistrict || activeSubwayLine || search)
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
@@ -210,8 +217,8 @@ export default function LocationsPage() {
       {/* Sort + Results count */}
       <div className="flex items-center justify-between mb-4 text-xs font-mono text-slate-400">
         <span>
-          {filtered.length} / {locations.length} SPOTS
-          {(activeType || activeDistrict || activeSubwayLine || search) && " (filtered)"}
+          <span className="font-bold text-slate-600">{filtered.length}</span> / {locations.length} SPOTS
+          {hasActiveFilters && " (filtered)"}
         </span>
         <div className="flex gap-2">
           <button
@@ -229,7 +236,45 @@ export default function LocationsPage() {
         </div>
       </div>
 
+      {/* Active filter badges */}
+      {hasActiveFilters && (
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
+          <span className="text-[10px] text-slate-400 font-mono">Active:</span>
+          {activeType && (
+            <span className="px-2 py-0.5 text-[10px] font-mono bg-slate-800 text-white rounded-full flex items-center gap-1">
+              {CATEGORIES.find((c) => c.key === activeType)?.icon} {activeType}
+              <button onClick={() => setActiveType("")} className="ml-0.5 text-white/60 hover:text-white">✕</button>
+            </span>
+          )}
+          {activeSubwayLine && (
+            <span className="px-2 py-0.5 text-[10px] font-mono bg-green-500 text-white rounded-full flex items-center gap-1">
+              🚇 {activeSubwayLine}
+              <button onClick={() => setActiveSubwayLine("")} className="ml-0.5 text-white/60 hover:text-white">✕</button>
+            </span>
+          )}
+          {activeDistrict && (
+            <span className="px-2 py-0.5 text-[10px] font-mono bg-amber-400 text-white rounded-full flex items-center gap-1">
+              📍 {activeDistrict}
+              <button onClick={() => setActiveDistrict("")} className="ml-0.5 text-white/60 hover:text-white">✕</button>
+            </span>
+          )}
+          {search && (
+            <span className="px-2 py-0.5 text-[10px] font-mono bg-blue-500 text-white rounded-full flex items-center gap-1">
+              🔍 "{search}"
+              <button onClick={() => setSearch("")} className="ml-0.5 text-white/60 hover:text-white">✕</button>
+            </span>
+          )}
+          <button
+            onClick={() => { setActiveType(""); setActiveDistrict(""); setActiveSubwayLine(""); setSearch("") }}
+            className="text-[10px] font-mono text-slate-400 hover:text-red-400 underline"
+          >
+            Clear all
+          </button>
+        </div>
+      )}
+
       {/* Results Grid */}
+      <div ref={resultsRef}>
       {filtered.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map((loc, i) => (
@@ -254,6 +299,7 @@ export default function LocationsPage() {
           </button>
         </div>
       )}
+      </div>
 
       {/* Footer hint */}
       <div className="text-center mt-10 pb-4">

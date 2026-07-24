@@ -5969,7 +5969,7 @@ export const locations: Location[] = [
     },
     "transport": {
       "subway": {
-        "line": "机场快线AREX",
+        "line": "机场快线",
         "station": "仁川机场T1站",
         "exit": "1/2号出口",
         "walkingMinutes": 5
