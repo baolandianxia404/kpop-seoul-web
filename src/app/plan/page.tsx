@@ -9,6 +9,8 @@ import BudgetSelector from "@/components/planner/BudgetSelector"
 import PreferencePicker from "@/components/planner/PreferencePicker"
 import PendingSpots from "@/components/planner/PendingSpots"
 import { getPendingSpots, removePendingSpot } from "@/lib/store/pending-spots"
+import { getLocationsByGroupIds } from "@/lib/data/locations"
+import { generateFallbackItinerary } from "@/lib/ai/fallback"
 import { useLang } from "@/components/LanguageProvider"
 
 export default function PlanPage() {
@@ -39,9 +41,31 @@ export default function PlanPage() {
     setPendingSpotIds((prev) => prev.filter((sid) => sid !== id))
   }
 
+  const generateClientSide = () => {
+    const locations = getLocationsByGroupIds(groupIds)
+
+    if (locations.length === 0) {
+      setErrorMsg("No locations found for selected groups. Please try other groups.")
+      setStatus("error")
+      return
+    }
+
+    const itinerary = generateFallbackItinerary(locations, days, pendingSpotIds)
+    itinerary.title = `Kpop Seoul ${days}-Day Tour`
+    const totalSpots = itinerary.days.reduce((sum, d) => sum + d.spots.length, 0)
+    const encoded = encodeURIComponent(
+      JSON.stringify({
+        ...itinerary,
+        params: { groupIds, days, preferences, budget },
+        totalSpots,
+      })
+    )
+    router.push(`/itinerary?data=${encoded}`)
+  }
+
   const handleGenerate = async () => {
     if (groupIds.length === 0) {
-      setErrorMsg("Please select at least one group.")
+      setErrorMsg(t("plan_error_no_group") || "Please select at least one group.")
       setStatus("error")
       return
     }
@@ -49,34 +73,35 @@ export default function PlanPage() {
     setStatus("loading")
     setErrorMsg("")
 
+    // Try API first
     try {
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 8000)
+
       const res = await fetch("/api/itinerary/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          groupIds,
-          days,
-          budget,
-          preferences,
-          pendingSpotIds,
-        }),
+        body: JSON.stringify({ groupIds, days, budget, preferences, pendingSpotIds }),
+        signal: controller.signal,
       })
 
-      const json = await res.json()
+      clearTimeout(timeout)
 
-      if (!json.success) {
-        setErrorMsg(json.error || "Failed to generate itinerary.")
-        setStatus("error")
-        return
+      if (res.ok) {
+        const json = await res.json()
+        if (json.success) {
+          const itinerary: Itinerary = json.data.itinerary
+          const encoded = encodeURIComponent(JSON.stringify(itinerary))
+          router.push(`/itinerary?data=${encoded}`)
+          return
+        }
       }
-
-      const itinerary: Itinerary = json.data.itinerary
-      const encoded = encodeURIComponent(JSON.stringify(itinerary))
-      router.push(`/itinerary?data=${encoded}`)
     } catch {
-      setErrorMsg("Network error. Please try again.")
-      setStatus("error")
+      // API unreachable — fall through to client-side generation
     }
+
+    // Client-side fallback (always works, no API keys needed)
+    generateClientSide()
   }
 
   return (
@@ -148,7 +173,7 @@ export default function PlanPage() {
 
       {/* Hint */}
       <p className="text-xs text-slate-400 text-center font-mono">
-        {t("plan_hint") || "AI-powered route planning with 3-tier fallback · 5 generations/day"}
+        {t("plan_hint") || "Works offline with smart routing. AI-enhanced when available."}
       </p>
     </div>
   )
