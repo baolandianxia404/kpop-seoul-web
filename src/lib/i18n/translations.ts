@@ -34,6 +34,9 @@ export const translations = {
   home_seoul: { en: "Seoul", zh: "首尔" },
   home_hint: { en: "Click markers to explore · Drag to pan · Scroll to zoom", zh: "点击标记探索 · 拖拽平移 · 滚轮缩放" },
   home_hot_places: { en: "Hot Places", zh: "热门打卡地" },
+  home_daily_pick: { en: "Today's Pick", zh: "今日推荐" },
+  home_latest_submissions: { en: "Latest Shares", zh: "最新投稿" },
+  home_untitled_spot: { en: "Untitled Spot", zh: "未命名地点" },
 
   // Auth
   auth_login_title: { en: "Sign In", zh: "登录" },

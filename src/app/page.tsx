@@ -2,6 +2,8 @@
 
 import MapWrapper from "@/components/map/MapWrapper"
 import HotPlaces from "@/components/home/HotPlaces"
+import DailyPick from "@/components/home/DailyPick"
+import LatestSubmissions from "@/components/home/LatestSubmissions"
 import { useLang } from "@/components/LanguageProvider"
 import { locations } from "@/lib/data/locations"
 import { groups } from "@/lib/data/groups"
@@ -109,6 +111,12 @@ export default function HomePage() {
 
         {/* Hot Places Ranking */}
         <HotPlaces />
+
+        {/* Daily Pick */}
+        <DailyPick />
+
+        {/* Latest Submissions */}
+        <LatestSubmissions />
 
         {/* Quick stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
