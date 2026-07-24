@@ -8,27 +8,66 @@ import LocationCard from "@/components/location/LocationCard"
 import type { LocationType } from "@/types"
 import { useLang } from "@/components/LanguageProvider"
 
-const CATEGORIES: { key: LocationType | ""; label: string; icon: string; pixel: string; translationKey?: string }[] = [
-  { key: "", label: "ALL", icon: "🌟", pixel: "◈", translationKey: "locations_filter_all" },
-  { key: "company", label: "公司", icon: "🏢", pixel: "▣" },
-  { key: "restaurant", label: "美食", icon: "🍽️", pixel: "◆" },
-  { key: "mv_spot", label: "MV", icon: "🎬", pixel: "▶" },
-  { key: "store", label: "周边", icon: "🛍️", pixel: "◉" },
-  { key: "entertainment", label: "娱乐", icon: "🎡", pixel: "★" },
+// Extract unique subway lines from data
+const ALL_SUBWAY_LINES = [...new Set(
+  locations
+    .filter((l) => l.transport?.subway?.line)
+    .map((l) => l.transport!.subway!.line.split("/"))
+    .flat()
+    .map((line) => line.trim())
+    .filter(Boolean)
+)].sort((a, b) => {
+  const na = parseInt(a.replace(/[^0-9]/g, "")) || 99
+  const nb = parseInt(b.replace(/[^0-9]/g, "")) || 99
+  return na - nb || a.localeCompare(b)
+})
+
+const CATEGORIES: { key: LocationType | ""; label: string; icon: string }[] = [
+  { key: "", label: "ALL", icon: "🌟" },
+  { key: "company", label: "公司", icon: "🏢" },
+  { key: "restaurant", label: "美食", icon: "🍽️" },
+  { key: "mv_spot", label: "MV", icon: "🎬" },
+  { key: "store", label: "周边", icon: "🛍️" },
+  { key: "entertainment", label: "娱乐", icon: "🎡" },
 ]
 
 export default function LocationsPage() {
   const { t } = useLang()
   const [activeType, setActiveType] = useState<LocationType | "">("")
   const [activeDistrict, setActiveDistrict] = useState("")
+  const [activeSubwayLine, setActiveSubwayLine] = useState("")
   const [search, setSearch] = useState("")
   const [sortBy, setSortBy] = useState<"rating" | "name">("rating")
+
+  // Pre-compute counts per filter
+  const counts = useMemo(() => {
+    const byType: Record<string, number> = {}
+    const byDistrict: Record<string, number> = {}
+    const bySubway: Record<string, number> = {}
+
+    for (const l of locations) {
+      byType[l.type] = (byType[l.type] || 0) + 1
+      byDistrict[l.location.district] = (byDistrict[l.location.district] || 0) + 1
+      if (l.transport?.subway?.line) {
+        for (const line of l.transport.subway.line.split("/")) {
+          const trimmed = line.trim()
+          if (trimmed) bySubway[trimmed] = (bySubway[trimmed] || 0) + 1
+        }
+      }
+    }
+    return { byType, byDistrict, bySubway }
+  }, [])
 
   const filtered = useMemo(() => {
     let result = [...locations]
 
     if (activeType) result = result.filter((l) => l.type === activeType)
     if (activeDistrict) result = result.filter((l) => l.location.district === activeDistrict)
+    if (activeSubwayLine) {
+      result = result.filter((l) =>
+        l.transport?.subway?.line?.split("/").map((s) => s.trim()).includes(activeSubwayLine)
+      )
+    }
     if (search) {
       const q = search.toLowerCase()
       result = result.filter(
@@ -36,7 +75,9 @@ export default function LocationsPage() {
           l.name.toLowerCase().includes(q) ||
           l.nameKo.includes(q) ||
           l.description.toLowerCase().includes(q) ||
-          l.groupNames.some((g) => g.toLowerCase().includes(q))
+          l.groupNames.some((g) => g.toLowerCase().includes(q)) ||
+          l.transport?.subway?.station?.toLowerCase().includes(q) ||
+          l.transport?.subway?.line?.toLowerCase().includes(q)
       )
     }
 
@@ -44,7 +85,7 @@ export default function LocationsPage() {
     else result.sort((a, b) => a.name.localeCompare(b.name))
 
     return result
-  }, [activeType, activeDistrict, search, sortBy])
+  }, [activeType, activeDistrict, activeSubwayLine, search, sortBy])
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
@@ -78,58 +119,99 @@ export default function LocationsPage() {
             </button>
           )}
         </div>
+        <p className="text-[10px] text-slate-300 font-mono mt-1">
+          Search by name, group, subway station or line
+        </p>
       </div>
 
-      {/* Category Filter Pills */}
+      {/* Category Filter */}
       <div className="flex flex-wrap gap-2 mb-3">
-        {CATEGORIES.map(({ key, label, icon, pixel, translationKey }) => (
+        {CATEGORIES.map(({ key, label, icon }) => (
           <button
             key={key}
             onClick={() => setActiveType(key)}
             className={`pixel-btn px-3 py-2.5 md:py-2 text-xs flex items-center gap-1 min-h-[44px] md:min-h-0 ${
               activeType === key
-                ? "bg-slate-800 text-white active"
+                ? "bg-slate-800 text-white"
                 : "bg-white text-slate-600 hover:bg-amber-50"
             }`}
           >
             <span className="text-sm">{icon}</span>
-            <span className="hidden sm:inline">{pixel}</span>
-            {translationKey ? t(translationKey as "locations_filter_all") : label}
+            <span>{key === "" ? t("locations_filter_all") : label}</span>
+            {key === "" ? (
+              <span className="text-[10px] opacity-60">({locations.length})</span>
+            ) : (
+              <span className="text-[10px] opacity-60">({counts.byType[key] || 0})</span>
+            )}
           </button>
         ))}
       </div>
 
-      {/* District Filter */}
-      <div className="flex gap-1.5 overflow-x-auto no-scrollbar mb-4 pb-1">
-        <button
-          onClick={() => setActiveDistrict("")}
-          className={`flex-shrink-0 px-2.5 py-1 rounded-full text-xs font-mono transition ${
-            activeDistrict === ""
-              ? "bg-blue-500 text-white"
-              : "bg-white text-slate-500 hover:bg-slate-50 border border-slate-200"
-          }`}
-        >
-          {t("locations_filter_all")}
-        </button>
-        {DISTRICTS.map((d) => (
+      {/* Subway Line Filter */}
+      <div className="mb-3">
+        <p className="text-[10px] font-mono text-slate-400 mb-1.5">🚇 Filter by subway line</p>
+        <div className="flex gap-1.5 overflow-x-auto no-scrollbar pb-1 flex-wrap">
           <button
-            key={d}
-            onClick={() => setActiveDistrict(d)}
-            className={`flex-shrink-0 px-2.5 py-1 rounded-full text-xs font-mono transition ${
-              activeDistrict === d
-                ? "bg-amber-400 text-white"
+            onClick={() => setActiveSubwayLine("")}
+            className={`flex-shrink-0 px-2 py-1 text-[10px] font-mono transition ${
+              activeSubwayLine === ""
+                ? "bg-green-500 text-white rounded-full"
+                : "bg-white text-slate-500 hover:bg-slate-50 border border-slate-200 rounded-full"
+            }`}
+          >
+            ALL
+          </button>
+          {ALL_SUBWAY_LINES.map((line) => (
+            <button
+              key={line}
+              onClick={() => setActiveSubwayLine(line)}
+              className={`flex-shrink-0 px-2.5 py-1 text-[10px] font-mono rounded-full transition ${
+                activeSubwayLine === line
+                  ? "bg-green-500 text-white"
+                  : "bg-white text-slate-500 hover:bg-green-50 border border-slate-200"
+              }`}
+            >
+              {line} <span className="opacity-60">({counts.bySubway[line] || 0})</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* District Filter */}
+      <div className="mb-4">
+        <p className="text-[10px] font-mono text-slate-400 mb-1.5">📍 Filter by district</p>
+        <div className="flex gap-1.5 overflow-x-auto no-scrollbar pb-1 flex-wrap">
+          <button
+            onClick={() => setActiveDistrict("")}
+            className={`flex-shrink-0 px-2.5 py-1 text-[10px] font-mono rounded-full transition ${
+              activeDistrict === ""
+                ? "bg-blue-500 text-white"
                 : "bg-white text-slate-500 hover:bg-slate-50 border border-slate-200"
             }`}
           >
-            {d}
+            {t("locations_filter_all")} ({locations.length})
           </button>
-        ))}
+          {DISTRICTS.map((d) => (
+            <button
+              key={d}
+              onClick={() => setActiveDistrict(d)}
+              className={`flex-shrink-0 px-2.5 py-1 text-[10px] font-mono rounded-full transition ${
+                activeDistrict === d
+                  ? "bg-amber-400 text-white"
+                  : "bg-white text-slate-500 hover:bg-slate-50 border border-slate-200"
+              }`}
+            >
+              {d} ({counts.byDistrict[d] || 0})
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Sort + Results count */}
       <div className="flex items-center justify-between mb-4 text-xs font-mono text-slate-400">
         <span>
           {filtered.length} / {locations.length} SPOTS
+          {(activeType || activeDistrict || activeSubwayLine || search) && " (filtered)"}
         </span>
         <div className="flex gap-2">
           <button
@@ -163,15 +245,22 @@ export default function LocationsPage() {
       ) : (
         <div className="text-center py-16">
           <p className="text-5xl mb-4">🔍</p>
-          <p className="font-mono text-slate-400">NO_SPOTS_FOUND...</p>
+          <p className="font-mono text-slate-400">No spots match this filter combination</p>
           <button
-            onClick={() => { setActiveType(""); setActiveDistrict(""); setSearch("") }}
+            onClick={() => { setActiveType(""); setActiveDistrict(""); setActiveSubwayLine(""); setSearch("") }}
             className="mt-3 pixel-btn px-4 py-2 text-xs bg-white text-slate-600"
           >
-            [RESET_FILTERS]
+            [RESET ALL FILTERS]
           </button>
         </div>
       )}
+
+      {/* Footer hint */}
+      <div className="text-center mt-10 pb-4">
+        <p className="text-xs text-gray-300 font-mono">
+          Tip: Search by subway station name (e.g. &quot;弘大入口&quot;) or line (e.g. &quot;2号线&quot;) to find spots along your route.
+        </p>
+      </div>
     </div>
   )
 }
