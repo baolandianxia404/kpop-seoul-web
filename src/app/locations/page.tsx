@@ -43,8 +43,14 @@ export default function LocationsPage() {
   const [search, setSearch] = useState("")
   const [sortBy, setSortBy] = useState<"rating" | "name">("rating")
   const [clickCount, setClickCount] = useState(0)
-  const [filtered, setFiltered] = useState(locations)
   const resultsRef = useRef<HTMLDivElement>(null)
+
+  // Scroll to results when filters change
+  useEffect(() => {
+    if (activeType || activeDistrict || activeSubwayLine || search) {
+      resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+  }, [activeType, activeDistrict, activeSubwayLine, search])
 
   // Pre-compute counts per filter
   const counts = useMemo(() => {
@@ -61,32 +67,26 @@ export default function LocationsPage() {
     return { byType, byDistrict, bySubway }
   }, [])
 
-  // Compute filtered list via useEffect instead of useMemo
-  useEffect(() => {
-    let result = [...locations]
-
-    if (activeType) result = result.filter((l) => l.type === activeType)
-    if (activeDistrict) result = result.filter((l) => l.location.district === activeDistrict)
-    if (activeSubwayLine) result = result.filter((l) => matchesSubwayLine(l, activeSubwayLine))
-    if (search) {
-      const q = search.toLowerCase()
-      result = result.filter(
-        (l) =>
-          l.name.toLowerCase().includes(q) ||
-          l.nameKo.includes(q) ||
-          l.description.toLowerCase().includes(q) ||
-          l.groupNames.some((g) => g.toLowerCase().includes(q)) ||
-          l.transport?.subway?.station?.toLowerCase().includes(q) ||
-          getSubwayLines(l).some((line) => line.toLowerCase().includes(q))
-      )
-    }
-
-    if (sortBy === "rating") result.sort((a, b) => (b.rating || 0) - (a.rating || 0))
-    else result.sort((a, b) => a.name.localeCompare(b.name))
-
-    console.log("[EFFECT] filter applied:", { activeDistrict, activeSubwayLine, before: filtered.length, after: result.length })
-    setFiltered(result)
-  }, [activeType, activeDistrict, activeSubwayLine, search, sortBy]) // eslint-disable-line react-hooks/exhaustive-deps
+  // Compute filtered list inline during render — no hooks, no stale values
+  let result = [...locations]
+  if (activeType) result = result.filter((l) => l.type === activeType)
+  if (activeDistrict) result = result.filter((l) => l.location.district === activeDistrict)
+  if (activeSubwayLine) result = result.filter((l) => matchesSubwayLine(l, activeSubwayLine))
+  if (search) {
+    const q = search.toLowerCase()
+    result = result.filter(
+      (l) =>
+        l.name.toLowerCase().includes(q) ||
+        l.nameKo.includes(q) ||
+        l.description.toLowerCase().includes(q) ||
+        l.groupNames.some((g) => g.toLowerCase().includes(q)) ||
+        l.transport?.subway?.station?.toLowerCase().includes(q) ||
+        getSubwayLines(l).some((line) => line.toLowerCase().includes(q))
+    )
+  }
+  if (sortBy === "rating") result.sort((a, b) => (b.rating || 0) - (a.rating || 0))
+  else result.sort((a, b) => a.name.localeCompare(b.name))
+  const filtered = result
 
   const hasActiveFilters = !!(activeType || activeDistrict || activeSubwayLine || search)
 
