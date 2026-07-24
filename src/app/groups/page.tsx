@@ -1,19 +1,16 @@
-import type { Metadata } from "next"
+"use client"
+
 import { groups } from "@/lib/data/groups"
 import GroupCard from "@/components/group/GroupCard"
-
-export const metadata: Metadata = {
-  title: "Kpop Groups & Artists — Seoul Map",
-  description:
-    "Browse 30+ Kpop groups — BTS, BLACKPINK, TWICE, SEVENTEEN, NewJeans and more. Find their company buildings, filming spots, and favorite restaurants in Seoul.",
-}
+import { useLang } from "@/components/LanguageProvider"
 
 export default function GroupsPage() {
+  const { t } = useLang()
   const sorted = [...groups].sort((a, b) => b.popularity - a.popularity)
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
-      <h1 className="text-3xl font-bold mb-2">Kpop Groups & Artists</h1>
+      <h1 className="text-3xl font-bold mb-2">{t("groups_title")}</h1>
       <p className="text-gray-500 mb-6">
         {groups.length} groups &mdash; select one to see all their Seoul spots
       </p>

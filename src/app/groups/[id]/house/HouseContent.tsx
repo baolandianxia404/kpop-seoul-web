@@ -7,11 +7,13 @@ import { useAuth } from "@/components/auth/AuthProvider"
 import { getGroupById } from "@/lib/data/groups"
 import { groups } from "@/lib/data/groups"
 import type { CheckInRow } from "@/types"
+import { useLang } from "@/components/LanguageProvider"
 import CheckInForm from "@/components/house/CheckInForm"
 import CheckInCard from "@/components/house/CheckInCard"
 
 export default function HouseContent({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
+  const { t } = useLang()
   const { user, profile, loading: authLoading } = useAuth()
   const [checkIns, setCheckIns] = useState<CheckInRow[]>([])
   const [loading, setLoading] = useState(true)
@@ -52,9 +54,9 @@ export default function HouseContent({ params }: { params: Promise<{ id: string 
     return (
       <div className="max-w-lg mx-auto px-4 py-16 text-center">
         <p className="text-4xl mb-4">🏠</p>
-        <p className="font-mono text-slate-400">House not found.</p>
+        <p className="font-mono text-slate-400">{t("common_not_found")}</p>
         <Link href="/groups" className="mt-4 inline-block pixel-btn px-4 py-2 text-xs bg-white text-slate-600">
-          ← BACK TO GROUPS
+          {t("common_back_groups")}
         </Link>
       </div>
     )
@@ -75,50 +77,51 @@ export default function HouseContent({ params }: { params: Promise<{ id: string 
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="text-2xl">🏠</span>
-              <h1 className="text-2xl font-bold pixel-font">{group.name} House</h1>
+              <h1 className="text-2xl font-bold pixel-font">{group.name} {t("house_title")}</h1>
             </div>
             <p className="text-white/70 text-xs font-mono">
-              {group.fandomName} gathering place
+              {t("house_gathering")}
             </p>
           </div>
           <Link
             href={`/groups/${id}`}
             className="pixel-btn px-3 py-1.5 text-xs bg-white/20 text-white border-white/30"
           >
-            ← SPOTS
+            {t("common_back_spots")}
           </Link>
         </div>
       </div>
 
       {/* Auth check */}
       {authLoading ? (
-        <p className="text-center font-mono text-slate-400 py-8">Loading...</p>
+        <p className="text-center font-mono text-slate-400 py-8">{t("common_loading")}</p>
       ) : !user ? (
         <div className="text-center p-6 bg-blue-50 border-2 border-dashed border-blue-200 mb-6">
-          <p className="font-bold pixel-font text-slate-700 mb-2">🔒 Fandom Members Only</p>
+          <p className="font-bold pixel-font text-slate-700 mb-2">🔒 {t("house_locked_title")}</p>
           <p className="text-xs text-slate-400 font-mono mb-3">
-            Sign in and join {group.name}&apos;s fandom to see check-ins.
+            {t("house_locked_msg").replace("{groupName}", group.name)}
           </p>
           <Link href="/auth/register" className="pixel-btn px-4 py-2 bg-blue-500 text-white text-xs inline-block">
-            JOIN FANDOM
+            {t("house_join_fandom")}
           </Link>
-          <span className="mx-2 text-xs font-mono text-slate-400">or</span>
+          <span className="mx-2 text-xs font-mono text-slate-400">{t("common_or")}</span>
           <Link href="/auth/login" className="text-xs font-mono text-blue-500 underline">
-            Sign In
+            {t("auth_login_link")}
           </Link>
         </div>
       ) : !isMyHouse ? (
         <div className="text-center p-6 bg-amber-50 border-2 border-dashed border-amber-200 mb-6">
-          <p className="font-bold pixel-font text-slate-700 mb-2">🏠 This is {group.name}&apos;s House</p>
+          <p className="font-bold pixel-font text-slate-700 mb-2">🏠 {t("house_not_yours")}</p>
           <p className="text-xs text-slate-400 font-mono mb-3">
-            You&apos;re a {groups.find((g) => g.id === profile?.fan_group_id)?.name || "?"} fan.
-            Only {group.name} fandom members can view posts here.
+            {t("house_not_yours_msg")
+              .replace("{myGroup}", groups.find((g) => g.id === profile?.fan_group_id)?.name || "?")
+              .replace("{houseGroup}", group.name)}
           </p>
           <Link
             href={`/groups/${profile?.fan_group_id || "bts"}/house`}
             className="pixel-btn px-4 py-2 bg-amber-400 text-white text-xs inline-block"
           >
-            GO TO MY HOUSE →
+            {t("house_go_mine")}
           </Link>
         </div>
       ) : (
@@ -126,13 +129,13 @@ export default function HouseContent({ params }: { params: Promise<{ id: string 
           {/* Post button */}
           <div className="flex items-center justify-between mb-4">
             <span className="text-sm font-mono text-slate-400">
-              {checkIns.length} check-ins
+              {t("house_checkin_count").replace("{n}", String(checkIns.length))}
             </span>
             <button
               onClick={() => setShowForm(!showForm)}
               className="pixel-btn px-4 py-2 bg-blue-500 text-white text-xs"
             >
-              {showForm ? "✕ CANCEL" : "📝 NEW CHECK-IN"}
+              {showForm ? "✕ " + t("common_cancel") : t("house_new_checkin")}
             </button>
           </div>
 
@@ -151,14 +154,14 @@ export default function HouseContent({ params }: { params: Promise<{ id: string 
           {/* Feed */}
           {loading ? (
             <p className="text-center font-mono text-slate-400 py-8 animate-pulse">
-              Loading check-ins...
+              {t("house_loading")}
             </p>
           ) : checkIns.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-5xl mb-4">📭</p>
-              <p className="font-bold pixel-font text-slate-700 mb-1">No check-ins yet!</p>
+              <p className="font-bold pixel-font text-slate-700 mb-1">{t("house_empty")}</p>
               <p className="text-xs text-slate-400 font-mono">
-                Be the first to share your pilgrimage story.
+                {t("house_empty_msg")}
               </p>
             </div>
           ) : (

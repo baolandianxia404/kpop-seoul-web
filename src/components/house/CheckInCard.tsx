@@ -3,15 +3,19 @@
 import { useState, useEffect, useCallback } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { useAuth } from "@/components/auth/AuthProvider"
+import { useLang } from "@/components/LanguageProvider"
 import type { CheckInRow } from "@/types"
 import PhotoGrid from "./PhotoGrid"
 
-function timeAgo(dateStr: string): string {
+import type { TranslationKey } from "@/lib/i18n/translations"
+type TFunc = (key: TranslationKey) => string
+
+function timeAgo(dateStr: string, t: TFunc): string {
   const seconds = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000)
-  if (seconds < 60) return "just now"
-  if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`
-  if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`
-  if (seconds < 604800) return `${Math.floor(seconds / 86400)}d ago`
+  if (seconds < 60) return t("checkin_just_now")
+  if (seconds < 3600) return `${Math.floor(seconds / 60)}${t("checkin_min_ago")}`
+  if (seconds < 86400) return `${Math.floor(seconds / 3600)}${t("checkin_h_ago")}`
+  if (seconds < 604800) return `${Math.floor(seconds / 86400)}${t("checkin_d_ago")}`
   return new Date(dateStr).toLocaleDateString()
 }
 
@@ -29,6 +33,7 @@ interface Props {
 }
 
 export default function CheckInCard({ checkIn, onDelete }: Props) {
+  const { t } = useLang()
   const { user } = useAuth()
   const isOwner = user?.id === checkIn.user_id
   const profile = checkIn.profile
@@ -114,7 +119,7 @@ export default function CheckInCard({ checkIn, onDelete }: Props) {
   }
 
   const handleDelete = async () => {
-    if (!confirm("Delete this check-in?")) return
+    if (!confirm(t("checkin_delete_confirm"))) return
     await supabase.from("check_ins").delete().eq("id", checkIn.id)
     onDelete()
   }
@@ -133,7 +138,7 @@ export default function CheckInCard({ checkIn, onDelete }: Props) {
           <p className="text-xs font-bold font-mono text-slate-700 truncate">
             {profile?.display_name || "Unknown"}
           </p>
-          <p className="text-[10px] font-mono text-slate-400">{timeAgo(checkIn.created_at)}</p>
+          <p className="text-[10px] font-mono text-slate-400">{timeAgo(checkIn.created_at, t)}</p>
         </div>
         {isOwner && (
           <button onClick={handleDelete} className="text-[10px] font-mono text-slate-300 hover:text-red-400 transition">
@@ -183,7 +188,7 @@ export default function CheckInCard({ checkIn, onDelete }: Props) {
         <div className="border-t border-slate-100 bg-slate-50/50">
           <div className="px-4 py-2 space-y-2 max-h-48 overflow-y-auto">
             {comments.length === 0 && (
-              <p className="text-[10px] font-mono text-slate-300 text-center py-2">No comments yet</p>
+              <p className="text-[10px] font-mono text-slate-300 text-center py-2">{t("checkin_no_comments")}</p>
             )}
             {comments.map((c) => (
               <div key={c.id} className="flex gap-2">
@@ -200,7 +205,7 @@ export default function CheckInCard({ checkIn, onDelete }: Props) {
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && addComment()}
-                placeholder="Add a comment..."
+                placeholder={t("checkin_comment_placeholder")}
                 className="flex-1 text-xs px-2 py-1.5 border border-slate-200 outline-none font-mono focus:border-blue-300"
               />
               <button

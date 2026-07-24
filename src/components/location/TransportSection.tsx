@@ -1,5 +1,7 @@
 "use client"
 
+import { useLang } from "@/components/LanguageProvider"
+
 interface TransportProps {
   transport: {
     subway?: { line: string; station: string; exit: string; walkingMinutes: number }
@@ -12,6 +14,7 @@ interface TransportProps {
 }
 
 export default function TransportSection({ transport, lat, lng, name }: TransportProps) {
+  const { t } = useLang()
   const mapApps = lat && lng ? [
     {
       label: "KakaoMap",
@@ -32,24 +35,24 @@ export default function TransportSection({ transport, lat, lng, name }: Transpor
 
   return (
     <div className="p-4 bg-white rounded-xl border border-gray-100">
-      <h3 className="font-semibold text-sm mb-2">Transport</h3>
+      <h3 className="font-semibold text-sm mb-2">{t("location_transport")}</h3>
       {transport.subway ? (
         <div className="mb-2">
           <p className="text-sm text-gray-600">
             <span className="inline-block px-2 py-0.5 rounded bg-green-100 text-green-700 text-xs font-medium mr-1">
-              Metro
+              {t("location_metro")}
             </span>
             {transport.subway.line} · {transport.subway.station}
           </p>
           <p className="text-xs text-gray-400 mt-1">
-            Exit {transport.subway.exit} · Walk {transport.subway.walkingMinutes} min
+            {t("location_exit")} {transport.subway.exit} · {t("location_walk")} {transport.subway.walkingMinutes} min
           </p>
         </div>
       ) : null}
       {transport.bus && transport.bus.length > 0 ? (
         <p className="text-sm text-gray-600">
           <span className="inline-block px-2 py-0.5 rounded bg-blue-100 text-blue-700 text-xs font-medium mr-1">
-            Bus
+            {t("location_bus")}
           </span>
           {transport.bus.join(", ")}
         </p>
@@ -60,7 +63,7 @@ export default function TransportSection({ transport, lat, lng, name }: Transpor
 
       {mapApps.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-gray-100">
-          <span className="text-[10px] text-gray-400 font-mono w-full mb-0.5">Navigate with:</span>
+          <span className="text-[10px] text-gray-400 font-mono w-full mb-0.5">{t("location_navigate")}</span>
           {mapApps.map((app) => (
             <a
               key={app.label}

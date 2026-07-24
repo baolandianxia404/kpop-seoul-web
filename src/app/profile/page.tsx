@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/components/auth/AuthProvider"
+import { useLang } from "@/components/LanguageProvider"
 import { createClient } from "@/lib/supabase/client"
 import { groups } from "@/lib/data/groups"
 
 export default function ProfilePage() {
+  const { t } = useLang()
   const { user, profile, loading, refreshProfile } = useAuth()
   const router = useRouter()
   const [displayName, setDisplayName] = useState("")
@@ -35,14 +37,14 @@ export default function ProfilePage() {
 
     if (error) setMessage(`Error: ${error.message}`)
     else {
-      setMessage("Profile updated!")
+      setMessage(t("profile_saved"))
       refreshProfile()
     }
     setSaving(false)
   }
 
   if (loading) {
-    return <div className="max-w-sm mx-auto px-4 py-16 text-center font-mono text-slate-400">Loading...</div>
+    return <div className="max-w-sm mx-auto px-4 py-16 text-center font-mono text-slate-400">{t("common_loading")}</div>
   }
   if (!user) return null
 
@@ -52,7 +54,7 @@ export default function ProfilePage() {
     <div className="max-w-sm mx-auto px-4 py-8">
       <div className="text-center mb-6">
         <p className="text-4xl mb-2">⚙️</p>
-        <h1 className="text-2xl font-bold pixel-font text-slate-800">SETTINGS</h1>
+        <h1 className="text-2xl font-bold pixel-font text-slate-800">{t("profile_title")}</h1>
       </div>
 
       <div className="space-y-4">
@@ -67,7 +69,7 @@ export default function ProfilePage() {
         </div>
 
         <div>
-          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">Display Name</label>
+          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">{t("profile_display_name")}</label>
           <input
             type="text"
             value={displayName}
@@ -78,7 +80,7 @@ export default function ProfilePage() {
         </div>
 
         <div>
-          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">Fan Group</label>
+          <label className="text-sm font-bold pixel-font text-slate-700 block mb-1">{t("profile_fan_group")}</label>
           <div className="flex flex-wrap gap-1 max-h-40 overflow-y-auto p-2 border-2 border-slate-200 bg-white">
             {sortedGroups.map((g) => (
               <button
@@ -106,7 +108,7 @@ export default function ProfilePage() {
           disabled={saving}
           className="w-full py-3 btn-cute text-white font-bold rounded-xl disabled:opacity-40 text-sm"
         >
-          {saving ? "Saving..." : "SAVE CHANGES"}
+          {saving ? t("profile_saving") : t("profile_save")}
         </button>
       </div>
     </div>

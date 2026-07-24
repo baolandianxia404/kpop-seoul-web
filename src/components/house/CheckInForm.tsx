@@ -3,6 +3,7 @@
 import { useState, useRef } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { useAuth } from "@/components/auth/AuthProvider"
+import { useLang } from "@/components/LanguageProvider"
 import Image from "next/image"
 
 function compressImage(file: File): Promise<File> {
@@ -35,6 +36,7 @@ interface Props {
 }
 
 export default function CheckInForm({ groupId, onSuccess }: Props) {
+  const { t } = useLang()
   const { user } = useAuth()
   const [spotName, setSpotName] = useState("")
   const [spotLocation, setSpotLocation] = useState("")
@@ -104,25 +106,25 @@ export default function CheckInForm({ groupId, onSuccess }: Props) {
 
   return (
     <div className="p-4 bg-white border-2 border-blue-200">
-      <h3 className="text-sm font-bold pixel-font text-slate-700 mb-3">NEW CHECK-IN</h3>
+      <h3 className="text-sm font-bold pixel-font text-slate-700 mb-3">{t("house_new_checkin")}</h3>
 
       <div className="space-y-3">
         <input
           type="text"
-          placeholder="Spot name * (e.g. HYBE Insight)"
+          placeholder={t("house_spot_name")}
           value={spotName}
           onChange={(e) => setSpotName(e.target.value)}
           className="w-full px-3 py-2 text-sm border-2 border-slate-300 focus:border-blue-400 outline-none font-mono"
         />
         <input
           type="text"
-          placeholder="Location (optional, e.g. Seoul, Yongsan-gu)"
+          placeholder={t("house_location")}
           value={spotLocation}
           onChange={(e) => setSpotLocation(e.target.value)}
           className="w-full px-3 py-2 text-sm border-2 border-slate-300 focus:border-blue-400 outline-none font-mono"
         />
         <textarea
-          placeholder="Share your experience... 📝"
+          placeholder={t("house_post_placeholder")}
           value={content}
           onChange={(e) => setContent(e.target.value)}
           rows={3}
@@ -152,7 +154,7 @@ export default function CheckInForm({ groupId, onSuccess }: Props) {
             disabled={photos.length >= 5}
             className="pixel-btn px-3 py-1.5 text-[10px] bg-slate-100 text-slate-600 disabled:opacity-30"
           >
-            📷 ADD PHOTO ({photos.length}/5)
+            📷 {t("house_add_photos")} ({photos.length}/5)
           </button>
           <input ref={fileRef} type="file" accept="image/*" multiple className="hidden" onChange={handleFileSelect} />
         </div>
@@ -164,7 +166,7 @@ export default function CheckInForm({ groupId, onSuccess }: Props) {
           disabled={submitting || !spotName.trim()}
           className="w-full py-2.5 btn-cute text-white font-bold rounded-xl disabled:opacity-40 text-sm"
         >
-          {submitting ? "Posting..." : "📝 POST CHECK-IN"}
+          {submitting ? t("common_loading") : "📝 " + t("house_post")}
         </button>
       </div>
     </div>

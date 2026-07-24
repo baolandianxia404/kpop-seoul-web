@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { useLang } from "@/components/LanguageProvider"
 import type { Itinerary } from "@/types"
 import { locations } from "@/lib/data/locations"
 
 export default function SavedPage() {
+  const { t } = useLang()
   const [favorites, setFavorites] = useState<string[]>([])
   const [pendingSpots, setPendingSpots] = useState<
     { locationId: string; locationName: string; locationType: string }[]
@@ -43,7 +45,7 @@ export default function SavedPage() {
 
   return (
     <div className="max-w-lg mx-auto px-4 py-6">
-      <h1 className="text-2xl font-bold mb-4">My Collection</h1>
+      <h1 className="text-2xl font-bold mb-4">{t("saved_title")}</h1>
 
       {/* Tabs */}
       <div className="flex gap-1 bg-gray-100 rounded-lg p-1 mb-4">
@@ -66,9 +68,9 @@ export default function SavedPage() {
           {favoriteLocs.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-4xl mb-3">⭐</p>
-              <p className="text-gray-500 text-sm">No favorites yet</p>
+              <p className="text-gray-500 text-sm">{t("saved_empty")}</p>
               <Link href="/locations" className="text-purple-600 text-sm mt-2 inline-block">
-                Browse locations
+                {t("header_locations")}
               </Link>
             </div>
           ) : (
@@ -101,9 +103,9 @@ export default function SavedPage() {
           {pendingSpots.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-4xl mb-3">📍</p>
-              <p className="text-gray-500 text-sm">No saved spots</p>
+              <p className="text-gray-500 text-sm">{t("saved_empty")}</p>
               <p className="text-xs text-gray-400 mt-1">
-                Tap &quot;Add to Plan&quot; on the map to save spots
+                {t("saved_how_to")}
               </p>
             </div>
           ) : (
@@ -136,9 +138,9 @@ export default function SavedPage() {
           {itineraries.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-4xl mb-3">🗺</p>
-              <p className="text-gray-500 text-sm">No saved itineraries</p>
+              <p className="text-gray-500 text-sm">{t("saved_empty")}</p>
               <Link href="/planner" className="text-purple-600 text-sm mt-2 inline-block">
-                Create your first itinerary
+                {t("nav_planner")}
               </Link>
             </div>
           ) : (

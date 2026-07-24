@@ -6,9 +6,10 @@ import { locations } from "@/lib/data/locations"
 import { LOCATION_TYPES, TYPE_NAME_CN, DISTRICTS } from "@/lib/utils/constants"
 import LocationCard from "@/components/location/LocationCard"
 import type { LocationType } from "@/types"
+import { useLang } from "@/components/LanguageProvider"
 
-const CATEGORIES: { key: LocationType | ""; label: string; icon: string; pixel: string }[] = [
-  { key: "", label: "ALL", icon: "🌟", pixel: "◈" },
+const CATEGORIES: { key: LocationType | ""; label: string; icon: string; pixel: string; translationKey?: string }[] = [
+  { key: "", label: "ALL", icon: "🌟", pixel: "◈", translationKey: "locations_filter_all" },
   { key: "company", label: "公司", icon: "🏢", pixel: "▣" },
   { key: "restaurant", label: "美食", icon: "🍽️", pixel: "◆" },
   { key: "mv_spot", label: "MV", icon: "🎬", pixel: "▶" },
@@ -17,6 +18,7 @@ const CATEGORIES: { key: LocationType | ""; label: string; icon: string; pixel: 
 ]
 
 export default function LocationsPage() {
+  const { t } = useLang()
   const [activeType, setActiveType] = useState<LocationType | "">("")
   const [activeDistrict, setActiveDistrict] = useState("")
   const [search, setSearch] = useState("")
@@ -50,7 +52,7 @@ export default function LocationsPage() {
       <div className="text-center mb-6">
         <p className="text-4xl mb-2">🗺️📍</p>
         <h1 className="text-2xl font-bold pixel-font text-slate-800">
-          K-POP SPOTS MAP
+          {t("locations_title")}
         </h1>
         <p className="text-sm text-slate-400 mt-1 pixel-font">
           {locations.length} locations across {DISTRICTS.length} districts
@@ -62,7 +64,7 @@ export default function LocationsPage() {
         <div className="relative pixel-border-dashed bg-white">
           <input
             type="text"
-            placeholder="> SEARCH_SPOT..."
+            placeholder={`> ${t("locations_search")}`}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full px-4 py-3 text-sm font-mono bg-transparent outline-none text-slate-700 placeholder:text-slate-300"
@@ -80,7 +82,7 @@ export default function LocationsPage() {
 
       {/* Category Filter Pills */}
       <div className="flex flex-wrap gap-2 mb-3">
-        {CATEGORIES.map(({ key, label, icon, pixel }) => (
+        {CATEGORIES.map(({ key, label, icon, pixel, translationKey }) => (
           <button
             key={key}
             onClick={() => setActiveType(key)}
@@ -92,7 +94,7 @@ export default function LocationsPage() {
           >
             <span className="text-sm">{icon}</span>
             <span className="hidden sm:inline">{pixel}</span>
-            {label}
+            {translationKey ? t(translationKey as "locations_filter_all") : label}
           </button>
         ))}
       </div>
@@ -107,7 +109,7 @@ export default function LocationsPage() {
               : "bg-white text-slate-500 hover:bg-slate-50 border border-slate-200"
           }`}
         >
-          ALL
+          {t("locations_filter_all")}
         </button>
         {DISTRICTS.map((d) => (
           <button

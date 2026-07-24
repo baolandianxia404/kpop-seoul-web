@@ -8,6 +8,7 @@ import Link from "next/link"
 import PhotoUploader from "@/components/location/PhotoUploader"
 import { createClient } from "@/lib/supabase/client"
 import { useAuth } from "@/components/auth/AuthProvider"
+import { useLang } from "@/components/LanguageProvider"
 
 const PIXEL_ICONS: Record<string, string> = {
   company: "▣", restaurant: "◆", mv_spot: "▶", store: "◉", entertainment: "★",
@@ -20,6 +21,7 @@ interface Props {
 
 export default function GroupDetailContent({ group, relatedLocations }: Props) {
   const { user } = useAuth()
+  const { t } = useLang()
   const [communitySpots, setCommunitySpots] = useState<CommunitySpotRow[]>([])
   const [editingSpot, setEditingSpot] = useState<string | null>(null)
   const [editName, setEditName] = useState("")
@@ -142,7 +144,7 @@ export default function GroupDetailContent({ group, relatedLocations }: Props) {
             href={`/groups/${group.id}/house`}
             className="inline-block pixel-btn px-5 py-2 text-sm bg-white/20 text-white border-white/40 hover:bg-white/30"
           >
-            🏠 ENTER {group.name} HOUSE
+            🏠 {t("group_house_enter")} {group.name}
           </Link>
         </div>
       </div>
@@ -205,7 +207,7 @@ export default function GroupDetailContent({ group, relatedLocations }: Props) {
       {communitySpots.length > 0 && (
         <section className="mt-8 pt-6" style={{ borderTop: "2px dashed #cbd5e1" }}>
           <div className="flex items-center gap-2 mb-4">
-            <h2 className="text-lg font-bold pixel-font text-slate-800">📌 COMMUNITY SPOTS</h2>
+            <h2 className="text-lg font-bold pixel-font text-slate-800">📌 {t("group_community_spots").toUpperCase()}</h2>
             <span className="text-xs font-mono text-amber-500">({communitySpots.length} contributed)</span>
           </div>
           <div className="space-y-3">
@@ -265,7 +267,7 @@ export default function GroupDetailContent({ group, relatedLocations }: Props) {
                             {spot.location_name || <span className="text-amber-400 italic">Unnamed Spot</span>}
                             {isDraft && (
                               <span className="ml-2 text-[10px] font-mono text-amber-600 bg-amber-200 px-1.5 py-0.5">
-                                NEEDS INFO
+                                {t("group_needs_info")}
                               </span>
                             )}
                           </h3>
@@ -300,7 +302,7 @@ export default function GroupDetailContent({ group, relatedLocations }: Props) {
                             onClick={() => handleCompleteSpot(spot)}
                             className="text-[10px] font-mono text-amber-600 underline hover:text-amber-700"
                           >
-                            ✏️ Help complete this spot
+                            ✏️ {t("group_help_complete")}
                           </button>
                         </div>
                       )}

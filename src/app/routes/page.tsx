@@ -1,13 +1,11 @@
-import type { Metadata } from "next"
+"use client"
+
+import { useState } from "react"
 import Link from "next/link"
 import { locations } from "@/lib/data/locations"
+import { useLang } from "@/components/LanguageProvider"
 import { LOCATION_TYPES } from "@/lib/utils/constants"
 import { getDistance } from "@/lib/utils/distance"
-
-export const metadata: Metadata = {
-  title: "Day Routes — Kpop Seoul Map",
-  description: "Curated Kpop day trip routes by Seoul district. Explore filming spots, idol restaurants, and album shops in one trip.",
-}
 
 interface RouteSpot {
   id: string
@@ -41,8 +39,7 @@ const districtMeta: Record<string, { ko: string; emoji: string; desc: string }> 
   "广津区": { ko: "광진구", emoji: "🎬", desc: "建大入口、乐天世界，大型娱乐设施+拍摄地。" },
 }
 
-export default function RoutesPage() {
-  // Group by district, only those with 4+ spots
+function buildRoutes(): Route[] {
   const districtMap = new Map<string, RouteSpot[]>()
   for (const loc of locations) {
     const d = loc.location.district
@@ -66,12 +63,9 @@ export default function RoutesPage() {
     const meta = districtMeta[district]
     if (!meta) continue
 
-    // Sort by a central point
     const avgLat = spots.reduce((s, x) => s + x.lat, 0) / spots.length
     const avgLng = spots.reduce((s, x) => s + x.lng, 0) / spots.length
     spots.sort((a, b) => getDistance(avgLat, avgLng, a.lat, a.lng) - getDistance(avgLat, avgLng, b.lat, b.lng))
-
-    const totalTime = spots.length * 25 // rough estimate: 25 min per spot
 
     routes.push({
       district,
@@ -79,15 +73,46 @@ export default function RoutesPage() {
       emoji: meta.emoji,
       description: meta.desc,
       spots,
-      totalTime,
+      totalTime: spots.length * 25,
     })
+  }
+  return routes
+}
+
+export default function RoutesPage() {
+  const { t } = useLang()
+  const [addedSpots, setAddedSpots] = useState<Set<string>>(new Set())
+  const [showToast, setShowToast] = useState(false)
+  const [toastMsg, setToastMsg] = useState("")
+  const [savedCount, setSavedCount] = useState(0)
+
+  const routes = buildRoutes()
+
+  const addToPlan = (spot: RouteSpot) => {
+    try {
+      const stored = JSON.parse(localStorage.getItem("kpop_pending_spots") || "[]")
+      if (!stored.some((s: { locationId: string }) => s.locationId === spot.id)) {
+        stored.push({
+          locationId: spot.id,
+          locationName: spot.name,
+          locationType: spot.type,
+        })
+        localStorage.setItem("kpop_pending_spots", JSON.stringify(stored))
+      }
+    } catch {}
+
+    setAddedSpots((prev) => new Set(prev).add(spot.id))
+    setSavedCount((c) => c + 1)
+    setToastMsg(spot.name)
+    setShowToast(true)
+    setTimeout(() => setShowToast(false), 2000)
   }
 
   return (
     <div className="min-h-[calc(100dvh-64px)] bg-gradient-to-b from-[#f0f4ff] via-white to-[#fffdf0]">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 mb-3">
             <span className="text-3xl animate-bounce-gentle">🗺️</span>
             <h1 className="text-2xl md:text-3xl font-black tracking-tight">
@@ -97,17 +122,24 @@ export default function RoutesPage() {
             <span className="text-3xl animate-bounce-gentle" style={{ animationDelay: "0.5s" }}>✨</span>
           </div>
           <p className="text-sm text-gray-400 max-w-md mx-auto">
-            Curated Kpop day trips by district. Pick an area and follow the route!
+            Pick an area, add spots to your plan, follow the route!
           </p>
+          {savedCount > 0 && (
+            <Link
+              href="/saved"
+              className="inline-block mt-3 px-4 py-2 bg-blue-500 text-white text-xs font-bold rounded-xl hover:bg-blue-600 transition animate-pop-in"
+            >
+              ⭐ View My Plan ({savedCount} spots) →
+            </Link>
+          )}
         </div>
 
         {/* Routes grid */}
         <div className="space-y-6">
           {routes.map((route) => (
             <div key={route.district} className="pixel-card bg-white overflow-hidden">
-              {/* Route header */}
               <div className="p-5 border-b-2 border-slate-100 flex items-start justify-between flex-wrap gap-3"
-                style={{ borderLeft: `4px solid #3b82f6` }}
+                style={{ borderLeft: "4px solid #3b82f6" }}
               >
                 <div>
                   <div className="flex items-center gap-2 mb-1">
@@ -125,20 +157,16 @@ export default function RoutesPage() {
                 </div>
               </div>
 
-              {/* Route stops */}
               <div className="p-3">
                 <div className="relative">
-                  {/* Vertical line */}
                   <div className="absolute left-[19px] top-4 bottom-4 w-0.5 bg-slate-100" />
 
                   <div className="space-y-1">
                     {route.spots.map((spot, i) => (
-                      <Link
+                      <div
                         key={spot.id}
-                        href={`/locations/${spot.id}`}
                         className="flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 transition group relative"
                       >
-                        {/* Dot */}
                         <div className="relative z-10 w-[38px] flex-shrink-0 flex justify-center">
                           <div
                             className="w-2.5 h-2.5 rounded-full border-2 border-white shadow-sm"
@@ -146,8 +174,10 @@ export default function RoutesPage() {
                           />
                         </div>
 
-                        {/* Content */}
-                        <div className="flex-1 min-w-0 flex items-center gap-2">
+                        <Link
+                          href={`/locations/${spot.id}`}
+                          className="flex-1 min-w-0 flex items-center gap-2"
+                        >
                           <span className="text-sm">{spot.typeIcon}</span>
                           <span className="text-sm font-medium text-slate-700 group-hover:text-blue-500 transition truncate">
                             {spot.name}
@@ -158,11 +188,19 @@ export default function RoutesPage() {
                               {spot.walkMin && ` ${spot.walkMin}min`}
                             </span>
                           )}
-                        </div>
+                        </Link>
 
-                        {/* Arrow */}
-                        <span className="text-slate-200 group-hover:text-blue-400 transition text-xs">→</span>
-                      </Link>
+                        <button
+                          onClick={(e) => { e.preventDefault(); addToPlan(spot) }}
+                          className={`flex-shrink-0 px-2.5 py-1 text-[10px] font-bold font-mono transition ${
+                            addedSpots.has(spot.id)
+                              ? "bg-amber-100 text-amber-600"
+                              : "text-slate-300 hover:text-amber-500 hover:bg-amber-50"
+                          }`}
+                        >
+                          {addedSpots.has(spot.id) ? "✓" : "+"}
+                        </button>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -171,10 +209,16 @@ export default function RoutesPage() {
           ))}
         </div>
 
-        {/* Bottom hint */}
+        {/* Toast */}
+        {showToast && (
+          <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[9999] px-4 py-2 bg-slate-800 text-white text-xs font-mono rounded-full shadow-lg animate-pop-in">
+            ⭐ Added to plan: {toastMsg}
+          </div>
+        )}
+
         <div className="text-center mt-10 pb-4">
           <p className="text-xs text-gray-300 font-mono">
-            ✨ Each route takes 2-4 hours · Subway info included · Open in map app to navigate ✨
+            ✨ Click + to add spots to your plan · View all in ⭐ Saved ✨
           </p>
         </div>
       </div>

@@ -5,7 +5,7 @@ export const translations = {
   header_map: { en: "Map", zh: "地图" },
   header_locations: { en: "Locations", zh: "地点" },
   header_groups: { en: "Groups", zh: "团体" },
-  header_add_spot: { en: "Add Spot", zh: "添加" },
+  header_add_spot: { en: "Share", zh: "投稿" },
   header_routes: { en: "Routes", zh: "路线" },
   header_sign_in: { en: "Sign In", zh: "登录" },
   header_join: { en: "Join", zh: "注册" },
@@ -59,6 +59,8 @@ export const translations = {
   profile_fan_group: { en: "Fan Group", zh: "本命团体" },
   profile_save: { en: "Save", zh: "保存" },
   profile_saved: { en: "Saved!", zh: "已保存！" },
+  profile_change_group: { en: "Change your fan group", zh: "更换本命团体" },
+  profile_saving: { en: "Saving...", zh: "保存中..." },
 
   // Group detail
   group_house_enter: { en: "Enter House", zh: "进入小屋" },
@@ -77,6 +79,17 @@ export const translations = {
   house_location: { en: "Location (optional)", zh: "地址（选填）" },
   house_post: { en: "Post", zh: "发布" },
   house_add_photos: { en: "Add Photos", zh: "添加照片" },
+  house_gathering: { en: "Fandom gathering place", zh: "粉丝聚集地" },
+  house_locked_title: { en: "Fandom Members Only", zh: "仅限粉丝成员" },
+  house_locked_msg: { en: "Sign in and join the {groupName} fandom to see check-ins.", zh: "登录并加入 {groupName} 粉丝团才能看到打卡内容。" },
+  house_join_fandom: { en: "JOIN FANDOM", zh: "加入粉丝团" },
+  house_not_yours: { en: "This is another group's House", zh: "这是别人家的小屋" },
+  house_not_yours_msg: { en: "You're a {myGroup} fan. Only {houseGroup} fandom members can view posts here.", zh: "你是 {myGroup} 的粉丝，只有 {houseGroup} 粉丝团成员才能看到这里的帖子。" },
+  house_go_mine: { en: "GO TO MY HOUSE →", zh: "去我的小屋 →" },
+  house_checkin_count: { en: "{n} check-ins", zh: "{n} 条打卡" },
+  house_new_checkin: { en: "📝 NEW CHECK-IN", zh: "📝 新打卡" },
+  house_loading: { en: "Loading check-ins...", zh: "加载打卡中..." },
+  house_empty_msg: { en: "Be the first to share your pilgrimage story.", zh: "来做第一个打卡的粉丝吧！" },
 
   // Check in card
   checkin_delete: { en: "Delete", zh: "删除" },
@@ -84,6 +97,9 @@ export const translations = {
   checkin_min_ago: { en: "m ago", zh: "分钟前" },
   checkin_h_ago: { en: "h ago", zh: "小时前" },
   checkin_d_ago: { en: "d ago", zh: "天前" },
+  checkin_delete_confirm: { en: "Delete this check-in?", zh: "确定删除这条打卡？" },
+  checkin_comment_placeholder: { en: "Add a comment...", zh: "写评论..." },
+  checkin_no_comments: { en: "No comments yet", zh: "暂无评论" },
 
   // Add Spot
   add_spot_title: { en: "Add a Kpop Spot", zh: "添加 Kpop 地点" },
@@ -110,6 +126,7 @@ export const translations = {
   // Saved page
   saved_title: { en: "Saved Spots", zh: "收藏的地点" },
   saved_empty: { en: "No saved spots yet. Add some from the map or planner!", zh: "还没有收藏地点，去地图或规划页面添加吧！" },
+  saved_how_to: { en: "Click ⭐ on map markers or Add to Plan to save spots here.", zh: "在地图上点 ⭐ 或添加到计划来收藏地点。" },
 
   // Categories
   cat_restaurant: { en: "Restaurant", zh: "餐厅" },
@@ -125,6 +142,27 @@ export const translations = {
   common_retry: { en: "Retry", zh: "重试" },
   common_back: { en: "Back", zh: "返回" },
   common_or: { en: "or", zh: "或" },
+  common_home: { en: "Home", zh: "首页" },
+  common_not_found: { en: "Not found", zh: "未找到" },
+  common_back_groups: { en: "← BACK TO GROUPS", zh: "← 返回团体" },
+  common_back_spots: { en: "← SPOTS", zh: "← 地点" },
+  common_cancel: { en: "CANCEL", zh: "取消" },
+
+  // Location detail
+  location_about: { en: "About", zh: "简介" },
+  location_address: { en: "Address", zh: "地址" },
+  location_transport: { en: "Transport", zh: "交通" },
+  location_price: { en: "Price", zh: "价格" },
+  location_duration: { en: "Suggested Duration", zh: "建议时长" },
+  location_minutes: { en: "minutes", zh: "分钟" },
+  location_nearby: { en: "Nearby in", zh: "周边 - " },
+  location_tip: { en: "Tip:", zh: "贴士：" },
+  location_free: { en: "Free", zh: "免费" },
+  location_metro: { en: "Metro", zh: "地铁" },
+  location_bus: { en: "Bus", zh: "公交" },
+  location_walk: { en: "Walk", zh: "步行" },
+  location_exit: { en: "Exit", zh: "出口" },
+  location_navigate: { en: "Navigate with:", zh: "导航应用：" },
 } as const
 
 export type TranslationKey = keyof typeof translations

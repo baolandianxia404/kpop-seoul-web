@@ -5,6 +5,7 @@ import type { LocationType } from "@/types"
 import { groups } from "@/lib/data/groups"
 import { LOCATION_TYPES, TYPE_NAME_CN } from "@/lib/utils/constants"
 import { useAuth } from "@/components/auth/AuthProvider"
+import { useLang } from "@/components/LanguageProvider"
 import { createClient } from "@/lib/supabase/client"
 
 const STORAGE_KEY = "kpop_community_spots"
@@ -55,6 +56,7 @@ function extractAddress(text: string): string | null {
 }
 
 export default function ContributePage() {
+  const { t } = useLang()
   const { user } = useAuth()
   const [xhsInput, setXhsInput] = useState("")
   const [selectedGroups, setSelectedGroups] = useState<string[]>([])
@@ -213,16 +215,16 @@ export default function ContributePage() {
     <div className="max-w-lg mx-auto px-4 py-6 space-y-6">
       <div className="text-center">
         <p className="text-3xl mb-2">📌</p>
-        <h1 className="text-2xl font-bold pixel-font text-slate-800">ADD A SPOT</h1>
+        <h1 className="text-2xl font-bold pixel-font text-slate-800">{t("add_spot_title")}</h1>
         <p className="text-xs text-slate-400 font-mono mt-1">
-          Share your idol&apos;s favorite places! Only group is required.
+          {t("add_spot_subtitle")}
         </p>
       </div>
 
       {/* Select Groups — REQUIRED */}
       <div className="space-y-2">
         <label className="text-sm font-bold pixel-font text-slate-700">
-          💜 Which idol / group? * (required)
+          💜 {t("add_spot_select_group")} * (required)
         </label>
         <div className="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto p-2 border-2 border-slate-300 bg-white">
           {groups
@@ -250,11 +252,11 @@ export default function ContributePage() {
       {/* XHS Link — optional, with parse */}
       <div className="space-y-2">
         <label className="text-sm font-bold pixel-font text-slate-700">
-          📱 XHS Link or Share Text (optional)
+          📱 {t("add_spot_share")} (optional)
         </label>
         <div className="flex gap-2">
           <textarea
-            placeholder="Paste XHS share text — title will be auto-extracted"
+            placeholder={t("add_spot_xhs_hint")}
             value={xhsInput}
             onChange={(e) => setXhsInput(e.target.value)}
             rows={2}
@@ -278,7 +280,7 @@ export default function ContributePage() {
       {/* Location Name — optional */}
       <div className="space-y-2">
         <label className="text-sm font-bold pixel-font text-slate-700">
-          📍 Location Name <span className="text-slate-300 font-normal">(optional)</span>
+          📍 {t("add_spot_name")}
         </label>
         <input
           type="text"
@@ -292,7 +294,7 @@ export default function ContributePage() {
       {/* Address — optional */}
       <div className="space-y-2">
         <label className="text-sm font-bold pixel-font text-slate-700">
-          🗺 Address <span className="text-slate-300 font-normal">(optional)</span>
+          🗺 {t("add_spot_address")}
         </label>
         <input
           type="text"
@@ -305,7 +307,7 @@ export default function ContributePage() {
 
       {/* Type */}
       <div className="space-y-2">
-        <label className="text-sm font-bold pixel-font text-slate-700">🏷 Type</label>
+        <label className="text-sm font-bold pixel-font text-slate-700">🏷 {t("add_spot_type")}</label>
         <div className="flex gap-1.5">
           {TYPE_OPTIONS.map((t) => (
             <button
@@ -325,7 +327,7 @@ export default function ContributePage() {
       {/* Description — optional */}
       <div className="space-y-2">
         <label className="text-sm font-bold pixel-font text-slate-700">
-          📝 Notes <span className="text-slate-300 font-normal">(optional)</span>
+          📝 {t("add_spot_description")}
         </label>
         <textarea
           placeholder="Any tips for other fans?"
@@ -339,8 +341,7 @@ export default function ContributePage() {
       {error && <p className="text-xs font-mono text-red-500 bg-red-50 p-2 border border-red-200">{error}</p>}
       {!user && (
         <p className="text-xs font-mono text-amber-500 bg-amber-50 p-2 border border-amber-200">
-          You&apos;re not signed in — spot will be saved locally.{" "}
-          <a href="/auth/login" className="underline">Sign in</a> to save to the community.
+          {t("add_spot_draft_notice")}
         </p>
       )}
 
@@ -350,7 +351,7 @@ export default function ContributePage() {
         disabled={saving || selectedGroups.length === 0}
         className="w-full py-3 btn-cute text-white font-bold rounded-xl disabled:opacity-40 text-sm"
       >
-        {saving ? "Saving..." : "✨ SUBMIT SPOT"}
+        {saving ? t("common_loading") : "✨ " + t("add_spot_submit")}
       </button>
 
       <p className="text-[10px] font-mono text-slate-300 text-center">
