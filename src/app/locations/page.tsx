@@ -110,7 +110,19 @@ export default function LocationsPage() {
           <div>search: "{search}"</div>
           <div>filtered: {filtered.length}</div>
           <button onClick={() => setClickCount((c) => c + 1)} className="mt-1 px-2 py-0.5 bg-yellow-400 rounded text-[10px]">
-            Test React
+            Test React ({clickCount})
+          </button>
+          <button onClick={() => {
+            const testResult = locations.filter((l) => matchesSubwayLine(l, "2号线"))
+            alert("2号线 matches: " + testResult.length + " locations. First: " + testResult[0]?.name)
+          }} className="mt-1 ml-1 px-2 py-0.5 bg-green-400 rounded text-[10px]">
+            Test Subway Filter
+          </button>
+          <button onClick={() => {
+            const testResult = locations.filter((l) => l.location.district === "龙山区")
+            alert("龙山区 matches: " + testResult.length + " locations. First: " + testResult[0]?.name)
+          }} className="mt-1 ml-1 px-2 py-0.5 bg-blue-400 rounded text-[10px]">
+            Test District Filter
           </button>
         </div>
       </div>
