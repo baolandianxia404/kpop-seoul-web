@@ -58,9 +58,10 @@ export default function LocationsPage() {
       {/* Results */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {result.map((loc) => (
-          <LocationCard key={loc.id} location={loc} />
+          <div key={loc.id} className="p-2 border">{loc.name}</div>
         ))}
       </div>
+      <LocationCard location={locations[0]} />
     </div>
   )
 }
