@@ -3281,7 +3281,7 @@ export const locations: Location[] = [
     "verified": true
   },
   {
-    "id": "kbs-hall",
+    "id": "kbs-music-bank",
     "name": "KBS Hall（音乐银行）",
     "nameKo": "KBS홀",
     "type": "entertainment",
@@ -3700,7 +3700,7 @@ export const locations: Location[] = [
     "verified": true
   },
   {
-    "id": "common-ground",
+    "id": "common-ground-cafe",
     "name": "COMMON GROUND 三楼露台咖啡",
     "nameKo": "커먼그라운드 카페",
     "type": "restaurant",
@@ -4045,7 +4045,7 @@ export const locations: Location[] = [
     "verified": true
   },
   {
-    "id": "jyp",
+    "id": "jyp-old",
     "name": "JYP旧大楼（清潭洞）",
     "nameKo": "JYP 구사옥",
     "type": "company",
@@ -4635,7 +4635,7 @@ export const locations: Location[] = [
     "verified": true
   },
   {
-    "id": "music-korea",
+    "id": "music-korea-gangnam",
     "name": "MUSIC KOREA 江南店",
     "nameKo": "뮤직코리아 강남",
     "type": "store",
@@ -5690,7 +5690,7 @@ export const locations: Location[] = [
     "verified": true
   },
   {
-    "id": "iu",
+    "id": "iu-bangbae",
     "name": "IU 同款 — 方背洞 咖啡韩屋",
     "nameKo": "방배동 한옥카페",
     "type": "restaurant",
@@ -6633,7 +6633,7 @@ export const locations: Location[] = [
     "verified": true
   },
   {
-    "id": "coex",
+    "id": "coex-mall",
     "name": "COEX 购物中心",
     "nameKo": "코엑스몰",
     "type": "entertainment",
@@ -6988,7 +6988,7 @@ export const locations: Location[] = [
     "verified": true
   },
   {
-    "id": "g-i-dle",
+    "id": "g-i-dle-yuqi",
     "name": "(G)I-DLE 雨琦同款 — 建大 中国炸酱面 香港饭店",
     "nameKo": "홍콩반점 건대",
     "type": "restaurant",
