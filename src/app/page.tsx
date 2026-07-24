@@ -2,6 +2,7 @@
 
 import MapWrapper from "@/components/map/MapWrapper"
 import HotPlaces from "@/components/home/HotPlaces"
+import CheckInRanking from "@/components/home/CheckInRanking"
 import DailyPick from "@/components/home/DailyPick"
 import LatestSubmissions from "@/components/home/LatestSubmissions"
 import { useLang } from "@/components/LanguageProvider"
@@ -111,6 +112,9 @@ export default function HomePage() {
 
         {/* Hot Places Ranking */}
         <HotPlaces />
+
+        {/* Check-in Ranking */}
+        <CheckInRanking />
 
         {/* Daily Pick */}
         <DailyPick />

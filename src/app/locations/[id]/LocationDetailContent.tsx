@@ -8,6 +8,7 @@ import { getDistance } from "@/lib/utils/distance"
 import TransportSection from "@/components/location/TransportSection"
 import HoursSection from "@/components/location/HoursSection"
 import TipsSection from "@/components/location/TipsSection"
+import PhotoWall from "@/components/location/PhotoWall"
 import Link from "next/link"
 import { useLang } from "@/components/LanguageProvider"
 import { isFavorite, toggleFavorite } from "@/lib/store/favorites"
@@ -182,6 +183,9 @@ export default function LocationDetailContent({ id }: Props) {
       {loc.checkInTips && loc.checkInTips.length > 0 && (
         <TipsSection tips={loc.checkInTips} />
       )}
+
+      {/* Fan Photo Wall */}
+      <PhotoWall locationName={loc.name} />
 
       {/* Nearby */}
       {nearby.length > 0 && (
