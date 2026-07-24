@@ -45,11 +45,11 @@ export default function LocationDetailContent({ id }: Props) {
     <div className="max-w-3xl mx-auto px-4 py-6">
       {/* Breadcrumb */}
       <nav className="text-sm text-gray-500 mb-4">
-        <Link href="/" className="hover:text-purple-600">
+        <Link href="/" className="hover:text-blue-500">
           {t("common_home")}
         </Link>
         <span className="mx-2">/</span>
-        <Link href="/locations" className="hover:text-purple-600">
+        <Link href="/locations" className="hover:text-blue-500">
           {t("header_locations")}
         </Link>
         <span className="mx-2">/</span>
@@ -68,7 +68,7 @@ export default function LocationDetailContent({ id }: Props) {
             <Link
               key={g}
               href={`/groups/${g.toLowerCase().replace(/\s+/g, "-")}`}
-              className="px-3 py-1 rounded-full text-sm bg-purple-100 text-purple-700 hover:bg-purple-200"
+              className="px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-600 hover:bg-blue-200"
             >
               {g}
             </Link>
@@ -177,7 +177,7 @@ export default function LocationDetailContent({ id }: Props) {
               <Link
                 key={n.id}
                 href={`/locations/${n.id}`}
-                className="p-3 bg-white rounded-xl border border-gray-100 hover:border-purple-200 hover:shadow-sm transition"
+                className="p-3 bg-white rounded-xl border border-gray-100 hover:border-blue-200 hover:shadow-sm transition"
               >
                 <p className="font-medium text-sm">{n.name}</p>
                 <p className="text-xs text-gray-400 mt-1">

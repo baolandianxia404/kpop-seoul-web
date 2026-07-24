@@ -17,8 +17,10 @@ export default function Header() {
       <header className="sticky top-0 z-50 bg-white/85 backdrop-blur border-b border-blue-50">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center text-white font-bold text-sm gradient-cute shadow-sm group-hover:shadow-md transition-shadow">
-              K
+            <div className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:shadow-md transition-shadow relative overflow-hidden"
+              style={{ background: "linear-gradient(135deg, #3b82f6 30%, #60a5fa 60%, #f59e0b 100%)" }}
+            >
+              <span className="relative z-10 text-base">♪</span>
             </div>
             <span className="font-bold text-lg hidden sm:block">
               <span className="text-blue-500">Kpop</span>{" "}
@@ -30,7 +32,9 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-4">
             <Link href="/" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">🗺 {t("header_map")}</Link>
             <Link href="/locations" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">📍 {t("header_locations")}</Link>
-            <Link href="/groups" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">💜 {t("header_groups")}</Link>
+            <Link href="/groups" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">
+              <span className="text-blue-400">♥</span> {t("header_groups")}
+            </Link>
             <Link href="/planner" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">📌 {t("header_add_spot")}</Link>
             <Link href="/routes" className="text-sm text-gray-500 hover:text-blue-500 transition font-medium">🗺️ {t("header_routes")}</Link>
 

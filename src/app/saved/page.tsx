@@ -69,7 +69,7 @@ export default function SavedPage() {
             <div className="text-center py-12">
               <p className="text-4xl mb-3">⭐</p>
               <p className="text-gray-500 text-sm">{t("saved_empty")}</p>
-              <Link href="/locations" className="text-purple-600 text-sm mt-2 inline-block">
+              <Link href="/locations" className="text-blue-500 text-sm mt-2 inline-block">
                 {t("header_locations")}
               </Link>
             </div>
@@ -139,7 +139,7 @@ export default function SavedPage() {
             <div className="text-center py-12">
               <p className="text-4xl mb-3">🗺</p>
               <p className="text-gray-500 text-sm">{t("saved_empty")}</p>
-              <Link href="/planner" className="text-purple-600 text-sm mt-2 inline-block">
+              <Link href="/planner" className="text-blue-500 text-sm mt-2 inline-block">
                 {t("nav_planner")}
               </Link>
             </div>
@@ -169,7 +169,7 @@ export default function SavedPage() {
                     {itin.days.map((day) => (
                       <span
                         key={day.day}
-                        className="px-2 py-0.5 bg-purple-50 text-purple-700 rounded-full text-xs"
+                        className="px-2 py-0.5 bg-blue-50 text-blue-600 rounded-full text-xs"
                       >
                         Day {day.day}: {day.title}
                       </span>

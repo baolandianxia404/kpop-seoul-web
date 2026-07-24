@@ -476,7 +476,7 @@ export default function ContributePage() {
       {/* Select Groups — REQUIRED */}
       <div className="space-y-2">
         <label className="text-sm font-bold pixel-font text-slate-700">
-          💜 {t("add_spot_select_group")} *
+          <span className="text-blue-400">♥</span> {t("add_spot_select_group")} *
         </label>
         <div className="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto p-2 border-2 border-slate-300 bg-white">
           {groups

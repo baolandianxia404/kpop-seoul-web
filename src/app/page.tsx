@@ -22,7 +22,7 @@ const dots = [
 ]
 
 const floatingEmojis = [
-  { emoji: "💜", x: "8%", y: "42%", delay: "0s" },
+  { emoji: "💙", x: "8%", y: "42%", delay: "0s" },
   { emoji: "⭐", x: "90%", y: "60%", delay: "1.5s" },
   { emoji: "🎵", x: "18%", y: "72%", delay: "0.8s" },
   { emoji: "✨", x: "85%", y: "30%", delay: "2s" },
@@ -35,7 +35,7 @@ export default function HomePage() {
 
   const stats = [
     { icon: "📍", label: t("home_spots"), value: String(locations.length), color: "text-blue-500" },
-    { icon: "💜", label: t("home_groups"), value: String(groups.length), color: "text-purple-500" },
+    { icon: "💙", label: t("home_groups"), value: String(groups.length), color: "text-blue-400" },
     { icon: "🏪", label: t("home_categories"), value: "5", color: "text-amber-500" },
     { icon: "🗺️", label: t("home_district"), value: t("home_seoul"), color: "text-emerald-500" },
   ]
@@ -77,7 +77,7 @@ export default function HomePage() {
               <span className="text-amber-500">Seoul</span>{" "}
               <span className="text-gray-800">Map</span>
             </h1>
-            <span className="text-2xl animate-bounce-gentle" style={{ animationDelay: "0.5s" }}>💜</span>
+            <span className="text-2xl animate-bounce-gentle" style={{ animationDelay: "0.5s" }}>💙</span>
           </div>
           <p className="text-sm md:text-base text-gray-400 max-w-md mx-auto font-medium">
             {t("home_subtitle")}
