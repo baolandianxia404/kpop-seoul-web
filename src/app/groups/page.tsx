@@ -5,14 +5,14 @@ import Link from "next/link"
 import { groups } from "@/lib/data/groups"
 import { useLang } from "@/components/LanguageProvider"
 import type { Group } from "@/types"
+import PageGuide from "@/components/ui/PageGuide"
 
-type Category = "all" | "boy_group" | "girl_group" | "solo" | "band"
+type Category = "all" | "boy_group" | "girl_group" | "band"
 
 const CATEGORIES: { key: Category; label: string; icon: string; color: string }[] = [
   { key: "all", label: "ALL", icon: "💙", color: "#3b82f6" },
   { key: "boy_group", label: "BOY", icon: "💿", color: "#6366f1" },
   { key: "girl_group", label: "GIRL", icon: "🎀", color: "#ec4899" },
-  { key: "solo", label: "SOLO", icon: "🎤", color: "#f59e0b" },
   { key: "band", label: "BAND", icon: "🎸", color: "#10b981" },
 ]
 
@@ -56,6 +56,10 @@ export default function GroupsPage() {
             {groups.length} groups · pick your fandom and explore their Seoul spots
           </p>
         </div>
+
+        <PageGuide pageKey="groups" emoji="💙" title="团体页面怎么玩？">
+          选一个你喜欢的团体 → 查看他们在首尔的同款地点 → 进入 <strong>小屋 (House)</strong> 和同好分享打卡记录。只有同粉丝团的人能看到你的帖子哦～
+        </PageGuide>
 
         {/* Search */}
         <div className="mb-4 max-w-md mx-auto">
@@ -194,7 +198,7 @@ function GroupCard({ group, index, isTop }: { group: Group; index: number; isTop
               color: group.color,
             }}
           >
-            {group.type === "boy_group" ? "BOY" : group.type === "girl_group" ? "GIRL" : group.type === "band" ? "BAND" : "SOLO"}
+            {group.type === "boy_group" ? "BOY" : group.type === "girl_group" ? "GIRL" : group.type === "band" ? "BAND" : "DUO"}
           </span>
         </div>
       </div>

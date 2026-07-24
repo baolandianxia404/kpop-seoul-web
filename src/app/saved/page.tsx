@@ -8,6 +8,7 @@ import { LOCATION_TYPES } from "@/lib/utils/constants"
 import { groups } from "@/lib/data/groups"
 import type { Itinerary } from "@/types"
 import { locations } from "@/lib/data/locations"
+import PageGuide from "@/components/ui/PageGuide"
 
 function removeFavorite(id: string) {
   try {
@@ -60,8 +61,8 @@ export default function SavedPage() {
   }
 
   const viewItinerary = (itin: Itinerary) => {
-    const encoded = encodeURIComponent(JSON.stringify(itin))
-    router.push(`/itinerary?data=${encoded}`)
+    sessionStorage.setItem("current_itinerary", JSON.stringify(itin))
+    router.push("/itinerary")
   }
 
   const tabs = [
@@ -86,6 +87,10 @@ export default function SavedPage() {
           </div>
           <p className="text-xs text-slate-400 font-mono">Favorites · Saved spots · Itineraries</p>
         </div>
+
+        <PageGuide pageKey="saved" emoji="💾" title="收藏夹怎么用？">
+          收藏分三类：<strong>Favorites</strong>（心仪的地点）、<strong>Saved Spots</strong>（准备加入行程的地点）、<strong>Itineraries</strong>（生成好的路线）。点路线卡片可以直接查看完整行程～
+        </PageGuide>
 
         {/* Tabs */}
         <div className="flex gap-2 bg-slate-100 rounded-xl p-1.5 mb-6">

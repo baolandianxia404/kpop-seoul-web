@@ -10,6 +10,7 @@ import type { CheckInRow } from "@/types"
 import { useLang } from "@/components/LanguageProvider"
 import CheckInForm from "@/components/house/CheckInForm"
 import CheckInCard from "@/components/house/CheckInCard"
+import PageGuide from "@/components/ui/PageGuide"
 
 export default function HouseContent({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
@@ -120,6 +121,10 @@ export default function HouseContent({ params }: { params: Promise<{ id: string 
           </div>
         </div>
       </div>
+
+      <PageGuide pageKey={`house_${id}`} emoji="🏠" title="小屋是什么？">
+        这是 <strong>{group.name}</strong> 粉丝的秘密基地 🐰 在这里发的打卡记录<strong>只有同好能看到</strong>。想给地图添加新地点？去 <Link href="/planner" className="text-blue-500 underline">投稿页</Link> 提交～
+      </PageGuide>
 
       {/* Auth check */}
       {authLoading ? (

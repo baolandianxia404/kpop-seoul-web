@@ -34,7 +34,7 @@ const floatingEmojis = [
 ]
 
 export default function HomePage() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
 
   const stats = [
     { icon: "📍", label: t("home_spots"), value: String(locations.length), color: "text-blue-500" },
@@ -76,14 +76,15 @@ export default function HomePage() {
           <div className="inline-flex items-center gap-2 mb-2">
             <span className="text-2xl animate-bounce-gentle" style={{ animationDelay: "0s" }}>🗺️</span>
             <h1 className="text-2xl md:text-4xl font-black tracking-tight">
-              <span className="text-blue-500">Kpop</span>{" "}
-              <span className="text-amber-500">Seoul</span>{" "}
-              <span className="text-gray-800">Map</span>
+              <span className="text-blue-500">星旅</span>{" "}
+              <span className="text-amber-500">StarTrail</span>
             </h1>
             <span className="text-2xl animate-bounce-gentle" style={{ animationDelay: "0.5s" }}>💙</span>
           </div>
           <p className="text-sm md:text-base text-gray-400 max-w-md mx-auto font-medium">
-            {t("home_subtitle")}
+            {lang === "zh"
+              ? `探索首尔 ${locations.length}+ 个 Kpop 追星地点`
+              : `Discover ${locations.length}+ Kpop locations across Seoul`}
           </p>
         </div>
 

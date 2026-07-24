@@ -49,7 +49,7 @@ export function generateFallbackItinerary(
   })
 
   return {
-    title: `Kpop Seoul ${days}-Day Tour`,
+    title: `星旅 StarTrail ${days}-Day Tour`,
     days: itineraryDays,
   }
 }

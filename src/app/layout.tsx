@@ -22,13 +22,13 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Kpop Seoul Map — Discover Kpop Filming Locations & Idol Spots in Seoul",
-    template: "%s — Kpop Seoul Map",
+    default: "星旅 StarTrail — 首尔 Kpop 追星足迹地图",
+    template: "%s — 星旅 StarTrail",
   },
   description:
-    "Interactive map of 170+ Kpop locations in Seoul. Find BTS, BLACKPINK, TWICE filming spots, idol restaurants, album shops, and entertainment companies. Plan your Kpop trip with AI itinerary generator.",
+    "星旅 StarTrail — 探索首尔数百个 Kpop 追星地点。找到 BTS、BLACKPINK、TWICE 等偶像的拍摄地、同款餐厅、专辑店和娱乐公司。规划你的专属追星路线。",
   keywords: [
-    "kpop seoul map",
+    "星旅 首尔 kpop 地图",
     "kpop filming locations",
     "bts seoul spots",
     "kpop itinerary",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     apple: "/icon.svg",
   },
   openGraph: {
-    title: "Kpop Seoul Map — Discover Kpop Spots in Seoul",
+    title: "星旅 StarTrail — 首尔 Kpop 追星足迹",
     description: "Interactive map of 170+ Kpop locations. Plan your ultimate Kpop trip.",
     type: "website",
     locale: "en_US",

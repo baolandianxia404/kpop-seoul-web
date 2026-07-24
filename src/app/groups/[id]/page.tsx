@@ -16,7 +16,7 @@ export async function generateMetadata({
   const group = getGroupById(id)
   if (!group) return { title: "Not Found" }
   return {
-    title: `${group.name} (${group.nameKo}) Seoul Spots — Kpop Seoul Map`,
+    title: `${group.name} (${group.nameKo}) Seoul Spots — 星旅 StarTrail`,
     description: `Find ${group.name} company building, filming locations, favorite restaurants, and more in Seoul. Plan your ${group.fandomName} pilgrimage trip.`,
   }
 }

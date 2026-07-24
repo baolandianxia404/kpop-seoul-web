@@ -8,6 +8,7 @@ import { LOCATION_TYPES, TYPE_NAME_CN } from "@/lib/utils/constants"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { useLang } from "@/components/LanguageProvider"
 import { createClient } from "@/lib/supabase/client"
+import PageGuide from "@/components/ui/PageGuide"
 
 const STORAGE_KEY = "kpop_community_spots"
 const TYPE_OPTIONS: LocationType[] = ["restaurant", "store", "mv_spot", "entertainment", "company"]
@@ -472,6 +473,10 @@ export default function ContributePage() {
         <h1 className="text-2xl font-bold pixel-font text-slate-800">{t("add_spot_title")}</h1>
         <p className="text-xs text-slate-400 font-mono mt-1">{t("add_spot_subtitle")}</p>
       </div>
+
+      <PageGuide pageKey="planner" emoji="📌" title="投稿 vs 小屋打卡？">
+        这里是把新地点<strong>收录到公共地图</strong>，所有人可见。如果只想在同好圈分享打卡记录，去对应团体的 <strong>小屋 (House)</strong> 发帖就好～
+      </PageGuide>
 
       {/* Select Groups — REQUIRED */}
       <div className="space-y-2">

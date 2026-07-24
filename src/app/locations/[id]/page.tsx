@@ -15,10 +15,10 @@ export async function generateMetadata({
   const loc = getLocationById(id)
   if (!loc) return { title: "Not Found" }
   return {
-    title: `${loc.name} (${loc.nameKo}) — Kpop Seoul Map`,
+    title: `${loc.name} (${loc.nameKo}) — 星旅 StarTrail`,
     description: `Visit ${loc.name} in ${loc.location.district}, Seoul. ${loc.description.slice(0, 150)}`,
     openGraph: {
-      title: `${loc.name} — Kpop Filming Location in Seoul`,
+      title: `${loc.name} — 星旅 StarTrail`,
       description: loc.description.slice(0, 200),
       type: "article",
     },

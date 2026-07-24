@@ -6,6 +6,7 @@ import { locations } from "@/lib/data/locations"
 import { useLang } from "@/components/LanguageProvider"
 import { LOCATION_TYPES } from "@/lib/utils/constants"
 import { getDistance } from "@/lib/utils/distance"
+import PageGuide from "@/components/ui/PageGuide"
 
 interface RouteSpot {
   id: string
@@ -148,6 +149,11 @@ export default function RoutesPage() {
           <p className="text-sm text-gray-400 max-w-md mx-auto mb-4">
             Tap a district to explore its Kpop route
           </p>
+
+          <PageGuide pageKey="routes" emoji="🗺️" title="怎么用地区路线？">
+            每个区都有按距离排好的路线。看到想去的地点点 <strong>+</strong> 加入清单，然后去 <Link href="/plan" className="text-blue-500 underline">规划页</Link> 一键生成你的专属行程～
+          </PageGuide>
+
           <Link
             href="/plan"
             className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl font-bold text-sm text-white transition-all hover:scale-105 hover:shadow-lg"

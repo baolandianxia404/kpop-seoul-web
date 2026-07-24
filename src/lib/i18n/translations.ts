@@ -29,7 +29,7 @@ export const translations = {
   nav_house: { en: "House", zh: "小屋" },
 
   // Homepage
-  home_title: { en: "Kpop Seoul Map", zh: "Kpop 首尔地图" },
+  home_title: { en: "StarTrail", zh: "星旅" },
   home_subtitle: { en: "Discover Kpop filming spots, idol restaurants & album shops in Seoul", zh: "探索首尔 Kpop 拍摄地、爱豆餐厅、专辑店" },
   home_spots: { en: "Spots", zh: "地点" },
   home_groups: { en: "Groups", zh: "团体" },
@@ -44,7 +44,7 @@ export const translations = {
 
   // Auth
   auth_login_title: { en: "Sign In", zh: "登录" },
-  auth_register_title: { en: "Join Kpop Seoul", zh: "加入 Kpop Seoul" },
+  auth_register_title: { en: "Join StarTrail", zh: "加入星旅" },
   auth_email: { en: "Email", zh: "邮箱" },
   auth_password: { en: "Password", zh: "密码" },
   auth_confirm_password: { en: "Confirm Password", zh: "确认密码" },

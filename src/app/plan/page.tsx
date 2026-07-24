@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import type { Budget, Preferences } from "@/types"
 import GroupSelector from "@/components/planner/GroupSelector"
 import DaySelector from "@/components/planner/DaySelector"
 import BudgetSelector from "@/components/planner/BudgetSelector"
 import PreferencePicker from "@/components/planner/PreferencePicker"
 import PendingSpots from "@/components/planner/PendingSpots"
+import PageGuide from "@/components/ui/PageGuide"
 import { getPendingSpots, removePendingSpot } from "@/lib/store/pending-spots"
 import { getLocationsByGroupIds } from "@/lib/data/locations"
 import { generateFallbackItinerary } from "@/lib/ai/fallback"
@@ -70,7 +72,7 @@ export default function PlanPage() {
     }
 
     const itinerary = generateFallbackItinerary(filtered, days, pendingSpotIds)
-    itinerary.title = `Kpop Seoul ${days}-Day Tour`
+    itinerary.title = `星旅 StarTrail ${days}-Day Tour`
     const totalSpots = itinerary.days.reduce((sum, d) => sum + d.spots.length, 0)
     const encoded = encodeURIComponent(
       JSON.stringify({
@@ -93,6 +95,10 @@ export default function PlanPage() {
           {t("plan_subtitle") || "Pick your favorite groups and we'll design a custom Kpop pilgrimage route."}
         </p>
       </div>
+
+      <PageGuide pageKey="plan" emoji="✨" title="如何规划路线？">
+        选好团体和天数 → 系统自动按区域和评分排路线。想加入自己收藏的地点？先在 <Link href="/routes" className="text-blue-500 underline">路线页</Link> 把地点加入清单，再回来生成～
+      </PageGuide>
 
       {/* Group Selector */}
       <div className="p-4 bg-white rounded-xl border border-blue-50 shadow-sm">

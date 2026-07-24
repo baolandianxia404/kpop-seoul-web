@@ -380,19 +380,6 @@ export const groups: Group[] = [
     "popularity": 82
   },
   {
-    "id": "iu",
-    "name": "IU",
-    "nameKo": "아이유",
-    "fullName": "IU",
-    "type": "solo",
-    "company": "EDAM",
-    "debutYear": 2008,
-    "memberCount": 1,
-    "fandomName": "UAENA",
-    "color": "#CD853F",
-    "popularity": 95
-  },
-  {
     "id": "super-junior",
     "name": "Super Junior",
     "nameKo": "슈퍼주니어",
@@ -872,19 +859,6 @@ export const groups: Group[] = [
     "fandomName": "Cassiopeia",
     "color": "#FF0000",
     "popularity": 80
-  },
-  {
-    "id": "jaejoong",
-    "name": "金在中",
-    "nameKo": "김재중",
-    "fullName": "Kim Jaejoong",
-    "type": "solo",
-    "company": "iNKODE",
-    "debutYear": 2013,
-    "memberCount": 1,
-    "fandomName": "Boss Babies",
-    "color": "#FF0000",
-    "popularity": 75
   },
   {
     "id": "2pm",

@@ -22,9 +22,8 @@ export default function Header() {
               <PixelLogo size={36} />
             </div>
             <span className="font-bold text-lg hidden sm:block pixel-font">
-              <span className="text-blue-500">Kpop</span>{" "}
-              <span className="text-amber-500">Seoul</span>{" "}
-              <span className="text-gray-400 font-normal text-sm">Map</span>
+              <span className="text-blue-500">星旅</span>
+              <span className="text-gray-400 font-normal text-xs ml-1">StarTrail</span>
             </span>
           </Link>
 
