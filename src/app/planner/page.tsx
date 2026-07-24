@@ -110,7 +110,8 @@ function parseXhsShareText(input: string): ExtractionResult {
   const shareMatch = cleanedInput.match(XHS_SHARE_PATTERN)
   if (shareMatch) {
     result.title = shareMatch[1].trim()
-    result.snippet = (shareMatch[2] || "").replace(/【小红书】里有答案.*$/, "").trim()
+    const snippetRaw = (shareMatch[2] || "").replace(/【小红书】里有答案.*$/, "").trim()
+    result.snippet = snippetRaw.slice(0, 250)
     result.url = shareMatch[3]
     result.isShareText = true
   } else {
@@ -120,13 +121,19 @@ function parseXhsShareText(input: string): ExtractionResult {
 
     if (url) {
       result.url = url
-      // Everything before the URL is title/description
+      // Everything before the URL is the share text
       const beforeUrl = cleanedInput.substring(0, cleanedInput.indexOf(url)).trim()
       if (beforeUrl) {
-        const trimmed = beforeUrl.replace(/…|\.\.\./g, "").trim()
-        if (trimmed.length > 0) {
-          result.title = trimmed.slice(0, 80)
-          result.snippet = trimmed.length > 80 ? trimmed.slice(80, 200) : trimmed.slice(20, 200)
+        // Remove trailing truncation markers (XHS truncates with ... or …)
+        const cleaned = beforeUrl.replace(/[…\.]{2,}$/, "").trim()
+        if (cleaned.length > 0) {
+          // Smart split: first 25 chars as title, rest as description
+          if (cleaned.length <= 25) {
+            result.title = cleaned
+          } else {
+            result.title = cleaned.slice(0, 25)
+            result.snippet = cleaned.slice(10).slice(0, 250)
+          }
           result.isShareText = true
         }
       }
@@ -169,18 +176,30 @@ function parseXhsShareText(input: string): ExtractionResult {
 
 function extractKoreanAddress(text: string): string | null {
   const patterns = [
-    // Full Korean address with city prefix
+    // Full Korean address: 서울/경기 + 구/군 + 동/로 + number
     /(?:서울|부산|인천|대구|대전|광주|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주)\s*\S*?(?:특별시|광역시)?\s+\S{2,}[구군]\s+\S{2,}[동읍면리]?\s*(?:\S*[로길가]\s*)?\d*(?:[번\-]\d*)?(?:호|층)?/g,
-    // District + dong + road + number
+    // District + dong + road + number (Korean)
     /\S{2,}[구군]\s+\S{2,}[동읍면리]?\s*(?:\S*[로길가]\s*)?\d+(?:[번\-]\d+)?(?:호|층)?/g,
-    // Chinese style: 首尔XX区XX洞/街/路
-    /首尔(?:特别市|特别自治市)?\s*\S{2,}[区洞街路]\s*\S{2,}[洞街路号]?\s*\d*(?:-\d+)?(?:号|楼|层)?/g,
+
+    // === Chinese-written Korean addresses ===
+    // 韩国首尔麻浦区西桥洞123号
+    /(?:韩国|南韩)?\s*首尔(?:特别市|特别自治市|市)?\s*\S{2,}[区]\s*\S{2,}[洞街路]?\s*\d*(?:-\d+)?(?:号|楼|层)?/g,
+    // 首尔麻浦区西桥洞123-4号 (simpler)
+    /首尔(?:特别市|特别自治市|市)?\s*\S{2,}[区]\s*\S{2,}[洞街路号]?\s*\d*(?:[—–\-]\d+)?(?:号|楼|层)?/g,
+    // Just Chinese district + dong: 麻浦区西桥洞, 江南区新沙洞
+    /\S{2,}[区]\s*\S{2,}[洞街路号]\s*\d*(?:[—–\-]\d+)?(?:号|楼|层|街)?/g,
+    // Chinese district + road: 麻浦区弘大路12街
+    /\S{2,}[区]\s*\S{2,}[路街]\s*\d*(?:[—–\-]\d+)?(?:号|巷)?/g,
+
+    // === Generic patterns ===
     // Road + building number: XX로 123 or XX길 45-6
     /\S{2,}[로길]\s+\d+(?:[번\-]\d+)?(?:호|층)?/g,
     // Dong + number: XX동 123-4
     /\S{2,}[동]\s+\d+(?:[번\-]\d+)?/g,
-    // Labeled: 地址/위치/주소:
-    /(?:地址|위치|주소|위치정보|장소)[:：]\s*(.+?)(?:[\n，。,.]|$)/gi,
+    // Labeled: 地址/위치/주소/位置:
+    /(?:地址|위치|주소|위치정보|장소|位置)[:：]\s*(.+?)(?:[\n，。,.]|$)/gi,
+    // Numbered address: XX路XX号, XX街XX号
+    /\S{2,}[路街]\s*\d+(?:[—–\-]\d+)?(?:号|楼|层)?/g,
   ]
   for (const p of patterns) {
     const m = text.match(p)
