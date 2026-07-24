@@ -53,10 +53,10 @@ function ItineraryContent() {
       <div className="max-w-lg mx-auto px-4 py-12 text-center">
         <p className="text-red-500 mb-4">{error}</p>
         <button
-          onClick={() => router.push("/planner")}
+          onClick={() => router.push("/plan")}
           className="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm"
         >
-          Back to Planner
+          Back to Plan
         </button>
       </div>
     )
@@ -84,7 +84,7 @@ function ItineraryContent() {
           </p>
         </div>
         <button
-          onClick={() => router.push("/planner")}
+          onClick={() => router.push("/plan")}
           className="text-sm text-blue-500 hover:text-blue-600"
         >
           New Plan

@@ -17,7 +17,7 @@ export default function MobileNav() {
     { href: "/locations", label: t("nav_locations"), icon: "📍", match: "/locations" },
     { href: "/planner", label: t("nav_planner"), icon: "📌", match: "/planner" },
     { href: "/groups", label: t("nav_groups"), icon: "💙", match: "/groups", blueIcon: true },
-    { href: "/routes", label: t("nav_routes"), icon: "🗺️", match: "/routes" },
+    { href: "/plan", label: t("nav_plan"), icon: "✨", match: "/plan" },
     ...(user ? [{ href: houseHref, label: t("nav_house"), icon: "🏠", match: "/house" }] : []),
     { href: "/saved", label: t("nav_saved"), icon: "💾", match: "/saved" },
   ]

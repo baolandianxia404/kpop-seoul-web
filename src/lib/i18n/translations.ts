@@ -7,6 +7,7 @@ export const translations = {
   header_groups: { en: "Groups", zh: "团体" },
   header_add_spot: { en: "Share", zh: "投稿" },
   header_routes: { en: "Routes", zh: "路线" },
+  header_plan: { en: "Plan", zh: "规划" },
   header_sign_in: { en: "Sign In", zh: "登录" },
   header_join: { en: "Join", zh: "注册" },
 
@@ -23,6 +24,7 @@ export const translations = {
   nav_groups: { en: "Groups", zh: "团体" },
   nav_planner: { en: "Add", zh: "添加" },
   nav_routes: { en: "Routes", zh: "路线" },
+  nav_plan: { en: "Plan", zh: "规划" },
   nav_saved: { en: "Saved", zh: "收藏" },
   nav_house: { en: "House", zh: "小屋" },
 
@@ -188,6 +190,19 @@ export const translations = {
   location_walk: { en: "Walk", zh: "步行" },
   location_exit: { en: "Exit", zh: "出口" },
   location_navigate: { en: "Navigate with:", zh: "导航应用：" },
+
+  // Plan page
+  plan_title: { en: "Plan Your Route", zh: "规划路线" },
+  plan_subtitle: { en: "Pick your favorite groups and we'll design a custom Kpop pilgrimage route.", zh: "选择你的本命团体，AI 为你定制专属追星路线。" },
+  plan_generate: { en: "Generate My Route", zh: "生成我的路线" },
+  plan_generating: { en: "Generating...", zh: "正在生成..." },
+  plan_hint: { en: "AI-powered route planning with 3-tier fallback · 5 generations/day", zh: "AI 智能路线规划，三重生成保障 · 每日 5 次" },
+  plan_error_no_group: { en: "Please select at least one group.", zh: "请至少选择一个团体。" },
+  plan_error_network: { en: "Network error. Please try again.", zh: "网络错误，请重试。" },
+  plan_from_saved: { en: "Spots from your saved list", zh: "来自你的收藏列表" },
+  plan_select_groups: { en: "1. Pick Your Groups", zh: "1. 选择本命团" },
+  plan_set_days: { en: "2. Trip Settings", zh: "2. 行程设置" },
+  plan_tune: { en: "3. Preferences", zh: "3. 偏好设置" },
 } as const
 
 export type TranslationKey = keyof typeof translations

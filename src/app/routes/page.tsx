@@ -121,9 +121,16 @@ export default function RoutesPage() {
             </h1>
             <span className="text-3xl animate-bounce-gentle" style={{ animationDelay: "0.5s" }}>✨</span>
           </div>
-          <p className="text-sm text-gray-400 max-w-md mx-auto">
+          <p className="text-sm text-gray-400 max-w-md mx-auto mb-4">
             Pick an area, add spots to your plan, follow the route!
           </p>
+          <Link
+            href="/plan"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl font-bold text-sm text-white transition-all hover:scale-105 hover:shadow-lg"
+            style={{ background: "linear-gradient(135deg, #3b82f6, #f59e0b)" }}
+          >
+            ✨ Want a personalized route? Plan with AI →
+          </Link>
           {savedCount > 0 && (
             <Link
               href="/saved"
