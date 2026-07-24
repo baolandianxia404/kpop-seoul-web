@@ -42,7 +42,13 @@ export default function LocationsPage() {
   const [activeSubwayLine, setActiveSubwayLine] = useState("")
   const [search, setSearch] = useState("")
   const [sortBy, setSortBy] = useState<"rating" | "name">("rating")
+  const [clickCount, setClickCount] = useState(0)
   const resultsRef = useRef<HTMLDivElement>(null)
+
+  // Debug: log state changes
+  useEffect(() => {
+    console.log("[STATE]", { activeType, activeDistrict, activeSubwayLine, search, sortBy, clickCount })
+  }, [activeType, activeDistrict, activeSubwayLine, search, sortBy, clickCount])
 
   // Scroll to results when filters change
   useEffect(() => {
@@ -68,11 +74,13 @@ export default function LocationsPage() {
   }, [])
 
   const filtered = useMemo(() => {
+    console.log("[FILTER] computing, activeDistrict:", JSON.stringify(activeDistrict), "activeSubwayLine:", JSON.stringify(activeSubwayLine))
     let result = [...locations]
+    console.log("[FILTER] initial count:", result.length)
 
-    if (activeType) result = result.filter((l) => l.type === activeType)
-    if (activeDistrict) result = result.filter((l) => l.location.district === activeDistrict)
-    if (activeSubwayLine) result = result.filter((l) => matchesSubwayLine(l, activeSubwayLine))
+    if (activeType) { result = result.filter((l) => l.type === activeType); console.log("[FILTER] after type:", result.length) }
+    if (activeDistrict) { result = result.filter((l) => l.location.district === activeDistrict); console.log("[FILTER] after district:", result.length) }
+    if (activeSubwayLine) { result = result.filter((l) => matchesSubwayLine(l, activeSubwayLine)); console.log("[FILTER] after subway:", result.length) }
     if (search) {
       const q = search.toLowerCase()
       result = result.filter(
@@ -84,11 +92,13 @@ export default function LocationsPage() {
           l.transport?.subway?.station?.toLowerCase().includes(q) ||
           getSubwayLines(l).some((line) => line.toLowerCase().includes(q))
       )
+      console.log("[FILTER] after search:", result.length)
     }
 
     if (sortBy === "rating") result.sort((a, b) => (b.rating || 0) - (a.rating || 0))
     else result.sort((a, b) => a.name.localeCompare(b.name))
 
+    console.log("[FILTER] final count:", result.length)
     return result
   }, [activeType, activeDistrict, activeSubwayLine, search, sortBy])
 
@@ -105,6 +115,18 @@ export default function LocationsPage() {
         <p className="text-sm text-slate-400 mt-1 pixel-font">
           {locations.length} locations across {DISTRICTS.length} districts
         </p>
+        {/* Debug panel */}
+        <div className="mt-3 p-2 bg-yellow-100 rounded text-[10px] font-mono text-left inline-block">
+          <div>clickCount: {clickCount}</div>
+          <div>activeType: "{activeType}"</div>
+          <div>activeDistrict: "{activeDistrict}"</div>
+          <div>activeSubwayLine: "{activeSubwayLine}"</div>
+          <div>search: "{search}"</div>
+          <div>filtered: {filtered.length}</div>
+          <button onClick={() => setClickCount((c) => c + 1)} className="mt-1 px-2 py-0.5 bg-yellow-400 rounded text-[10px]">
+            Test React
+          </button>
+        </div>
       </div>
 
       {/* Search */}
