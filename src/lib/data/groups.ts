@@ -1106,15 +1106,24 @@ export const groups: Group[] = [
     "fandomName": "A+",
     "color": "#000000",
     "popularity": 55
+  },
+  {
+    "id": "wayv",
+    "name": "WayV",
+    "nameKo": "웨이션브이",
+    "fullName": "WayV",
+    "type": "boy_group",
+    "company": "Label V / SM",
+    "debutYear": 2019,
+    "memberCount": 6,
+    "fandomName": "WayZenNi",
+    "color": "#00BFFF",
+    "popularity": 72
   }
 ]
 
 export function getGroupById(id: string): Group | undefined {
   return groups.find(g => g.id === id)
-}
-
-export function getGroupByName(name: string): Group | undefined {
-  return groups.find(g => g.name === name)
 }
 
 export function getGroupIds(): string[] {

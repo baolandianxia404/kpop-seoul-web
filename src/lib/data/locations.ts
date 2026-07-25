@@ -8427,7 +8427,7 @@ export const locations: Location[] = [
     "hours": {},
     "description": "韩国首座多功能室内演出场馆，15,000座席。已举办MMA、SBS歌谣大战、Weverse Con等大型活动。设施全新，音响大屏顶级，场馆WiFi覆盖。距仁川机场仅20分钟，适合特种兵追星。",
     "checkInTips": ["机场快线+免费接驳车", "看台别选1-2排有栏杆", "散场拼车回市区最省心"],
-    "price": { "isFree": false, "range": "" },
+    "price": { "isFree": false, "range": "根据演出定价" },
     "estimatedDuration": 180,
     "rating": 4.7,
     "verified": true
@@ -8453,7 +8453,7 @@ export const locations: Location[] = [
     "hours": {},
     "description": "奥林匹克公园内最小的演出馆，约3,000座席。超近距离观演体验，2层也能看清艺人五官。经常举办偶像粉丝见面会和小型演唱会。注意：和KSPO DOME挨着但不同场馆，别走错！",
     "checkInTips": ["小馆近距离看脸超清", "2层巡场位互动感强", "和KSPO不同场馆别走错"],
-    "price": { "isFree": false, "range": "" },
+    "price": { "isFree": false, "range": "根据演出定价" },
     "estimatedDuration": 150,
     "rating": 4.5,
     "verified": true
@@ -8479,7 +8479,7 @@ export const locations: Location[] = [
     "hours": {},
     "description": "超大室外体育场，可容纳4.4万人。视野开阔无遮挡，信号良好。BLACKPINK 2025世巡首站场地。从首尔市区约30分钟车程。",
     "checkInTips": ["地铁3号线大化站直达", "视野开阔无遮挡", "信号比KSPO还好"],
-    "price": { "isFree": false, "range": "" },
+    "price": { "isFree": false, "range": "根据演出定价" },
     "estimatedDuration": 180,
     "rating": 4.4,
     "verified": true
@@ -8503,7 +8503,7 @@ export const locations: Location[] = [
     "hours": {},
     "description": "仁川大型室外体育场，容纳3-4万人。SEVENTEEN 2025世巡场地。信号较差需提前截图门票。场馆大，取票和Zone卡不在同一广场，注意预留时间。",
     "checkInTips": ["信号极差需提前截图", "取票和入场不同广场", "地铁站路上有餐厅"],
-    "price": { "isFree": false, "range": "" },
+    "price": { "isFree": false, "range": "根据演出定价" },
     "estimatedDuration": 180,
     "rating": 4.2,
     "verified": true
@@ -8529,7 +8529,7 @@ export const locations: Location[] = [
     "hours": {},
     "description": "韩国最大演出场地之一，可容纳6万人以上。BTS、EXO等顶流团体世巡终点站首选。与蚕室综合运动场是同一区域但不同场馆。",
     "checkInTips": ["地铁2/9号线直达", "韩国最大规模演出场", "与室内体育馆是不同场馆"],
-    "price": { "isFree": false, "range": "" },
+    "price": { "isFree": false, "range": "根据演出定价" },
     "estimatedDuration": 180,
     "rating": 4.8,
     "verified": true
@@ -8555,7 +8555,7 @@ export const locations: Location[] = [
     "hours": {},
     "description": "首尔中型室内演出馆，约1.1万座席。场馆小、山顶票也近，音响效果好。许多偶像团体的首尔演唱会都选在此。",
     "checkInTips": ["场馆小山顶也近", "音响效果好", "与主竞技场不同"],
-    "price": { "isFree": false, "range": "" },
+    "price": { "isFree": false, "range": "根据演出定价" },
     "estimatedDuration": 150,
     "rating": 4.5,
     "verified": true
@@ -8581,7 +8581,7 @@ export const locations: Location[] = [
     "hours": {},
     "description": "首尔老牌室内体育馆，约4,500座席。常用于偶像团体小型演唱会和粉丝见面会。地理位置优越，靠近明洞和东大门。",
     "checkInTips": ["地铁3号线东大入口站", "靠近明洞东大门", "小型演唱会氛围好"],
-    "price": { "isFree": false, "range": "" },
+    "price": { "isFree": false, "range": "根据演出定价" },
     "estimatedDuration": 150,
     "rating": 4.3,
     "verified": true
@@ -8607,7 +8607,7 @@ export const locations: Location[] = [
     "hours": {},
     "description": "庆熙大学标志性建筑，约4,500座席。许多偶像团体在此举办出道Showcase和粉丝见面会。建筑本身也是首尔著名打卡景点，欧式古典风格。",
     "checkInTips": ["大学校园内环境优美", "偶像出道Showcase圣地", "欧式建筑也是打卡点"],
-    "price": { "isFree": false, "range": "" },
+    "price": { "isFree": false, "range": "根据演出定价" },
     "estimatedDuration": 150,
     "rating": 4.4,
     "verified": true
@@ -8631,7 +8631,7 @@ export const locations: Location[] = [
     "hours": {},
     "description": "仁川大型综合体育场，曾举办2014亚运会。常用于Kpop大型演唱会和音乐节。MUSE LIVE IN KOREA 2025举办地。",
     "checkInTips": ["仁川地铁直达", "大型演出场地", "注意散场交通"],
-    "price": { "isFree": false, "range": "" },
+    "price": { "isFree": false, "range": "根据演出定价" },
     "estimatedDuration": 180,
     "rating": 4.1,
     "verified": true
@@ -8656,10 +8656,6 @@ export function getLocationsByGroupIds(groupIds: string[]): Location[] {
     }
     return false
   })
-}
-
-export function getLocationsByDistrict(district: string): Location[] {
-  return locations.filter(l => l.location.district === district)
 }
 
 export function getLocationIds(): string[] {

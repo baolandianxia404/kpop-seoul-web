@@ -8,6 +8,9 @@ export default function HoursSection({
     note?: string
   }
 }) {
+  const hasContent = hours.weekday || hours.weekend || hours.closed || hours.note
+  if (!hasContent) return null
+
   return (
     <div className="p-4 bg-white rounded-xl border border-gray-100">
       <h3 className="font-semibold text-sm mb-2">Opening Hours</h3>
