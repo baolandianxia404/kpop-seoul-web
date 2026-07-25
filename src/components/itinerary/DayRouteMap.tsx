@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef } from "react"
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet"
 import L from "leaflet"
 import type { ItinerarySpot } from "@/types"
@@ -11,18 +11,24 @@ interface Props {
 
 function MapSizeFixer() {
   const map = useMap()
+  const done = useRef(false)
   useEffect(() => {
-    map.whenReady(() => {
-      map.invalidateSize()
-      // After layout settles, force a view reset to reload all tiles at correct size
-      setTimeout(() => {
-        map.invalidateSize()
-        const c = map.getCenter()
-        const z = map.getZoom()
-        map.setView(c, z, { animate: false })
-      }, 400)
-    })
+    if (done.current) return
+    done.current = true
+    const timer = setTimeout(() => map.invalidateSize(), 300)
+    return () => clearTimeout(timer)
   }, [map])
+  return null
+}
+
+function ViewUpdater({ center, spots }: { center: [number, number]; spots: ItinerarySpot[] }) {
+  const map = useMap()
+  useEffect(() => {
+    if (spots.length === 0) return
+    // Fit all markers in view
+    const bounds = L.latLngBounds(spots.map((s) => [s.lat, s.lng]))
+    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 })
+  }, [map, spots]) // eslint-disable-line react-hooks/exhaustive-deps
   return null
 }
 
@@ -39,18 +45,11 @@ function getNumIcon(n: number): L.DivIcon {
 }
 
 export default function DayRouteMap({ spots }: Props) {
-  const [mapKey, setMapKey] = useState(0)
-
-  const center: [number, number] = useMemo(() => {
+  const defaultCenter: [number, number] = useMemo(() => {
     if (spots.length === 0) return [37.5665, 126.978]
     const avgLat = spots.reduce((s, p) => s + p.lat, 0) / spots.length
     const avgLng = spots.reduce((s, p) => s + p.lng, 0) / spots.length
     return [avgLat, avgLng]
-  }, [spots])
-
-  // Force remount when spots change (same approach as homepage KpopMap)
-  useEffect(() => {
-    setMapKey((k) => k + 1)
   }, [spots])
 
   return (
@@ -65,8 +64,7 @@ export default function DayRouteMap({ spots }: Props) {
       }}
     >
       <MapContainer
-        key={mapKey}
-        center={center}
+        center={defaultCenter}
         zoom={14}
         scrollWheelZoom={true}
         dragging={true}
@@ -80,6 +78,7 @@ export default function DayRouteMap({ spots }: Props) {
           url="https://{s}.tile.openstreetmap.org/{z}/{y}/{x}.png"
         />
         <MapSizeFixer />
+        <ViewUpdater center={defaultCenter} spots={spots} />
 
         {spots.map((spot, i) => (
           <Marker

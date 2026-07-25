@@ -230,7 +230,7 @@ function ItineraryContent() {
             </div>
 
             {/* Route map */}
-            <DayRouteMap key={activeDay} spots={currentDay.spots} />
+            <DayRouteMap spots={currentDay.spots} />
 
             {/* Timeline */}
             <div className="relative pl-8">
