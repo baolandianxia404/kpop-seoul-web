@@ -176,9 +176,9 @@ export default function KpopMap({ locations }: Props) {
           className="absolute inset-0 z-[900] flex items-center justify-center cursor-pointer group"
           onClick={() => setInteractive(true)}
         >
-          <div className="absolute inset-0 bg-white/40 group-hover:bg-white/20 transition-colors" />
-          <div className="relative px-5 py-3 bg-white/90 backdrop-blur border-2 border-slate-300 text-slate-500 font-mono text-xs font-bold group-hover:text-blue-500 group-hover:border-blue-400 transition-all animate-bounce-gentle shadow-lg">
-            👆 Click to explore the map
+          <div className="absolute inset-0 bg-white/10 group-hover:bg-white/5 transition-colors" />
+          <div className="relative px-4 py-2 bg-white/85 backdrop-blur border-2 border-blue-200 text-blue-400 font-mono text-xs font-bold group-hover:text-blue-500 group-hover:border-blue-400 transition-all animate-bounce-gentle shadow-lg rounded-full">
+            👆 Tap to explore
           </div>
         </div>
       )}
