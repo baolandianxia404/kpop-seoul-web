@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { notFound } from "next/navigation"
 import { getLocationById, locations } from "@/lib/data/locations"
+import { groups } from "@/lib/data/groups"
 import { LOCATION_TYPES, TYPE_NAME_CN } from "@/lib/utils/constants"
 import { getDistance } from "@/lib/utils/distance"
 import TransportSection from "@/components/location/TransportSection"
@@ -11,6 +12,7 @@ import TipsSection from "@/components/location/TipsSection"
 import PhotoWall from "@/components/location/PhotoWall"
 import Link from "next/link"
 import { useLang } from "@/components/LanguageProvider"
+import { useAuth } from "@/components/auth/AuthProvider"
 import { isFavorite, toggleFavorite } from "@/lib/store/favorites"
 
 interface Props {
@@ -19,6 +21,7 @@ interface Props {
 
 export default function LocationDetailContent({ id }: Props) {
   const { t } = useLang()
+  const { user, profile } = useAuth()
   const loc = getLocationById(id)
   const [fav, setFav] = useState(false)
 
@@ -183,6 +186,38 @@ export default function LocationDetailContent({ id }: Props) {
       {loc.checkInTips && loc.checkInTips.length > 0 && (
         <TipsSection tips={loc.checkInTips} />
       )}
+
+      {/* Check-in CTA */}
+      <section className="mb-6 p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
+        <p className="text-sm font-semibold text-slate-700 mb-3">
+          {t("location_checkin_prompt")}
+        </p>
+        {user && profile ? (
+          (() => {
+            const userGroup = groups.find((g) => g.id === profile.fan_group_id)
+            const locGroupIds = groups.filter((g) => loc.groupNames.includes(g.name)).map((g) => g.id)
+            const targetGroupId = locGroupIds.includes(profile.fan_group_id)
+              ? profile.fan_group_id
+              : locGroupIds[0]
+            if (!targetGroupId) return null
+            return (
+              <Link
+                href={`/groups/${targetGroupId}/house?spot=${encodeURIComponent(loc.name)}`}
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-500 text-white rounded-xl text-sm font-bold hover:bg-blue-600 transition active:scale-95"
+              >
+                📝 {t("location_checkin_btn")}
+              </Link>
+            )
+          })()
+        ) : (
+          <Link
+            href="/auth/login"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-500 text-white rounded-xl text-sm font-bold hover:bg-blue-600 transition active:scale-95"
+          >
+            {t("auth_login_link")}
+          </Link>
+        )}
+      </section>
 
       {/* Fan Photo Wall */}
       <PhotoWall locationName={loc.name} />

@@ -75,3 +75,57 @@ CREATE POLICY "checkins_delete" ON check_ins FOR DELETE USING (auth.uid() = user
 -- ON CONFLICT (id) DO NOTHING;
 -- CREATE POLICY "photos_select" ON storage.objects FOR SELECT USING (bucket_id = 'checkin-photos');
 -- CREATE POLICY "photos_insert" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'checkin-photos' AND auth.role() = 'authenticated');
+
+-- =============================================
+-- Check-in Likes
+-- =============================================
+CREATE TABLE IF NOT EXISTS checkin_likes (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  checkin_id UUID REFERENCES check_ins(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(checkin_id, user_id)
+);
+
+ALTER TABLE checkin_likes ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "likes_select" ON checkin_likes;
+CREATE POLICY "likes_select" ON checkin_likes FOR SELECT USING (
+  EXISTS (
+    SELECT 1 FROM profiles
+    WHERE profiles.id = auth.uid()
+    AND profiles.fan_group_id = (
+      SELECT group_id FROM check_ins WHERE check_ins.id = checkin_likes.checkin_id
+    )
+  )
+);
+DROP POLICY IF EXISTS "likes_insert" ON checkin_likes;
+CREATE POLICY "likes_insert" ON checkin_likes FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "likes_delete" ON checkin_likes;
+CREATE POLICY "likes_delete" ON checkin_likes FOR DELETE USING (auth.uid() = user_id);
+
+-- =============================================
+-- Check-in Comments
+-- =============================================
+CREATE TABLE IF NOT EXISTS checkin_comments (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  checkin_id UUID REFERENCES check_ins(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
+  content TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE checkin_comments ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "comments_select" ON checkin_comments;
+CREATE POLICY "comments_select" ON checkin_comments FOR SELECT USING (
+  EXISTS (
+    SELECT 1 FROM profiles
+    WHERE profiles.id = auth.uid()
+    AND profiles.fan_group_id = (
+      SELECT group_id FROM check_ins WHERE check_ins.id = checkin_comments.checkin_id
+    )
+  )
+);
+DROP POLICY IF EXISTS "comments_insert" ON checkin_comments;
+CREATE POLICY "comments_insert" ON checkin_comments FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "comments_delete" ON checkin_comments;
+CREATE POLICY "comments_delete" ON checkin_comments FOR DELETE USING (auth.uid() = user_id);

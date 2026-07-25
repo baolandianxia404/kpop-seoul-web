@@ -1,5 +1,7 @@
 "use client"
 
+import { useState, useMemo, useRef, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import MapWrapper from "@/components/map/MapWrapper"
 import HotPlaces from "@/components/home/HotPlaces"
 import CheckInRanking from "@/components/home/CheckInRanking"
@@ -39,6 +41,56 @@ const floatingEmojis = [
 
 export default function HomePage() {
   const { t, lang } = useLang()
+  const router = useRouter()
+  const [searchQuery, setSearchQuery] = useState("")
+  const [showDropdown, setShowDropdown] = useState(false)
+  const [flyToLocation, setFlyToLocation] = useState<{ lat: number; lng: number; zoom?: number } | null>(null)
+  const searchRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setShowDropdown(false)
+      }
+    }
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler)
+  }, [])
+
+  const searchResults = useMemo(() => {
+    if (!searchQuery.trim()) return []
+    const q = searchQuery.toLowerCase()
+    const locResults = locations
+      .filter((l) =>
+        l.name.toLowerCase().includes(q) ||
+        l.nameKo.includes(q) ||
+        l.groupNames.some((g) => g.toLowerCase().includes(q)) ||
+        l.location.district.includes(q)
+      )
+      .slice(0, 5)
+      .map((l) => ({ type: "location" as const, id: l.id, title: l.name, subtitle: `${l.location.district} · ${l.groupNames.slice(0, 2).join(", ")}`, lat: l.location.latitude, lng: l.location.longitude }))
+
+    const groupResults = groups
+      .filter((g) =>
+        g.name.toLowerCase().includes(q) ||
+        g.nameKo.includes(q) ||
+        g.company.toLowerCase().includes(q)
+      )
+      .slice(0, 3)
+      .map((g) => ({ type: "group" as const, id: g.id, title: g.name, subtitle: g.company }))
+
+    return [...locResults, ...groupResults].slice(0, 8)
+  }, [searchQuery])
+
+  const handleSelect = (r: typeof searchResults[number]) => {
+    setShowDropdown(false)
+    setSearchQuery("")
+    if (r.type === "location" && "lat" in r) {
+      setFlyToLocation({ lat: r.lat, lng: r.lng, zoom: 16 })
+    } else {
+      router.push(`/groups/${r.id}`)
+    }
+  }
 
   const stats = [
     { icon: "📍", label: t("home_spots"), value: String(locations.length), color: "text-blue-500" },
@@ -92,6 +144,40 @@ export default function HomePage() {
           </p>
         </div>
 
+        {/* Search bar */}
+        <div ref={searchRef} className="relative max-w-md mx-auto mb-4">
+          <div className="flex items-center gap-2 px-4 py-2.5 bg-white rounded-2xl border-2 border-slate-200 shadow-sm focus-within:border-blue-300 focus-within:shadow-md transition-all">
+            <span className="text-slate-400 text-sm">🔍</span>
+            <input
+              value={searchQuery}
+              onChange={(e) => { setSearchQuery(e.target.value); setShowDropdown(true) }}
+              onFocus={() => setShowDropdown(true)}
+              placeholder={t("home_search_placeholder")}
+              className="flex-1 outline-none text-sm text-slate-700 placeholder:text-slate-300"
+            />
+            {searchQuery && (
+              <button onClick={() => { setSearchQuery(""); setShowDropdown(false) }} className="text-slate-300 hover:text-slate-500 text-xs">✕</button>
+            )}
+          </div>
+          {showDropdown && searchResults.length > 0 && (
+            <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl border border-slate-200 shadow-lg overflow-hidden z-50">
+              {searchResults.map((r) => (
+                <button
+                  key={`${r.type}-${r.id}`}
+                  onClick={() => handleSelect(r)}
+                  className="w-full text-left px-4 py-2.5 hover:bg-blue-50 flex items-center gap-3 transition"
+                >
+                  <span className="text-sm">{r.type === "location" ? "📍" : "💙"}</span>
+                  <div>
+                    <p className="text-sm font-semibold text-slate-700">{r.title}</p>
+                    <p className="text-[10px] text-slate-400">{r.subtitle}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
         {/* Map with pixel frame */}
         <div className="relative mb-8">
           <div className="pixel-map-frame relative rounded-none overflow-hidden"
@@ -110,10 +196,22 @@ export default function HomePage() {
             <div className="absolute bottom-[4px] right-[4px] w-2 h-2 bg-white z-[1001] pointer-events-none" />
 
             <div className="h-[55vh] min-h-[350px] md:h-[360px] w-full">
-              <MapWrapper locations={locations} />
+              <MapWrapper locations={locations} flyToLocation={flyToLocation} />
             </div>
           </div>
         </div>
+
+        {/* Floating search button for mobile */}
+        <button
+          onClick={() => {
+            const el = searchRef.current?.querySelector("input") as HTMLInputElement | null
+            el?.scrollIntoView({ behavior: "smooth", block: "center" })
+            setTimeout(() => el?.focus(), 400)
+          }}
+          className="md:hidden fixed bottom-24 left-3 z-30 w-11 h-11 rounded-full bg-white shadow-lg border-2 border-blue-200 flex items-center justify-center text-lg active:scale-95 transition"
+        >
+          🔍
+        </button>
 
         {/* Quick Start Guide */}
         <QuickStart />

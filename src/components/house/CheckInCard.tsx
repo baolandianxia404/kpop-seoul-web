@@ -60,7 +60,7 @@ export default function CheckInCard({ checkIn, onDelete }: Props) {
         .select("*")
         .eq("checkin_id", checkIn.id)
         .eq("user_id", user.id)
-        .single()
+        .maybeSingle()
         .then(({ data }) => setLiked(!!data))
     }
   }, [supabase, checkIn.id, user])

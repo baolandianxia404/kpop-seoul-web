@@ -12,6 +12,15 @@ import MarkerPopup from "./MarkerPopup"
 
 interface Props {
   locations: Location[]
+  flyToLocation?: { lat: number; lng: number; zoom?: number } | null
+}
+
+function FlyToHandler({ target, counter }: { target: { lat: number; lng: number; zoom: number }; counter: number }) {
+  const map = useMap()
+  useEffect(() => {
+    map.flyTo([target.lat, target.lng], target.zoom, { duration: 1 })
+  }, [counter])
+  return null
 }
 
 const iconCache: Record<string, L.DivIcon> = {}
@@ -72,7 +81,7 @@ function MapSizeFixer() {
   return null
 }
 
-export default function KpopMap({ locations }: Props) {
+export default function KpopMap({ locations, flyToLocation }: Props) {
   const [mapKey, setMapKey] = useState(0)
   const [zoom, setZoom] = useState(DEFAULT_ZOOM)
   const [center, setCenter] = useState(SEOUL_CENTER)
@@ -81,6 +90,14 @@ export default function KpopMap({ locations }: Props) {
   const [selectedLoc, setSelectedLoc] = useState<Location | null>(null)
   const [pendingSpots, setPendingSpots] = useState<string[]>([])
   const [interactive, setInteractive] = useState(false)
+  const [flyCounter, setFlyCounter] = useState(0)
+
+  useEffect(() => {
+    if (flyToLocation) {
+      setInteractive(true)
+      setFlyCounter((c) => c + 1)
+    }
+  }, [flyToLocation])
 
   const resetMap = useCallback(() => {
     setMapKey((k) => k + 1)
@@ -167,6 +184,12 @@ export default function KpopMap({ locations }: Props) {
         <MapEvents onMoveEnd={handleViewportChange} />
         <MapInteractionToggle active={interactive} />
         <MapSizeFixer />
+        {flyToLocation && (
+          <FlyToHandler
+            target={{ lat: flyToLocation.lat, lng: flyToLocation.lng, zoom: flyToLocation.zoom || 16 }}
+            counter={flyCounter}
+          />
+        )}
 
         {visibleMarkers.map((loc) => (
           <Marker

@@ -20,10 +20,10 @@ const KpopMap = dynamic(() => import("./KpopMap"), {
   ),
 })
 
-export default function MapWrapper({ locations }: { locations: Location[] }) {
+export default function MapWrapper({ locations, flyToLocation }: { locations: Location[]; flyToLocation?: { lat: number; lng: number; zoom?: number } | null }) {
   return (
     <div className="w-full h-full">
-      <KpopMap locations={locations} />
+      <KpopMap locations={locations} flyToLocation={flyToLocation} />
     </div>
   )
 }

@@ -166,3 +166,19 @@ export interface CheckInRow {
   // Joined fields
   profile?: UserProfile
 }
+
+export interface CheckInLike {
+  id: string
+  checkin_id: string
+  user_id: string
+  created_at: string
+}
+
+export interface CheckInComment {
+  id: string
+  checkin_id: string
+  user_id: string
+  content: string
+  created_at: string
+  profile?: Pick<UserProfile, "display_name"> | null
+}

@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
+import { useSearchParams } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { useLang } from "@/components/LanguageProvider"
@@ -38,8 +39,14 @@ interface Props {
 export default function CheckInForm({ groupId, onSuccess }: Props) {
   const { t } = useLang()
   const { user } = useAuth()
+  const searchParams = useSearchParams()
   const [spotName, setSpotName] = useState("")
   const [spotLocation, setSpotLocation] = useState("")
+
+  useEffect(() => {
+    const spot = searchParams.get("spot")
+    if (spot && !spotName) setSpotName(spot)
+  }, [])
   const [content, setContent] = useState("")
   const [photos, setPhotos] = useState<File[]>([])
   const [previews, setPreviews] = useState<string[]>([])
