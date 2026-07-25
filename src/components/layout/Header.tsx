@@ -7,6 +7,7 @@ import { useAuth } from "@/components/auth/AuthProvider"
 import { useLang } from "@/components/LanguageProvider"
 import UserMenu from "@/components/auth/UserMenu"
 import PixelLogo from "@/components/PixelLogo"
+import StarTravelers from "@/components/ui/StarTravelers"
 
 export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false)
@@ -24,6 +25,9 @@ export default function Header() {
             <span className="font-bold text-lg hidden sm:block pixel-font">
               <span className="text-blue-500">星旅</span>
               <span className="text-gray-400 font-normal text-xs ml-1">StarTrail</span>
+            </span>
+            <span className="hidden lg:block">
+              <StarTravelers />
             </span>
           </Link>
 

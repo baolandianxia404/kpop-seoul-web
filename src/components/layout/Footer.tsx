@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { locations } from "@/lib/data/locations"
-import StarTravelers from "@/components/ui/StarTravelers"
 
 export default function Footer() {
   return (
@@ -27,10 +26,8 @@ export default function Footer() {
               Add Spot
             </Link>
           </nav>
-          <p className="text-xs text-gray-400 flex items-center gap-3">
-            <StarTravelers />
-            <span className="text-gray-300">·</span>
-            <span>🐰 {locations.length}+ Kpop spots in Seoul</span>
+          <p className="text-xs text-gray-400">
+            🐰 {locations.length}+ Kpop spots in Seoul
           </p>
         </div>
       </div>
