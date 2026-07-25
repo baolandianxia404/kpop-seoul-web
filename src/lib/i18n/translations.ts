@@ -163,11 +163,6 @@ export const translations = {
   cat_mv_spot: { en: "MV Spot", zh: "MV 拍摄地" },
   cat_entertainment: { en: "Entertainment", zh: "娱乐场所" },
 
-  // Homepage search
-  home_search_placeholder: { en: "Search locations or groups...", zh: "搜索地点或团体..." },
-  home_search_locations: { en: "Locations", zh: "地点" },
-  home_search_groups: { en: "Groups", zh: "团体" },
-
   // Location detail
   location_checkin_prompt: { en: "Been here? Share your photos with fellow fans!", zh: "来过这里？和同好粉丝分享你的照片吧！" },
   location_checkin_btn: { en: "Check in here", zh: "打卡这里" },
