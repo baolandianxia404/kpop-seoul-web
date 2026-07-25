@@ -4,26 +4,31 @@ import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { useLang } from "@/components/LanguageProvider"
 
-interface MenuItem {
-  href: string
-  icon: string
-  label: { en: string; zh: string }
-  color: string
-}
+const MENU_ITEMS = [
+  { href: "/planner", icon: "📝", label: { en: "Share", zh: "投稿" }, color: "bg-amber-400", anim: "animate-pop-bounce" },
+  { href: "/plan", icon: "🗺️", label: { en: "Plan", zh: "规划路线" }, color: "bg-blue-400", anim: "animate-pop-spin" },
+  { href: "/saved", icon: "⭐", label: { en: "Saved", zh: "收藏" }, color: "bg-pink-400", anim: "animate-pop-swing" },
+]
 
-const MENU_ITEMS: MenuItem[] = [
-  { href: "/planner", icon: "📝", label: { en: "Share", zh: "投稿" }, color: "#f59e0b" },
-  { href: "/plan", icon: "🗺️", label: { en: "Plan", zh: "规划路线" }, color: "#3b82f6" },
-  { href: "/saved", icon: "⭐", label: { en: "Saved", zh: "收藏" }, color: "#ec4899" },
+const BURST_OFFSETS = [
+  { x: -56, y: -72 },
+  { x: 0, y: -88 },
+  { x: 56, y: -72 },
 ]
 
 export default function FloatingOrb() {
   const [open, setOpen] = useState(false)
+  const [burst, setBurst] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const { lang } = useLang()
 
   useEffect(() => {
-    if (!open) return
+    if (!open) {
+      setBurst(false)
+      return
+    }
+    // Delay burst to let the "pop" animation play
+    const t = setTimeout(() => setBurst(true), 150)
     const handler = (e: MouseEvent | TouchEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setOpen(false)
@@ -32,10 +37,20 @@ export default function FloatingOrb() {
     document.addEventListener("mousedown", handler)
     document.addEventListener("touchstart", handler)
     return () => {
+      clearTimeout(t)
       document.removeEventListener("mousedown", handler)
       document.removeEventListener("touchstart", handler)
     }
   }, [open])
+
+  const handleToggle = () => {
+    if (open) {
+      setBurst(false)
+      setTimeout(() => setOpen(false), 100)
+    } else {
+      setOpen(true)
+    }
+  }
 
   return (
     <div ref={containerRef} className="md:hidden fixed bottom-20 left-1/2 -translate-x-1/2 z-40">
@@ -44,75 +59,53 @@ export default function FloatingOrb() {
         <div
           className="fixed inset-0 bg-black/10 backdrop-blur-[1px]"
           style={{ zIndex: -1 }}
-          onClick={() => setOpen(false)}
+          onClick={handleToggle}
         />
       )}
 
-      {/* Fan menu + orb container */}
-      <div className="relative">
-        {MENU_ITEMS.map((item, i) => {
-          const spreadAngle = 40 // total spread in degrees
-          const startAngle = -90 - spreadAngle / 2
-          const angle = startAngle + (i / (MENU_ITEMS.length - 1)) * spreadAngle
-          const radius = 90
-          const x = Math.cos((angle * Math.PI) / 180) * radius
-          const y = Math.sin((angle * Math.PI) / 180) * radius
-
-          return (
-            <div
-              key={item.href}
-              className="absolute left-1/2 flex flex-col items-center gap-1 transition-all duration-300 ease-out"
-              style={{
-                transform: open
-                  ? `translate(calc(-50% + ${x}px), ${y}px) scale(1)`
-                  : "translate(-50%, 0) scale(0)",
-                opacity: open ? 1 : 0,
-                transitionDelay: open ? `${i * 60}ms` : `${(2 - i) * 40}ms`,
-                bottom: 24,
-              }}
-            >
-              <span className="text-[10px] font-bold text-slate-600 bg-white/90 px-2 py-0.5 rounded-full shadow-sm whitespace-nowrap">
-                {item.label[lang]}
-              </span>
-              <Link
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-lg transition-transform hover:scale-115 active:scale-95"
-                style={{ backgroundColor: item.color }}
-              >
-                {item.icon}
-              </Link>
-            </div>
-          )
-        })}
-
-        {/* Orb button */}
-        <button
-          onClick={(e) => { e.stopPropagation(); setOpen(!open) }}
-          className="relative w-12 h-12 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg transition-transform duration-300 hover:scale-105 active:scale-95"
+      {/* Menu bubbles */}
+      {MENU_ITEMS.map((item, i) => (
+        <div
+          key={item.href}
+          className="absolute left-1/2 flex flex-col items-center gap-1.5 transition-all duration-500 ease-out"
           style={{
-            background: "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #6366f1 100%)",
+            transform: burst
+              ? `translate(calc(-50% + ${BURST_OFFSETS[i].x}px), ${BURST_OFFSETS[i].y}px) scale(1)`
+              : "translate(-50%, 0) scale(0)",
+            opacity: burst ? 1 : 0,
+            transitionDelay: burst ? `${i * 80}ms` : "0ms",
+            bottom: 28,
           }}
         >
-          {/* Star trail ring */}
-          <span
-            className="absolute inset-0 rounded-full animate-spin-slow"
-            style={{
-              background: `conic-gradient(from 0deg, transparent 70%, rgba(251,191,36,0.4) 85%, transparent 100%)`,
-              mask: "radial-gradient(circle, transparent 58%, black 60%)",
-              WebkitMask: "radial-gradient(circle, transparent 58%, black 60%)",
-            }}
-          />
-
-          {/* Breathing glow */}
-          <span className="absolute inset-0 rounded-full animate-pulse-glow" />
-
-          {/* Icon */}
-          <span className="relative z-10 text-sm transition-transform duration-300" style={{ transform: open ? "rotate(45deg)" : "" }}>
-            ✦
+          <span className={`text-[10px] font-bold text-slate-500 bg-white/95 px-2.5 py-1 rounded-full shadow-sm whitespace-nowrap ${burst ? item.anim : ""}`}
+            style={{ animationDelay: `${300 + i * 100}ms` }}
+          >
+            {item.label[lang]}
           </span>
-        </button>
-      </div>
+          <Link
+            href={item.href}
+            onClick={() => setOpen(false)}
+            className={`w-11 h-11 rounded-full flex items-center justify-center text-lg shadow-lg transition-transform active:scale-90 ${item.color} ${burst ? item.anim : ""}`}
+            style={{ animationDelay: `${200 + i * 100}ms` }}
+          >
+            {item.icon}
+          </Link>
+        </div>
+      ))}
+
+      {/* Main rabbit bubble */}
+      <button
+        onClick={handleToggle}
+        className={`relative w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 ${open ? "" : "animate-bunny-hop"}`}
+        style={{
+          background: "linear-gradient(135deg, #fff 0%, #fef3c7 40%, #fde68a 100%)",
+        }}
+      >
+        {/* Shine */}
+        <span className="absolute top-1.5 left-3 w-2 h-2 rounded-full bg-white/80" />
+        {/* Bunny */}
+        <span className={open ? "animate-pop-in" : ""}>🐰</span>
+      </button>
     </div>
   )
 }
