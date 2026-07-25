@@ -5,6 +5,7 @@ import MobileNav from "@/components/layout/MobileNav"
 import Footer from "@/components/layout/Footer"
 import ClientWrapper from "@/components/auth/ClientWrapper"
 import LanguageProvider from "@/components/LanguageProvider"
+import "leaflet/dist/leaflet.css"
 import "./globals.css"
 
 const inter = Inter({
