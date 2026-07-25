@@ -698,7 +698,6 @@ export const locations: Location[] = [
     "type": "mv_spot",
     "category": "outdoor",
     "groupNames": [
-      "IU",
       "SHINee",
       "Red Velvet"
     ],
@@ -2050,44 +2049,6 @@ export const locations: Location[] = [
     "verified": true
   },
   {
-    "id": "iu",
-    "name": "IU同款 — 三清洞咖啡街",
-    "nameKo": "삼청동 카페거리",
-    "type": "restaurant",
-    "category": "cafe",
-    "groupNames": [
-      "IU"
-    ],
-    "location": {
-      "latitude": 37.5835,
-      "longitude": 126.9805,
-      "address": "首尔特别市钟路区三清洞125-4",
-      "district": "钟路区",
-      "neighborhood": "三清洞"
-    },
-    "transport": {
-      "subway": {
-        "line": "3号线",
-        "station": "安国站",
-        "exit": "1号出口",
-        "walkingMinutes": 10
-      }
-    },
-    "hours": {
-      "weekday": "各店不同，一般10:00-21:00",
-      "weekend": "10:00-22:00"
-    },
-    "description": "三清洞是IU常被偶遇的区域，整条街都是韩屋风格的咖啡厅和画廊。IU的专辑概念照也曾在此拍摄。",
-    "tips": "三清洞+北村韩屋村可以一起逛。建议穿平底鞋，上下坡多。",
-    "price": {
-      "isFree": false,
-      "range": "5000-15000韩元"
-    },
-    "estimatedDuration": 90,
-    "rating": 4.8,
-    "verified": true
-  },
-  {
     "id": "ateez-colour-pool",
     "name": "ATEEZ同款 — 弘大 Colour Pool",
     "nameKo": "컬러풀",
@@ -2488,7 +2449,6 @@ export const locations: Location[] = [
     "type": "mv_spot",
     "category": "outdoor",
     "groupNames": [
-      "IU",
       "BTS"
     ],
     "location": {
@@ -2683,7 +2643,6 @@ export const locations: Location[] = [
     "type": "entertainment",
     "category": "landmark",
     "groupNames": [
-      "IU",
       "SHINee",
       "Red Velvet"
     ],
@@ -2763,8 +2722,7 @@ export const locations: Location[] = [
     "category": "korean",
     "groupNames": [
       "BTS",
-      "TWICE",
-      "IU"
+      "TWICE"
     ],
     "location": {
       "latitude": 37.57,
@@ -2835,44 +2793,6 @@ export const locations: Location[] = [
     },
     "estimatedDuration": 30,
     "rating": 4.4,
-    "verified": true
-  },
-  {
-    "id": "location-66",
-    "name": "德寿宫石墙路",
-    "nameKo": "덕수궁 돌담길",
-    "type": "mv_spot",
-    "category": "outdoor",
-    "groupNames": [
-      "IU"
-    ],
-    "location": {
-      "latitude": 37.5658,
-      "longitude": 126.975,
-      "address": "首尔特别市中区贞洞5-3",
-      "district": "中区",
-      "neighborhood": "贞洞"
-    },
-    "transport": {
-      "subway": {
-        "line": "1号线/2号线",
-        "station": "市厅站",
-        "exit": "2号出口",
-        "walkingMinutes": 2
-      }
-    },
-    "hours": {
-      "weekday": "全天",
-      "weekend": "全天"
-    },
-    "description": "IU歌曲中提到的石墙路，被誉为首尔最美散步路。秋天银杏非常美，是首尔代表性浪漫景点。",
-    "tips": "秋天银杏季最美。附近有首尔市立美术馆。",
-    "price": {
-      "isFree": true,
-      "range": "免费"
-    },
-    "estimatedDuration": 45,
-    "rating": 4.5,
     "verified": true
   },
   {
@@ -3364,43 +3284,6 @@ export const locations: Location[] = [
     "verified": true
   },
   {
-    "id": "location-79",
-    "name": "仁寺洞",
-    "nameKo": "인사동",
-    "type": "entertainment",
-    "category": "landmark",
-    "groupNames": [
-      "IU"
-    ],
-    "location": {
-      "latitude": 37.5738,
-      "longitude": 126.9858,
-      "address": "首尔特别市钟路区仁寺洞",
-      "district": "钟路区",
-      "neighborhood": "仁寺洞"
-    },
-    "transport": {
-      "subway": {
-        "line": "3号线",
-        "station": "安国站",
-        "exit": "6号出口",
-        "walkingMinutes": 2
-      }
-    },
-    "hours": {
-      "weekday": "各店铺不同",
-      "weekend": "各店铺不同"
-    },
-    "description": "首尔传统文化街区，IU曾在此拍摄传统韩服画报。古董店、画廊、传统茶馆密集。",
-    "price": {
-      "isFree": true,
-      "range": "免费"
-    },
-    "estimatedDuration": 60,
-    "rating": 4.3,
-    "verified": true
-  },
-  {
     "id": "korean-manhwa-museum",
     "name": "Korean Manhwa Museum 漫画博物馆",
     "nameKo": "한국만화박물관",
@@ -3787,7 +3670,6 @@ export const locations: Location[] = [
     "type": "mv_spot",
     "category": "outdoor",
     "groupNames": [
-      "IU",
       "BTS"
     ],
     "location": {
@@ -5690,85 +5572,6 @@ export const locations: Location[] = [
     "verified": true
   },
   {
-    "id": "iu-bangbae",
-    "name": "IU 同款 — 方背洞 咖啡韩屋",
-    "nameKo": "방배동 한옥카페",
-    "type": "restaurant",
-    "category": "cafe",
-    "groupNames": [
-      "IU"
-    ],
-    "location": {
-      "latitude": 37.486,
-      "longitude": 126.993,
-      "address": "首尔特别市瑞草区方背洞851-5",
-      "district": "瑞草区",
-      "neighborhood": "方背洞"
-    },
-    "transport": {
-      "subway": {
-        "line": "4号线",
-        "station": "方背站",
-        "exit": "1号出口",
-        "walkingMinutes": 12
-      }
-    },
-    "hours": {
-      "weekday": "10:00-21:00",
-      "weekend": "10:00-22:00"
-    },
-    "description": "IU在YouTube中推荐过的韩屋咖啡厅。传统韩屋改造的静谧空间，以红豆刨冰和传统茶出名。远离游客区适合安静休憩。",
-    "price": {
-      "isFree": false,
-      "range": "6000-15000韩元"
-    },
-    "estimatedDuration": 50,
-    "rating": 4.6,
-    "verified": true
-  },
-  {
-    "id": "iu-tong-tong",
-    "name": "IU 同款 — 望远洞 Tong Tong 炖鸡",
-    "nameKo": "통통 닭볶음탕",
-    "type": "restaurant",
-    "category": "korean",
-    "groupNames": [
-      "IU"
-    ],
-    "location": {
-      "latitude": 37.556,
-      "longitude": 126.91,
-      "address": "首尔特别市麻浦区望远洞410-8",
-      "district": "麻浦区",
-      "neighborhood": "望远洞"
-    },
-    "transport": {
-      "subway": {
-        "line": "6号线",
-        "station": "望远站",
-        "exit": "2号出口",
-        "walkingMinutes": 5
-      }
-    },
-    "hours": {
-      "weekday": "11:00-21:30",
-      "weekend": "11:00-22:00"
-    },
-    "description": "IU曾在SNS推荐过的望远洞辣炖鸡块店。望远洞是IU的家乡，这家是她从小就吃的店。除了辣炖鸡块，鸡蛋羹也是招牌。",
-    "checkInTips": [
-      "IU从小吃到大的店",
-      "望远洞是IU的家乡",
-      "鸡蛋羹是隐藏菜单必点"
-    ],
-    "price": {
-      "isFree": false,
-      "range": "15000-25000韩元/份"
-    },
-    "estimatedDuration": 50,
-    "rating": 4.5,
-    "verified": true
-  },
-  {
     "id": "location-141",
     "name": "金北顺大锅家（江南）",
     "nameKo": "김북순 큰냄비집",
@@ -5822,7 +5625,6 @@ export const locations: Location[] = [
     "category": "outdoor",
     "groupNames": [
       "BTS",
-      "IU",
       "TWICE",
       "Red Velvet"
     ],
@@ -6128,7 +5930,6 @@ export const locations: Location[] = [
     "type": "mv_spot",
     "category": "outdoor",
     "groupNames": [
-      "IU",
       "Red Velvet",
       "SHINee"
     ],
@@ -6168,7 +5969,6 @@ export const locations: Location[] = [
     "type": "mv_spot",
     "category": "outdoor",
     "groupNames": [
-      "IU",
       "BTS"
     ],
     "location": {
@@ -6211,7 +6011,6 @@ export const locations: Location[] = [
     "type": "mv_spot",
     "category": "outdoor",
     "groupNames": [
-      "IU",
       "BTS"
     ],
     "location": {
@@ -6327,7 +6126,6 @@ export const locations: Location[] = [
     "type": "mv_spot",
     "category": "outdoor",
     "groupNames": [
-      "IU",
       "BTS"
     ],
     "location": {
@@ -6401,43 +6199,6 @@ export const locations: Location[] = [
       "range": "专辑价格15000-35000韩元"
     },
     "estimatedDuration": 40,
-    "rating": 4.4,
-    "verified": true
-  },
-  {
-    "id": "location-156",
-    "name": "三清公园",
-    "nameKo": "삼청공원",
-    "type": "mv_spot",
-    "category": "outdoor",
-    "groupNames": [
-      "IU"
-    ],
-    "location": {
-      "latitude": 37.5865,
-      "longitude": 126.9795,
-      "address": "首尔特别市钟路区三清洞山2-10",
-      "district": "钟路区",
-      "neighborhood": "三清洞"
-    },
-    "transport": {
-      "subway": {
-        "line": "3号线",
-        "station": "安国站",
-        "exit": "1号出口",
-        "walkingMinutes": 15
-      }
-    },
-    "hours": {
-      "weekday": "全天",
-      "weekend": "全天"
-    },
-    "description": "IU在三清洞常去的安静公园。位于三清洞最北端，游客很少。春天樱花、秋天红叶都很美。可以远眺北岳山。",
-    "price": {
-      "isFree": true,
-      "range": "免费"
-    },
-    "estimatedDuration": 45,
     "rating": 4.4,
     "verified": true
   },
@@ -8779,7 +8540,7 @@ export const locations: Location[] = [
     "nameKo": "잠실실내체육관",
     "type": "concert",
     "category": "entertainment",
-    "groupNames": ["SHINee", "EXO", "Red Velvet", "NCT 127", "IU"],
+    "groupNames": ["SHINee", "EXO", "Red Velvet", "NCT 127"],
     "location": {
       "latitude": 37.5157,
       "longitude": 127.0749,
