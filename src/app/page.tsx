@@ -4,7 +4,6 @@ import MapWrapper from "@/components/map/MapWrapper"
 import HotPlaces from "@/components/home/HotPlaces"
 import CheckInRanking from "@/components/home/CheckInRanking"
 import DailyPick from "@/components/home/DailyPick"
-import LatestSubmissions from "@/components/home/LatestSubmissions"
 import ActivityStream from "@/components/home/ActivityStream"
 import QuickStart from "@/components/home/QuickStart"
 import DiscoveryCard from "@/components/home/DiscoveryCard"
@@ -129,9 +128,6 @@ export default function HomePage() {
 
         {/* Discovery Card — fun facts, challenges, featured check-ins */}
         <DiscoveryCard />
-
-        {/* Latest Submissions */}
-        <LatestSubmissions />
 
         {/* Quick stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
