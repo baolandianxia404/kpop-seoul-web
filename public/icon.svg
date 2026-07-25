@@ -1,28 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" shape-rendering="crispEdges">
-  <!-- pixel art rabbit -->
-  <rect x="4" y="2" width="24" height="28" rx="2" fill="#3b82f6"/>
-  <!-- ears -->
-  <rect x="4" y="2" width="8" height="10" fill="#fff"/>
-  <rect x="20" y="2" width="8" height="10" fill="#fff"/>
-  <rect x="4" y="2" width="8" height="10" fill="#f59e0b" opacity="0.3"/>
-  <rect x="20" y="2" width="8" height="10" fill="#f59e0b" opacity="0.3"/>
-  <!-- inner ears -->
-  <rect x="6" y="4" width="4" height="6" fill="#fbbf24"/>
-  <rect x="22" y="4" width="4" height="6" fill="#fbbf24"/>
-  <!-- face -->
-  <rect x="4" y="10" width="24" height="20" rx="2" fill="#fff"/>
-  <!-- eyes -->
-  <rect x="10" y="14" width="4" height="4" fill="#1e293b"/>
-  <rect x="18" y="14" width="4" height="4" fill="#1e293b"/>
-  <!-- eye shine -->
-  <rect x="11" y="14" width="2" height="2" fill="#fff"/>
-  <rect x="19" y="14" width="2" height="2" fill="#fff"/>
-  <!-- nose -->
-  <rect x="14" y="18" width="4" height="2" fill="#ec4899"/>
-  <!-- mouth -->
-  <rect x="13" y="21" width="2" height="2" fill="#ec4899"/>
-  <rect x="17" y="21" width="2" height="2" fill="#ec4899"/>
-  <!-- blush -->
-  <rect x="8" y="17" width="3" height="3" fill="#fbcfe8"/>
-  <rect x="21" y="17" width="3" height="3" fill="#fbcfe8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#93c5fd"/>
+      <stop offset="50%" style="stop-color:#bfdbfe"/>
+      <stop offset="100%" style="stop-color:#fde68a"/>
+    </linearGradient>
+    <linearGradient id="earL" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f9a8d4"/>
+      <stop offset="100%" style="stop-color:#f472b6"/>
+    </linearGradient>
+    <linearGradient id="earR" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f9a8d4"/>
+      <stop offset="100%" style="stop-color:#f472b6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="248" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="248" fill="none" stroke="white" stroke-width="8" opacity="0.5"/>
+
+  <!-- Left ear -->
+  <ellipse cx="160" cy="120" rx="52" ry="90" fill="url(#earL)" transform="rotate(-15, 160, 120)"/>
+  <ellipse cx="160" cy="125" rx="32" ry="60" fill="#fce7f3" transform="rotate(-15, 160, 125)"/>
+
+  <!-- Right ear -->
+  <ellipse cx="352" cy="120" rx="52" ry="90" fill="url(#earR)" transform="rotate(15, 352, 120)"/>
+  <ellipse cx="352" cy="125" rx="32" ry="60" fill="#fce7f3" transform="rotate(15, 352, 125)"/>
+
+  <!-- Face -->
+  <ellipse cx="256" cy="290" rx="160" ry="150" fill="white"/>
+  <ellipse cx="256" cy="290" rx="160" ry="150" fill="none" stroke="#e2e8f0" stroke-width="3"/>
+
+  <!-- Left eye -->
+  <ellipse cx="200" cy="260" rx="28" ry="32" fill="#1e293b"/>
+  <ellipse cx="208" cy="250" rx="10" ry="12" fill="white"/>
+  <ellipse cx="196" cy="268" rx="5" ry="6" fill="white"/>
+
+  <!-- Right eye -->
+  <ellipse cx="312" cy="260" rx="28" ry="32" fill="#1e293b"/>
+  <ellipse cx="320" cy="250" rx="10" ry="12" fill="white"/>
+  <ellipse cx="308" cy="268" rx="5" ry="6" fill="white"/>
+
+  <!-- Nose -->
+  <ellipse cx="256" cy="300" rx="12" ry="8" fill="#f472b6"/>
+
+  <!-- Mouth -->
+  <path d="M 240 312 Q 256 330 272 312" fill="none" stroke="#f472b6" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Blush -->
+  <ellipse cx="158" cy="305" rx="28" ry="18" fill="#fce7f3" opacity="0.7"/>
+  <ellipse cx="354" cy="305" rx="28" ry="18" fill="#fce7f3" opacity="0.7"/>
+
+  <!-- Sparkles -->
+  <text x="88" y="100" font-size="28" opacity="0.7">✦</text>
+  <text x="380" y="410" font-size="22" opacity="0.6">✦</text>
+  <text x="100" y="380" font-size="18" opacity="0.5">⭐</text>
+
+  <!-- Small hearts around -->
+  <text x="68" y="240" font-size="24" opacity="0.6">💙</text>
+  <text x="400" y="180" font-size="20" opacity="0.5">💙</text>
 </svg>
