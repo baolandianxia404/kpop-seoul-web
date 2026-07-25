@@ -20,6 +20,7 @@ export default function MobileNav() {
     { href: "/plan", label: t("nav_plan"), icon: "✨", match: "/plan" },
     ...(user ? [{ href: houseHref, label: t("nav_house"), icon: "🏠", match: "/house" }] : []),
     { href: "/saved", label: t("nav_saved"), icon: "💾", match: "/saved" },
+    ...(!user ? [{ href: "/auth/register", label: t("header_join"), icon: "🌟", match: "/auth" }] : []),
   ]
 
   return (
