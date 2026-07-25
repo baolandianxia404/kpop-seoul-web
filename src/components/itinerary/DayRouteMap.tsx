@@ -49,7 +49,7 @@ export default function DayRouteMap({ spots }: Props) {
     >
       <MapContainer
         center={center}
-        zoom={14}
+        zoom={13}
         scrollWheelZoom={true}
         dragging={true}
         zoomControl={true}
