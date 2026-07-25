@@ -38,7 +38,7 @@ const floatingEmojis = [
 ]
 
 export default function HomePage() {
-  const { t, lang } = useLang()
+  const { t } = useLang()
 
   const stats = [
     { icon: "📍", label: t("home_spots"), value: String(locations.length), color: "text-blue-500" },
@@ -86,9 +86,7 @@ export default function HomePage() {
             <span className="text-2xl animate-bounce-gentle" style={{ animationDelay: "0.5s" }}>💙</span>
           </div>
           <p className="text-sm md:text-base text-gray-400 max-w-md mx-auto font-medium">
-            {lang === "zh"
-              ? "每一程星光，都是通向所爱的轨迹"
-              : `Discover ${locations.length}+ Kpop locations across Seoul`}
+            {t("home_subtitle")}
           </p>
         </div>
 

@@ -30,7 +30,7 @@ export const translations = {
 
   // Homepage
   home_title: { en: "StarTrail", zh: "星旅" },
-  home_subtitle: { en: "Discover Kpop filming spots, idol restaurants & album shops in Seoul", zh: "探索首尔 Kpop 拍摄地、爱豆餐厅、专辑店" },
+  home_subtitle: { en: "220+ Kpop spots in Seoul · AI-powered fandom route planner", zh: "首尔 220+ Kpop 打卡地 · AI 一键生成追星路线" },
   home_spots: { en: "Spots", zh: "地点" },
   home_groups: { en: "Groups", zh: "团体" },
   home_categories: { en: "Categories", zh: "分类" },

@@ -313,6 +313,35 @@ function ItineraryContent() {
           </>
         )}
 
+        {/* Share CTA */}
+        <div className="p-4 bg-gradient-to-r from-pink-50 via-white to-blue-50 rounded-2xl border-2 border-pink-100 text-center">
+          <p className="text-lg mb-1">🐰</p>
+          <p className="text-sm font-bold text-slate-700 mb-1">
+            {tripGroup ? `喜欢${tripGroup.name}的追星路线？` : "喜欢这条路线？"}
+          </p>
+          <p className="text-xs text-slate-400 font-mono mb-3">
+            分享给你的追星搭子，一起打卡！
+          </p>
+          <button
+            onClick={() => {
+              const url = window.location.href
+              const text = tripGroup
+                ? `星旅 StarTrail 🗺️ 帮我规划了一条${tripGroup.name}首尔追星路线！${itinerary.days.length}天${totalSpots}个打卡点，太方便了～
+查看：${url}`
+                : `星旅 StarTrail 🗺️ 帮我规划了一条首尔追星路线！${itinerary.days.length}天${totalSpots}个打卡点～
+查看：${url}`
+              if (navigator.share) {
+                navigator.share({ title: "星旅 StarTrail · 首尔追星路线", text })
+              } else {
+                navigator.clipboard.writeText(text).then(() => alert("已复制分享文案！"))
+              }
+            }}
+            className="inline-flex items-center gap-1.5 px-5 py-2 bg-pink-500 text-white rounded-full text-xs font-bold hover:bg-pink-600 active:scale-95 transition"
+          >
+            📤 分享给搭子
+          </button>
+        </div>
+
         {/* Bottom actions */}
         <div className="flex gap-3 pt-2 pb-4">
           <Link
