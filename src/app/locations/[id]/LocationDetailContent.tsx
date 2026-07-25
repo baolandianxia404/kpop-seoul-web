@@ -25,7 +25,6 @@ export default function LocationDetailContent({ id }: Props) {
   const { user, profile } = useAuth()
   const loc = getLocationById(id)
   const [fav, setFav] = useState(false)
-  const [checkinGroupId, setCheckinGroupId] = useState("")
   const [checkinContent, setCheckinContent] = useState("")
   const [checkinSubmitting, setCheckinSubmitting] = useState(false)
   const [checkinDone, setCheckinDone] = useState(false)
@@ -36,6 +35,8 @@ export default function LocationDetailContent({ id }: Props) {
   }, [id])
 
   const locGroups = groups.filter((g) => loc && loc.groupNames.includes(g.name))
+
+  const checkinGroupId = locGroups.length > 0 ? locGroups[0].id : ""
 
   const handleCheckin = async () => {
     if (!user || !checkinGroupId) return
@@ -233,22 +234,6 @@ export default function LocationDetailContent({ id }: Props) {
           <p className="text-xs text-slate-400 font-mono">此地点暂无关联团体</p>
         ) : (
           <div className="space-y-3">
-            <div className="flex flex-wrap gap-2">
-              {locGroups.map((g) => (
-                <button
-                  key={g.id}
-                  onClick={() => setCheckinGroupId(g.id)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition active:scale-95"
-                  style={{
-                    backgroundColor: checkinGroupId === g.id ? g.color : g.color + "18",
-                    color: checkinGroupId === g.id ? "#fff" : g.color,
-                    border: `1.5px solid ${g.color}40`,
-                  }}
-                >
-                  💙 {g.name}
-                </button>
-              ))}
-            </div>
             <textarea
               value={checkinContent}
               onChange={(e) => setCheckinContent(e.target.value)}
@@ -260,7 +245,7 @@ export default function LocationDetailContent({ id }: Props) {
             {checkinError && <p className="text-xs text-red-500">{checkinError}</p>}
             <button
               onClick={handleCheckin}
-              disabled={!checkinGroupId || checkinSubmitting}
+              disabled={checkinSubmitting}
               className="w-full py-2.5 bg-blue-500 text-white font-bold rounded-xl text-sm disabled:opacity-30 hover:bg-blue-600 transition active:scale-[0.98]"
             >
               {checkinSubmitting ? "发布中…" : "📝 打卡"}
