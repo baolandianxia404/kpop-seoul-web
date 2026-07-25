@@ -11,7 +11,7 @@ import { groups } from "@/lib/data/groups"
 const DayRouteMap = dynamic(() => import("@/components/itinerary/DayRouteMap"), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-56 rounded-xl bg-slate-100 animate-pulse flex items-center justify-center border-2 border-dashed border-slate-200">
+    <div className="w-full h-72 md:h-80 rounded-xl bg-[#e8f0e8] animate-pulse flex items-center justify-center border-2 border-dashed border-slate-200">
       <p className="text-xs text-slate-400 font-mono">Loading map...</p>
     </div>
   ),

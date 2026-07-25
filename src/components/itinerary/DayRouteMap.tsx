@@ -12,8 +12,12 @@ interface Props {
 function MapSizeFixer({ spots }: { spots: ItinerarySpot[] }) {
   const map = useMap()
   useEffect(() => {
-    const timer = setTimeout(() => map.invalidateSize(), 500)
-    return () => clearTimeout(timer)
+    // Multiple attempts: immediately + staggered delays for mobile rendering
+    map.invalidateSize()
+    const timers = [100, 300, 700, 1500].map((d) =>
+      setTimeout(() => map.invalidateSize(), d)
+    )
+    return () => timers.forEach(clearTimeout)
   }, [map, spots])
   return null
 }
@@ -39,7 +43,7 @@ export default function DayRouteMap({ spots }: Props) {
   }, [spots])
 
   return (
-    <div className="w-full h-72 md:h-80 rounded-xl overflow-hidden">
+    <div className="w-full h-72 md:h-80 rounded-xl overflow-hidden bg-[#e8f0e8]">
       <MapContainer
         center={center}
         zoom={14}
