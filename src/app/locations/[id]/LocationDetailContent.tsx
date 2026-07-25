@@ -14,6 +14,7 @@ import Link from "next/link"
 import { useLang } from "@/components/LanguageProvider"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { isFavorite, toggleFavorite } from "@/lib/store/favorites"
+import { createClient } from "@/lib/supabase/client"
 
 interface Props {
   id: string
@@ -24,10 +25,33 @@ export default function LocationDetailContent({ id }: Props) {
   const { user, profile } = useAuth()
   const loc = getLocationById(id)
   const [fav, setFav] = useState(false)
+  const [checkinGroupId, setCheckinGroupId] = useState("")
+  const [checkinContent, setCheckinContent] = useState("")
+  const [checkinSubmitting, setCheckinSubmitting] = useState(false)
+  const [checkinDone, setCheckinDone] = useState(false)
+  const [checkinError, setCheckinError] = useState("")
 
   useEffect(() => {
     setFav(isFavorite(id))
   }, [id])
+
+  const locGroups = groups.filter((g) => loc && loc.groupNames.includes(g.name))
+
+  const handleCheckin = async () => {
+    if (!user || !checkinGroupId) return
+    setCheckinSubmitting(true)
+    setCheckinError("")
+    const supabase = createClient()
+    const { error } = await supabase.from("check_ins").insert({
+      user_id: user.id,
+      group_id: checkinGroupId,
+      spot_name: loc!.name,
+      content: checkinContent.trim(),
+    })
+    if (error) setCheckinError(error.message)
+    else { setCheckinDone(true); setCheckinContent("") }
+    setCheckinSubmitting(false)
+  }
 
   if (!loc) notFound()
 
@@ -187,39 +211,61 @@ export default function LocationDetailContent({ id }: Props) {
         <TipsSection tips={loc.checkInTips} />
       )}
 
-      {/* Check-in CTA */}
+      {/* Check-in Form */}
       <section className="mb-6 p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
         <p className="text-sm font-semibold text-slate-700 mb-3">
           {t("location_checkin_prompt")}
         </p>
-        {user && profile ? (
-          (() => {
-            const locGroups = groups.filter((g) => loc.groupNames.includes(g.name))
-            if (locGroups.length === 0) return (
-              <p className="text-xs text-slate-400 font-mono">此地点暂无关联团体</p>
-            )
-            return (
-              <div className="flex flex-wrap gap-2">
-                {locGroups.map((g) => (
-                  <Link
-                    key={g.id}
-                    href={`/groups/${g.id}/house?spot=${encodeURIComponent(loc.name)}`}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition active:scale-95"
-                    style={{ backgroundColor: g.color + "18", color: g.color, border: `1.5px solid ${g.color}40` }}
-                  >
-                    💙 {g.name}
-                  </Link>
-                ))}
-              </div>
-            )
-          })()
-        ) : (
+        {!user ? (
           <Link
             href="/auth/login"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-500 text-white rounded-xl text-sm font-bold hover:bg-blue-600 transition active:scale-95"
           >
             {t("auth_login_link")}
           </Link>
+        ) : checkinDone ? (
+          <div className="text-center py-2">
+            <p className="text-lg mb-1">🎉</p>
+            <p className="text-sm font-bold text-green-600">打卡成功！</p>
+            <button onClick={() => setCheckinDone(false)} className="text-xs text-blue-500 mt-2 font-mono underline">再发一条</button>
+          </div>
+        ) : locGroups.length === 0 ? (
+          <p className="text-xs text-slate-400 font-mono">此地点暂无关联团体</p>
+        ) : (
+          <div className="space-y-3">
+            <div className="flex flex-wrap gap-2">
+              {locGroups.map((g) => (
+                <button
+                  key={g.id}
+                  onClick={() => setCheckinGroupId(g.id)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition active:scale-95"
+                  style={{
+                    backgroundColor: checkinGroupId === g.id ? g.color : g.color + "18",
+                    color: checkinGroupId === g.id ? "#fff" : g.color,
+                    border: `1.5px solid ${g.color}40`,
+                  }}
+                >
+                  💙 {g.name}
+                </button>
+              ))}
+            </div>
+            <textarea
+              value={checkinContent}
+              onChange={(e) => setCheckinContent(e.target.value)}
+              placeholder="分享你的打卡感受…"
+              rows={2}
+              maxLength={300}
+              className="w-full px-3 py-2 text-sm border-2 border-blue-200 rounded-xl outline-none focus:border-blue-400 resize-none font-mono"
+            />
+            {checkinError && <p className="text-xs text-red-500">{checkinError}</p>}
+            <button
+              onClick={handleCheckin}
+              disabled={!checkinGroupId || checkinSubmitting}
+              className="w-full py-2.5 bg-blue-500 text-white font-bold rounded-xl text-sm disabled:opacity-30 hover:bg-blue-600 transition active:scale-[0.98]"
+            >
+              {checkinSubmitting ? "发布中…" : "📝 打卡"}
+            </button>
+          </div>
         )}
       </section>
 

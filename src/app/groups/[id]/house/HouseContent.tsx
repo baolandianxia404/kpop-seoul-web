@@ -139,16 +139,25 @@ export default function HouseContent({ params }: { params: Promise<{ id: string 
             {t("auth_login_link")}
           </Link>
         </div>
+      ) : !isMyHouse ? (
+        <div className="text-center p-8 bg-amber-50 border-2 border-dashed border-amber-200 mb-6">
+          <p className="text-4xl mb-3">🏠</p>
+          <p className="font-bold pixel-font text-slate-700 mb-2">{t("house_not_yours")}</p>
+          <p className="text-xs text-slate-400 font-mono mb-4">
+            {t("house_not_yours_msg")
+              .replace("{myGroup}", groups.find((g) => g.id === profile?.fan_group_id)?.name || "?")
+              .replace("{houseGroup}", group.name)}
+          </p>
+          <Link
+            href={`/groups/${profile?.fan_group_id || "bts"}/house`}
+            className="pixel-btn px-5 py-2.5 text-white text-xs inline-block"
+            style={{ backgroundColor: groups.find((g) => g.id === profile?.fan_group_id)?.color || "#3b82f6" }}
+          >
+            {t("house_go_mine")}
+          </Link>
+        </div>
       ) : (
         <>
-          {/* Visitor notice */}
-          {!isMyHouse && (
-            <div className="mb-4 p-3 bg-amber-50 border-2 border-dashed border-amber-200 text-center">
-              <p className="text-xs text-amber-700 font-mono">
-                ⚠️ 你正以访客身份在 {group.name} 小屋发帖，只有 {group.fandomName} 能看见你的打卡哦
-              </p>
-            </div>
-          )}
           {/* Post bar */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
