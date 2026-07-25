@@ -66,14 +66,8 @@ function MapInteractionToggle({ active }: { active: boolean }) {
 function MapSizeFixer() {
   const map = useMap()
   useEffect(() => {
-    const fix = () => map.invalidateSize()
-    // Delay for initial render, then listen for resize (orientation changes etc.)
-    const timer = setTimeout(fix, 200)
-    window.addEventListener("resize", fix)
-    return () => {
-      clearTimeout(timer)
-      window.removeEventListener("resize", fix)
-    }
+    const timer = setTimeout(() => map.invalidateSize(), 300)
+    return () => clearTimeout(timer)
   }, [map])
   return null
 }
@@ -166,8 +160,8 @@ export default function KpopMap({ locations }: Props) {
         style={{ width: "100%", height: "100%" }}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors &copy; <a href="https://carto.com/">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://www.esri.com/">Esri</a>'
+          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
         />
 
         <MapEvents onMoveEnd={handleViewportChange} />
