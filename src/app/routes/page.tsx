@@ -140,14 +140,13 @@ export default function RoutesPage() {
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-3">
             <span className="text-3xl animate-bounce-gentle">🗺️</span>
-            <h1 className="text-2xl md:text-3xl font-black tracking-tight">
-              <span className="text-blue-500">Day</span>{" "}
-              <span className="text-amber-500">Routes</span>
+            <h1 className="text-2xl md:text-3xl font-bold pixel-font text-slate-800">
+              地区路线
             </h1>
             <span className="text-3xl animate-bounce-gentle" style={{ animationDelay: "0.5s" }}>✨</span>
           </div>
           <p className="text-sm text-gray-400 max-w-md mx-auto mb-4">
-            Tap a district to explore its Kpop route
+            点击地区卡片，探索该区的追星路线
           </p>
 
           <PageGuide pageKey="routes" emoji="🗺️" title="怎么用地区路线？">
@@ -156,17 +155,16 @@ export default function RoutesPage() {
 
           <Link
             href="/plan"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl font-bold text-sm text-white transition-all hover:scale-105 hover:shadow-lg"
-            style={{ background: "linear-gradient(135deg, #3b82f6, #f59e0b)" }}
+            className="pixel-btn inline-flex items-center gap-2 px-5 py-2.5 text-sm bg-slate-800 text-white hover:bg-slate-700"
           >
-            ✨ Want a personalized route? Customize your own →
+            ✨ 想要专属定制路线？去规划页 →
           </Link>
           {savedCount > 0 && (
             <Link
               href="/saved"
-              className="inline-block mt-3 px-4 py-2 bg-blue-500 text-white text-xs font-bold rounded-xl hover:bg-blue-600 transition animate-pop-in"
+              className="pixel-btn inline-flex items-center gap-2 mt-3 px-4 py-2 text-xs bg-amber-400 text-slate-800"
             >
-              ⭐ View My Plan ({savedCount} spots) →
+              ⭐ 查看我的计划 ({savedCount} 个地点) →
             </Link>
           )}
         </div>
@@ -179,10 +177,11 @@ export default function RoutesPage() {
               <button
                 key={route.district}
                 onClick={() => setOpenDistrict(route.district)}
-                className="group text-left p-5 rounded-2xl border-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl active:scale-[0.98] relative overflow-hidden"
+                className="group text-left p-5 border-2 transition-all duration-200 relative overflow-hidden"
                 style={{
                   backgroundColor: palette.bg,
-                  borderColor: palette.border,
+                  borderColor: "#1e293b",
+                  boxShadow: `3px 3px 0 0 ${palette.border}, 5px 5px 0 0 rgba(0,0,0,0.04)`,
                 }}
               >
                 {/* Decorative corner pixel */}
@@ -198,10 +197,10 @@ export default function RoutesPage() {
                   {route.description}
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold font-mono px-2 py-0.5 rounded-full text-white"
-                    style={{ backgroundColor: palette.accent }}
+                  <span className="text-[10px] font-bold font-mono px-2 py-0.5 text-white"
+                    style={{ backgroundColor: palette.accent, border: "1.5px solid #1e293b" }}
                   >
-                    {route.spots.length} spots
+                    {route.spots.length} 个地点
                   </span>
                   <span className="text-[10px] text-slate-300 font-mono opacity-0 group-hover:opacity-100 transition-opacity">
                     →
@@ -214,7 +213,7 @@ export default function RoutesPage() {
 
         <div className="text-center mt-10 pb-4">
           <p className="text-xs text-gray-300 font-mono">
-            ✨ Tap a card to explore · Add spots to your plan ✨
+            ✨ 点击卡片探索 · 添加地点到计划 ✨
           </p>
         </div>
       </div>
@@ -252,7 +251,7 @@ export default function RoutesPage() {
                       <span className="text-xs text-slate-400 font-normal ml-1.5">{selectedRoute.districtKo}</span>
                     </h2>
                     <p className="text-[10px] text-slate-400 font-mono mt-0.5">
-                      📍 {selectedRoute.spots.length} spots · ⏱ ~{Math.floor(selectedRoute.totalTime / 60)}h
+                      📍 {selectedRoute.spots.length} 个地点 · ⏱ ~{Math.floor(selectedRoute.totalTime / 60)}小时
                     </p>
                   </div>
                 </div>
@@ -322,7 +321,7 @@ export default function RoutesPage() {
                 onClick={closeOverlay}
                 className="text-xs font-mono text-slate-400 hover:text-slate-600 transition"
               >
-                Close
+                关闭
               </button>
             </div>
           </div>
@@ -332,7 +331,7 @@ export default function RoutesPage() {
       {/* Toast */}
       {showToast && (
         <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[9999] px-4 py-2 bg-slate-800 text-white text-xs font-mono rounded-full shadow-lg animate-pop-in">
-          ⭐ Added to plan: {toastMsg}
+          ⭐ 已加入计划: {toastMsg}
         </div>
       )}
     </div>
