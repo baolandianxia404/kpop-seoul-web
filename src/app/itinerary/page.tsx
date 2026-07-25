@@ -12,8 +12,14 @@ const DayRouteMap = dynamic(() => import("@/components/itinerary/DayRouteMap"), 
   ssr: false,
   loading: () => (
     <div
-      className="w-full h-[300px] md:h-80 bg-[#e8f0e8] animate-pulse flex items-center justify-center"
-      style={{ border: "2px solid #e2e8f0", boxShadow: "4px 4px 0 0 rgba(0,0,0,0.04)" }}
+      className="w-full bg-[#e8f0e8] animate-pulse flex items-center justify-center"
+      style={{
+        height: "55vh",
+        minHeight: "300px",
+        maxHeight: "400px",
+        border: "2px solid #e2e8f0",
+        boxShadow: "4px 4px 0 0 rgba(0,0,0,0.04)",
+      }}
     >
       <p className="text-xs text-slate-400 font-mono">Loading map...</p>
     </div>

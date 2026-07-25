@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet"
 import L from "leaflet"
 import type { ItinerarySpot } from "@/types"
@@ -9,16 +9,12 @@ interface Props {
   spots: ItinerarySpot[]
 }
 
-function MapSizeFixer({ spots }: { spots: ItinerarySpot[] }) {
+function MapSizeFixer() {
   const map = useMap()
   useEffect(() => {
-    map.whenReady(() => {
-      map.invalidateSize()
-      setTimeout(() => map.invalidateSize(), 200)
-      setTimeout(() => map.invalidateSize(), 600)
-      setTimeout(() => map.invalidateSize(), 1500)
-    })
-  }, [map, spots])
+    const timer = setTimeout(() => map.invalidateSize(), 300)
+    return () => clearTimeout(timer)
+  }, [map])
   return null
 }
 
@@ -35,6 +31,8 @@ function getNumIcon(n: number): L.DivIcon {
 }
 
 export default function DayRouteMap({ spots }: Props) {
+  const [mapKey, setMapKey] = useState(0)
+
   const center: [number, number] = useMemo(() => {
     if (spots.length === 0) return [37.5665, 126.978]
     const avgLat = spots.reduce((s, p) => s + p.lat, 0) / spots.length
@@ -42,25 +40,38 @@ export default function DayRouteMap({ spots }: Props) {
     return [avgLat, avgLng]
   }, [spots])
 
+  // Force remount when spots change (same approach as homepage KpopMap)
+  useEffect(() => {
+    setMapKey((k) => k + 1)
+  }, [spots])
+
   return (
     <div
-      className="w-full h-[300px] md:h-80 bg-[#e8f0e8]"
+      className="w-full bg-[#e8f0e8]"
       style={{
+        height: "55vh",
+        minHeight: "300px",
+        maxHeight: "400px",
         border: "2px solid #1e293b",
         boxShadow: "4px 4px 0 0 rgba(0,0,0,0.08)",
       }}
     >
       <MapContainer
+        key={mapKey}
         center={center}
         zoom={14}
         scrollWheelZoom={true}
         dragging={true}
         zoomControl={true}
+        touchZoom={true}
         attributionControl={false}
         style={{ width: "100%", height: "100%" }}
       >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        <MapSizeFixer spots={spots} />
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+        />
+        <MapSizeFixer />
 
         {spots.map((spot, i) => (
           <Marker
