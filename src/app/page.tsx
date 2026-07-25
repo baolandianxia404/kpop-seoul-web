@@ -5,6 +5,10 @@ import HotPlaces from "@/components/home/HotPlaces"
 import CheckInRanking from "@/components/home/CheckInRanking"
 import DailyPick from "@/components/home/DailyPick"
 import LatestSubmissions from "@/components/home/LatestSubmissions"
+import ActivityStream from "@/components/home/ActivityStream"
+import QuickStart from "@/components/home/QuickStart"
+import FandomHotness from "@/components/home/FandomHotness"
+import FeaturedRoutes from "@/components/home/FeaturedRoutes"
 import { useLang } from "@/components/LanguageProvider"
 import { locations } from "@/lib/data/locations"
 import { groups } from "@/lib/data/groups"
@@ -111,14 +115,26 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Quick Start Guide */}
+        <QuickStart />
+
         {/* Hot Places Ranking */}
         <HotPlaces />
+
+        {/* Fandom Hotness */}
+        <FandomHotness />
 
         {/* Check-in Ranking */}
         <CheckInRanking />
 
+        {/* Community Activity Stream */}
+        <ActivityStream />
+
         {/* Daily Pick */}
         <DailyPick />
+
+        {/* Featured Routes */}
+        <FeaturedRoutes />
 
         {/* Latest Submissions */}
         <LatestSubmissions />
