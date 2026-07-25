@@ -63,6 +63,21 @@ function MapInteractionToggle({ active }: { active: boolean }) {
   return null
 }
 
+function MapSizeFixer() {
+  const map = useMap()
+  useEffect(() => {
+    const fix = () => map.invalidateSize()
+    // Delay for initial render, then listen for resize (orientation changes etc.)
+    const timer = setTimeout(fix, 200)
+    window.addEventListener("resize", fix)
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener("resize", fix)
+    }
+  }, [map])
+  return null
+}
+
 export default function KpopMap({ locations }: Props) {
   const [mapKey, setMapKey] = useState(0)
   const [zoom, setZoom] = useState(DEFAULT_ZOOM)
@@ -157,6 +172,7 @@ export default function KpopMap({ locations }: Props) {
 
         <MapEvents onMoveEnd={handleViewportChange} />
         <MapInteractionToggle active={interactive} />
+        <MapSizeFixer />
 
         {visibleMarkers.map((loc) => (
           <Marker

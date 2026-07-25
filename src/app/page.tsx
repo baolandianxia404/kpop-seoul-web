@@ -105,7 +105,7 @@ export default function HomePage() {
             <div className="absolute bottom-[4px] left-[4px] w-2 h-2 bg-white z-[1001] pointer-events-none" />
             <div className="absolute bottom-[4px] right-[4px] w-2 h-2 bg-white z-[1001] pointer-events-none" />
 
-            <div className="h-[55vh] md:h-[360px] w-full">
+            <div className="h-[55vh] min-h-[350px] md:h-[360px] w-full">
               <MapWrapper locations={locations} />
             </div>
           </div>
