@@ -7213,10 +7213,10 @@ export const locations: Location[] = [
       "Super Junior"
     ],
     "location": {
-      "latitude": 37.5449,
-      "longitude": 127.0583,
-      "address": "首尔特别市城东区圣水洞2街321-16",
-      "addressKo": "서울 성동구 성수동2가 321-16",
+      "latitude": 37.5452,
+      "longitude": 127.0586,
+      "address": "首尔特别市城东区圣水二路7街32 1层",
+      "addressKo": "서울 성동구 성수이로7길 32 1층",
       "district": "城东区",
       "neighborhood": "圣水洞"
     },
