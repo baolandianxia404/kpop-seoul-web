@@ -11,7 +11,7 @@ import { createClient } from "@/lib/supabase/client"
 import PageGuide from "@/components/ui/PageGuide"
 
 const STORAGE_KEY = "kpop_community_spots"
-const TYPE_OPTIONS: LocationType[] = ["restaurant", "store", "mv_spot", "entertainment", "company"]
+const TYPE_OPTIONS: LocationType[] = ["restaurant", "store", "mv_spot", "entertainment", "concert", "company"]
 
 // Seoul districts for quick-select (display in Chinese, value in Korean)
 const SEOUL_DISTRICTS: { cn: string; kr: string }[] = [

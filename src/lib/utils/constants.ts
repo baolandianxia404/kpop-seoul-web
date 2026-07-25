@@ -6,6 +6,7 @@ export const LOCATION_TYPES: Record<string, LocationTypeInfo> = {
   mv_spot: { name: 'MV Filming Spot', icon: '🎬', color: '#3B82F6', tagClass: 'bg-blue-100 text-blue-700' },
   store: { name: 'Albums & Goods', icon: '🛍️', color: '#10B981', tagClass: 'bg-emerald-100 text-emerald-700' },
   entertainment: { name: 'Entertainment', icon: '🎡', color: '#EC4899', tagClass: 'bg-pink-100 text-pink-700' },
+  concert: { name: 'Concert Venue', icon: '🎤', color: '#EF4444', tagClass: 'bg-red-100 text-red-700' },
 }
 
 export const TYPE_NAME_CN: Record<string, string> = {
@@ -14,6 +15,7 @@ export const TYPE_NAME_CN: Record<string, string> = {
   mv_spot: 'MV拍摄地',
   store: '专辑/周边',
   entertainment: '娱乐景点',
+  concert: '演唱会场馆',
 }
 
 export const DISTRICTS = [
@@ -48,7 +50,7 @@ export const MAX_MAP_MARKERS = 80
 
 export const ZOOM_TIERS = [
   { maxZoom: 11, types: ['company'] },
-  { maxZoom: 13, types: ['company', 'entertainment', 'mv_spot'] },
+  { maxZoom: 13, types: ['company', 'entertainment', 'mv_spot', 'concert'] },
   { maxZoom: 22, types: null },
 ] as const
 
@@ -58,4 +60,5 @@ export const MARKER_COLORS: Record<string, string> = {
   mv_spot: '#3B82F6',
   store: '#10B981',
   entertainment: '#EC4899',
+  concert: '#EF4444',
 }

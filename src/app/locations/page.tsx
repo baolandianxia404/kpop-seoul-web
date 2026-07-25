@@ -28,6 +28,7 @@ const CATEGORIES: { key: LocationType | ""; label: string; icon: string }[] = [
   { key: "mv_spot", label: "MV", icon: "🎬" },
   { key: "store", label: "周边", icon: "🛍️" },
   { key: "entertainment", label: "娱乐", icon: "🎡" },
+  { key: "concert", label: "演唱会", icon: "🎤" },
 ]
 
 export default function LocationsPage() {

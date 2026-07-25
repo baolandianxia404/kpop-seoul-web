@@ -1231,7 +1231,7 @@ export const locations: Location[] = [
     "id": "kspo-dome",
     "name": "KSPO DOME (体操竞技场)",
     "nameKo": "KSPO돔",
-    "type": "entertainment",
+    "type": "concert",
     "category": "venue",
     "groupNames": [
       "BTS",
@@ -1277,7 +1277,7 @@ export const locations: Location[] = [
     "id": "kbs-hall",
     "name": "KBS别馆 (公开Hall)",
     "nameKo": "KBS 별관",
-    "type": "entertainment",
+    "type": "concert",
     "category": "broadcast",
     "groupNames": [
       "Super Junior",
@@ -1367,7 +1367,7 @@ export const locations: Location[] = [
     "id": "sbs-hall",
     "name": "SBS登村洞公开Hall",
     "nameKo": "SBS 등촌동 공개홀",
-    "type": "entertainment",
+    "type": "concert",
     "category": "broadcast",
     "groupNames": [
       "BTS",
@@ -3284,7 +3284,7 @@ export const locations: Location[] = [
     "id": "kbs-music-bank",
     "name": "KBS Hall（音乐银行）",
     "nameKo": "KBS홀",
-    "type": "entertainment",
+    "type": "concert",
     "category": "broadcast",
     "groupNames": [
       "BTS",
@@ -5863,7 +5863,7 @@ export const locations: Location[] = [
     "id": "location-143",
     "name": "高尺天空巨蛋",
     "nameKo": "고척스카이돔",
-    "type": "entertainment",
+    "type": "concert",
     "category": "venue",
     "groupNames": [
       "BTS",
@@ -5906,7 +5906,7 @@ export const locations: Location[] = [
     "id": "location-144",
     "name": "蚕室综合运动场",
     "nameKo": "잠실종합운동장",
-    "type": "entertainment",
+    "type": "concert",
     "category": "venue",
     "groupNames": [
       "BTS",
@@ -6247,7 +6247,7 @@ export const locations: Location[] = [
     "id": "location-152",
     "name": "上岩世界杯竞技场",
     "nameKo": "상암 월드컵경기장",
-    "type": "entertainment",
+    "type": "concert",
     "category": "venue",
     "groupNames": [
       "BTS",
@@ -6910,7 +6910,7 @@ export const locations: Location[] = [
     "id": "mnet-m-countdown-cj-enm",
     "name": "Mnet《M COUNTDOWN》录制 — CJ ENM",
     "nameKo": "엠카운트다운",
-    "type": "entertainment",
+    "type": "concert",
     "category": "broadcast",
     "groupNames": [
       "BTS",
@@ -7205,18 +7205,18 @@ export const locations: Location[] = [
   },
   {
     "id": "haru-oneday",
-    "name": "Haru & Oneday（李东海咖啡厅）",
-    "nameKo": "하루앤원데이",
+    "name": "HARU Coffee House（李东海咖啡厅）",
+    "nameKo": "하루커피하우스",
     "type": "restaurant",
     "category": "idol_cafe",
     "groupNames": [
       "Super Junior"
     ],
     "location": {
-      "latitude": 37.5445,
-      "longitude": 127.0567,
-      "address": "首尔特别市城东区峨嵯山路92 S Tower 1层",
-      "addressKo": "서울특별시 성동구 아차산로 92 S타워 1층",
+      "latitude": 37.5449,
+      "longitude": 127.0583,
+      "address": "首尔特别市城东区圣水洞2街321-16",
+      "addressKo": "서울 성동구 성수동2가 321-16",
       "district": "城东区",
       "neighborhood": "圣水洞"
     },
@@ -7225,20 +7225,19 @@ export const locations: Location[] = [
         "line": "2号线",
         "station": "圣水站",
         "exit": "4号出口",
-        "walkingMinutes": 1
+        "walkingMinutes": 7
       }
     },
     "hours": {
-      "weekday": "08:00-22:30",
-      "weekend": "09:00-22:00",
-      "note": "周日22:00关门"
+      "weekday": "10:00-20:30",
+      "weekend": "10:00-20:30"
     },
-    "description": "Super Junior李东海经营的咖啡厅，圣水洞热门打卡地。现代简约风，店内设有拍照区、免费相机打印、留言本和同款对镜自拍角落。招牌蜜桃红茶和手工蛋糕是必点。演唱会期间人潮暴增。",
+    "description": "Super Junior李东海经营的咖啡厅，2025年搬迁并更名，新店空间更大更明亮。现代简约风，设有拍照区、免费相机打印、留言本和同款对镜自拍角落。招牌蜜桃红茶和手工蛋糕是必点。演唱会期间人潮暴增。",
     "checkInTips": [
       "蜜桃红茶和胡萝卜蛋糕是招牌",
-      "店内免费相机可以打印照片留念",
+      "2025年已搬迁更名，注意新地址",
       "有东海同款对镜自拍打卡角",
-      "圣水站4号出口步行1分钟即到"
+      "圣水站4号出口步行约7分钟"
     ],
     "price": {
       "isFree": false,
@@ -8646,6 +8645,234 @@ export const locations: Location[] = [
     "price": { "isFree": false, "range": "10000-100000韩元" },
     "estimatedDuration": 30,
     "rating": 4.0,
+    "verified": true
+  },
+  {
+    "id": "inspire-arena",
+    "name": "INSPIRE Arena (迎仕柏综艺馆)",
+    "nameKo": "인스파이어 아레나",
+    "type": "concert",
+    "category": "entertainment",
+    "groupNames": ["TWICE", "ATEEZ", "aespa", "NCT 127", "NCT DREAM", "BTS"],
+    "location": {
+      "latitude": 37.4437,
+      "longitude": 126.3999,
+      "address": "仁川广域市中区云西洞2955-74",
+      "addressKo": "인천광역시 중구 운서동 2955-74",
+      "district": "仁川",
+      "neighborhood": "永宗岛"
+    },
+    "transport": {},
+    "hours": {},
+    "description": "韩国首座多功能室内演出场馆，15,000座席。已举办MMA、SBS歌谣大战、Weverse Con等大型活动。设施全新，音响大屏顶级，场馆WiFi覆盖。距仁川机场仅20分钟，适合特种兵追星。",
+    "checkInTips": ["机场快线+免费接驳车", "看台别选1-2排有栏杆", "散场拼车回市区最省心"],
+    "price": { "isFree": false, "range": "" },
+    "estimatedDuration": 180,
+    "rating": 4.7,
+    "verified": true
+  },
+  {
+    "id": "olympic-hall",
+    "name": "奥林匹克大厅 (Olympic Hall)",
+    "nameKo": "올림픽홀",
+    "type": "concert",
+    "category": "entertainment",
+    "groupNames": ["WINNER", "WayV", "CRAVITY", "Hearts2Hearts", "aespa", "IVE"],
+    "location": {
+      "latitude": 37.5207,
+      "longitude": 127.1168,
+      "address": "首尔特别市松坡区奥林匹克路424",
+      "addressKo": "서울 송파구 올림픽로 424",
+      "district": "松坡区",
+      "neighborhood": "奥林匹克公园"
+    },
+    "transport": {
+      "subway": { "line": "5号线/9号线", "station": "奥林匹克公园站", "exit": "3号出口", "walkingMinutes": 5 }
+    },
+    "hours": {},
+    "description": "奥林匹克公园内最小的演出馆，约3,000座席。超近距离观演体验，2层也能看清艺人五官。经常举办偶像粉丝见面会和小型演唱会。注意：和KSPO DOME挨着但不同场馆，别走错！",
+    "checkInTips": ["小馆近距离看脸超清", "2层巡场位互动感强", "和KSPO不同场馆别走错"],
+    "price": { "isFree": false, "range": "" },
+    "estimatedDuration": 150,
+    "rating": 4.5,
+    "verified": true
+  },
+  {
+    "id": "goyang-stadium",
+    "name": "高阳综合体育场 (Goyang Stadium)",
+    "nameKo": "고양종합운동장",
+    "type": "concert",
+    "category": "entertainment",
+    "groupNames": ["BLACKPINK", "BTS", "SEVENTEEN"],
+    "location": {
+      "latitude": 37.6674,
+      "longitude": 126.7434,
+      "address": "京畿道高阳市一山西区中央路1601",
+      "addressKo": "경기도 고양시 일산서구 중앙로 1601",
+      "district": "京畿道",
+      "neighborhood": "一山"
+    },
+    "transport": {
+      "subway": { "line": "3号线", "station": "大化站", "exit": "2号/3号出口", "walkingMinutes": 7 }
+    },
+    "hours": {},
+    "description": "超大室外体育场，可容纳4.4万人。视野开阔无遮挡，信号良好。BLACKPINK 2025世巡首站场地。从首尔市区约30分钟车程。",
+    "checkInTips": ["地铁3号线大化站直达", "视野开阔无遮挡", "信号比KSPO还好"],
+    "price": { "isFree": false, "range": "" },
+    "estimatedDuration": 180,
+    "rating": 4.4,
+    "verified": true
+  },
+  {
+    "id": "incheon-asiad-stadium",
+    "name": "仁川亚运主竞技场 (Incheon Asiad)",
+    "nameKo": "인천아시아드주경기장",
+    "type": "concert",
+    "category": "entertainment",
+    "groupNames": ["SEVENTEEN", "Stray Kids", "BTS"],
+    "location": {
+      "latitude": 37.5522,
+      "longitude": 126.6545,
+      "address": "仁川广域市西区连喜洞826",
+      "addressKo": "인천 서구 연희동 826",
+      "district": "仁川",
+      "neighborhood": "西区"
+    },
+    "transport": {},
+    "hours": {},
+    "description": "仁川大型室外体育场，容纳3-4万人。SEVENTEEN 2025世巡场地。信号较差需提前截图门票。场馆大，取票和Zone卡不在同一广场，注意预留时间。",
+    "checkInTips": ["信号极差需提前截图", "取票和入场不同广场", "地铁站路上有餐厅"],
+    "price": { "isFree": false, "range": "" },
+    "estimatedDuration": 180,
+    "rating": 4.2,
+    "verified": true
+  },
+  {
+    "id": "jamsil-olympic-stadium",
+    "name": "蚕室奥林匹克主竞技场 (Jamsil Olympic Stadium)",
+    "nameKo": "잠실올림픽주경기장",
+    "type": "concert",
+    "category": "entertainment",
+    "groupNames": ["BTS", "EXO", "SEVENTEEN", "Super Junior", "BIGBANG"],
+    "location": {
+      "latitude": 37.5160,
+      "longitude": 127.0740,
+      "address": "首尔特别市松坡区奥林匹克路25",
+      "addressKo": "서울 송파구 올림픽로 25",
+      "district": "松坡区",
+      "neighborhood": "蚕室"
+    },
+    "transport": {
+      "subway": { "line": "2号线/9号线", "station": "综合运动场站", "exit": "6号/7号出口", "walkingMinutes": 5 }
+    },
+    "hours": {},
+    "description": "韩国最大演出场地之一，可容纳6万人以上。BTS、EXO等顶流团体世巡终点站首选。与蚕室综合运动场是同一区域但不同场馆。",
+    "checkInTips": ["地铁2/9号线直达", "韩国最大规模演出场", "与室内体育馆是不同场馆"],
+    "price": { "isFree": false, "range": "" },
+    "estimatedDuration": 180,
+    "rating": 4.8,
+    "verified": true
+  },
+  {
+    "id": "jamsil-indoor-stadium",
+    "name": "蚕室室内体育馆 (Jamsil Indoor Stadium)",
+    "nameKo": "잠실실내체육관",
+    "type": "concert",
+    "category": "entertainment",
+    "groupNames": ["SHINee", "EXO", "Red Velvet", "NCT 127", "IU"],
+    "location": {
+      "latitude": 37.5157,
+      "longitude": 127.0749,
+      "address": "首尔特别市松坡区奥林匹克路25",
+      "addressKo": "서울 송파구 올림픽로 25",
+      "district": "松坡区",
+      "neighborhood": "蚕室"
+    },
+    "transport": {
+      "subway": { "line": "2号线/9号线", "station": "综合运动场站", "exit": "6号/7号出口", "walkingMinutes": 5 }
+    },
+    "hours": {},
+    "description": "首尔中型室内演出馆，约1.1万座席。场馆小、山顶票也近，音响效果好。许多偶像团体的首尔演唱会都选在此。",
+    "checkInTips": ["场馆小山顶也近", "音响效果好", "与主竞技场不同"],
+    "price": { "isFree": false, "range": "" },
+    "estimatedDuration": 150,
+    "rating": 4.5,
+    "verified": true
+  },
+  {
+    "id": "jangchung-gymnasium",
+    "name": "奖忠体育馆 (Jangchung Gymnasium)",
+    "nameKo": "장충체육관",
+    "type": "concert",
+    "category": "entertainment",
+    "groupNames": ["fromis_9", "OH MY GIRL", "Apink", "BTOB", "SHINee"],
+    "location": {
+      "latitude": 37.5587,
+      "longitude": 127.0059,
+      "address": "首尔特别市中区东湖路241",
+      "addressKo": "서울 중구 동호로 241",
+      "district": "中区",
+      "neighborhood": "奖忠洞"
+    },
+    "transport": {
+      "subway": { "line": "3号线", "station": "东国大学入口站", "exit": "6号出口", "walkingMinutes": 5 }
+    },
+    "hours": {},
+    "description": "首尔老牌室内体育馆，约4,500座席。常用于偶像团体小型演唱会和粉丝见面会。地理位置优越，靠近明洞和东大门。",
+    "checkInTips": ["地铁3号线东大入口站", "靠近明洞东大门", "小型演唱会氛围好"],
+    "price": { "isFree": false, "range": "" },
+    "estimatedDuration": 150,
+    "rating": 4.3,
+    "verified": true
+  },
+  {
+    "id": "kyunghee-peace-hall",
+    "name": "庆熙大学和平殿堂 (Kyung Hee Peace Hall)",
+    "nameKo": "경희대학교 평화의전당",
+    "type": "concert",
+    "category": "entertainment",
+    "groupNames": ["BTS", "SEVENTEEN", "TXT", "ENHYPEN", "BTOB"],
+    "location": {
+      "latitude": 37.5972,
+      "longitude": 127.0543,
+      "address": "首尔特别市东大门区庆熙大路26",
+      "addressKo": "서울 동대문구 경희대로 26",
+      "district": "东大门区",
+      "neighborhood": "回基洞"
+    },
+    "transport": {
+      "subway": { "line": "1号线/京义中央线", "station": "回基站", "exit": "1号出口", "walkingMinutes": 10 }
+    },
+    "hours": {},
+    "description": "庆熙大学标志性建筑，约4,500座席。许多偶像团体在此举办出道Showcase和粉丝见面会。建筑本身也是首尔著名打卡景点，欧式古典风格。",
+    "checkInTips": ["大学校园内环境优美", "偶像出道Showcase圣地", "欧式建筑也是打卡点"],
+    "price": { "isFree": false, "range": "" },
+    "estimatedDuration": 150,
+    "rating": 4.4,
+    "verified": true
+  },
+  {
+    "id": "incheon-munhak-stadium",
+    "name": "仁川文鹤竞技场 (Incheon Munhak Stadium)",
+    "nameKo": "인천문학경기장",
+    "type": "concert",
+    "category": "entertainment",
+    "groupNames": ["BTS", "SEVENTEEN", "Stray Kids"],
+    "location": {
+      "latitude": 37.4353,
+      "longitude": 126.6905,
+      "address": "仁川广域市弥邹忽区买召忽路618",
+      "addressKo": "인천광역시 미추홀구 매소홀로 618",
+      "district": "仁川",
+      "neighborhood": "文鹤洞"
+    },
+    "transport": {},
+    "hours": {},
+    "description": "仁川大型综合体育场，曾举办2014亚运会。常用于Kpop大型演唱会和音乐节。MUSE LIVE IN KOREA 2025举办地。",
+    "checkInTips": ["仁川地铁直达", "大型演出场地", "注意散场交通"],
+    "price": { "isFree": false, "range": "" },
+    "estimatedDuration": 180,
+    "rating": 4.1,
     "verified": true
   }
 ]

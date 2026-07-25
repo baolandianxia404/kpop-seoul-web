@@ -15,6 +15,7 @@ export default function MarkerIcon({
     mv_spot: "🎬",
     store: "🛍",
     entertainment: "🎡",
+    concert: "🎤",
   }
 
   return (

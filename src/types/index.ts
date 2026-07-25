@@ -1,4 +1,4 @@
-export type LocationType = 'company' | 'restaurant' | 'mv_spot' | 'store' | 'entertainment'
+export type LocationType = 'company' | 'restaurant' | 'mv_spot' | 'store' | 'entertainment' | 'concert'
 
 export type GroupType = 'boy_group' | 'girl_group' | 'band' | 'duo'
 
