@@ -7,7 +7,6 @@ import DailyPick from "@/components/home/DailyPick"
 import LatestSubmissions from "@/components/home/LatestSubmissions"
 import ActivityStream from "@/components/home/ActivityStream"
 import QuickStart from "@/components/home/QuickStart"
-import FandomHotness from "@/components/home/FandomHotness"
 import DiscoveryCard from "@/components/home/DiscoveryCard"
 import { useLang } from "@/components/LanguageProvider"
 import { locations } from "@/lib/data/locations"
@@ -118,9 +117,6 @@ export default function HomePage() {
 
         {/* Hot Places Ranking */}
         <HotPlaces />
-
-        {/* Fandom Hotness */}
-        <FandomHotness />
 
         {/* Check-in Ranking */}
         <CheckInRanking />
