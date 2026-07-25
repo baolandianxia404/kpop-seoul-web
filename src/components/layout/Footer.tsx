@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { locations } from "@/lib/data/locations"
 
 export default function Footer() {
   return (
@@ -7,12 +8,11 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold text-xs gradient-cute">
-              K
+              🐰
             </div>
             <span className="text-sm font-semibold">
-              <span className="text-blue-500">Kpop</span>{" "}
-              <span className="text-amber-500">Seoul</span>{" "}
-              <span className="text-gray-400 font-normal">Map</span>
+              <span className="text-blue-500">星旅</span>{" "}
+              <span className="text-gray-400 font-normal text-xs">StarTrail</span>
             </span>
           </div>
           <nav className="flex gap-6">
@@ -27,7 +27,7 @@ export default function Footer() {
             </Link>
           </nav>
           <p className="text-xs text-gray-400">
-            💜 Discover 190+ Kpop locations across Seoul
+            🐰 {locations.length}+ Kpop spots in Seoul
           </p>
         </div>
       </div>
