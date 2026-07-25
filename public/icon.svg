@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" shape-rendering="crispEdges">
+  <!-- pixel art rabbit -->
+  <rect x="4" y="2" width="24" height="28" rx="2" fill="#3b82f6"/>
+  <!-- ears -->
+  <rect x="4" y="2" width="8" height="10" fill="#fff"/>
+  <rect x="20" y="2" width="8" height="10" fill="#fff"/>
+  <rect x="4" y="2" width="8" height="10" fill="#f59e0b" opacity="0.3"/>
+  <rect x="20" y="2" width="8" height="10" fill="#f59e0b" opacity="0.3"/>
+  <!-- inner ears -->
+  <rect x="6" y="4" width="4" height="6" fill="#fbbf24"/>
+  <rect x="22" y="4" width="4" height="6" fill="#fbbf24"/>
+  <!-- face -->
+  <rect x="4" y="10" width="24" height="20" rx="2" fill="#fff"/>
+  <!-- eyes -->
+  <rect x="10" y="14" width="4" height="4" fill="#1e293b"/>
+  <rect x="18" y="14" width="4" height="4" fill="#1e293b"/>
+  <!-- eye shine -->
+  <rect x="11" y="14" width="2" height="2" fill="#fff"/>
+  <rect x="19" y="14" width="2" height="2" fill="#fff"/>
+  <!-- nose -->
+  <rect x="14" y="18" width="4" height="2" fill="#ec4899"/>
+  <!-- mouth -->
+  <rect x="13" y="21" width="2" height="2" fill="#ec4899"/>
+  <rect x="17" y="21" width="2" height="2" fill="#ec4899"/>
+  <!-- blush -->
+  <rect x="8" y="17" width="3" height="3" fill="#fbcfe8"/>
+  <rect x="21" y="17" width="3" height="3" fill="#fbcfe8"/>
+</svg>

@@ -37,9 +37,17 @@ export const metadata: Metadata = {
     "kpop album shops seoul",
   ],
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: [
+      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon-48.png",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    other: [
+      { rel: "apple-touch-icon", url: "/apple-touch-icon.png" },
+    ],
   },
   openGraph: {
     title: "星旅 StarTrail — 首尔 Kpop 追星足迹",
