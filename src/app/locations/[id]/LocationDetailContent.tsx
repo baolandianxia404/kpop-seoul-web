@@ -26,6 +26,8 @@ export default function LocationDetailContent({ id }: Props) {
   const loc = getLocationById(id)
   const [fav, setFav] = useState(false)
   const [checkinContent, setCheckinContent] = useState("")
+  const [checkinPhotos, setCheckinPhotos] = useState<File[]>([])
+  const [checkinPreviews, setCheckinPreviews] = useState<string[]>([])
   const [checkinSubmitting, setCheckinSubmitting] = useState(false)
   const [checkinDone, setCheckinDone] = useState(false)
   const [checkinError, setCheckinError] = useState("")
@@ -43,15 +45,40 @@ export default function LocationDetailContent({ id }: Props) {
     setCheckinSubmitting(true)
     setCheckinError("")
     const supabase = createClient()
+
+    const photoUrls: string[] = []
+    for (const file of checkinPhotos) {
+      const fileName = `${user.id}/${Date.now()}_${Math.random().toString(36).slice(2, 8)}.jpg`
+      const { data, error: uploadErr } = await supabase.storage
+        .from("checkin-photos")
+        .upload(fileName, file, { upsert: false })
+      if (!uploadErr && data) {
+        const { data: urlData } = supabase.storage.from("checkin-photos").getPublicUrl(data.path)
+        photoUrls.push(urlData.publicUrl)
+      }
+    }
+
     const { error } = await supabase.from("check_ins").insert({
       user_id: user.id,
       group_id: checkinGroupId,
       spot_name: loc!.name,
       content: checkinContent.trim(),
+      photos: photoUrls,
     })
     if (error) setCheckinError(error.message)
-    else { setCheckinDone(true); setCheckinContent("") }
+    else { setCheckinDone(true); setCheckinContent(""); setCheckinPhotos([]); setCheckinPreviews([]) }
     setCheckinSubmitting(false)
+  }
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || [])
+    setCheckinPhotos((prev) => [...prev, ...files])
+    files.forEach((f) => {
+      const reader = new FileReader()
+      reader.onload = () => setCheckinPreviews((p) => [...p, reader.result as string])
+      reader.readAsDataURL(f)
+    })
+    e.target.value = ""
   }
 
   if (!loc) notFound()
@@ -242,6 +269,29 @@ export default function LocationDetailContent({ id }: Props) {
               maxLength={300}
               className="w-full px-3 py-2 text-sm border-2 border-blue-200 rounded-xl outline-none focus:border-blue-400 resize-none font-mono"
             />
+            {checkinPreviews.length > 0 && (
+              <div className="flex gap-2 flex-wrap">
+                {checkinPreviews.map((p, i) => (
+                  <div key={i} className="relative w-16 h-16 rounded-lg overflow-hidden border-2 border-blue-100">
+                    <img src={p} alt="" className="w-full h-full object-cover" />
+                    <button
+                      onClick={() => {
+                        setCheckinPhotos((prev) => prev.filter((_, idx) => idx !== i))
+                        setCheckinPreviews((prev) => prev.filter((_, idx) => idx !== i))
+                      }}
+                      className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full text-[10px] flex items-center justify-center"
+                    >✕</button>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div className="flex items-center gap-2">
+              <label className="cursor-pointer px-3 py-1.5 rounded-lg text-xs font-mono bg-white border-2 border-dashed border-blue-200 text-blue-500 hover:border-blue-400 transition">
+                📷 添加照片
+                <input type="file" accept="image/*" multiple className="hidden" onChange={handleFileSelect} />
+              </label>
+              <span className="text-[10px] text-slate-300">{checkinPhotos.length}/3</span>
+            </div>
             {checkinError && <p className="text-xs text-red-500">{checkinError}</p>}
             <button
               onClick={handleCheckin}
