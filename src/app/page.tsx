@@ -8,6 +8,7 @@ import LatestSubmissions from "@/components/home/LatestSubmissions"
 import ActivityStream from "@/components/home/ActivityStream"
 import QuickStart from "@/components/home/QuickStart"
 import FandomHotness from "@/components/home/FandomHotness"
+import DiscoveryCard from "@/components/home/DiscoveryCard"
 import { useLang } from "@/components/LanguageProvider"
 import { locations } from "@/lib/data/locations"
 import { groups } from "@/lib/data/groups"
@@ -131,6 +132,9 @@ export default function HomePage() {
 
         {/* Daily Pick */}
         <DailyPick />
+
+        {/* Discovery Card — fun facts, challenges, featured check-ins */}
+        <DiscoveryCard />
 
         {/* Latest Submissions */}
         <LatestSubmissions />
