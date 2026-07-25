@@ -87,7 +87,7 @@ export default function HomePage() {
           </div>
           <p className="text-sm md:text-base text-gray-400 max-w-md mx-auto font-medium">
             {lang === "zh"
-              ? `探索首尔 ${locations.length}+ 个 Kpop 追星地点`
+              ? "每一程星光，都是通向所爱的轨迹"
               : `Discover ${locations.length}+ Kpop locations across Seoul`}
           </p>
         </div>
