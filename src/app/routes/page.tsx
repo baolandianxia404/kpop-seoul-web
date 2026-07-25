@@ -1,11 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { locations } from "@/lib/data/locations"
 import { useLang } from "@/components/LanguageProvider"
 import { LOCATION_TYPES } from "@/lib/utils/constants"
 import { getDistance } from "@/lib/utils/distance"
+import { generateFallbackItinerary } from "@/lib/ai/fallback"
 import PageGuide from "@/components/ui/PageGuide"
 
 interface RouteSpot {
@@ -81,6 +83,7 @@ function buildRoutes(): Route[] {
 }
 
 export default function RoutesPage() {
+  const router = useRouter()
   const { t } = useLang()
   const [addedSpots, setAddedSpots] = useState<Set<string>>(new Set())
   const [showToast, setShowToast] = useState(false)
@@ -121,6 +124,18 @@ export default function RoutesPage() {
     setTimeout(() => setShowToast(false), 2000)
   }
 
+  const handleGenerate = () => {
+    const spotIds = [...addedSpots]
+    const selectedLocs = locations.filter((l) => spotIds.includes(l.id))
+    if (selectedLocs.length === 0) return
+    const days = Math.min(3, Math.ceil(selectedLocs.length / 4))
+    const itinerary = generateFallbackItinerary(selectedLocs, days, spotIds)
+    itinerary.title = `星旅 StarTrail ${days}-Day Tour`
+    const totalSpots = itinerary.days.reduce((sum, d) => sum + d.spots.length, 0)
+    const encoded = encodeURIComponent(JSON.stringify({ ...itinerary, params: { days }, totalSpots }))
+    router.push(`/itinerary?data=${encoded}`)
+  }
+
   // Card color palette
   const cardColors = [
     { bg: "#eff6ff", accent: "#3b82f6", border: "#bfdbfe" },
@@ -153,18 +168,27 @@ export default function RoutesPage() {
             每个区都有按距离排好的路线。看到想去的地点点 <strong>+</strong> 加入清单，然后去 <Link href="/plan" className="text-blue-500 underline">规划页</Link> 一键生成你的专属行程～
           </PageGuide>
 
-          <Link
-            href="/plan"
-            className="pixel-btn inline-flex items-center gap-2 px-5 py-2.5 text-sm bg-slate-800 text-white hover:bg-slate-700"
-          >
-            ✨ 想要专属定制路线？去规划页 →
-          </Link>
-          {savedCount > 0 && (
+          {savedCount > 0 ? (
+            <div className="flex items-center justify-center gap-3 flex-wrap">
+              <button
+                onClick={handleGenerate}
+                className="pixel-btn inline-flex items-center gap-2 px-5 py-2.5 text-sm bg-slate-800 text-white hover:bg-slate-700"
+              >
+                🗺️ 生成路线 ({savedCount} 个地点)
+              </button>
+              <Link
+                href="/saved"
+                className="text-xs text-slate-400 hover:text-slate-600 underline font-mono"
+              >
+                查看清单 →
+              </Link>
+            </div>
+          ) : (
             <Link
-              href="/saved"
-              className="pixel-btn inline-flex items-center gap-2 mt-3 px-4 py-2 text-xs bg-amber-400 text-slate-800"
+              href="/plan"
+              className="pixel-btn inline-flex items-center gap-2 px-5 py-2.5 text-sm bg-slate-800 text-white hover:bg-slate-700"
             >
-              ⭐ 查看我的计划 ({savedCount} 个地点) →
+              ✨ 想要专属定制路线？去规划页 →
             </Link>
           )}
         </div>

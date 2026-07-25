@@ -14,15 +14,13 @@ function MapSizeFixer() {
   useEffect(() => {
     map.whenReady(() => {
       map.invalidateSize()
-      // Delay: let container settle, then fix size + force tile redraw
+      // After layout settles, force a view reset to reload all tiles at correct size
       setTimeout(() => {
         map.invalidateSize()
-        map.eachLayer((layer) => {
-          if (layer instanceof L.TileLayer) {
-            layer.redraw()
-          }
-        })
-      }, 250)
+        const c = map.getCenter()
+        const z = map.getZoom()
+        map.setView(c, z, { animate: false })
+      }, 400)
     })
   }, [map])
   return null
@@ -79,7 +77,7 @@ export default function DayRouteMap({ spots }: Props) {
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+          url="https://{s}.tile.openstreetmap.org/{z}/{y}/{x}.png"
         />
         <MapSizeFixer />
 
