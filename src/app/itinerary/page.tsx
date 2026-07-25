@@ -224,7 +224,7 @@ function ItineraryContent() {
             <div className="overflow-hidden border-2 border-slate-800" style={{
               boxShadow: "4px 4px 0 0 rgba(0,0,0,0.08)",
             }}>
-              <DayRouteMap spots={currentDay.spots} />
+              <DayRouteMap key={activeDay} spots={currentDay.spots} />
             </div>
 
             {/* Timeline */}

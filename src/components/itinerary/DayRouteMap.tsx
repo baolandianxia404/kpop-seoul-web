@@ -9,12 +9,12 @@ interface Props {
   spots: ItinerarySpot[]
 }
 
-function MapSizeFixer() {
+function MapSizeFixer({ spots }: { spots: ItinerarySpot[] }) {
   const map = useMap()
   useEffect(() => {
-    const timer = setTimeout(() => map.invalidateSize(), 300)
+    const timer = setTimeout(() => map.invalidateSize(), 500)
     return () => clearTimeout(timer)
-  }, [map])
+  }, [map, spots])
   return null
 }
 
@@ -39,18 +39,18 @@ export default function DayRouteMap({ spots }: Props) {
   }, [spots])
 
   return (
-    <div className="w-full h-64 rounded-xl overflow-hidden">
+    <div className="w-full h-72 md:h-80 rounded-xl overflow-hidden">
       <MapContainer
         center={center}
         zoom={14}
-        scrollWheelZoom={false}
-        dragging={false}
-        zoomControl={false}
+        scrollWheelZoom={true}
+        dragging={true}
+        zoomControl={true}
         attributionControl={false}
         style={{ width: "100%", height: "100%" }}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        <MapSizeFixer />
+        <MapSizeFixer spots={spots} />
 
         {spots.map((spot, i) => (
           <Marker
