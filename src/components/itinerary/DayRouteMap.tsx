@@ -12,8 +12,18 @@ interface Props {
 function MapSizeFixer() {
   const map = useMap()
   useEffect(() => {
-    const timer = setTimeout(() => map.invalidateSize(), 300)
-    return () => clearTimeout(timer)
+    map.whenReady(() => {
+      map.invalidateSize()
+      // Delay: let container settle, then fix size + force tile redraw
+      setTimeout(() => {
+        map.invalidateSize()
+        map.eachLayer((layer) => {
+          if (layer instanceof L.TileLayer) {
+            layer.redraw()
+          }
+        })
+      }, 250)
+    })
   }, [map])
   return null
 }
