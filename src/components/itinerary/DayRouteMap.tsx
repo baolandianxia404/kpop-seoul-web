@@ -12,12 +12,12 @@ interface Props {
 function MapSizeFixer({ spots }: { spots: ItinerarySpot[] }) {
   const map = useMap()
   useEffect(() => {
-    // Multiple attempts: immediately + staggered delays for mobile rendering
-    map.invalidateSize()
-    const timers = [100, 300, 700, 1500].map((d) =>
-      setTimeout(() => map.invalidateSize(), d)
-    )
-    return () => timers.forEach(clearTimeout)
+    map.whenReady(() => {
+      map.invalidateSize()
+      setTimeout(() => map.invalidateSize(), 200)
+      setTimeout(() => map.invalidateSize(), 600)
+      setTimeout(() => map.invalidateSize(), 1500)
+    })
   }, [map, spots])
   return null
 }
@@ -43,7 +43,13 @@ export default function DayRouteMap({ spots }: Props) {
   }, [spots])
 
   return (
-    <div className="w-full h-72 md:h-80 rounded-xl overflow-hidden bg-[#e8f0e8]">
+    <div
+      className="w-full h-[300px] md:h-80 bg-[#e8f0e8]"
+      style={{
+        border: "2px solid #1e293b",
+        boxShadow: "4px 4px 0 0 rgba(0,0,0,0.08)",
+      }}
+    >
       <MapContainer
         center={center}
         zoom={14}

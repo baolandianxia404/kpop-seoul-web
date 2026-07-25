@@ -138,10 +138,9 @@ export default function PlanPage() {
       <button
         onClick={handleGenerate}
         disabled={groupIds.length === 0}
-        className="w-full py-4 rounded-xl font-bold text-white text-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
-        style={{ background: "linear-gradient(135deg, #3b82f6, #f59e0b)" }}
+        className="pixel-btn w-full py-4 text-lg bg-slate-800 text-white disabled:opacity-40 disabled:cursor-not-allowed"
       >
-        {t("plan_generate") || "Generate My Route"}
+        {t("plan_generate") || "生成我的路线"}
       </button>
 
       {/* Hint */}

@@ -11,7 +11,10 @@ import { groups } from "@/lib/data/groups"
 const DayRouteMap = dynamic(() => import("@/components/itinerary/DayRouteMap"), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-72 md:h-80 rounded-xl bg-[#e8f0e8] animate-pulse flex items-center justify-center border-2 border-dashed border-slate-200">
+    <div
+      className="w-full h-[300px] md:h-80 bg-[#e8f0e8] animate-pulse flex items-center justify-center"
+      style={{ border: "2px solid #e2e8f0", boxShadow: "4px 4px 0 0 rgba(0,0,0,0.04)" }}
+    >
       <p className="text-xs text-slate-400 font-mono">Loading map...</p>
     </div>
   ),
@@ -221,11 +224,7 @@ function ItineraryContent() {
             </div>
 
             {/* Route map */}
-            <div className="overflow-hidden border-2 border-slate-800" style={{
-              boxShadow: "4px 4px 0 0 rgba(0,0,0,0.08)",
-            }}>
-              <DayRouteMap key={activeDay} spots={currentDay.spots} />
-            </div>
+            <DayRouteMap key={activeDay} spots={currentDay.spots} />
 
             {/* Timeline */}
             <div className="relative pl-8">
