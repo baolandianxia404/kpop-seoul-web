@@ -1,12 +1,21 @@
 "use client"
 
-import { useMemo } from "react"
-import { MapContainer, TileLayer, Marker } from "react-leaflet"
+import { useEffect, useMemo } from "react"
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet"
 import L from "leaflet"
 import type { ItinerarySpot } from "@/types"
 
 interface Props {
   spots: ItinerarySpot[]
+}
+
+function MapSizeFixer() {
+  const map = useMap()
+  useEffect(() => {
+    const timer = setTimeout(() => map.invalidateSize(), 300)
+    return () => clearTimeout(timer)
+  }, [map])
+  return null
 }
 
 function getNumIcon(n: number): L.DivIcon {
@@ -41,6 +50,7 @@ export default function DayRouteMap({ spots }: Props) {
         style={{ width: "100%", height: "100%" }}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <MapSizeFixer />
 
         {spots.map((spot, i) => (
           <Marker
