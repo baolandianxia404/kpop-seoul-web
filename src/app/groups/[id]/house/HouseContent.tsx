@@ -98,12 +98,7 @@ export default function HouseContent({ params }: { params: Promise<{ id: string 
               </div>
               <div className="flex items-center gap-3 text-white/70 text-xs font-mono">
                 <span>{group.fandomName}</span>
-                {fanCount > 0 && (
-                  <>
-                    <span className="text-white/30">·</span>
-                    <span>{fanCount} fans</span>
-                  </>
-                )}
+                {fanCount > 0 && <span className="text-red-300">♥</span>}
                 {isMyHouse && (
                   <>
                     <span className="text-white/30">·</span>
@@ -170,9 +165,7 @@ export default function HouseContent({ params }: { params: Promise<{ id: string 
                 {t("house_checkin_count").replace("{n}", String(checkIns.length))}
               </span>
               {fanCount > 0 && (
-                <span className="text-[10px] font-mono text-slate-300 bg-slate-100 px-2 py-0.5 rounded-full">
-                  {fanCount} fans
-                </span>
+                <span className="text-[10px] font-mono text-slate-300 bg-slate-100 px-2 py-0.5 rounded-full">♥</span>
               )}
             </div>
             <button
