@@ -54,16 +54,10 @@ CREATE POLICY "spots_insert" ON community_spots FOR INSERT WITH CHECK (auth.role
 DROP POLICY IF EXISTS "spots_update" ON community_spots;
 CREATE POLICY "spots_update" ON community_spots FOR UPDATE USING (auth.role() = 'authenticated');
 
--- RLS: check_ins — only same-fandom members can read
+-- RLS: check_ins — anyone can read
 ALTER TABLE check_ins ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "checkins_select" ON check_ins;
-CREATE POLICY "checkins_select" ON check_ins FOR SELECT USING (
-  EXISTS (
-    SELECT 1 FROM profiles
-    WHERE profiles.id = auth.uid()
-    AND profiles.fan_group_id = check_ins.group_id
-  )
-);
+CREATE POLICY "checkins_select" ON check_ins FOR SELECT USING (true);
 DROP POLICY IF EXISTS "checkins_insert" ON check_ins;
 CREATE POLICY "checkins_insert" ON check_ins FOR INSERT WITH CHECK (auth.uid() = user_id);
 DROP POLICY IF EXISTS "checkins_delete" ON check_ins;
@@ -89,15 +83,7 @@ CREATE TABLE IF NOT EXISTS checkin_likes (
 
 ALTER TABLE checkin_likes ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "likes_select" ON checkin_likes;
-CREATE POLICY "likes_select" ON checkin_likes FOR SELECT USING (
-  EXISTS (
-    SELECT 1 FROM profiles
-    WHERE profiles.id = auth.uid()
-    AND profiles.fan_group_id = (
-      SELECT group_id FROM check_ins WHERE check_ins.id = checkin_likes.checkin_id
-    )
-  )
-);
+CREATE POLICY "likes_select" ON checkin_likes FOR SELECT USING (true);
 DROP POLICY IF EXISTS "likes_insert" ON checkin_likes;
 CREATE POLICY "likes_insert" ON checkin_likes FOR INSERT WITH CHECK (auth.uid() = user_id);
 DROP POLICY IF EXISTS "likes_delete" ON checkin_likes;
@@ -116,15 +102,7 @@ CREATE TABLE IF NOT EXISTS checkin_comments (
 
 ALTER TABLE checkin_comments ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "comments_select" ON checkin_comments;
-CREATE POLICY "comments_select" ON checkin_comments FOR SELECT USING (
-  EXISTS (
-    SELECT 1 FROM profiles
-    WHERE profiles.id = auth.uid()
-    AND profiles.fan_group_id = (
-      SELECT group_id FROM check_ins WHERE check_ins.id = checkin_comments.checkin_id
-    )
-  )
-);
+CREATE POLICY "comments_select" ON checkin_comments FOR SELECT USING (true);
 DROP POLICY IF EXISTS "comments_insert" ON checkin_comments;
 CREATE POLICY "comments_insert" ON checkin_comments FOR INSERT WITH CHECK (auth.uid() = user_id);
 DROP POLICY IF EXISTS "comments_delete" ON checkin_comments;

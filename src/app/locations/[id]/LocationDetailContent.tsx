@@ -194,19 +194,23 @@ export default function LocationDetailContent({ id }: Props) {
         </p>
         {user && profile ? (
           (() => {
-            const userGroup = groups.find((g) => g.id === profile.fan_group_id)
-            const locGroupIds = groups.filter((g) => loc.groupNames.includes(g.name)).map((g) => g.id)
-            const targetGroupId = locGroupIds.includes(profile.fan_group_id)
-              ? profile.fan_group_id
-              : locGroupIds[0]
-            if (!targetGroupId) return null
+            const locGroups = groups.filter((g) => loc.groupNames.includes(g.name))
+            if (locGroups.length === 0) return (
+              <p className="text-xs text-slate-400 font-mono">此地点暂无关联团体</p>
+            )
             return (
-              <Link
-                href={`/groups/${targetGroupId}/house?spot=${encodeURIComponent(loc.name)}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-500 text-white rounded-xl text-sm font-bold hover:bg-blue-600 transition active:scale-95"
-              >
-                📝 {t("location_checkin_btn")}
-              </Link>
+              <div className="flex flex-wrap gap-2">
+                {locGroups.map((g) => (
+                  <Link
+                    key={g.id}
+                    href={`/groups/${g.id}/house?spot=${encodeURIComponent(loc.name)}`}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition active:scale-95"
+                    style={{ backgroundColor: g.color + "18", color: g.color, border: `1.5px solid ${g.color}40` }}
+                  >
+                    💙 {g.name}
+                  </Link>
+                ))}
+              </div>
             )
           })()
         ) : (
