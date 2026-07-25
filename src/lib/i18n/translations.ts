@@ -2,7 +2,7 @@ export type Lang = "en" | "zh"
 
 export const translations = {
   // Header
-  header_map: { en: "Map", zh: "地图" },
+  header_map: { en: "StarMap", zh: "星图" },
   header_locations: { en: "Locations", zh: "地点" },
   header_groups: { en: "Groups", zh: "团体" },
   header_add_spot: { en: "Share", zh: "投稿" },
@@ -19,7 +19,7 @@ export const translations = {
   menu_sign_out: { en: "Sign Out", zh: "退出" },
 
   // Mobile nav
-  nav_map: { en: "Map", zh: "地图" },
+  nav_map: { en: "StarMap", zh: "星图" },
   nav_locations: { en: "Spots", zh: "地点" },
   nav_groups: { en: "Groups", zh: "团体" },
   nav_planner: { en: "Add", zh: "添加" },
