@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import Header from "@/components/layout/Header"
-import MobileNav from "@/components/layout/MobileNav"
 import SideDrawer from "@/components/layout/SideDrawer"
 import Footer from "@/components/layout/Footer"
 import ClientWrapper from "@/components/auth/ClientWrapper"
@@ -70,10 +69,9 @@ export default function RootLayout({
         <LanguageProvider>
         <ClientWrapper>
           <Header />
-          <main className="flex-1 pb-16 md:pb-0">{children}</main>
+          <main className="flex-1 md:pb-0">{children}</main>
           <Footer />
           <SideDrawer />
-          <MobileNav />
         </ClientWrapper>
         </LanguageProvider>
       </body>
