@@ -32,7 +32,7 @@ export function filterLocations(
 
 export function getVisibleTypes(zoom: number): LocationType[] | null {
   if (zoom <= 11) return ['company']
-  if (zoom <= 13) return ['company', 'entertainment', 'mv_spot']
+  if (zoom <= 13) return ['company', 'entertainment', 'mv_spot', 'concert']
   return null
 }
 
