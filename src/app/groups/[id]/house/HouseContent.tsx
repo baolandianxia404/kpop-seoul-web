@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, use } from "react"
+import { useState, useEffect, use, useMemo, Suspense } from "react"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { useAuth } from "@/components/auth/AuthProvider"
@@ -20,7 +20,7 @@ export default function HouseContent({ params }: { params: Promise<{ id: string 
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [fanCount, setFanCount] = useState(0)
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
 
   const group = getGroupById(id)
   const isMyHouse = profile?.fan_group_id === id
@@ -178,13 +178,15 @@ export default function HouseContent({ params }: { params: Promise<{ id: string 
 
           {showForm && (
             <div className="mb-6">
-              <CheckInForm
+              <Suspense fallback={<div className="p-4 bg-white border-2 border-blue-200 animate-pulse"><div className="h-8 bg-slate-100 rounded mb-3" /><div className="h-8 bg-slate-100 rounded mb-3" /><div className="h-20 bg-slate-100 rounded" /></div>}>
+                <CheckInForm
                 groupId={id}
                 onSuccess={() => {
                   setShowForm(false)
                   loadCheckIns()
                 }}
               />
+              </Suspense>
             </div>
           )}
 

@@ -115,39 +115,6 @@ button, a, [role="button"] {
 }
 .animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
 
-/* Bunny bubble animations */
-@keyframes bunny-hop {
-  0%, 100% { transform: translateY(0); }
-  15% { transform: translateY(-6px) scale(1.05); }
-  30% { transform: translateY(0) scale(0.97); }
-  45% { transform: translateY(-3px); }
-  60% { transform: translateY(0); }
-}
-.animate-bunny-hop { animation: bunny-hop 1.5s ease-in-out infinite; }
-
-@keyframes pop-bounce {
-  0% { transform: translateY(0) scale(0); }
-  60% { transform: translateY(-8px) scale(1.15); }
-  80% { transform: translateY(2px) scale(0.95); }
-  100% { transform: translateY(0) scale(1); }
-}
-.animate-pop-bounce { animation: pop-bounce 0.4s ease-out; }
-
-@keyframes pop-spin {
-  0% { transform: rotate(-30deg) scale(0); }
-  60% { transform: rotate(10deg) scale(1.1); }
-  100% { transform: rotate(0deg) scale(1); }
-}
-.animate-pop-spin { animation: pop-spin 0.4s ease-out; }
-
-@keyframes pop-swing {
-  0% { transform: rotate(20deg) scale(0); }
-  50% { transform: rotate(-8deg) scale(1.1); }
-  75% { transform: rotate(4deg) scale(0.95); }
-  100% { transform: rotate(0deg) scale(1); }
-}
-.animate-pop-swing { animation: pop-swing 0.4s ease-out; }
-
 /* Hover wiggle for interactive elements */
 .hover-wiggle:hover {
   animation: wiggle 0.4s ease-in-out;

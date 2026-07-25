@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useMemo } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { useLang } from "@/components/LanguageProvider"
@@ -37,7 +37,7 @@ export default function CheckInCard({ checkIn, onDelete }: Props) {
   const { user } = useAuth()
   const isOwner = user?.id === checkIn.user_id
   const profile = checkIn.profile
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
 
   const [likes, setLikes] = useState(0)
   const [liked, setLiked] = useState(false)
