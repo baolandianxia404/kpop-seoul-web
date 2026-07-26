@@ -63,7 +63,6 @@ export default function PhotoWall({ locationName, refreshKey }: { locationName: 
 
         if (cancelled) { setLoading(false); return }
 
-        // Batch-fetch like/comment counts (tolerate missing tables)
         const ids = result.map((r) => r.checkinId)
         if (ids.length > 0) {
           try {
@@ -83,7 +82,7 @@ export default function PhotoWall({ locationName, refreshKey }: { locationName: 
               r.likeCount = likeMap.get(r.checkinId) || 0
               r.commentCount = commentMap.get(r.checkinId) || 0
             })
-          } catch { /* tables not created yet — show without counts */ }
+          } catch { /* tables not created yet */ }
         }
 
         if (!cancelled) {
@@ -98,44 +97,52 @@ export default function PhotoWall({ locationName, refreshKey }: { locationName: 
     return () => { cancelled = true }
   }, [locationName, refreshKey])
 
-  if (loading) return null
-  if (checkIns.length === 0) return null
-
   return (
     <section className="mt-8 pt-6 border-t border-gray-200">
-      <h2 className="text-lg font-semibold mb-3">Fan Photos</h2>
-      <div className="space-y-5">
-        {checkIns.map((ci) => (
-          <div
-            key={ci.checkinId}
-            className="bg-white rounded-xl border border-gray-100 overflow-hidden"
-          >
-            <div className="flex items-center gap-2 px-4 py-3 bg-slate-50/50">
-              <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-[10px] font-bold text-blue-600">
-                {ci.userName.slice(0, 2).toUpperCase()}
+      <h2 className="text-lg font-semibold mb-3">📸 粉丝打卡照</h2>
+      {loading ? (
+        <div className="flex items-center gap-2 text-xs text-slate-300 font-mono py-4">
+          <div className="w-4 h-4 border-2 border-slate-200 border-t-slate-300 rounded-full animate-spin" />
+          加载中…
+        </div>
+      ) : checkIns.length === 0 ? (
+        <p className="text-xs text-slate-400 font-mono py-6 bg-slate-50 rounded-xl text-center border border-dashed border-slate-200">
+          📷 还没有粉丝打卡照，快来发第一张吧！
+        </p>
+      ) : (
+        <div className="space-y-5">
+          {checkIns.map((ci) => (
+            <div
+              key={ci.checkinId}
+              className="bg-white rounded-xl border border-gray-100 overflow-hidden"
+            >
+              <div className="flex items-center gap-2 px-4 py-3 bg-slate-50/50">
+                <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-[10px] font-bold text-blue-600">
+                  {ci.userName.slice(0, 2).toUpperCase()}
+                </div>
+                <span className="text-xs font-medium text-slate-600 font-mono">{ci.userName}</span>
+                <span className="text-[10px] text-slate-300 font-mono ml-auto">
+                  {new Date(ci.createdAt).toLocaleDateString()}
+                </span>
               </div>
-              <span className="text-xs font-medium text-slate-600 font-mono">{ci.userName}</span>
-              <span className="text-[10px] text-slate-300 font-mono ml-auto">
-                {new Date(ci.createdAt).toLocaleDateString()}
-              </span>
-            </div>
-            {ci.content && (
-              <p className="text-xs text-slate-500 px-4 py-2 leading-relaxed">
-                {ci.content}
-              </p>
-            )}
-            <PhotoGrid photos={ci.photos} />
-            <div className="flex items-center gap-4 px-4 py-2.5 text-xs text-slate-400">
-              {(ci.likeCount > 0 || ci.commentCount > 0) && (
-                <>
-                  {ci.likeCount > 0 && <span>❤️ {ci.likeCount}</span>}
-                  {ci.commentCount > 0 && <span>💬 {ci.commentCount}</span>}
-                </>
+              {ci.content && (
+                <p className="text-xs text-slate-500 px-4 py-2 leading-relaxed">
+                  {ci.content}
+                </p>
               )}
+              <PhotoGrid photos={ci.photos} />
+              <div className="flex items-center gap-4 px-4 py-2.5 text-xs text-slate-400">
+                {(ci.likeCount > 0 || ci.commentCount > 0) && (
+                  <>
+                    {ci.likeCount > 0 && <span>❤️ {ci.likeCount}</span>}
+                    {ci.commentCount > 0 && <span>💬 {ci.commentCount}</span>}
+                  </>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </section>
   )
 }
