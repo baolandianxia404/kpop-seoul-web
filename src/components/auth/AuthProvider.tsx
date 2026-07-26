@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState, useCallback } from "react"
 import type { User, Session, AuthChangeEvent } from "@supabase/supabase-js"
 import { createClient } from "@/lib/supabase/client"
+import { syncFavoritesOnLogin } from "@/lib/store/favorites-sync"
 import type { UserProfile } from "@/types"
 
 interface AuthContextType {
@@ -52,7 +53,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       const session = data.session
       setSession(session)
       setUser(session?.user ?? null)
-      if (session?.user) fetchProfile(session.user.id)
+      if (session?.user) { fetchProfile(session.user.id); syncFavoritesOnLogin(session.user.id) }
       setLoading(false)
     })
 
@@ -60,7 +61,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       (_event: AuthChangeEvent, session: Session | null) => {
         setSession(session)
         setUser(session?.user ?? null)
-        if (session?.user) fetchProfile(session.user.id)
+        if (session?.user) { fetchProfile(session.user.id); syncFavoritesOnLogin(session.user.id) }
         else setProfile(null)
         setLoading(false)
       }

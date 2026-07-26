@@ -107,3 +107,21 @@ DROP POLICY IF EXISTS "comments_insert" ON checkin_comments;
 CREATE POLICY "comments_insert" ON checkin_comments FOR INSERT WITH CHECK (auth.uid() = user_id);
 DROP POLICY IF EXISTS "comments_delete" ON checkin_comments;
 CREATE POLICY "comments_delete" ON checkin_comments FOR DELETE USING (auth.uid() = user_id);
+
+-- =============================================
+-- User Favorites (cross-device sync)
+-- =============================================
+CREATE TABLE IF NOT EXISTS user_favorites (
+  user_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+  location_id TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  PRIMARY KEY (user_id, location_id)
+);
+
+ALTER TABLE user_favorites ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "favs_select" ON user_favorites;
+CREATE POLICY "favs_select" ON user_favorites FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "favs_insert" ON user_favorites;
+CREATE POLICY "favs_insert" ON user_favorites FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "favs_delete" ON user_favorites;
+CREATE POLICY "favs_delete" ON user_favorites FOR DELETE USING (auth.uid() = user_id);

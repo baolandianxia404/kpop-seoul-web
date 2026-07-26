@@ -13,7 +13,7 @@ import PhotoWall from "@/components/location/PhotoWall"
 import Link from "next/link"
 import { useLang } from "@/components/LanguageProvider"
 import { useAuth } from "@/components/auth/AuthProvider"
-import { isFavorite, toggleFavorite } from "@/lib/store/favorites"
+import { useFavorites } from "@/lib/store/favorites"
 import { createClient } from "@/lib/supabase/client"
 
 interface Props {
@@ -23,8 +23,9 @@ interface Props {
 export default function LocationDetailContent({ id }: Props) {
   const { t } = useLang()
   const { user, profile } = useAuth()
+  const { isFavorite, toggleFavorite } = useFavorites()
   const loc = getLocationById(id)
-  const [fav, setFav] = useState(false)
+  const fav = isFavorite(id)
   const [checkinContent, setCheckinContent] = useState("")
   const [checkinPhotos, setCheckinPhotos] = useState<File[]>([])
   const [checkinPreviews, setCheckinPreviews] = useState<string[]>([])
@@ -32,10 +33,6 @@ export default function LocationDetailContent({ id }: Props) {
   const [checkinDone, setCheckinDone] = useState(false)
   const [checkinError, setCheckinError] = useState("")
   const [photoKey, setPhotoKey] = useState(0)
-
-  useEffect(() => {
-    setFav(isFavorite(id))
-  }, [id])
 
   const locGroups = groups.filter((g) => loc && loc.groupNames.includes(g.name))
 
@@ -64,18 +61,19 @@ export default function LocationDetailContent({ id }: Props) {
       }
     }
 
-    const insertResult = await supabase.from("check_ins").insert({
-      user_id: user.id,
-      group_id: checkinGroupId,
-      spot_name: loc!.name,
-      content: checkinContent.trim(),
-      photos: photoUrls,
-    }).select()
+    const { data, error } = await supabase.rpc("insert_checkin", {
+      p_user_id: user.id,
+      p_group_id: checkinGroupId,
+      p_spot_name: loc!.name,
+      p_spot_location: loc!.location?.district || "",
+      p_content: checkinContent.trim(),
+      p_photos: photoUrls,
+    })
 
-    if (insertResult.error) {
-      setCheckinError(insertResult.error.message + " | code: " + insertResult.error.code)
-    } else if (!insertResult.data || insertResult.data.length === 0) {
-      setCheckinError("Insert returned no data - RLS may be blocking. user_id: " + user.id + " group: " + checkinGroupId)
+    if (error) {
+      setCheckinError(error.message + " | code: " + error.code)
+    } else if (!data || data.length === 0) {
+      setCheckinError("Insert returned no data. user_id: " + user.id + " group: " + checkinGroupId)
     } else {
       setCheckinDone(true); setCheckinContent(""); setCheckinPhotos([]); setCheckinPreviews([]); setPhotoKey(k => k + 1)
     }
@@ -137,7 +135,7 @@ export default function LocationDetailContent({ id }: Props) {
         <div className="flex items-center gap-3 mb-1">
           <h1 className="text-3xl font-bold">{loc.name}</h1>
           <button
-            onClick={() => setFav(toggleFavorite(id))}
+            onClick={() => toggleFavorite(id)}
             className="text-2xl hover:scale-110 transition-transform"
             aria-label="Toggle favorite"
           >

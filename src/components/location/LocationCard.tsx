@@ -1,10 +1,9 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import Link from "next/link"
 import type { Location } from "@/types"
 import { LOCATION_TYPES, TYPE_NAME_CN } from "@/lib/utils/constants"
-import { isFavorite, toggleFavorite } from "@/lib/store/favorites"
+import { useFavorites } from "@/lib/store/favorites"
 
 const PIXEL_ICONS: Record<string, string> = {
   company: "▣",
@@ -17,16 +16,13 @@ const PIXEL_ICONS: Record<string, string> = {
 export default function LocationCard({ location }: { location: Location }) {
   const typeInfo = LOCATION_TYPES[location.type]
   const pixelIcon = PIXEL_ICONS[location.type] || "●"
-  const [fav, setFav] = useState(false)
+  const { isFavorite, toggleFavorite } = useFavorites()
+  const fav = isFavorite(location.id)
 
-  useEffect(() => {
-    setFav(isFavorite(location.id))
-  }, [location.id])
-
-  const handleFav = (e: React.MouseEvent) => {
+  const handleFav = async (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    setFav(toggleFavorite(location.id))
+    await toggleFavorite(location.id)
   }
 
   return (
