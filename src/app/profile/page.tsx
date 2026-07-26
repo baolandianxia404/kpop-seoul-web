@@ -6,6 +6,7 @@ import { useAuth } from "@/components/auth/AuthProvider"
 import { useLang } from "@/components/LanguageProvider"
 import { createClient } from "@/lib/supabase/client"
 import { groups } from "@/lib/data/groups"
+import type { CheckInRow } from "@/types"
 
 export default function ProfilePage() {
   const { t } = useLang()
@@ -15,6 +16,29 @@ export default function ProfilePage() {
   const [fanGroupId, setFanGroupId] = useState("")
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState("")
+  const [myCheckIns, setMyCheckIns] = useState<CheckInRow[]>([])
+  const [checkInsLoading, setCheckInsLoading] = useState(false)
+
+  const loadMyCheckIns = async () => {
+    if (!user) return
+    setCheckInsLoading(true)
+    const supabase = createClient()
+    const { data } = await supabase
+      .from("check_ins")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(50)
+    if (data) setMyCheckIns(data as CheckInRow[])
+    setCheckInsLoading(false)
+  }
+
+  const handleDeleteCheckIn = async (checkinId: string) => {
+    if (!confirm(t("checkin_delete_confirm"))) return
+    const supabase = createClient()
+    await supabase.from("check_ins").delete().eq("id", checkinId)
+    setMyCheckIns((prev) => prev.filter((ci) => ci.id !== checkinId))
+  }
 
   useEffect(() => {
     if (!loading && !user) router.push("/auth/login")
@@ -22,6 +46,7 @@ export default function ProfilePage() {
       setDisplayName(profile.display_name || "")
       setFanGroupId(profile.fan_group_id || "")
     }
+    if (user) loadMyCheckIns()
   }, [user, loading, profile, router])
 
   const handleSave = async () => {
@@ -110,6 +135,56 @@ export default function ProfilePage() {
         >
           {saving ? t("profile_saving") : t("profile_save")}
         </button>
+      </div>
+
+      {/* My Check-ins */}
+      <div className="mt-10 pt-8 border-t-2 border-dashed border-slate-200">
+        <div className="flex items-center gap-2 mb-5">
+          <span className="text-xl">📝</span>
+          <h2 className="text-lg font-bold pixel-font text-slate-800">My Check-ins</h2>
+        </div>
+
+        {checkInsLoading ? (
+          <p className="text-center font-mono text-xs text-slate-400 py-6">{t("common_loading")}</p>
+        ) : myCheckIns.length === 0 ? (
+          <div className="text-center py-10 bg-slate-50 rounded-xl border border-dashed border-slate-200">
+            <p className="text-4xl mb-2">📭</p>
+            <p className="text-sm text-slate-400 font-mono">No check-ins yet</p>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {myCheckIns.map((ci) => (
+              <div
+                key={ci.id}
+                className="bg-white p-4 flex items-start gap-3"
+                style={{ border: "2px solid #e2e8f0", boxShadow: "2px 2px 0 0 rgba(0,0,0,0.03)" }}
+              >
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-sm">📍</span>
+                    <p className="text-sm font-bold text-slate-800 truncate">{ci.spot_name}</p>
+                  </div>
+                  {ci.spot_location && (
+                    <p className="text-[10px] text-slate-400 ml-6 mb-1">{ci.spot_location}</p>
+                  )}
+                  {ci.content && (
+                    <p className="text-xs text-slate-500 leading-relaxed ml-6 line-clamp-2">{ci.content}</p>
+                  )}
+                  <p className="text-[10px] text-slate-300 font-mono ml-6 mt-1">
+                    {new Date(ci.created_at).toLocaleDateString()}
+                  </p>
+                </div>
+                <button
+                  onClick={() => handleDeleteCheckIn(ci.id)}
+                  className="text-xs text-slate-300 hover:text-red-400 transition flex-shrink-0 mt-0.5"
+                  title={t("checkin_delete")}
+                >
+                  🗑
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )

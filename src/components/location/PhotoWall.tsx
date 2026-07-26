@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react"
 import { createClient } from "@/lib/supabase/client"
+import { useAuth } from "@/components/auth/AuthProvider"
 import PhotoGrid from "@/components/house/PhotoGrid"
 
 interface CheckInPhoto {
   checkinId: string
+  userId: string
   userName: string
   groupId: string
   spotName: string
@@ -17,9 +19,17 @@ interface CheckInPhoto {
 }
 
 export default function PhotoWall({ locationName }: { locationName: string }) {
+  const { user } = useAuth()
   const [checkIns, setCheckIns] = useState<CheckInPhoto[]>([])
   const [loading, setLoading] = useState(true)
   const [debug, setDebug] = useState("")
+
+  const handleDelete = async (checkinId: string) => {
+    if (!confirm("Delete this check-in?")) return
+    const supabase = createClient()
+    await supabase.from("check_ins").delete().eq("id", checkinId)
+    setCheckIns((prev) => prev.filter((ci) => ci.checkinId !== checkinId))
+  }
 
   useEffect(() => {
     let cancelled = false
@@ -72,6 +82,7 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
           .filter((c) => c.photos && c.photos.length > 0)
           .map((c) => ({
             checkinId: c.id,
+            userId: c.user_id,
             userName: profileMap.get(c.user_id)?.display_name || c.user_id.slice(0, 8),
             groupId: c.group_id,
             spotName: c.spot_name,
@@ -148,6 +159,15 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
                 <span className="text-[10px] text-slate-300 font-mono ml-auto">
                   {new Date(ci.createdAt).toLocaleDateString()}
                 </span>
+                {user && user.id === ci.userId && (
+                  <button
+                    onClick={() => handleDelete(ci.checkinId)}
+                    className="text-xs text-slate-300 hover:text-red-400 transition"
+                    title="Delete"
+                  >
+                    🗑
+                  </button>
+                )}
               </div>
               {ci.content && (
                 <p className="text-xs text-slate-500 px-4 py-2 leading-relaxed">
