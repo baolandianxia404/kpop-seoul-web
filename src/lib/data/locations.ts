@@ -8635,7 +8635,2931 @@ export const locations: Location[] = [
     "estimatedDuration": 180,
     "rating": 4.1,
     "verified": true
-  }
+  },
+  {
+  "id": "rbw-cafe",
+  "name": "RBW Over The Rainbow 咖啡厅",
+  "nameKo": "RBW 오버더레인보우",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "MAMAMOO"
+  ],
+  "location": {
+    "latitude": 37.5381,
+    "longitude": 127.0932,
+    "address": "首尔特别市广津区紫阳洞769-10 RBW大楼一楼",
+    "addressKo": "서울 광진구 자양동 769-10",
+    "district": "广津区",
+    "neighborhood": "紫阳洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "5号线",
+      "station": "紫阳站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "10:00-20:00",
+    "note": "只收信用卡不收现金"
+  },
+  "description": "MAMAMOO所属社RBW大楼一楼咖啡厅。店内循环播放MV，有GGBB人生四宫格。买甜甜圈赠小卡。玟星偶尔会来帮忙做咖啡。",
+  "checkInTips": [
+    "买甜甜圈赠小卡",
+    "有MAMAMOO人生四宫格",
+    "玟星偶尔出现"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-10,000"
+  },
+  "estimatedDuration": 45,
+  "rating": 4.5,
+  "verified": true
+},
+  {
+  "id": "cheonha-sotdukkeong",
+  "name": "天下第一锅盖 (MAMAMOO同款烤肉)",
+  "nameKo": "천하제일 솥뚜껑",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "MAMAMOO"
+  ],
+  "location": {
+    "latitude": 37.5447,
+    "longitude": 127.0561,
+    "address": "首尔特别市城东区圣水路7街27号1楼",
+    "addressKo": "서울 성동구 성수이로7길 27 1층",
+    "district": "城东区",
+    "neighborhood": "圣水洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "圣水站",
+      "exit": "4号出口",
+      "walkingMinutes": 6
+    }
+  },
+  "hours": {
+    "weekday": "11:30-22:00",
+    "note": "午休14:30-17:00，白天无烤肉"
+  },
+  "description": "颂乐和玟星常去的五花肉店。店内有两人签名。演唱会期间老板会为粉丝延长营业。经典锅盖烤肉配泡菜，氛围超好。",
+  "checkInTips": [
+    "店内颂乐&玟星签名",
+    "演唱会期间老板延长营业",
+    "午休时段不供应烤肉"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩15,000-25,000"
+  },
+  "estimatedDuration": 60,
+  "rating": 4.4,
+  "verified": true
+},
+  {
+  "id": "daehan-gopchang-hwasa",
+  "name": "大韩牛小肠 长安店 (华莎同款)",
+  "nameKo": "대한곱창 장안점",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "MAMAMOO"
+  ],
+  "location": {
+    "latitude": 37.5744,
+    "longitude": 127.0672,
+    "address": "首尔特别市东大门区千户大路85街21",
+    "addressKo": "서울 동대문구 천호대로85길 21",
+    "district": "东大门区",
+    "neighborhood": "长安洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "5号线",
+      "station": "长安坪站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "16:00-01:00"
+  },
+  "description": "华莎在《我独自生活》吃播出圈的烤肠店。推荐牛小肠什锦+炒饭。对店员说'화사 먹방'即可get同款。韩国烤肠文化的标志性店铺。",
+  "checkInTips": [
+    "说'화사 먹방'get同款",
+    "推荐牛小肠什锦+炒饭",
+    "华莎吃播出圈地"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩15,000-25,000"
+  },
+  "estimatedDuration": 60,
+  "rating": 4.5,
+  "verified": true
+},
+  {
+  "id": "nudake-seongsu",
+  "name": "NUDAKE 圣水旗舰店 (华莎同款)",
+  "nameKo": "누데이크 성수",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "MAMAMOO"
+  ],
+  "location": {
+    "latitude": 37.5444,
+    "longitude": 127.0557,
+    "address": "首尔特别市城东区圣水路7街26",
+    "addressKo": "서울 성동구 성수이로7길 26",
+    "district": "城东区",
+    "neighborhood": "圣水洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "圣水站",
+      "exit": "4号出口",
+      "walkingMinutes": 6
+    }
+  },
+  "hours": {
+    "weekday": "11:00-21:00"
+  },
+  "description": "Gentle Monster旗下艺术甜品品牌。黑白极简风设计，招牌PEAK皇冠抹茶奶油是华莎同款。被称为首尔最艺术的甜品店之一。",
+  "checkInTips": [
+    "招牌PEAK皇冠抹茶奶油",
+    "黑白极简拍照圣地",
+    "Gentle Monster旗下品牌"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩8,000-15,000"
+  },
+  "estimatedDuration": 45,
+  "rating": 4.6,
+  "verified": true
+},
+  {
+  "id": "neungdong-minari",
+  "name": "능동미나리 水芹菜牛肉汤饭 (辉人同款)",
+  "nameKo": "능동미나리",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "MAMAMOO"
+  ],
+  "location": {
+    "latitude": 37.5301,
+    "longitude": 126.9658,
+    "address": "首尔特别市龙山区汉江大路40街28",
+    "addressKo": "서울 용산구 한강대로40길 28",
+    "district": "龙山区",
+    "neighborhood": "新龙山"
+  },
+  "transport": {
+    "subway": {
+      "line": "4号线",
+      "station": "新龙山站",
+      "exit": "",
+      "walkingMinutes": 3
+    }
+  },
+  "hours": {
+    "weekday": "11:00-21:00",
+    "note": "建议提前用테이블링 APP排队（动辄70+桌）"
+  },
+  "description": "辉人来过多次的水芹菜牛肉汤饭专门店。生拌牛肉配梨丝超新鲜。人气爆棚，强烈建议提前APP排队。",
+  "checkInTips": [
+    "辉人多次光顾",
+    "生拌牛肉配梨丝必点",
+    "用테이블링 APP提前排队"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩10,000-18,000"
+  },
+  "estimatedDuration": 50,
+  "rating": 4.4,
+  "verified": true
+},
+  {
+  "id": "snsd-forest-yeouido",
+  "name": "少女时代林 (汝矣岛汉江公园)",
+  "nameKo": "소녀시대 숲",
+  "type": "entertainment",
+  "category": "other",
+  "groupNames": [
+    "少女时代"
+  ],
+  "location": {
+    "latitude": 37.5266,
+    "longitude": 126.9337,
+    "address": "首尔特别市永登浦区汝矣岛洞 汝矣岛汉江公园内",
+    "addressKo": "서울 영등포구 여의도동 여의도한강공원",
+    "district": "永登浦区",
+    "neighborhood": "汝矣岛"
+  },
+  "transport": {
+    "subway": {
+      "line": "5号线",
+      "station": "汝矣渡口站",
+      "exit": "3号出口",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {},
+  "description": "以少女时代命名的树林，有成员名字命名的树。SONE（少女时代粉丝名）必打卡地。四月可赏樱花，秋天也很美。",
+  "checkInTips": [
+    "有成员名字命名的树",
+    "4月樱花季最美",
+    "汉江公园野餐好去处"
+  ],
+  "price": {
+    "isFree": true,
+    "range": ""
+  },
+  "estimatedDuration": 40,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "people-the-terrace",
+  "name": "People the Terrace (少女时代派对餐厅)",
+  "nameKo": "피플더테라스",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "少女时代"
+  ],
+  "location": {
+    "latitude": 37.5226,
+    "longitude": 127.0426,
+    "address": "首尔特别市江南区岛山大路81街13",
+    "addressKo": "서울 강남구 도산대로81길 13",
+    "district": "江南区",
+    "neighborhood": "清潭洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "7号线",
+      "station": "清潭站",
+      "exit": "",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {
+    "weekday": "18:00-02:00",
+    "note": "周一休息"
+  },
+  "description": "少女时代成员生日派对举办地。绝美喷泉餐厅，也是韩剧《顶楼》拍摄地。NCT、宋智雅也曾在此办派对。人称'清潭洞贵妇餐厅'。",
+  "checkInTips": [
+    "少女时代生日派对场地",
+    "韩剧《顶楼》拍摄地",
+    "喷泉夜景超美"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩30,000-60,000"
+  },
+  "estimatedDuration": 90,
+  "rating": 4.5,
+  "verified": true
+},
+  {
+  "id": "geumdwaeji-sikdang-yoona",
+  "name": "金猪食堂 (允儿/柾国同款)",
+  "nameKo": "금돼지식당",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "少女时代",
+    "BTS"
+  ],
+  "location": {
+    "latitude": 37.5565,
+    "longitude": 127.0086,
+    "address": "首尔特别市中区茶山路149",
+    "addressKo": "서울 중구 다산로 149",
+    "district": "中区",
+    "neighborhood": "药水洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "3号线/6号线",
+      "station": "药水站",
+      "exit": "2号出口",
+      "walkingMinutes": 3
+    }
+  },
+  "hours": {
+    "weekday": "11:30-22:00",
+    "note": "米其林必比登6年，排队严重"
+  },
+  "description": "米其林必比登推荐6年的烤肉名店。允儿同款，BTS柾国、EXO世勋也常来。五花肉品质极高，排队是常态。",
+  "checkInTips": [
+    "米其林必比登6年",
+    "允儿/柾国/世勋同款",
+    "提前排队"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩25,000-40,000"
+  },
+  "estimatedDuration": 60,
+  "rating": 4.6,
+  "verified": true
+},
+  {
+  "id": "star-tea-miss-lee",
+  "name": "星茶房Miss李 仁寺洞店 (少时/红薯夫妇)",
+  "nameKo": "별다방 미스리 인사동",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "少女时代",
+    "CNBLUE"
+  ],
+  "location": {
+    "latitude": 37.5737,
+    "longitude": 126.9852,
+    "address": "首尔特别市钟路区贯勋洞144号2层",
+    "addressKo": "서울 종로구 관훈동 144 2층",
+    "district": "钟路区",
+    "neighborhood": "仁寺洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "3号线",
+      "station": "安国站",
+      "exit": "6号出口",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "10:00-22:00"
+  },
+  "description": "允儿、徐贤、泰妍打卡过的怀旧茶房。徐贤强推红枣拿铁。招牌'回忆便当'摇着吃超有趣。郑容和&徐贤《我们结婚了》红薯夫妇拍摄地。",
+  "checkInTips": [
+    "徐贤强推红枣拿铁",
+    "摇摇回忆便当",
+    "红薯夫妇拍摄地"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-12,000"
+  },
+  "estimatedDuration": 45,
+  "rating": 4.4,
+  "verified": true
+},
+  {
+  "id": "mint-heim-taeyeon",
+  "name": "Mint Heim 薄巧店 (泰妍同款)",
+  "nameKo": "민트하임",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "少女时代"
+  ],
+  "location": {
+    "latitude": 37.5483,
+    "longitude": 126.9158,
+    "address": "首尔特别市麻浦区蚕田路6街28",
+    "addressKo": "서울 마포구 잔다리로6길 28",
+    "district": "麻浦区",
+    "neighborhood": "合井洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线/6号线",
+      "station": "合井站",
+      "exit": "3号出口",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:00-20:00"
+  },
+  "description": "泰妍最爱的薄荷巧克力主题店。全店薄荷绿装修，超梦幻。招牌薄荷巧克力拿铁和薄巧冰淇淋必点。泰妍在SNS多次推荐。",
+  "checkInTips": [
+    "泰妍最爱的薄巧店",
+    "全店薄荷绿装修",
+    "薄巧拿铁必点"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-10,000"
+  },
+  "estimatedDuration": 40,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "jangdokdae-kimchi-jjigae",
+  "name": "酱缸台泡菜汤 清潭总店 (东方神起同款)",
+  "nameKo": "장독대 김치찌개 청담본점",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "东方神起"
+  ],
+  "location": {
+    "latitude": 37.5242,
+    "longitude": 127.0463,
+    "address": "首尔特别市江南区岛山大路540",
+    "addressKo": "서울 강남구 도산대로 540",
+    "district": "江南区",
+    "neighborhood": "清潭洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "7号线",
+      "station": "清潭站",
+      "exit": "13号出口",
+      "walkingMinutes": 15
+    }
+  },
+  "hours": {
+    "weekday": "24小时营业"
+  },
+  "description": "允浩、昌珉、俊秀同款泡菜汤店，墙上满是明星签名。一份仅8,000韩元，性价比超高。24小时营业，随时可以去。",
+  "checkInTips": [
+    "满墙明星签名",
+    "一份仅₩8,000",
+    "24小时营业"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩8,000-12,000"
+  },
+  "estimatedDuration": 45,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "hyoja-bakery-tvxq",
+  "name": "孝子烘焙坊 (允浩&昌珉同款)",
+  "nameKo": "효자베이커리",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "东方神起"
+  ],
+  "location": {
+    "latitude": 37.5786,
+    "longitude": 126.9718,
+    "address": "首尔特别市钟路区弼云大路54",
+    "addressKo": "서울 종로구 필운대로 54",
+    "district": "钟路区",
+    "neighborhood": "孝子洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "3号线",
+      "station": "景福宫站",
+      "exit": "2号出口",
+      "walkingMinutes": 10
+    }
+  },
+  "hours": {
+    "weekday": "07:30-24:00"
+  },
+  "description": "允浩退伍后第一时间来买面包的地方。昌珉常喝Orange+Grapefruit Ade (₩5,000)。通仁市场旁，老字号面包房。",
+  "checkInTips": [
+    "允浩退伍第一站",
+    "昌珉同款柚子汽水",
+    "通仁市场旁可一起逛"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩3,000-8,000"
+  },
+  "estimatedDuration": 30,
+  "rating": 4.2,
+  "verified": true
+},
+  {
+  "id": "pink-oven-changmin",
+  "name": "Pink Oven 粉红面包房 (昌珉同款)",
+  "nameKo": "핑크오븐",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "东方神起"
+  ],
+  "location": {
+    "latitude": 37.5411,
+    "longitude": 127.0492,
+    "address": "首尔特别市城东区往十里路110",
+    "addressKo": "서울 성동구 왕십리로 110",
+    "district": "城东区",
+    "neighborhood": "圣水洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "纛岛站",
+      "exit": "8号出口",
+      "walkingMinutes": 3
+    }
+  },
+  "hours": {
+    "weekday": "10:00-20:00"
+  },
+  "description": "全粉红色三层楼面包咖啡厅。店内有昌珉签名。招牌桃子造型甜品超可爱。穿粉色衣服享1+1优惠。",
+  "checkInTips": [
+    "昌珉签名",
+    "桃子造型甜品",
+    "穿粉色享1+1"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-12,000"
+  },
+  "estimatedDuration": 40,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "woollim-ent",
+  "name": "Woollim Entertainment (武林娱乐)",
+  "nameKo": "울림엔터테인먼트",
+  "type": "company",
+  "category": "company_building",
+  "groupNames": [
+    "INFINITE",
+    "Golden Child"
+  ],
+  "location": {
+    "latitude": 37.5623,
+    "longitude": 126.9105,
+    "address": "首尔特别市麻浦区世界杯北路23街14",
+    "addressKo": "서울 마포구 월드컵북로23길 14",
+    "district": "麻浦区",
+    "neighborhood": "城山洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "6号线",
+      "station": "望远站",
+      "exit": "",
+      "walkingMinutes": 10
+    }
+  },
+  "hours": {},
+  "description": "INFINITE和Golden Child所属公司。位于山坡上（粉丝说'爬40度的山'），大楼外观简约。INFINITE一代记忆地。",
+  "checkInTips": [
+    "位于山坡上需要爬坡",
+    "INFINITE粉丝朝圣地",
+    "仅外观拍照"
+  ],
+  "price": {
+    "isFree": true,
+    "range": ""
+  },
+  "estimatedDuration": 15,
+  "rating": 3.8,
+  "verified": true
+},
+  {
+  "id": "meoksam-woohyun-mom",
+  "name": "먹삼泡菜五花肉 (南优贤妈妈开的店)",
+  "nameKo": "먹삼김치삼겹살",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "INFINITE"
+  ],
+  "location": {
+    "latitude": 37.5862,
+    "longitude": 127.0201,
+    "address": "首尔特别市城北区普门路105-1",
+    "addressKo": "서울 성북구 보문로 105-1",
+    "district": "城北区",
+    "neighborhood": "普门洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "6号线",
+      "station": "普门站",
+      "exit": "7号出口",
+      "walkingMinutes": 1
+    }
+  },
+  "hours": {
+    "weekday": "12:00-22:00",
+    "note": "午休15:00-16:00，周日休息"
+  },
+  "description": "南优贤妈妈经营的烤肉店。新鲜五花肉+泡菜炒饭必点。店员宝贤哥看到粉丝烤不好会亲自帮忙。粉丝朝圣地，人均约100元。",
+  "checkInTips": [
+    "南优贤妈妈经营",
+    "店员帮烤肉超nice",
+    "周日休息别跑空"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩15,000-25,000"
+  },
+  "estimatedDuration": 60,
+  "rating": 4.6,
+  "verified": true
+},
+  {
+  "id": "korea-hof-kiof",
+  "name": "一五二五 梨泰院复古生啤屋 (KIOF河允同款)",
+  "nameKo": "일오이오 이태원",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "KISS OF LIFE"
+  ],
+  "location": {
+    "latitude": 37.5344,
+    "longitude": 126.9926,
+    "address": "首尔特别市龙山区梨泰院路19街9号2楼",
+    "addressKo": "서울 용산구 이태원로19길 9 2층",
+    "district": "龙山区",
+    "neighborhood": "梨泰院"
+  },
+  "transport": {
+    "subway": {
+      "line": "6号线",
+      "station": "梨泰院站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "17:00-02:00"
+  },
+  "description": "90-00年代主题韩式生啤屋。KISS OF LIFE河允曾来此打卡。最大亮点是露台和屋顶，可俯瞰梨泰院全景。有桌游和娱乐设施。",
+  "checkInTips": [
+    "屋顶俯瞰梨泰院全景",
+    "河允同款打卡",
+    "夏天露台吹晚风最佳"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩12,000-25,000"
+  },
+  "estimatedDuration": 75,
+  "rating": 4.2,
+  "verified": true
+},
+  {
+  "id": "highup-ent",
+  "name": "High Up Entertainment (STAYC公司)",
+  "nameKo": "하이업엔터테인먼트",
+  "type": "company",
+  "category": "company_building",
+  "groupNames": [
+    "STAYC"
+  ],
+  "location": {
+    "latitude": 37.5556,
+    "longitude": 126.9232,
+    "address": "首尔特别市麻浦区东桥路23街67 Y大厦2楼",
+    "addressKo": "서울 마포구 동교로23길 67 Y빌딩 2층",
+    "district": "麻浦区",
+    "neighborhood": "延南洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "弘大入口站",
+      "exit": "",
+      "walkingMinutes": 7
+    }
+  },
+  "hours": {},
+  "description": "STAYC所属公司，位于弘大延南洞。Black Eyed Pilseung创办的经纪公司。可在公司附近蹲守成员上下班。",
+  "checkInTips": [
+    "弘大延南洞位置",
+    "蹲守上下班",
+    "仅外观拍照"
+  ],
+  "price": {
+    "isFree": true,
+    "range": ""
+  },
+  "estimatedDuration": 10,
+  "rating": 3.5,
+  "verified": true
+},
+  {
+  "id": "starship-ent",
+  "name": "Starship Entertainment",
+  "nameKo": "스타쉽엔터테인먼트",
+  "type": "company",
+  "category": "company_building",
+  "groupNames": [
+    "MONSTA X",
+    "IVE",
+    "CRAVITY",
+    "宇宙少女"
+  ],
+  "location": {
+    "latitude": 37.5239,
+    "longitude": 127.0508,
+    "address": "首尔特别市江南区三成路146街4-5",
+    "addressKo": "서울 강남구 삼성로146길 4-5",
+    "district": "江南区",
+    "neighborhood": "清潭洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "7号线",
+      "station": "清潭站",
+      "exit": "9号出口",
+      "walkingMinutes": 7
+    }
+  },
+  "hours": {},
+  "description": "MONSTA X、IVE、CRAVITY、宇宙少女所属公司。位于清潭洞小巷中，位置隐蔽需爬坡。仅有公司Logo外墙可拍照打卡。",
+  "checkInTips": [
+    "清潭洞小巷中",
+    "需爬坡",
+    "仅Logo外墙拍照"
+  ],
+  "price": {
+    "isFree": true,
+    "range": ""
+  },
+  "estimatedDuration": 10,
+  "rating": 3.7,
+  "verified": true
+},
+  {
+  "id": "view376-shownu",
+  "name": "View 376 咖啡厅 (Shownu汉江同款)",
+  "nameKo": "뷰 376",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "MONSTA X"
+  ],
+  "location": {
+    "latitude": 37.5277,
+    "longitude": 127.0369,
+    "address": "首尔特别市江南区狎鸥亭洞376-1",
+    "addressKo": "서울 강남구 압구정동 376-1",
+    "district": "江南区",
+    "neighborhood": "狎鸥亭洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "盆唐线",
+      "station": "狎鸥亭罗德奥站",
+      "exit": "1号出口",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {
+    "weekday": "10:00-22:00"
+  },
+  "description": "MONSTA X Shownu曾在汉江边做直播的咖啡厅附近。二楼可观赏汉江美景，推荐吹风喝咖啡。旁边还有水上运动店。",
+  "checkInTips": [
+    "Shownu同款汉江view",
+    "二楼汉江观景位",
+    "可搭配汉江公园"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-10,000"
+  },
+  "estimatedDuration": 40,
+  "rating": 4.1,
+  "verified": true
+},
+  {
+  "id": "galde-pocha-monstax",
+  "name": "Galde大牌档 (MONSTA X 亨源/周宪/基贤同款)",
+  "nameKo": "갈대 포차",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "MONSTA X"
+  ],
+  "location": {
+    "latitude": 37.5119,
+    "longitude": 127.0099,
+    "address": "首尔特别市瑞草区蚕院路4街45号5号",
+    "addressKo": "서울 서초구 잠원로4길 45 5호",
+    "district": "瑞草区",
+    "neighborhood": "蚕院洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "3号线",
+      "station": "蚕院站",
+      "exit": "4号出口",
+      "walkingMinutes": 1
+    }
+  },
+  "hours": {
+    "weekday": "17:00-02:00",
+    "weekend": "17:00-01:00"
+  },
+  "description": "蔡亨源、李周宪、刘基贤光顾过的布帐马车风格大排档。推荐葫芦章鱼汤、整只鱿鱼拉面、土豆饼、鸡蛋卷。地道韩国夜宵氛围。",
+  "checkInTips": [
+    "三位成员同款",
+    "推荐葫芦章鱼汤",
+    "深夜大排档氛围"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩10,000-20,000"
+  },
+  "estimatedDuration": 60,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "143-ent-ikon",
+  "name": "143 Entertainment (iKON新公司)",
+  "nameKo": "143 엔터테인먼트",
+  "type": "company",
+  "category": "company_building",
+  "groupNames": [
+    "iKON"
+  ],
+  "location": {
+    "latitude": 37.5179,
+    "longitude": 127.0427,
+    "address": "首尔特别市江南区宣陵路146街27-8地下2层",
+    "addressKo": "서울 강남구 선릉로146길 27-8 지하2층",
+    "district": "江南区",
+    "neighborhood": "清潭洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "7号线",
+      "station": "清潭站",
+      "exit": "",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {},
+  "description": "iKON全员于2023年1月签约的新经纪公司。离开YG后的新家。位于江南清潭洞区域。",
+  "checkInTips": [
+    "iKON 2023年新公司",
+    "清潭洞区域",
+    "仅外观拍照"
+  ],
+  "price": {
+    "isFree": true,
+    "range": ""
+  },
+  "estimatedDuration": 10,
+  "rating": 3.5,
+  "verified": true
+},
+  {
+  "id": "kim-noodle-bobby",
+  "name": "金氏肉面 (Bobby同款日式面馆)",
+  "nameKo": "김씨누들",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "iKON"
+  ],
+  "location": {
+    "latitude": 37.5486,
+    "longitude": 126.9176,
+    "address": "首尔特别市麻浦区独幕路3街28-7 1层",
+    "addressKo": "서울 마포구 독막로3길 28-7 1층",
+    "district": "麻浦区",
+    "neighborhood": "合井洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线/6号线",
+      "station": "合井站",
+      "exit": "3号出口",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:30-21:00",
+    "note": "午休16:00-17:00"
+  },
+  "description": "Bobby同款日式风格一人食面馆。自助点单机支持多语言。主打猪肉汤面(₩7,900)和菠菜猪肉汤面(₩8,900)。价格实惠分量足。",
+  "checkInTips": [
+    "Bobby同款",
+    "自助点单机多语言",
+    "一人食友好"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩7,900-10,000"
+  },
+  "estimatedDuration": 35,
+  "rating": 4.2,
+  "verified": true
+},
+  {
+  "id": "coffee-naproasters-dk",
+  "name": "Coffee Naproasters 延南洞 (DK同款)",
+  "nameKo": "커피 나프로스터스",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "iKON"
+  ],
+  "location": {
+    "latitude": 37.5555,
+    "longitude": 126.9231,
+    "address": "首尔特别市麻浦区延南洞453-32",
+    "addressKo": "서울 마포구 연남동 453-32",
+    "district": "麻浦区",
+    "neighborhood": "延南洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "弘大入口站",
+      "exit": "",
+      "walkingMinutes": 7
+    }
+  },
+  "hours": {
+    "weekday": "10:00-18:30"
+  },
+  "description": "iKON金东赫(DK)打卡的小清新ins风咖啡店。白色小房子配标志性红砖阶梯（热门拍照点）。3种咖啡豆可选。推荐坐在DK打卡过的座位。",
+  "checkInTips": [
+    "红砖阶梯拍照点",
+    "DK同款座位",
+    "3种咖啡豆可选"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-8,000"
+  },
+  "estimatedDuration": 40,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "osechill-mino",
+  "name": "OSECHILL (MINO咖啡厅 圣水洞)",
+  "nameKo": "오세칠",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "WINNER"
+  ],
+  "location": {
+    "latitude": 37.5442,
+    "longitude": 127.0566,
+    "address": "首尔特别市城东区圣水路7街22-9",
+    "addressKo": "서울 성동구 성수로7길 22-9",
+    "district": "城东区",
+    "neighborhood": "圣水洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "圣水站",
+      "exit": "3号出口",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:00-21:00",
+    "note": "最后点单20:30"
+  },
+  "description": "WINNER MINO个人经营的咖啡厅。工业风+极简艺术风格，蓝色主题。二楼展出MINO亲手画的画作。有品牌周边售卖（贴纸、手机支架、帆布包等）。周末可能排队。",
+  "checkInTips": [
+    "MINO亲自画的画作",
+    "品牌周边售卖",
+    "圣水洞热门打卡地"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-10,000"
+  },
+  "estimatedDuration": 45,
+  "rating": 4.5,
+  "verified": true
+},
+  {
+  "id": "the-same-e-cafe",
+  "name": "The SameE Cafe (YG对面咖啡厅)",
+  "nameKo": "더새임 카페",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "WINNER",
+    "BLACKPINK",
+    "TREASURE",
+    "BIGBANG",
+    "AKMU"
+  ],
+  "location": {
+    "latitude": 37.5499,
+    "longitude": 126.9169,
+    "address": "首尔特别市麻浦区希宇亭路1街6-3 1-2层",
+    "addressKo": "서울 마포구 희우정로1길 6-3",
+    "district": "麻浦区",
+    "neighborhood": "合井洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线/6号线",
+      "station": "合井站",
+      "exit": "8号出口",
+      "walkingMinutes": 7
+    }
+  },
+  "hours": {
+    "weekday": "10:00-21:00"
+  },
+  "description": "YG大楼正对面的咖啡厅。WINNER成员日常出没地。金秦禹生日活动在此举办。B1有YG艺人周边专卖区。二楼可看YG大楼，蹲保姆车必备。",
+  "checkInTips": [
+    "正对YG大楼可蹲保姆车",
+    "B1 YG周边店",
+    "B1可退税收据"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-10,000"
+  },
+  "estimatedDuration": 45,
+  "rating": 4.4,
+  "verified": true
+},
+  {
+  "id": "dawon-restaurant-nmixx",
+  "name": "Dawon 西餐厅 (NMIXX海媛&智羽同款)",
+  "nameKo": "다원레스토랑",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "NMIXX"
+  ],
+  "location": {
+    "latitude": 37.5618,
+    "longitude": 126.8607,
+    "address": "首尔特别市江西区盐仓洞272-8",
+    "addressKo": "서울 강서구 염창동 272-8",
+    "district": "江西区",
+    "neighborhood": "盐仓洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "9号线",
+      "station": "登村站",
+      "exit": "3号出口",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:00-21:00"
+  },
+  "description": "NMIXX海媛&智羽Workdol综艺拍摄地。推荐炸猪排和蛋包饭。老板娘热情好客，会主动与粉丝合影。",
+  "checkInTips": [
+    "海媛&智羽综艺同款",
+    "炸猪排+蛋包饭",
+    "老板娘超nice"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩10,000-18,000"
+  },
+  "estimatedDuration": 50,
+  "rating": 4.2,
+  "verified": true
+},
+  {
+  "id": "happy-cheese-smile-illit",
+  "name": "Happy Cheese Smile 延南店 (ILLIT同款)",
+  "nameKo": "해피치즈스마일 연남점",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "ILLIT"
+  ],
+  "location": {
+    "latitude": 37.5553,
+    "longitude": 126.9222,
+    "address": "首尔特别市麻浦区东桥路244-1 2楼",
+    "addressKo": "서울 마포구 동교로 244-1 2층",
+    "district": "麻浦区",
+    "neighborhood": "延南洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "弘大入口站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:00-21:00"
+  },
+  "description": "ILLIT出道综艺《I'LL-IT Ready》第一餐辣炒年糕拍摄地。窗边座位光线极佳。推荐炸乌冬、玫瑰奶酪炒年糕。",
+  "checkInTips": [
+    "ILLIT综艺第一餐拍摄地",
+    "窗边光线好适合拍照",
+    "玫瑰奶酪炒年糕必点"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩8,000-15,000"
+  },
+  "estimatedDuration": 45,
+  "rating": 4.2,
+  "verified": true
+},
+  {
+  "id": "cafe-teteum-illit",
+  "name": "Cafe TETEUM (ILLIT同款咖啡厅)",
+  "nameKo": "카페 테테움",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "ILLIT"
+  ],
+  "location": {
+    "latitude": 37.5531,
+    "longitude": 126.9218,
+    "address": "首尔特别市麻浦区延南洞",
+    "addressKo": "서울 마포구 연남동",
+    "district": "麻浦区",
+    "neighborhood": "延南洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "弘大入口站",
+      "exit": "",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {
+    "weekday": "11:00-20:00"
+  },
+  "description": "ILLIT综艺中成员不看手机限时寻找的咖啡馆。各成员同款饮品：玧我奶茶、慜柱巧克力拿铁、IROHA哈密瓜苏打、沅禧抹茶拿铁、MOKA焦糖坚果拿铁。",
+  "checkInTips": [
+    "成员各有限定饮品",
+    "5位成员5款同款",
+    "延南洞小清新"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-8,000"
+  },
+  "estimatedDuration": 40,
+  "rating": 4.1,
+  "verified": true
+},
+  {
+  "id": "wakeone-ent",
+  "name": "WAKEONE Entertainment",
+  "nameKo": "웨이크원 엔터테인먼트",
+  "type": "company",
+  "category": "company_building",
+  "groupNames": [
+    "Kep1er",
+    "izna",
+    "ZEROBASEONE"
+  ],
+  "location": {
+    "latitude": 37.5384,
+    "longitude": 126.9181,
+    "address": "首尔特别市麻浦区土亭路153 3楼",
+    "addressKo": "서울 마포구 토정로 153 3층",
+    "district": "麻浦区",
+    "neighborhood": "土亭洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "6号线",
+      "station": "上水站",
+      "exit": "",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {},
+  "description": "Kep1er、izna、ZEROBASEONE所属公司。CJ ENM旗下厂牌。位于麻浦区，靠近YG/HYBE，可加入合井站附近娱乐公司打卡路线。",
+  "checkInTips": [
+    "CJ ENM旗下",
+    "靠近YG/HYBE",
+    "仅外观拍照"
+  ],
+  "price": {
+    "isFree": true,
+    "range": ""
+  },
+  "estimatedDuration": 10,
+  "rating": 3.5,
+  "verified": true
+},
+  {
+  "id": "mk2-cafe-xiaoting",
+  "name": "mk2 咖啡馆 景福宫 (沈小婷同款)",
+  "nameKo": "mk2 카페",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "Kep1er"
+  ],
+  "location": {
+    "latitude": 37.5813,
+    "longitude": 126.9711,
+    "address": "首尔特别市钟路区昌成洞122-2",
+    "addressKo": "서울 종로구 창성동 122-2",
+    "district": "钟路区",
+    "neighborhood": "昌成洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "3号线",
+      "station": "景福宫站",
+      "exit": "3号出口",
+      "walkingMinutes": 7
+    }
+  },
+  "hours": {
+    "weekday": "10:00-21:00"
+  },
+  "description": "Kep1er中国成员沈小婷打卡过的咖啡厅。色彩鲜艳、Instagram热门装修。拿铁口碑极佳，是景福宫附近文艺打卡地。",
+  "checkInTips": [
+    "沈小婷同款",
+    "Instagram风装修",
+    "景福宫附近"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-10,000"
+  },
+  "estimatedDuration": 40,
+  "rating": 4.2,
+  "verified": true
+},
+  {
+  "id": "modhaus-triples",
+  "name": "MODHAUS (tripleS公司)",
+  "nameKo": "모드하우스",
+  "type": "company",
+  "category": "company_building",
+  "groupNames": [
+    "tripleS"
+  ],
+  "location": {
+    "latitude": 37.5281,
+    "longitude": 127.0397,
+    "address": "首尔特别市江南区狎鸥亭路30街63-1",
+    "addressKo": "서울 강남구 압구정로30길 63-1",
+    "district": "江南区",
+    "neighborhood": "狎鸥亭洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "3号线",
+      "station": "狎鸥亭站",
+      "exit": "3号出口",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {},
+  "description": "tripleS所属公司MODHAUS。位于江南狎鸥亭。tripleS以粉丝参与式企划闻名，公司外常有粉丝打卡。",
+  "checkInTips": [
+    "狎鸥亭区域",
+    "仅外观拍照",
+    "附近咖啡厅多"
+  ],
+  "price": {
+    "isFree": true,
+    "range": ""
+  },
+  "estimatedDuration": 10,
+  "rating": 3.5,
+  "verified": true
+},
+  {
+  "id": "wheat-meat-triples",
+  "name": "Wheat & Meat Gangnam (tripleS MV拍摄地)",
+  "nameKo": "윗앤미트 강남",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "tripleS"
+  ],
+  "location": {
+    "latitude": 37.5198,
+    "longitude": 127.0269,
+    "address": "首尔特别市江南区",
+    "addressKo": "서울 강남구",
+    "district": "江南区",
+    "neighborhood": "新沙洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "3号线",
+      "station": "新沙站",
+      "exit": "",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {
+    "weekday": "11:30-21:30"
+  },
+  "description": "tripleS LOVElution《Girls Capitalism》MV拍摄地。同时也是S19丁夏妍预告片拍摄地。西餐厅风格，适合打卡同款镜头。",
+  "checkInTips": [
+    "MV同款拍摄地",
+    "tripleS粉丝必打卡",
+    "LOVElution小分队MV"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩15,000-30,000"
+  },
+  "estimatedDuration": 60,
+  "rating": 4,
+  "verified": true
+},
+  {
+  "id": "dreamcatcher-company",
+  "name": "Dreamcatcher Company",
+  "nameKo": "드림캐쳐컴퍼니",
+  "type": "company",
+  "category": "company_building",
+  "groupNames": [
+    "Dreamcatcher"
+  ],
+  "location": {
+    "latitude": 37.5135,
+    "longitude": 127.0445,
+    "address": "首尔特别市江南区宣陵路112街8",
+    "addressKo": "서울 강남구 선릉로112길 8",
+    "district": "江南区",
+    "neighborhood": "三成洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "盆唐线",
+      "station": "宣陵站",
+      "exit": "",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {},
+  "description": "Dreamcatcher所属公司。InSomnia（粉丝名）朝圣地。位于江南区。仅外观拍照打卡。",
+  "checkInTips": [
+    "InSomnia朝圣地",
+    "仅外观拍照",
+    "附近有三成站"
+  ],
+  "price": {
+    "isFree": true,
+    "range": ""
+  },
+  "estimatedDuration": 10,
+  "rating": 3.5,
+  "verified": true
+},
+  {
+  "id": "byeongcheori-ribs-2pm",
+  "name": "병철이네烤排骨 (尼坤&灿盛同款)",
+  "nameKo": "병철이네쪽갈비",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "2PM"
+  ],
+  "location": {
+    "latitude": 37.5152,
+    "longitude": 127.0308,
+    "address": "首尔特别市江南区论岘路152街28",
+    "addressKo": "서울 강남구 논현로152길 28",
+    "district": "江南区",
+    "neighborhood": "论岘洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "7号线",
+      "station": "论岘站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "16:00-23:00"
+  },
+  "description": "2PM尼坤和灿盛同款炭火烤排骨。辣/不辣两种口味可选，鸡蛋羹超嫩。2023年底新装修。Hottest（2PM粉丝名）必打卡。",
+  "checkInTips": [
+    "尼坤&灿盛同款",
+    "炭火烤排骨+鸡蛋羹",
+    "新装修环境好"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩18,000-30,000"
+  },
+  "estimatedDuration": 60,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "masataco-2pm",
+  "name": "Masataco (2PM大哥&尼坤同款Taco)",
+  "nameKo": "마사타코",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "2PM"
+  ],
+  "location": {
+    "latitude": 37.5272,
+    "longitude": 127.0404,
+    "address": "首尔特别市江南区狎鸥亭路10街30-8",
+    "addressKo": "서울 강남구 압구정로10길 30-8",
+    "district": "江南区",
+    "neighborhood": "狎鸥亭洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "盆唐线",
+      "station": "狎鸥亭罗德奥站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:30-21:00"
+  },
+  "description": "2PM大哥(Kim Minjun)和尼坤同款墨西哥Taco专门店。朴宰范录节目也来过。地道墨西哥风味，分量足。",
+  "checkInTips": [
+    "2PM大哥&尼坤同款",
+    "地道墨西哥Taco",
+    "朴宰范也来过"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩10,000-18,000"
+  },
+  "estimatedDuration": 40,
+  "rating": 4.1,
+  "verified": true
+},
+  {
+  "id": "analog-kitchen-sungjae",
+  "name": "Analog Kitchen 延南洞 (陆星材&朴宝剑同款)",
+  "nameKo": "아날로그키친 연남동점",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "BTOB"
+  ],
+  "location": {
+    "latitude": 37.5575,
+    "longitude": 126.9225,
+    "address": "首尔特别市麻浦区世界杯北路2街93 2楼",
+    "addressKo": "서울 마포구 월드컵북로2길 93 2층",
+    "district": "麻浦区",
+    "neighborhood": "延南洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "弘大入口站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:30-22:00",
+    "note": "午休15:50-16:30"
+  },
+  "description": "陆星材和朴宝剑同款意式餐厅。烤鱿鱼饭(₩15,000)和奶油培根意面(₩13,000)是招牌。店内挂有签名照。",
+  "checkInTips": [
+    "陆星材&朴宝剑签名照",
+    "烤鱿鱼饭招牌",
+    "注意午休时间"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩13,000-20,000"
+  },
+  "estimatedDuration": 50,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "seongsu-shabu-bomi",
+  "name": "圣水Bshabu-shabu (普美同款火锅)",
+  "nameKo": "성수 브샤브샤 본점",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "Apink"
+  ],
+  "location": {
+    "latitude": 37.5448,
+    "longitude": 127.0489,
+    "address": "首尔特别市城东区往十里路10街5-9 1楼",
+    "addressKo": "서울 성동구 왕십리로10길 5-9 1층",
+    "district": "城东区",
+    "neighborhood": "圣水洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "纛岛站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:00-22:00"
+  },
+  "description": "Apink尹普美同款涮涮锅。清酒高汤锅底，人均60-70元。神童、昌珉、姜东昊也是常客。墙壁挂满明星签名。",
+  "checkInTips": [
+    "尹普美同款",
+    "满墙明星签名",
+    "清酒高汤锅底独特"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩12,000-20,000"
+  },
+  "estimatedDuration": 60,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "wm-ent",
+  "name": "WM Entertainment",
+  "nameKo": "WM엔터테인먼트",
+  "type": "company",
+  "category": "company_building",
+  "groupNames": [
+    "OH MY GIRL",
+    "B1A4",
+    "ONF"
+  ],
+  "location": {
+    "latitude": 37.5582,
+    "longitude": 126.9098,
+    "address": "首尔特别市麻浦区望远洞世界杯路15-8",
+    "addressKo": "서울 마포구 망원동 월드컵로 15-8",
+    "district": "麻浦区",
+    "neighborhood": "望远洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "6号线",
+      "station": "望远站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {},
+  "description": "OH MY GIRL、B1A4、ONF所属公司。现为RBW旗下厂牌。位于麻浦区望远洞。外部拍照打卡。",
+  "checkInTips": [
+    "RBW旗下厂牌",
+    "麻浦区望远洞",
+    "仅外观拍照"
+  ],
+  "price": {
+    "isFree": true,
+    "range": ""
+  },
+  "estimatedDuration": 10,
+  "rating": 3.5,
+  "verified": true
+},
+  {
+  "id": "ring-campus-arin",
+  "name": "Ring Campus 弘大 (Arin同款银饰工坊)",
+  "nameKo": "링캠퍼스",
+  "type": "store",
+  "category": "shopping",
+  "groupNames": [
+    "OH MY GIRL"
+  ],
+  "location": {
+    "latitude": 37.5535,
+    "longitude": 126.9212,
+    "address": "首尔特别市麻浦区和谐广场路112-6",
+    "addressKo": "서울 마포구 어울마당로 112-6",
+    "district": "麻浦区",
+    "neighborhood": "弘大"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "弘大入口站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:00-20:00"
+  },
+  "description": "OH MY GIRL Arin常去的99.9%纯银手工戒指/手链/项链制作体验店。可亲手制作专属银饰，体验感满分。",
+  "checkInTips": [
+    "Arin常去",
+    "纯银手工体验",
+    "需提前预约"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩30,000-80,000"
+  },
+  "estimatedDuration": 90,
+  "rating": 4.4,
+  "verified": true
+},
+  {
+  "id": "dinga-cake-seunghee",
+  "name": "DINGA CAKE 弘大 (胜熙同款蛋糕店)",
+  "nameKo": "딩가케이크",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "OH MY GIRL"
+  ],
+  "location": {
+    "latitude": 37.5542,
+    "longitude": 126.9195,
+    "address": "首尔特别市麻浦区东桥路29街68",
+    "addressKo": "서울 마포구 동교로29길 68",
+    "district": "麻浦区",
+    "neighborhood": "弘大"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "弘大入口站",
+      "exit": "",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {
+    "weekday": "11:30-22:00"
+  },
+  "description": "OH MY GIRL胜熙同款童话蛋糕店。缤纷配色超梦幻，门口有大型玩偶。伯爵红茶蛋糕(约₩8,500)是招牌。拍照圣地。",
+  "checkInTips": [
+    "胜熙同款蛋糕店",
+    "门口大型玩偶拍照",
+    "伯爵红茶蛋糕招牌"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩8,000-15,000"
+  },
+  "estimatedDuration": 45,
+  "rating": 4.4,
+  "verified": true
+},
+  {
+  "id": "asterum-433-plave",
+  "name": "ASTERUM 433-10 (PLAVE官方咖啡厅)",
+  "nameKo": "플레이브 공식 카페 ASTERUM 433-10",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "PLAVE"
+  ],
+  "location": {
+    "latitude": 37.5655,
+    "longitude": 126.9258,
+    "address": "首尔特别市西大门区延禧路11街48-23 Park Friend延禧大厦A座",
+    "addressKo": "서울 서대문구 연희로11가길 48-23",
+    "district": "西大门区",
+    "neighborhood": "延禧洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "新村站",
+      "exit": "",
+      "walkingMinutes": 15
+    }
+  },
+  "hours": {
+    "weekday": "09:00-18:30",
+    "note": "100%预约制，每月第三个周四开放下月预约，周一公休"
+  },
+  "description": "PLAVE官方咖啡厅，100%预约制（CatchTable APP）。共3层含周边商店，入场送随机小卡。虚拟偶像团体实景咖啡厅，PLLI（粉丝名）必打卡。",
+  "checkInTips": [
+    "CatchTable APP预约",
+    "每月第三个周四抢下月",
+    "入场送随机小卡"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩8,000-15,000"
+  },
+  "estimatedDuration": 60,
+  "rating": 4.7,
+  "verified": true
+},
+  {
+  "id": "vlast-ent-plave",
+  "name": "VLAST Entertainment (PLAVE公司)",
+  "nameKo": "블래스트",
+  "type": "company",
+  "category": "company_building",
+  "groupNames": [
+    "PLAVE"
+  ],
+  "location": {
+    "latitude": 37.5515,
+    "longitude": 126.9201,
+    "address": "首尔特别市麻浦区西桥洞368-22",
+    "addressKo": "서울 마포구 서교동 368-22",
+    "district": "麻浦区",
+    "neighborhood": "西桥洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线/6号线",
+      "station": "合井站",
+      "exit": "3号出口",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {},
+  "description": "PLAVE所属公司VLAST新大楼。位于弘大/合井一带。目前尚未安装公司标牌（截至近期）。粉丝在外拍照打卡。",
+  "checkInTips": [
+    "新大楼暂未挂牌",
+    "合井/弘大区域",
+    "仅外观拍照"
+  ],
+  "price": {
+    "isFree": true,
+    "range": ""
+  },
+  "estimatedDuration": 10,
+  "rating": 3.8,
+  "verified": true
+},
+  {
+  "id": "adeutt-cafe-nflying",
+  "name": "AdeutT 咖啡厅 (N.Flying承协&辉映同款)",
+  "nameKo": "에이드티",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "N.Flying"
+  ],
+  "location": {
+    "latitude": 37.5438,
+    "longitude": 127.0531,
+    "address": "首尔特别市城东区圣水洞一街13-248",
+    "addressKo": "서울 성동구 성수동1가 13-248",
+    "district": "城东区",
+    "neighborhood": "圣水洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "圣水站",
+      "exit": "",
+      "walkingMinutes": 7
+    }
+  },
+  "hours": {
+    "weekday": "10:00-19:00"
+  },
+  "description": "N.Flying李承协和金辉映同款咖啡厅。位于FNC新大楼后面。店内有成员签名。老板友好，会聊李承协的美谈，偶尔送粉丝小礼物。",
+  "checkInTips": [
+    "承协&辉映同款",
+    "店内有签名",
+    "FNC大楼后面"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩4,000-8,000"
+  },
+  "estimatedDuration": 35,
+  "rating": 4.2,
+  "verified": true
+},
+  {
+  "id": "chanran-agujjim-jaehyun",
+  "name": "灿烂安康鱼 江南总店 (金宰铉同款)",
+  "nameKo": "찬란한아구 강남본점",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "N.Flying"
+  ],
+  "location": {
+    "latitude": 37.5138,
+    "longitude": 127.0262,
+    "address": "首尔特别市江南区江南大路78街12号2层",
+    "addressKo": "서울 강남구 강남대로78길 12 2층",
+    "district": "江南区",
+    "neighborhood": "论岘洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "7号线",
+      "station": "论岘站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "16:00-23:00",
+    "note": "注意去'江南总店'才是同款"
+  },
+  "description": "N.Flying金宰铉和成员打工、造访过的店。推荐炸安康鱼，菜量大建议2-3人。注意去「江南总店」才是同款。",
+  "checkInTips": [
+    "金宰铉打工同款",
+    "炸安康鱼必点",
+    "认准江南总店"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩15,000-25,000"
+  },
+  "estimatedDuration": 50,
+  "rating": 4.1,
+  "verified": true
+},
+  {
+  "id": "guncha-gopchang-seongmin",
+  "name": "军茶大肠 汉阳大店 (CRAVITY安成民同款)",
+  "nameKo": "군차대한곱창 한양대점",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "CRAVITY"
+  ],
+  "location": {
+    "latitude": 37.5588,
+    "longitude": 127.0448,
+    "address": "首尔特别市城东区马祖路7街9号1楼",
+    "addressKo": "서울 성동구 마조로7길 9 1층",
+    "district": "城东区",
+    "neighborhood": "杏堂洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "汉阳大站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "16:00-24:00",
+    "note": "下午4点才开门，上午不营业"
+  },
+  "description": "CRAVITY安成民同款烤大肠连锁店。必须去汉阳大店才是同款。拌面和炒饭偏辣。注意下午才开门！",
+  "checkInTips": [
+    "安成民同款",
+    "必须去汉阳大店",
+    "下午4点才开门"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩12,000-20,000"
+  },
+  "estimatedDuration": 50,
+  "rating": 4.1,
+  "verified": true
+},
+  {
+  "id": "tuttotonto-hyeongjun",
+  "name": "tuttotonto 面包咖啡厅 (CRAVITY亨俊同款)",
+  "nameKo": "투또톤토",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "CRAVITY"
+  ],
+  "location": {
+    "latitude": 37.5407,
+    "longitude": 127.0726,
+    "address": "首尔特别市广津区陵洞路125号1楼",
+    "addressKo": "서울 광진구 능동로 125 1층",
+    "district": "广津区",
+    "neighborhood": "华阳洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线/7号线",
+      "station": "建大入口站",
+      "exit": "3号出口",
+      "walkingMinutes": 3
+    }
+  },
+  "hours": {
+    "weekday": "08:00-22:30",
+    "weekend": "10:00-22:30"
+  },
+  "description": "CRAVITY亨俊综艺拍摄地。招牌吐司松软拉丝，黄油香浓郁。提拉米苏和浓缩咖啡推荐。空间宽敞适合久坐。",
+  "checkInTips": [
+    "亨俊综艺同款",
+    "招牌吐司拉丝",
+    "建大入口站旁"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-12,000"
+  },
+  "estimatedDuration": 40,
+  "rating": 4.2,
+  "verified": true
+},
+  {
+  "id": "kitchen-soog-wayv",
+  "name": "Kitchen Soog 延南洞 (WayV直播同款)",
+  "nameKo": "키친숲",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "WayV"
+  ],
+  "location": {
+    "latitude": 37.5548,
+    "longitude": 126.9229,
+    "address": "首尔特别市麻浦区延南洞228-32",
+    "addressKo": "서울 마포구 연남동 228-32",
+    "district": "麻浦区",
+    "neighborhood": "延南洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "弘大入口站",
+      "exit": "",
+      "walkingMinutes": 7
+    }
+  },
+  "hours": {
+    "weekday": "11:30-21:00"
+  },
+  "description": "WayV直播《A Cup of Coffee》拍摄地。融合韩餐风格，奶油虾咖喱饭是必点招牌。延南洞人气餐厅。",
+  "checkInTips": [
+    "WayV直播拍摄地",
+    "奶油虾咖喱饭必点",
+    "延南洞热门"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩12,000-22,000"
+  },
+  "estimatedDuration": 50,
+  "rating": 4.2,
+  "verified": true
+},
+  {
+  "id": "changchang-coffee-ten",
+  "name": "Chang Chang Coffee 圣水 (Ten同款)",
+  "nameKo": "창창커피",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "WayV"
+  ],
+  "location": {
+    "latitude": 37.5428,
+    "longitude": 127.0548,
+    "address": "首尔特别市城东区圣水一路4街2号",
+    "addressKo": "서울 성동구 성수일로4가길 2",
+    "district": "城东区",
+    "neighborhood": "圣水洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "圣水站",
+      "exit": "",
+      "walkingMinutes": 6
+    }
+  },
+  "hours": {
+    "weekday": "08:00-19:30",
+    "weekend": "周六11:00-18:00",
+    "note": "周日公休"
+  },
+  "description": "WayV Ten INS打卡咖啡厅。推荐Chang Chang拿铁(₩4,000)。圣水洞小众文艺咖啡厅。",
+  "checkInTips": [
+    "Ten INS同款",
+    "Chang Chang拿铁₩4,000",
+    "周日休息"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩4,000-7,000"
+  },
+  "estimatedDuration": 35,
+  "rating": 4.1,
+  "verified": true
+},
+  {
+  "id": "clementine-winwin",
+  "name": "Clementine 咖啡店 (董思成Winwin同款)",
+  "nameKo": "클레망틴",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "WayV"
+  ],
+  "location": {
+    "latitude": 37.5564,
+    "longitude": 126.9806,
+    "address": "首尔特别市中区会贤洞225-118",
+    "addressKo": "서울 중구 회현동 225-118",
+    "district": "中区",
+    "neighborhood": "会贤洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "4号线",
+      "station": "会贤站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "10:00-20:00"
+  },
+  "description": "WayV董思成(Winwin)同款咖啡店。位于会贤洞南大门市场附近，逛街后休息好去处。",
+  "checkInTips": [
+    "Winwin同款",
+    "南大门市场附近",
+    "小众文艺咖啡"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-9,000"
+  },
+  "estimatedDuration": 35,
+  "rating": 4,
+  "verified": true
+},
+  {
+  "id": "k212-wannaone",
+  "name": "K212 咖啡厅 (Wanna One圣地/小型博物馆)",
+  "nameKo": "K212",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "Wanna One"
+  ],
+  "location": {
+    "latitude": 37.5356,
+    "longitude": 126.9936,
+    "address": "首尔特别市龙山区绿沙坪大路26街36 高丽大厦",
+    "addressKo": "서울 용산구 녹사평대로26길 36 고려빌딩",
+    "district": "龙山区",
+    "neighborhood": "梨泰院洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "6号线",
+      "station": "梨泰院站",
+      "exit": "4号出口",
+      "walkingMinutes": 12
+    }
+  },
+  "hours": {
+    "weekday": "10:00-20:00"
+  },
+  "description": "Swing娱乐公司一楼咖啡厅。满墙Wanna One签名、海报、写真、周边，号称'小型忘拿碗博物馆'。店主太真儿常送签名专辑。碗妹朝圣必到。",
+  "checkInTips": [
+    "满墙Wanna One签名",
+    "店主送签名专辑",
+    "小型博物馆级别"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-10,000"
+  },
+  "estimatedDuration": 50,
+  "rating": 4.6,
+  "verified": true
+},
+  {
+  "id": "cafe-de-konnect",
+  "name": "Cafe de Konnect (姜丹尼尔咖啡厅)",
+  "nameKo": "카페 드 커넥트",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "Wanna One"
+  ],
+  "location": {
+    "latitude": 37.5248,
+    "longitude": 127.0412,
+    "address": "首尔特别市江南区彦州路159街7号1层",
+    "addressKo": "서울 강남구 언주로159길 7 1층",
+    "district": "江南区",
+    "neighborhood": "新沙洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "盆唐线",
+      "station": "狎鸥亭罗德奥站",
+      "exit": "",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {
+    "weekday": "10:00-20:00"
+  },
+  "description": "姜丹尼尔个人公司KONNECT旗下艺人咖啡店。可喝咖啡、看周边。DANITY（粉丝名）必打卡。",
+  "checkInTips": [
+    "姜丹尼尔个人公司",
+    "周边展示",
+    "DANITY朝圣地"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-10,000"
+  },
+  "estimatedDuration": 40,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "woodunchung-got7",
+  "name": "牛豚厅 (GOT7全员/全韩娱圈烤肉)",
+  "nameKo": "우돈청",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "GOT7"
+  ],
+  "location": {
+    "latitude": 37.5256,
+    "longitude": 127.0388,
+    "address": "首尔特别市江南区彦州路170街37",
+    "addressKo": "서울 강남구 언주로170길 37",
+    "district": "江南区",
+    "neighborhood": "狎鸥亭"
+  },
+  "transport": {
+    "subway": {
+      "line": "盆唐线",
+      "station": "狎鸥亭罗德奥站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "16:00-01:00"
+  },
+  "description": "GOT7全员同款柞木炭直火烧烤。五花肉和韩牛品质极高，店员全程帮烤。满墙明星签名——BTS、SEVENTEEN、车银优等都来过。",
+  "checkInTips": [
+    "全韩娱圈同款",
+    "柞木炭直火烧烤",
+    "店员全程帮烤"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩30,000-60,000"
+  },
+  "estimatedDuration": 75,
+  "rating": 4.5,
+  "verified": true
+},
+  {
+  "id": "jilhal-bros-bambam",
+  "name": "Jilhal Bros 清潭店 (Bambam/有谦/荣宰同款)",
+  "nameKo": "질할브로스 청담점",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "GOT7"
+  ],
+  "location": {
+    "latitude": 37.5234,
+    "longitude": 127.0478,
+    "address": "首尔特别市江南区狎鸥亭路79街32 1层",
+    "addressKo": "서울 강남구 압구정로79길 32 1층",
+    "district": "江南区",
+    "neighborhood": "清潭洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "盆唐线",
+      "station": "狎鸥亭罗德奥站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "10:30-20:30"
+  },
+  "description": "GOT7 Bambam、有谦、荣宰同款咖喱三明治店。出自Bambam油管综艺《뱀집》。鸡肉饭(₩13,200)和羊肉三明治(₩11,500)。Bambam说以前每天早上等开门。",
+  "checkInTips": [
+    "Bambam综艺同款",
+    "鸡肉饭₩13,200",
+    "Bambam曾说每天等开门"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩11,500-15,000"
+  },
+  "estimatedDuration": 35,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "mark-lane-coffee-got7",
+  "name": "Mark Lane Coffee (GOT7有谦/荣宰综艺拍摄地)",
+  "nameKo": "마크레인커피",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "GOT7"
+  ],
+  "location": {
+    "latitude": 37.5195,
+    "longitude": 127.0431,
+    "address": "首尔特别市江南区宣陵路157街23-5",
+    "addressKo": "서울 강남구 선릉로157길 23-5",
+    "district": "江南区",
+    "neighborhood": "狎鸥亭"
+  },
+  "transport": {
+    "subway": {
+      "line": "盆唐线",
+      "station": "狎鸥亭罗德奥站",
+      "exit": "5号出口",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:00-19:00"
+  },
+  "description": "GOT7综艺《Hard Carry》拍摄取景地。有谦和荣宰在节目中坐过的位置可打卡。狎鸥亭小众咖啡厅。",
+  "checkInTips": [
+    "Hard Carry综艺拍摄地",
+    "有谦&荣宰同款座位",
+    "营业时间短注意"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-8,000"
+  },
+  "estimatedDuration": 35,
+  "rating": 4.1,
+  "verified": true
+},
+  {
+  "id": "bongchu-jjimdak-theboyz",
+  "name": "凤雏炖鸡 新沙洞 (THE BOYZ可慕大同款)",
+  "nameKo": "봉추찜닭 신사동",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "THE BOYZ"
+  ],
+  "location": {
+    "latitude": 37.5215,
+    "longitude": 127.0242,
+    "address": "首尔特别市江南区新沙洞663-7",
+    "addressKo": "서울 강남구 신사동 663-7",
+    "district": "江南区",
+    "neighborhood": "新沙洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "3号线",
+      "station": "新沙站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:00-22:00"
+  },
+  "description": "THE BOYZ崔澯熙、池昌民、金善旴（可慕大）同款炖鸡店。炖鸡₩26,000+芝士₩4,000。跟店员说'the boyz seat'会带去同款座位并拿来签名版。",
+  "checkInTips": [
+    "说'the boyz seat'get同款座位",
+    "可慕大(New/Q/Sunwoo)",
+    "签名版展示"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩26,000-35,000"
+  },
+  "estimatedDuration": 50,
+  "rating": 4.2,
+  "verified": true
+},
+  {
+  "id": "susanghan-bagel-sunwoo",
+  "name": "Susanghan Bagel 弘大 (善旴贝果男同款)",
+  "nameKo": "수상한베이글",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "THE BOYZ"
+  ],
+  "location": {
+    "latitude": 37.5518,
+    "longitude": 126.9195,
+    "address": "首尔特别市麻浦区西桥洞409-6",
+    "addressKo": "서울 마포구 서교동 409-6",
+    "district": "麻浦区",
+    "neighborhood": "弘大"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "弘大入口站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "10:00-20:00"
+  },
+  "description": "THE BOYZ善旴'贝果男'表情包出处。贝果₩3,000-8,000。必一人一杯饮品。推荐蒜香芝士贝果。弘大潮人打卡地。",
+  "checkInTips": [
+    "善旴'贝果男'出处",
+    "蒜香芝士贝果推荐",
+    "一人一饮"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩6,000-12,000"
+  },
+  "estimatedDuration": 35,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "eulji-darak-hyunjae",
+  "name": "乙支阁楼 江南店 (贤在定食同款)",
+  "nameKo": "을지다락 강남점",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "THE BOYZ"
+  ],
+  "location": {
+    "latitude": 37.4988,
+    "longitude": 127.0288,
+    "address": "首尔特别市江南区江南大路96街22 2楼",
+    "addressKo": "서울 강남구 강남대로96길 22 2층",
+    "district": "江南区",
+    "neighborhood": "驿三洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "江南站",
+      "exit": "11号出口",
+      "walkingMinutes": 3
+    }
+  },
+  "hours": {
+    "weekday": "11:30-21:30"
+  },
+  "description": "THE BOYZ李贤在同款融合韩餐。直接说'贤在定食'店员秒懂。推荐辣奶油蟹肉焗饭、猪颈肉排。小票也标注THE BOYZ。",
+  "checkInTips": [
+    "说'贤在定食'秒懂",
+    "辣奶油蟹肉焗饭必点",
+    "小票标注THE BOYZ"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩15,000-25,000"
+  },
+  "estimatedDuration": 50,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "cube-cafe-plump",
+  "name": "CUBE Cafe / Plump Coffee (圣水洞)",
+  "nameKo": "플럼프",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "(G)I-DLE",
+    "PENTAGON",
+    "BTOB"
+  ],
+  "location": {
+    "latitude": 37.5441,
+    "longitude": 127.0528,
+    "address": "首尔特别市城东区峨嵯山路83 CUBE大楼1楼",
+    "addressKo": "서울 성동구 아차산로 83 1층",
+    "district": "城东区",
+    "neighborhood": "圣水洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "圣水站",
+      "exit": "1号出口",
+      "walkingMinutes": 3
+    }
+  },
+  "hours": {
+    "weekday": "11:00-19:00"
+  },
+  "description": "CUBE娱乐自营咖啡厅。循环播放CUBE旗下艺人MV。有(G)I-DLE、PENTAGON、BTOB等艺人周边展示和人生四格拍照机。奶油拿铁(₩6,500)是招牌。",
+  "checkInTips": [
+    "CUBE艺人MV播放",
+    "人生四格拍照机",
+    "奶油拿铁招牌"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-10,000"
+  },
+  "estimatedDuration": 40,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "mitbord-eunwoo",
+  "name": "Mitbord 圣水 (车银优Brunch同款)",
+  "nameKo": "밋보어",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "ASTRO"
+  ],
+  "location": {
+    "latitude": 37.5408,
+    "longitude": 127.0538,
+    "address": "首尔特别市城东区圣水一路1号1楼",
+    "addressKo": "서울 성동구 성수일로 1 1층",
+    "district": "城东区",
+    "neighborhood": "圣水洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "盆唐线",
+      "station": "首尔林站",
+      "exit": "2号出口",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:00-18:00",
+    "note": "Last Order 16:00，周一公休"
+  },
+  "description": "车银优发过贴文的同款Brunch咖啡厅。Danish Bread Plate(₩14,000)、酸奶碗、胡萝卜开放三明治。车银优同款窗边座位。",
+  "checkInTips": [
+    "车银优同款窗边座位",
+    "Danish Bread招牌",
+    "周一公休别跑空"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩10,000-18,000"
+  },
+  "estimatedDuration": 45,
+  "rating": 4.4,
+  "verified": true
+},
+  {
+  "id": "fourf-cafe-eunwoo",
+  "name": "4F Cafe 乙支路 (车银优画报拍摄地)",
+  "nameKo": "사층카페",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "ASTRO"
+  ],
+  "location": {
+    "latitude": 37.5658,
+    "longitude": 126.9912,
+    "address": "首尔特别市中区乙支路35街26-1",
+    "addressKo": "서울 중구 을지로35길 26-1",
+    "district": "中区",
+    "neighborhood": "乙支路"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线/3号线",
+      "station": "乙支路3街站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:00-22:00"
+  },
+  "description": "车银优画报拍摄地。工业风设计，共四层每层风格不同。四层有舒适大沙发。乙支路文艺新地标。",
+  "checkInTips": [
+    "车银优画报同款",
+    "四层每层不同风格",
+    "顶层大沙发"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩5,000-10,000"
+  },
+  "estimatedDuration": 40,
+  "rating": 4.2,
+  "verified": true
+},
+  {
+  "id": "byeolyangjip-eunwoo",
+  "name": "星阳家 (车银优/半个韩娱圈同款烤牛肠)",
+  "nameKo": "별양집",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "ASTRO",
+    "BTS",
+    "Super Junior"
+  ],
+  "location": {
+    "latitude": 37.5038,
+    "longitude": 127.0542,
+    "address": "首尔特别市江南区驿三洞700-33",
+    "addressKo": "서울 강남구 역삼동 700-33",
+    "district": "江南区",
+    "neighborhood": "驿三洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线/盆唐线",
+      "station": "宣陵站",
+      "exit": "5号出口",
+      "walkingMinutes": 3
+    }
+  },
+  "hours": {
+    "weekday": "11:30-05:00"
+  },
+  "description": "江南30年传统烤牛肠店，被称为'明星后花园'。车银优、BTS、Super Junior、泫雅等大半个韩娱圈都来过。牛肚Q弹，牛排骨肉甜嫩，送柠檬冰沙。有会说中文的姨母。",
+  "checkInTips": [
+    "30年传统老店",
+    "半个韩娱圈同款",
+    "有中文姨母"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩15,000-30,000"
+  },
+  "estimatedDuration": 60,
+  "rating": 4.5,
+  "verified": true
+},
+  {
+  "id": "spicy-fire-kungfu-wayv",
+  "name": "辣火功夫 建大店 (WayV同款麻辣烫)",
+  "nameKo": "라훠쿵푸 건대점",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "WayV"
+  ],
+  "location": {
+    "latitude": 37.5402,
+    "longitude": 127.0711,
+    "address": "首尔特别市广津区",
+    "addressKo": "서울 광진구",
+    "district": "广津区",
+    "neighborhood": "华阳洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线/7号线",
+      "station": "建大入口站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "11:00-22:00"
+  },
+  "description": "WayV全员同款麻辣烫/中餐馆。过桥米线、小笼包等。中国粉丝在首尔想吃中餐的最佳选择，WayV成员也常来。建大中国街人气店。",
+  "checkInTips": [
+    "WayV全员同款",
+    "过桥米线+小笼包",
+    "建大中国街区域"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩10,000-18,000"
+  },
+  "estimatedDuration": 45,
+  "rating": 4.1,
+  "verified": true
+},
+  {
+  "id": "yeongcheon-yeonghwa-97line",
+  "name": "永川荣华 清潭店 (97line固定聚点)",
+  "nameKo": "영천영화 청담점",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "GOT7",
+    "ASTRO",
+    "BTS",
+    "SEVENTEEN",
+    "NCT 127"
+  ],
+  "location": {
+    "latitude": 37.5228,
+    "longitude": 127.0501,
+    "address": "首尔特别市江南区清潭洞50-13",
+    "addressKo": "서울 강남구 청담동 50-13",
+    "district": "江南区",
+    "neighborhood": "清潭洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "7号线",
+      "station": "清潭站",
+      "exit": "9号出口",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {
+    "weekday": "24小时营业"
+  },
+  "description": "BamBam(GOT7)、柾国(BTS)、车银优(ASTRO)、在玹(NCT)、珉奎(SEVENTEEN)等97line固定聚点。24小时营业韩牛烤肉，生牛肉拌饭是招牌。人均₩50,000-60,000。老板透露柾国前一天还来过。",
+  "checkInTips": [
+    "97line聚点",
+    "24小时营业",
+    "生牛肉拌饭招牌"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩50,000-60,000"
+  },
+  "estimatedDuration": 75,
+  "rating": 4.7,
+  "verified": true
+},
+  {
+  "id": "yeongdong-gyo-jip-97line",
+  "name": "永东桥家 清潭直营 (97line烤黑猪肉)",
+  "nameKo": "영동교집 청담직영점",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "GOT7",
+    "ASTRO",
+    "BTS",
+    "SEVENTEEN",
+    "BLACKPINK"
+  ],
+  "location": {
+    "latitude": 37.5232,
+    "longitude": 127.0475,
+    "address": "首尔特别市江南区宣陵路148街11",
+    "addressKo": "서울 강남구 선릉로148길 11",
+    "district": "江南区",
+    "neighborhood": "清潭洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "盆唐线",
+      "station": "狎鸥亭罗德奥站",
+      "exit": "4号出口",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {
+    "weekday": "11:00-23:30"
+  },
+  "description": "97line固定聚点。济州产黑猪肉，97Line套餐约₩66,000。Rosé和Jisoo也去过。清潭洞明星烤肉名店。",
+  "checkInTips": [
+    "97line聚点",
+    "济州黑猪肉",
+    "97Line套餐₩66,000"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩40,000-66,000"
+  },
+  "estimatedDuration": 75,
+  "rating": 4.6,
+  "verified": true
+},
+  {
+  "id": "sichuan-house-kino",
+  "name": "四川HOUSE (PENTAGON Kino同款中餐)",
+  "nameKo": "사천하우스",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "PENTAGON"
+  ],
+  "location": {
+    "latitude": 37.5088,
+    "longitude": 127.0612,
+    "address": "首尔特别市江南区德黑兰路87街29 M塔1楼",
+    "addressKo": "서울 강남구 테헤란로87길 29 M타워 1층",
+    "district": "江南区",
+    "neighborhood": "三成洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "三成站",
+      "exit": "5号出口",
+      "walkingMinutes": 7
+    }
+  },
+  "hours": {
+    "weekday": "11:00-21:00"
+  },
+  "description": "PENTAGON Kino在Twitter推荐过的四川料理店（2025年3月）。推荐四川整虾云吞和川味猪里脊盖饭。",
+  "checkInTips": [
+    "Kino 2025年新推荐",
+    "四川整虾云吞必点",
+    "川味猪里脊盖饭"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩10,000-18,000"
+  },
+  "estimatedDuration": 45,
+  "rating": 4.1,
+  "verified": true
+},
+  {
+  "id": "fnc-ent-seongsu",
+  "name": "FNC Entertainment 新大楼",
+  "nameKo": "FNC 엔터테인먼트",
+  "type": "company",
+  "category": "company_building",
+  "groupNames": [
+    "SF9",
+    "CNBLUE",
+    "FTISLAND",
+    "P1Harmony",
+    "N.Flying"
+  ],
+  "location": {
+    "latitude": 37.5435,
+    "longitude": 127.0551,
+    "address": "首尔特别市城东区广渡口路178号",
+    "addressKo": "서울 성동구 광나루로 178",
+    "district": "城东区",
+    "neighborhood": "圣水洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "2号线",
+      "station": "圣水站",
+      "exit": "",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {},
+  "description": "FNC娱乐2023年新大楼。SF9、CNBLUE、FTISLAND、P1Harmony、N.Flying所属公司。位于圣水洞，可与附近CUBE等公司一起打卡。",
+  "checkInTips": [
+    "2023年迁入新大楼",
+    "圣水洞公司巡礼",
+    "仅外观拍照"
+  ],
+  "price": {
+    "isFree": true,
+    "range": ""
+  },
+  "estimatedDuration": 10,
+  "rating": 3.8,
+  "verified": true
+},
+  {
+  "id": "fnc-wow-cafe-myeongdong",
+  "name": "FNC WOW Cafe 明洞 (FNC艺人主题咖啡厅)",
+  "nameKo": "FNC WOW 카페 명동",
+  "type": "restaurant",
+  "category": "cafe",
+  "groupNames": [
+    "SF9",
+    "CNBLUE",
+    "FTISLAND"
+  ],
+  "location": {
+    "latitude": 37.5612,
+    "longitude": 126.9851,
+    "address": "首尔特别市中区明洞1街53-1 4楼",
+    "addressKo": "서울 중구 명동1가 53-1 4층",
+    "district": "中区",
+    "neighborhood": "明洞"
+  },
+  "transport": {
+    "subway": {
+      "line": "4号线",
+      "station": "明洞站",
+      "exit": "",
+      "walkingMinutes": 5
+    }
+  },
+  "hours": {
+    "weekday": "10:00-21:00"
+  },
+  "description": "FNC娱乐主题咖啡厅。艺人图案拿铁拉花，有CNBLUE蓝莓蛋糕等团体主题甜品。明洞逛街顺便打卡。",
+  "checkInTips": [
+    "艺人拉花拿铁",
+    "CNBLUE蓝莓蛋糕",
+    "明洞商圈"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩6,000-15,000"
+  },
+  "estimatedDuration": 40,
+  "rating": 4,
+  "verified": true
+},
+  {
+  "id": "jr-haebangchon-nuest",
+  "name": "JR的解放村 (NU'EST钟炫Vlog同款路线)",
+  "nameKo": "JR의 해방촌",
+  "type": "entertainment",
+  "category": "other",
+  "groupNames": [
+    "NU'EST"
+  ],
+  "location": {
+    "latitude": 37.5372,
+    "longitude": 126.9878,
+    "address": "首尔特别市龙山区龙山2街洞 解放村一带",
+    "addressKo": "서울 용산구 용산2가동 해방촌",
+    "district": "龙山区",
+    "neighborhood": "解放村"
+  },
+  "transport": {
+    "subway": {
+      "line": "6号线",
+      "station": "绿沙坪站",
+      "exit": "",
+      "walkingMinutes": 8
+    }
+  },
+  "hours": {},
+  "description": "NU'EST JR(金钟炫)Vlog同款路线：별책부록独立书店 → Pizza Party Tonight → 고양이알레르기文创小店 → Nuldam Space天台咖啡(可写火漆信+南山塔view)。解放村是首尔文艺新地标。",
+  "checkInTips": [
+    "JR Vlog同款4店巡礼",
+    "Nuldam Space火漆信+南山塔景",
+    "解放村文艺街区"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩10,000-25,000"
+  },
+  "estimatedDuration": 120,
+  "rating": 4.3,
+  "verified": true
+},
+  {
+  "id": "choigane-hongki",
+  "name": "崔家 蘑菇牛肉涮涮锅 狎鸥亭 (李洪基同款)",
+  "nameKo": "최가네 버섯소고기샤브샤브",
+  "type": "restaurant",
+  "category": "restaurant",
+  "groupNames": [
+    "FTISLAND"
+  ],
+  "location": {
+    "latitude": 37.5268,
+    "longitude": 127.0411,
+    "address": "首尔特别市江南区狎鸥亭",
+    "addressKo": "서울 강남구 압구정",
+    "district": "江南区",
+    "neighborhood": "狎鸥亭"
+  },
+  "transport": {
+    "subway": {
+      "line": "盆唐线",
+      "station": "狎鸥亭罗德奥站",
+      "exit": "",
+      "walkingMinutes": 7
+    }
+  },
+  "hours": {
+    "weekday": "11:00-22:00"
+  },
+  "description": "FTISLAND李洪基推荐餐厅。点'Hongki Set'(₩18,000/人)即可。顺序：鱼饼→蘑菇→牛肉→面条→锅巴炒饭。李洪基签名在1楼角落桌。",
+  "checkInTips": [
+    "点'Hongki Set' ₩18,000",
+    "洪基签名1楼角落桌",
+    "锅巴炒饭压轴"
+  ],
+  "price": {
+    "isFree": false,
+    "range": "₩18,000-25,000"
+  },
+  "estimatedDuration": 60,
+  "rating": 4.2,
+  "verified": true
+}
+
 ]
 
 export function getLocationById(id: string): Location | undefined {
