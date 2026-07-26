@@ -27,8 +27,13 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
       try {
         const supabase = createClient()
 
-        // Fetch all recent checkins to debug
-        const { data: allData } = await supabase
+        // Debug: count all
+        const { count: allCount, error: countErr } = await supabase
+          .from("check_ins")
+          .select("*", { count: "exact", head: true })
+
+        // Fetch all recent checkins
+        const { data: allData, error: allErr } = await supabase
           .from("check_ins")
           .select("id, spot_name, created_at")
           .order("created_at", { ascending: false })
@@ -41,11 +46,14 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
           .order("created_at", { ascending: false })
           .limit(20)
 
-        if (error) { setDebug("Query error: " + error.message); setLoading(false); return }
+        if (countErr) setDebug("Count err: " + countErr.message)
+        else if (allErr) setDebug("All err: " + allErr.message)
+        else if (error) setDebug("Query err: " + error.message)
+        if (error || countErr) { setLoading(false); return }
         if (!data || cancelled) { setLoading(false); return }
 
-        const allCount = data.length
-        const totalInDB = allData?.length || 0
+        const locationCount = data.length
+        const totalInDB = allCount ?? (allData?.length || 0)
         const latestSpots = (allData || []).slice(0, 3).map((r: { spot_name: string }) => r.spot_name).join(", ")
         const userIds = [...new Set(data.map((c: { user_id: string }) => c.user_id))]
         const { data: profiles } = await supabase
@@ -76,7 +84,7 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
 
         if (cancelled) { setLoading(false); return }
 
-        setDebug(`DB has ${totalInDB} checkins total. Latest: ${latestSpots || "none"}. This location: ${allCount} total, ${result.length} with photos.`)
+        setDebug(`DB has ${totalInDB} checkins total (count). Latest: ${latestSpots || "none"}. This location: ${locationCount} total, ${result.length} with photos.`)
 
         const ids = result.map((r) => r.checkinId)
         if (ids.length > 0) {
