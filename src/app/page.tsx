@@ -4,7 +4,7 @@ import MapWrapper from "@/components/map/MapWrapper"
 import HotPlaces from "@/components/home/HotPlaces"
 import CheckInRanking from "@/components/home/CheckInRanking"
 import DailyPick from "@/components/home/DailyPick"
-import ActivityStream from "@/components/home/ActivityStream"
+
 import QuickStart from "@/components/home/QuickStart"
 import DiscoveryCard from "@/components/home/DiscoveryCard"
 import { useLang } from "@/components/LanguageProvider"
@@ -119,9 +119,6 @@ export default function HomePage() {
 
         {/* Check-in Ranking */}
         <CheckInRanking />
-
-        {/* Community Activity Stream */}
-        <ActivityStream />
 
         {/* Daily Pick */}
         <DailyPick />
