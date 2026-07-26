@@ -26,7 +26,7 @@ export default function Header() {
               <span className="text-blue-500">星旅</span>
               <span className="text-gray-400 font-normal text-xs ml-1">StarTrail</span>
             </span>
-            <span className="hidden lg:block">
+            <span className="hidden sm:block">
               <StarTravelers />
             </span>
           </Link>
