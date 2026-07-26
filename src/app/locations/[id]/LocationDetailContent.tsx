@@ -84,6 +84,11 @@ export default function LocationDetailContent({ id }: Props) {
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
+    if (checkinPhotos.length + files.length > 5) {
+      setCheckinError("最多 5 张照片")
+      e.target.value = ""
+      return
+    }
     setCheckinPhotos((prev) => [...prev, ...files])
     files.forEach((f) => {
       const reader = new FileReader()
@@ -302,7 +307,7 @@ export default function LocationDetailContent({ id }: Props) {
                 📷 添加照片
                 <input type="file" accept="image/*" multiple className="hidden" onChange={handleFileSelect} />
               </label>
-              <span className="text-[10px] text-slate-300">{checkinPhotos.length}/3</span>
+              <span className="text-[10px] text-slate-300">{checkinPhotos.length}/5</span>
             </div>
             {checkinError && <p className="text-xs text-red-500">{checkinError}</p>}
             <button
