@@ -4,6 +4,7 @@ import MapWrapper from "@/components/map/MapWrapper"
 import HotPlaces from "@/components/home/HotPlaces"
 import CheckInRanking from "@/components/home/CheckInRanking"
 import DailyPick from "@/components/home/DailyPick"
+import InstallGuide from "@/components/ui/InstallGuide"
 
 import QuickStart from "@/components/home/QuickStart"
 import DiscoveryCard from "@/components/home/DiscoveryCard"
@@ -145,6 +146,8 @@ export default function HomePage() {
           <p className="text-xs text-gray-300 font-mono">{t("home_hint")}</p>
         </div>
       </div>
+
+      <InstallGuide />
     </div>
   )
 }

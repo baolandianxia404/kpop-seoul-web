@@ -58,6 +58,12 @@ export const metadata: Metadata = {
     locale: "en_US",
   },
   robots: { index: true, follow: true },
+  appleWebApp: {
+    capable: true,
+    title: "星旅 StarTrail",
+    statusBarStyle: "default",
+  },
+  manifest: "/manifest.json",
 }
 
 export default function RootLayout({
