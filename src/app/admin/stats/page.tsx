@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/client"
 const ADMIN_EMAIL = "1793879075@qq.com"
 
 interface Stats {
+  onlineNow: number
   registeredUsers: number
   totalCheckins: number
   withPhotos: number
@@ -35,7 +36,10 @@ export default function AdminStatsPage() {
   const loadStats = async () => {
     const supabase = createClient()
 
+    const fiveMinAgo = new Date(Date.now() - 5 * 60_000).toISOString()
+
     const [
+      { count: onlineNow = 0 },
       { count: registeredUsers },
       { count: totalCheckins },
       { count: withPhotos },
@@ -44,6 +48,7 @@ export default function AdminStatsPage() {
       { data: recentUsers },
       { data: topSpots },
     ] = await Promise.all([
+      supabase.from("user_presence").select("*", { count: "exact", head: true }).gte("last_seen", fiveMinAgo).order("last_seen", { ascending: false }).then(({ count }) => ({ count: count ?? 0 })),
       supabase.from("profiles").select("*", { count: "exact", head: true }),
       supabase.from("check_ins").select("*", { count: "exact", head: true }),
       supabase.from("check_ins").select("*", { count: "exact", head: true }).not("photos", "is", null),
@@ -60,6 +65,7 @@ export default function AdminStatsPage() {
     ])
 
     setStats({
+      onlineNow: onlineNow || 0,
       registeredUsers: registeredUsers || 0,
       totalCheckins: totalCheckins || 0,
       withPhotos: withPhotos || 0,
@@ -82,6 +88,10 @@ export default function AdminStatsPage() {
       <h1 className="text-xl font-black text-slate-700 mb-6">📊 数据统计</h1>
 
       <div className="grid grid-cols-2 gap-3 mb-8">
+        <div className="p-4 bg-white rounded-xl border border-gray-100 bg-gradient-to-br from-green-50 to-emerald-50">
+          <p className="text-2xl font-black text-green-500">{stats!.onlineNow}</p>
+          <p className="text-xs text-gray-400">当前在线</p>
+        </div>
         <div className="p-4 bg-white rounded-xl border border-gray-100">
           <p className="text-2xl font-black text-blue-500">{stats!.registeredUsers}</p>
           <p className="text-xs text-gray-400">注册用户</p>
