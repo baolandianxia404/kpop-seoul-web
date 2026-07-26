@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { getOptimizedImageUrl } from "@/lib/supabase/image-url"
 
 export default function PhotoGrid({ photos }: { photos: string[] }) {
   const [expanded, setExpanded] = useState<number | null>(null)
@@ -12,14 +11,14 @@ export default function PhotoGrid({ photos }: { photos: string[] }) {
         {photos.slice(0, 5).map((url, i) => (
           <div
             key={i}
-            className="relative aspect-square cursor-pointer overflow-hidden border border-slate-100 bg-slate-50"
+            className="relative aspect-square cursor-pointer overflow-hidden border border-slate-100"
             onClick={() => setExpanded(i)}
           >
             <img
-              src={getOptimizedImageUrl(url, 300)}
+              src={url}
               alt=""
               loading="lazy"
-              className="absolute inset-0 w-full h-full object-contain p-1 hover:scale-105 transition-transform"
+              className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform"
             />
             {i === 4 && photos.length > 5 && (
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-sm font-bold font-mono">
@@ -58,11 +57,11 @@ export default function PhotoGrid({ photos }: { photos: string[] }) {
               →
             </button>
           )}
-          <div className="relative w-full max-w-2xl max-h-[80vh] aspect-square" onClick={(e) => e.stopPropagation()}>
+          <div className="relative w-full max-w-2xl max-h-[80vh]" onClick={(e) => e.stopPropagation()}>
             <img
-              src={getOptimizedImageUrl(photos[expanded], 1200)}
+              src={photos[expanded]}
               alt=""
-              className="absolute inset-0 w-full h-full object-contain"
+              className="w-full h-auto max-h-[80vh] object-contain"
             />
           </div>
         </div>
