@@ -53,7 +53,12 @@ export default function LocationDetailContent({ id }: Props) {
       const { data, error: uploadErr } = await supabase.storage
         .from("checkin-photos")
         .upload(fileName, file, { upsert: false })
-      if (!uploadErr && data) {
+      if (uploadErr) {
+        setCheckinError("照片上传失败: " + uploadErr.message)
+        setCheckinSubmitting(false)
+        return
+      }
+      if (data) {
         const { data: urlData } = supabase.storage.from("checkin-photos").getPublicUrl(data.path)
         photoUrls.push(urlData.publicUrl)
       }
