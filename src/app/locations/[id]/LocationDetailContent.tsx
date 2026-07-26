@@ -31,7 +31,7 @@ export default function LocationDetailContent({ id }: Props) {
   const [checkinSubmitting, setCheckinSubmitting] = useState(false)
   const [checkinDone, setCheckinDone] = useState(false)
   const [checkinError, setCheckinError] = useState("")
-  const [photoRefresh, setPhotoRefresh] = useState(0)
+  const [photoKey, setPhotoKey] = useState(0)
 
   useEffect(() => {
     setFav(isFavorite(id))
@@ -72,7 +72,7 @@ export default function LocationDetailContent({ id }: Props) {
       photos: photoUrls,
     })
     if (error) setCheckinError(error.message)
-    else { setCheckinDone(true); setCheckinContent(""); setCheckinPhotos([]); setCheckinPreviews([]); setPhotoRefresh(k => k + 1) }
+    else { setCheckinDone(true); setCheckinContent(""); setCheckinPhotos([]); setCheckinPreviews([]); setPhotoKey(k => k + 1) }
     setCheckinSubmitting(false)
   }
 
@@ -311,7 +311,7 @@ export default function LocationDetailContent({ id }: Props) {
       </section>
 
       {/* Fan Photo Wall */}
-      <PhotoWall locationName={loc.name} refreshKey={photoRefresh} />
+      <PhotoWall key={photoKey} locationName={loc.name} />
 
       {/* Nearby */}
       {nearby.length > 0 && (

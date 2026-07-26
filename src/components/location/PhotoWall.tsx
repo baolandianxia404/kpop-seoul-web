@@ -16,7 +16,7 @@ interface CheckInPhoto {
   commentCount: number
 }
 
-export default function PhotoWall({ locationName, refreshKey }: { locationName: string; refreshKey?: number }) {
+export default function PhotoWall({ locationName }: { locationName: string }) {
   const [checkIns, setCheckIns] = useState<CheckInPhoto[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -95,7 +95,7 @@ export default function PhotoWall({ locationName, refreshKey }: { locationName: 
     }
     load()
     return () => { cancelled = true }
-  }, [locationName, refreshKey])
+  }, [locationName])
 
   return (
     <section className="mt-8 pt-6 border-t border-gray-200">
