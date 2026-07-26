@@ -127,6 +127,9 @@ export default function HomePage() {
         {/* Discovery Card — fun facts, challenges, featured check-ins */}
         <DiscoveryCard />
 
+        {/* PWA Install Guide */}
+        <InstallGuide />
+
         {/* Quick stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
           {stats.map((stat, i) => (
@@ -146,8 +149,6 @@ export default function HomePage() {
           <p className="text-xs text-gray-300 font-mono">{t("home_hint")}</p>
         </div>
       </div>
-
-      <InstallGuide />
     </div>
   )
 }
