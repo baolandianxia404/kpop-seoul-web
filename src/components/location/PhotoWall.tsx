@@ -19,6 +19,7 @@ interface CheckInPhoto {
 export default function PhotoWall({ locationName }: { locationName: string }) {
   const [checkIns, setCheckIns] = useState<CheckInPhoto[]>([])
   const [loading, setLoading] = useState(true)
+  const [debug, setDebug] = useState("")
 
   useEffect(() => {
     let cancelled = false
@@ -28,11 +29,14 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
         const { data, error } = await supabase
           .from("check_ins")
           .select("*")
-          .ilike("spot_name", `%${locationName}%`)
+          .eq("spot_name", locationName)
           .order("created_at", { ascending: false })
           .limit(20)
 
-        if (error || !data || cancelled) { setLoading(false); return }
+        if (error) { setDebug("Query error: " + error.message); setLoading(false); return }
+        if (!data || cancelled) { setLoading(false); return }
+
+        setDebug(`Found ${allCount} total, ${result.length} with photos for "${locationName}"`)
 
         const userIds = [...new Set(data.map((c: { user_id: string }) => c.user_id))]
         const { data: profiles } = await supabase
@@ -44,6 +48,7 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
           (profiles || []).map((p: { id: string; display_name: string }) => [p.id, p])
         )
 
+        const allCount = data.length
         const result: CheckInPhoto[] = (data as {
           id: string; user_id: string; group_id: string
           spot_name: string; content: string; photos: string[]; created_at: string
@@ -106,9 +111,10 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
           加载中…
         </div>
       ) : checkIns.length === 0 ? (
-        <p className="text-xs text-slate-400 font-mono py-6 bg-slate-50 rounded-xl text-center border border-dashed border-slate-200">
-          📷 还没有粉丝打卡照，快来发第一张吧！
-        </p>
+        <div className="text-xs text-slate-400 font-mono py-6 bg-slate-50 rounded-xl text-center border border-dashed border-slate-200 space-y-1">
+          <p>📷 还没有粉丝打卡照，快来发第一张吧！</p>
+          {debug && <p className="text-[10px] text-slate-300">({debug})</p>}
+        </div>
       ) : (
         <div className="space-y-5">
           {checkIns.map((ci) => (
