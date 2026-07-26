@@ -64,15 +64,21 @@ export default function LocationDetailContent({ id }: Props) {
       }
     }
 
-    const { error } = await supabase.from("check_ins").insert({
+    const insertResult = await supabase.from("check_ins").insert({
       user_id: user.id,
       group_id: checkinGroupId,
       spot_name: loc!.name,
       content: checkinContent.trim(),
       photos: photoUrls,
-    })
-    if (error) setCheckinError(error.message)
-    else { setCheckinDone(true); setCheckinContent(""); setCheckinPhotos([]); setCheckinPreviews([]); setPhotoKey(k => k + 1) }
+    }).select()
+
+    if (insertResult.error) {
+      setCheckinError(insertResult.error.message + " | code: " + insertResult.error.code)
+    } else if (!insertResult.data || insertResult.data.length === 0) {
+      setCheckinError("Insert returned no data - RLS may be blocking. user_id: " + user.id + " group: " + checkinGroupId)
+    } else {
+      setCheckinDone(true); setCheckinContent(""); setCheckinPhotos([]); setCheckinPreviews([]); setPhotoKey(k => k + 1)
+    }
     setCheckinSubmitting(false)
   }
 
