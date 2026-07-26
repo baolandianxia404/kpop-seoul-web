@@ -26,6 +26,14 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
     async function load() {
       try {
         const supabase = createClient()
+
+        // Fetch all recent checkins to debug
+        const { data: allData } = await supabase
+          .from("check_ins")
+          .select("id, spot_name, created_at")
+          .order("created_at", { ascending: false })
+          .limit(50)
+
         const { data, error } = await supabase
           .from("check_ins")
           .select("*")
@@ -37,6 +45,8 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
         if (!data || cancelled) { setLoading(false); return }
 
         const allCount = data.length
+        const totalInDB = allData?.length || 0
+        const latestSpots = (allData || []).slice(0, 3).map((r: { spot_name: string }) => r.spot_name).join(", ")
         const userIds = [...new Set(data.map((c: { user_id: string }) => c.user_id))]
         const { data: profiles } = await supabase
           .from("profiles")
@@ -66,7 +76,7 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
 
         if (cancelled) { setLoading(false); return }
 
-        setDebug(`Found ${allCount} total, ${result.length} with photos for "${locationName}"`)
+        setDebug(`DB has ${totalInDB} checkins total. Latest: ${latestSpots || "none"}. This location: ${allCount} total, ${result.length} with photos.`)
 
         const ids = result.map((r) => r.checkinId)
         if (ids.length > 0) {
