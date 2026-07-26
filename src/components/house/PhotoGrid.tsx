@@ -12,14 +12,14 @@ export default function PhotoGrid({ photos }: { photos: string[] }) {
         {photos.slice(0, 5).map((url, i) => (
           <div
             key={i}
-            className="relative cursor-pointer overflow-hidden border border-slate-100"
+            className="relative aspect-square cursor-pointer overflow-hidden border border-slate-100 bg-slate-50"
             onClick={() => setExpanded(i)}
           >
             <img
-              src={getOptimizedImageUrl(url, 400)}
+              src={getOptimizedImageUrl(url, 300)}
               alt=""
               loading="lazy"
-              className="w-full h-auto block hover:scale-105 transition-transform"
+              className="absolute inset-0 w-full h-full object-contain p-1 hover:scale-105 transition-transform"
             />
             {i === 4 && photos.length > 5 && (
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-sm font-bold font-mono">
