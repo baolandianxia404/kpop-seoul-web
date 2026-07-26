@@ -36,8 +36,7 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
         if (error) { setDebug("Query error: " + error.message); setLoading(false); return }
         if (!data || cancelled) { setLoading(false); return }
 
-        setDebug(`Found ${allCount} total, ${result.length} with photos for "${locationName}"`)
-
+        const allCount = data.length
         const userIds = [...new Set(data.map((c: { user_id: string }) => c.user_id))]
         const { data: profiles } = await supabase
           .from("profiles")
@@ -48,7 +47,6 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
           (profiles || []).map((p: { id: string; display_name: string }) => [p.id, p])
         )
 
-        const allCount = data.length
         const result: CheckInPhoto[] = (data as {
           id: string; user_id: string; group_id: string
           spot_name: string; content: string; photos: string[]; created_at: string
@@ -67,6 +65,8 @@ export default function PhotoWall({ locationName }: { locationName: string }) {
           }))
 
         if (cancelled) { setLoading(false); return }
+
+        setDebug(`Found ${allCount} total, ${result.length} with photos for "${locationName}"`)
 
         const ids = result.map((r) => r.checkinId)
         if (ids.length > 0) {
