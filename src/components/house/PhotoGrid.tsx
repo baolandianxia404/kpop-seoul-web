@@ -19,7 +19,7 @@ export default function PhotoGrid({ photos }: { photos: string[] }) {
               src={getOptimizedImageUrl(url, 400)}
               alt=""
               loading="lazy"
-              className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform"
+              className="absolute inset-0 w-full h-full object-contain hover:scale-105 transition-transform"
             />
             {i === 4 && photos.length > 5 && (
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-sm font-bold font-mono">
