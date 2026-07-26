@@ -3,33 +3,10 @@
 import { useState, useRef, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
+import { compressImage } from "@/lib/utils/compress-image"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { useLang } from "@/components/LanguageProvider"
 import Image from "next/image"
-
-function compressImage(file: File): Promise<File> {
-  return new Promise((resolve) => {
-    const img = new window.Image()
-    const url = URL.createObjectURL(file)
-    img.onload = () => {
-      URL.revokeObjectURL(url)
-      const canvas = document.createElement("canvas")
-      const maxW = 800
-      let w = img.width
-      let h = img.height
-      if (w > maxW) { h = (h * maxW) / w; w = maxW }
-      canvas.width = w
-      canvas.height = h
-      const ctx = canvas.getContext("2d")!
-      ctx.drawImage(img, 0, 0, w, h)
-      canvas.toBlob((blob) => {
-        if (blob) resolve(new File([blob], file.name, { type: "image/jpeg" }))
-        else resolve(file)
-      }, "image/jpeg", 0.6)
-    }
-    img.src = url
-  })
-}
 
 interface Props {
   groupId: string

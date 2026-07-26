@@ -15,6 +15,7 @@ import { useLang } from "@/components/LanguageProvider"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { useFavorites } from "@/lib/store/favorites"
 import { createClient } from "@/lib/supabase/client"
+import { compressImage } from "@/lib/utils/compress-image"
 
 interface Props {
   id: string
@@ -46,10 +47,11 @@ export default function LocationDetailContent({ id }: Props) {
 
     const photoUrls: string[] = []
     for (const file of checkinPhotos) {
+      const compressed = await compressImage(file)
       const fileName = `${user.id}/${Date.now()}_${Math.random().toString(36).slice(2, 8)}.jpg`
       const { data, error: uploadErr } = await supabase.storage
         .from("checkin-photos")
-        .upload(fileName, file, { upsert: false })
+        .upload(fileName, compressed, { upsert: false })
       if (uploadErr) {
         setCheckinError("照片上传失败: " + uploadErr.message)
         setCheckinSubmitting(false)
