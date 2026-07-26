@@ -80,6 +80,12 @@ export default function Header() {
                 <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
               </svg>
             </button>
+            {!loading && user && <UserMenu />}
+            {!loading && !user && (
+              <Link href="/auth/login" className="text-xs font-mono text-slate-500 px-2 py-1">
+                {t("header_sign_in")}
+              </Link>
+            )}
           </div>
         </div>
       </header>
