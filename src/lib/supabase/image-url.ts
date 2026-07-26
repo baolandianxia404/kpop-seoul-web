@@ -9,7 +9,6 @@ export function getOptimizedImageUrl(url: string, width = 400): string {
     const u = new URL(url)
     u.pathname = u.pathname.replace("/object/public/", "/render/image/public/")
     u.searchParams.set("width", String(width))
-    u.searchParams.set("resize", "cover")
     return u.toString()
   } catch {
     return url
