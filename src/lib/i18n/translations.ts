@@ -10,6 +10,9 @@ export const translations = {
   header_plan: { en: "Plan", zh: "规划" },
   header_sign_in: { en: "Sign In", zh: "登录" },
   header_join: { en: "Join", zh: "注册" },
+  header_profile: { en: "Profile", zh: "个人" },
+  header_saved: { en: "Saved", zh: "收藏" },
+  header_sign_out: { en: "Sign Out", zh: "退出" },
 
   // User menu
   menu_my_house: { en: "My House", zh: "我的小屋" },
