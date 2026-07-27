@@ -198,6 +198,23 @@ export const translations = {
   location_exit: { en: "Exit", zh: "出口" },
   location_navigate: { en: "Navigate with:", zh: "导航应用：" },
 
+  // Creator & Feedback
+  creator_title: { en: "About Creator", zh: "关于创建者" },
+  creator_bio: { en: "A Kpop fan who loves Seoul. Built this map to help fellow fans find their idols' favorite spots and make every pilgrimage unforgettable.", zh: "一个热爱首尔的 Kpop 粉丝。建了这个地图，希望能帮助同好们找到爱豆同款打卡地，让每一次追星之旅都值得纪念。" },
+  feedback_title: { en: "Feedback", zh: "欢迎反馈" },
+  feedback_desc: { en: "Feature suggestions, bug reports, or just say hi — I'd love to hear from you!", zh: "功能建议、Bug 报告、或者只是想打个招呼，都欢迎告诉我～" },
+  feedback_btn: { en: "Submit Feedback", zh: "提交反馈 →" },
+  feedback_login_prompt: { en: "Sign in to submit feedback so I can reply!", zh: "登录后才能提交反馈，这样我才能回复你 🙂" },
+  feedback_dialog_title: { en: "Submit Feedback", zh: "提交反馈" },
+  feedback_dialog_desc: { en: "Suggestions, bugs, any thoughts are welcome", zh: "功能建议、Bug、任何想法都可以告诉我 🙌" },
+  feedback_category_suggestion: { en: "Suggestion", zh: "功能建议" },
+  feedback_category_bug: { en: "Bug", zh: "Bug" },
+  feedback_category_personal: { en: "Personal Request", zh: "个人请求" },
+  feedback_category_other: { en: "Other", zh: "其他" },
+  feedback_placeholder: { en: "Write your feedback...", zh: "写下你的反馈……" },
+  feedback_submit: { en: "Send", zh: "发送" },
+  feedback_success: { en: "Feedback sent, thank you!", zh: "反馈已发送，谢谢你！" },
+
   // Plan page
   plan_title: { en: "Plan Your Route", zh: "规划路线" },
   plan_subtitle: { en: "Pick your favorite groups and we'll design a custom Kpop pilgrimage route.", zh: "选择你的本命团体，AI 为你定制专属追星路线。" },

@@ -5,6 +5,7 @@ import HotPlaces from "@/components/home/HotPlaces"
 import CheckInRanking from "@/components/home/CheckInRanking"
 import DailyPick from "@/components/home/DailyPick"
 import InstallGuide from "@/components/ui/InstallGuide"
+import CreatorFeedback from "@/components/home/CreatorFeedback"
 
 import QuickStart from "@/components/home/QuickStart"
 import DiscoveryCard from "@/components/home/DiscoveryCard"
@@ -129,6 +130,9 @@ export default function HomePage() {
 
         {/* PWA Install Guide */}
         <InstallGuide />
+
+        {/* Creator & Feedback */}
+        <CreatorFeedback />
 
         {/* Quick stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
