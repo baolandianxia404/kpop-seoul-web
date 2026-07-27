@@ -81,6 +81,21 @@ function MapSizeFixer() {
   return null
 }
 
+function ZoomDisplay() {
+  const map = useMap()
+  const [z, setZ] = useState(map.getZoom())
+  useEffect(() => {
+    const onZoom = () => setZ(map.getZoom())
+    map.on("zoomend", onZoom)
+    return () => { map.off("zoomend", onZoom) }
+  }, [map])
+  return (
+    <div className="absolute bottom-2 left-2 z-[2000] bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-mono">
+      z{z}
+    </div>
+  )
+}
+
 export default function KpopMap({ locations, flyToLocation }: Props) {
   const [mapKey, setMapKey] = useState(0)
   const [zoom, setZoom] = useState(DEFAULT_ZOOM)
@@ -187,6 +202,7 @@ export default function KpopMap({ locations, flyToLocation }: Props) {
         <MapEvents onMoveEnd={handleViewportChange} />
         <MapInteractionToggle active={interactive} />
         <MapSizeFixer />
+        <ZoomDisplay />
         {flyToLocation && (
           <FlyToHandler
             target={{ lat: flyToLocation.lat, lng: flyToLocation.lng, zoom: flyToLocation.zoom || 16 }}

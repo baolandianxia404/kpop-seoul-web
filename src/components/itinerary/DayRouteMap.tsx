@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet"
 import L from "leaflet"
 import type { ItinerarySpot } from "@/types"
@@ -9,7 +9,6 @@ interface Props {
   spots: ItinerarySpot[]
 }
 
-// Exact same pattern as homepage KpopMap
 function MapSizeFixer() {
   const map = useMap()
   useEffect(() => {
@@ -17,6 +16,21 @@ function MapSizeFixer() {
     return () => clearTimeout(timer)
   }, [map])
   return null
+}
+
+function ZoomDisplay() {
+  const map = useMap()
+  const [z, setZ] = useState(map.getZoom())
+  useEffect(() => {
+    const onZoom = () => setZ(map.getZoom())
+    map.on("zoomend", onZoom)
+    return () => { map.off("zoomend", onZoom) }
+  }, [map])
+  return (
+    <div className="absolute bottom-2 left-2 z-[2000] bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-mono">
+      z{z}
+    </div>
+  )
 }
 
 function getNumIcon(n: number): L.DivIcon {
@@ -65,6 +79,7 @@ export default function DayRouteMap({ spots }: Props) {
           maxNativeZoom={16}
         />
         <MapSizeFixer />
+        <ZoomDisplay />
 
         {spots.map((spot, i) => (
           <Marker
