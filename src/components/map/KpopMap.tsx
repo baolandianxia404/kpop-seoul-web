@@ -178,7 +178,7 @@ export default function KpopMap({ locations, flyToLocation }: Props) {
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://www.esri.com/">Esri</a>'
-          url="/tiles/{z}/{x}/{y}"
+          url="/tiles/{z}/{y}/{x}"
           maxZoom={18}
           maxNativeZoom={16}
         />
