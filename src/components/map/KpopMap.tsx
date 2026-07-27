@@ -178,9 +178,8 @@ export default function KpopMap({ locations, flyToLocation }: Props) {
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
+          url="https://kpop-tile-proxy.www-baolandianxia.workers.dev/tiles/{z}/{x}/{y}.png"
           maxZoom={19}
-          subdomains={["a", "b", "c"]}
         />
 
         <MapEvents onMoveEnd={handleViewportChange} />
