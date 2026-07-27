@@ -75,7 +75,7 @@ export default function CreatorFeedback() {
               </p>
               <div className="flex items-center gap-3">
                 <a
-                  href="https://xhslink.cn/m/5POSmbJe71"
+                  href="https://www.xiaohongshu.com/user/profile/66bcbb4a000000001d022745"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs text-slate-400 hover:text-red-400 transition font-mono flex items-center gap-1"
