@@ -50,7 +50,7 @@ export const MAX_MAP_MARKERS = 80
 
 export const ZOOM_TIERS = [
   { maxZoom: 11, types: ['company'] },
-  { maxZoom: 13, types: ['company', 'entertainment', 'mv_spot', 'concert'] },
+  { maxZoom: 13, types: ['company', 'entertainment', 'mv_spot', 'concert', 'restaurant', 'store'] },
   { maxZoom: 22, types: null },
 ] as const
 

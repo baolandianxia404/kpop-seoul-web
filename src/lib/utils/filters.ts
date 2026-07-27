@@ -39,11 +39,13 @@ export function getVisibleTypes(zoom: number): LocationType[] | null {
 export function getVisibleBounds(
   center: { lat: number; lng: number },
   zoom: number,
-  padding = 0.3
+  padding?: number
 ) {
+  // adaptive padding: more padding at higher zoom to keep off-screen markers
+  const p = padding ?? (0.5 + Math.max(0, zoom - 12) * 0.3)
   const base = 0.5 * Math.pow(2, 12 - zoom)
-  const latDelta = base * (1 + padding)
-  const lngDelta = base * 1.6 * (1 + padding)
+  const latDelta = base * (1 + p)
+  const lngDelta = base * 1.6 * (1 + p)
   return {
     minLat: center.lat - latDelta,
     maxLat: center.lat + latDelta,
