@@ -169,7 +169,6 @@ export default function KpopMap({ locations, flyToLocation }: Props) {
         key={mapKey}
         center={[SEOUL_CENTER.lat, SEOUL_CENTER.lng]}
         zoom={DEFAULT_ZOOM}
-        maxZoom={16}
         scrollWheelZoom={false}
         dragging={false}
         zoomControl={false}
@@ -178,11 +177,10 @@ export default function KpopMap({ locations, flyToLocation }: Props) {
         style={{ width: "100%", height: "100%", touchAction: "manipulation" }}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          maxZoom={19}
-          subdomains={["a", "b", "c"]}
-          keepBuffer={4}
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://www.esri.com/">Esri</a>'
+          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+          maxZoom={18}
+          maxNativeZoom={16}
         />
 
         <MapEvents onMoveEnd={handleViewportChange} />
