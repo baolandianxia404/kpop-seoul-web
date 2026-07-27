@@ -41,7 +41,7 @@ export default function DayRouteMap({ spots }: Props) {
 
   return (
     // Match homepage: h-[55vh] min-h-[350px] md:h-[360px]
-    <div className="w-full h-[55vh] min-h-[350px] md:h-[360px] bg-[#e8f0e8]"
+    <div className="w-full h-[55vh] min-h-[350px] md:h-[360px] bg-white"
       style={{
         border: "2px solid #1e293b",
         boxShadow: "4px 4px 0 0 rgba(0,0,0,0.08)",
@@ -59,10 +59,10 @@ export default function DayRouteMap({ spots }: Props) {
       >
         {/* Same tile URL as homepage */}
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://www.esri.com/">Esri</a>'
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
-          maxZoom={18}
-          maxNativeZoom={18}
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
+          maxZoom={19}
+          subdomains={["a", "b", "c"]}
         />
         <MapSizeFixer />
 
