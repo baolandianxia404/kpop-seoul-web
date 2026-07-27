@@ -178,11 +178,11 @@ export default function KpopMap({ locations, flyToLocation }: Props) {
         style={{ width: "100%", height: "100%", touchAction: "manipulation" }}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://www.esri.com/">Esri</a>'
-          url="https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-          maxZoom={18}
-          maxNativeZoom={16}
-          keepBuffer={2}
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          maxZoom={19}
+          subdomains={["a", "b", "c"]}
+          keepBuffer={4}
         />
 
         <MapEvents onMoveEnd={handleViewportChange} />
