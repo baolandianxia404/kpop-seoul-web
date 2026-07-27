@@ -233,3 +233,8 @@ button, a, [role="button"] {
   background-position:
     0 0, 0 4px, 4px -4px, -4px 0;
 }
+
+/* Leaflet: softer bg when tiles are loading, not gray */
+.leaflet-container {
+  background: #e8edf2 !important;
+}
