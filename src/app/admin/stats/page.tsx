@@ -16,6 +16,9 @@ interface Stats {
   locationCheckins: number
   recentUsers: { display_name: string; email: string; created_at: string }[]
   topSpots: { spot_name: string; count: number }[]
+  totalViews: number
+  todayViews: number
+  topPages: { path: string; count: number }[]
 }
 
 export default function AdminStatsPage() {
@@ -36,6 +39,9 @@ export default function AdminStatsPage() {
   const loadStats = async () => {
     const supabase = createClient()
 
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const todayISO = today.toISOString()
     const fiveMinAgo = new Date(Date.now() - 5 * 60_000).toISOString()
 
     const [
@@ -47,6 +53,9 @@ export default function AdminStatsPage() {
       { count: locationCheckins },
       { data: recentUsers },
       { data: topSpots },
+      { count: totalViews },
+      { count: todayViews },
+      { data: pageData },
     ] = await Promise.all([
       supabase.from("user_presence").select("*", { count: "exact", head: true }).gte("last_seen", fiveMinAgo).order("last_seen", { ascending: false }).then(({ count }) => ({ count: count ?? 0 })),
       supabase.from("profiles").select("*", { count: "exact", head: true }),
@@ -62,7 +71,19 @@ export default function AdminStatsPage() {
         }
         return { data: Object.entries(counter).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([spot_name, count]) => ({ spot_name, count })) }
       }),
+      supabase.from("page_views").select("*", { count: "exact", head: true }),
+      supabase.from("page_views").select("*", { count: "exact", head: true }).gte("created_at", todayISO),
+      supabase.from("page_views").select("path"),
     ])
+
+    const topPages = (() => {
+      const counter: Record<string, number> = {}
+      for (const r of (pageData || []) as { path: string }[]) {
+        const name = r.path === "/" ? "🏠 Home" : r.path
+        counter[name] = (counter[name] || 0) + 1
+      }
+      return Object.entries(counter).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([path, count]) => ({ path, count }))
+    })()
 
     setStats({
       onlineNow: onlineNow || 0,
@@ -73,6 +94,9 @@ export default function AdminStatsPage() {
       locationCheckins: locationCheckins || 0,
       recentUsers: (recentUsers || []) as Stats["recentUsers"],
       topSpots: (topSpots || []) as Stats["topSpots"],
+      totalViews: totalViews || 0,
+      todayViews: todayViews || 0,
+      topPages,
     })
     setLoading(false)
   }
@@ -96,6 +120,14 @@ export default function AdminStatsPage() {
           <p className="text-2xl font-black text-blue-500">{stats!.registeredUsers}</p>
           <p className="text-xs text-gray-400">注册用户</p>
         </div>
+        <div className="p-4 bg-white rounded-xl border border-gray-100 bg-gradient-to-br from-pink-50 to-rose-50">
+          <p className="text-2xl font-black text-pink-500">{stats!.totalViews.toLocaleString()}</p>
+          <p className="text-xs text-gray-400">总访问量</p>
+        </div>
+        <div className="p-4 bg-white rounded-xl border border-gray-100 bg-gradient-to-br from-sky-50 to-blue-50">
+          <p className="text-2xl font-black text-sky-500">{stats!.todayViews.toLocaleString()}</p>
+          <p className="text-xs text-gray-400">今日访问</p>
+        </div>
         <div className="p-4 bg-white rounded-xl border border-gray-100">
           <p className="text-2xl font-black text-amber-500">{stats!.totalCheckins}</p>
           <p className="text-xs text-gray-400">总发帖</p>
@@ -109,6 +141,20 @@ export default function AdminStatsPage() {
           <p className="text-xs text-gray-400">小屋打卡</p>
         </div>
       </div>
+
+      {stats!.topPages.length > 0 && (
+        <div className="mb-8">
+          <h2 className="font-semibold text-sm text-slate-600 mb-3">📄 热门页面</h2>
+          <div className="bg-white rounded-xl border border-gray-100 divide-y">
+            {stats!.topPages.map((p) => (
+              <div key={p.path} className="flex items-center justify-between px-4 py-2.5">
+                <span className="text-sm text-slate-600 truncate">{p.path}</span>
+                <span className="text-xs font-mono text-slate-400 ml-2">{p.count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {stats!.topSpots.length > 0 && (
         <div className="mb-8">

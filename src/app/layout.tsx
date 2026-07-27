@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header"
 import SideDrawer from "@/components/layout/SideDrawer"
 import Footer from "@/components/layout/Footer"
 import ClientWrapper from "@/components/auth/ClientWrapper"
+import PageViewTracker from "@/components/analytics/PageViewTracker"
 import LanguageProvider from "@/components/LanguageProvider"
 import "leaflet/dist/leaflet.css"
 import "./globals.css"
@@ -76,6 +77,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-gray-50 text-gray-900 antialiased">
         <LanguageProvider>
         <ClientWrapper>
+          <PageViewTracker />
           <Header />
           <main className="flex-1 md:pb-0">{children}</main>
           <Footer />
