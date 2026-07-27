@@ -50,6 +50,7 @@ export default function DayRouteMap({ spots }: Props) {
       <MapContainer
         center={center}
         zoom={13}
+        maxZoom={16}
         scrollWheelZoom={true}
         dragging={true}
         zoomControl={true}
@@ -61,6 +62,7 @@ export default function DayRouteMap({ spots }: Props) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
           maxZoom={19}
+          maxNativeZoom={16}
         />
         <MapSizeFixer />
 
