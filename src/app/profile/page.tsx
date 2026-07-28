@@ -10,7 +10,7 @@ import type { CheckInRow } from "@/types"
 
 export default function ProfilePage() {
   const { t } = useLang()
-  const { user, profile, loading, refreshProfile } = useAuth()
+  const { user, profile, loading, refreshProfile, signOut } = useAuth()
   const router = useRouter()
   const [displayName, setDisplayName] = useState("")
   const [fanGroupId, setFanGroupId] = useState("")
@@ -134,6 +134,16 @@ export default function ProfilePage() {
           className="w-full py-3 btn-cute text-white font-bold rounded-xl disabled:opacity-40 text-sm"
         >
           {saving ? t("profile_saving") : t("profile_save")}
+        </button>
+      </div>
+
+      {/* Sign Out */}
+      <div className="mt-6 pt-6 border-t border-slate-100">
+        <button
+          onClick={() => { if (confirm(t("signout_confirm") || "确定退出登录？")) signOut() }}
+          className="w-full py-2.5 text-sm text-slate-400 hover:text-red-500 font-mono transition"
+        >
+          {t("signout") || "退出登录"}
         </button>
       </div>
 

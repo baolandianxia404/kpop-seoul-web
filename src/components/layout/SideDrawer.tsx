@@ -187,21 +187,13 @@ export default function SideDrawer() {
                         )}
                       </div>
                     </Link>
-                    <div className="flex items-center gap-1 flex-shrink-0">
-                      <Link
-                        href="/profile"
-                        onClick={() => setOpen(false)}
-                        className="w-7 h-7 flex items-center justify-center rounded-lg text-sm text-slate-300 hover:text-slate-500 hover:bg-slate-100 transition"
-                      >
-                        ⚙️
-                      </Link>
-                      <button
-                        onClick={() => { setOpen(false); signOut() }}
-                        className="w-7 h-7 flex items-center justify-center rounded-lg text-sm text-slate-300 hover:text-red-400 hover:bg-red-50 transition"
-                      >
-                        🚪
-                      </button>
-                    </div>
+                    <Link
+                      href="/profile"
+                      onClick={() => setOpen(false)}
+                      className="text-sm text-slate-300 hover:text-slate-500 transition flex-shrink-0"
+                    >
+                      ⚙️
+                    </Link>
                   </div>
                 </div>
                 <DrawerRow
