@@ -45,7 +45,7 @@ export default function OnlineCounter() {
   if (count === null || count === 0) return null
 
   return (
-    <span className="inline-flex items-center gap-1 text-xs text-amber-500 font-medium">
+    <span className="inline-flex items-center gap-1 text-xs text-gray-400 font-medium">
       ✨ {formatCount(count)} {lang === "zh" ? "星星正在旅行" : "stars exploring"}
     </span>
   )
