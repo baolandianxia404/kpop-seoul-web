@@ -22,8 +22,8 @@ const CORE_ITEMS: DrawerItemData[] = [
 
 const EXTRA_ITEMS: DrawerItemData[] = [
   { href: "/planner", icon: "📝", zh: "投稿", en: "Share" },
-  { href: "/plan", icon: "🗺️", zh: "规划路线", en: "Plan" },
-  { href: "/routes", icon: "🧭", zh: "路线", en: "Routes" },
+  { href: "/plan", icon: "🗺️", zh: "爱豆路线", en: "Idol Routes" },
+  { href: "/routes", icon: "🧭", zh: "地区路线", en: "Districts" },
   { href: "/saved", icon: "⭐", zh: "收藏", en: "Saved" },
 ]
 
@@ -160,7 +160,11 @@ export default function SideDrawer() {
             {user && (
               <>
                 {/* User info card */}
-                <div className="px-4 py-3 mb-2 bg-white/80 rounded-xl border border-slate-100">
+                <Link
+                  href="/profile"
+                  onClick={() => setOpen(false)}
+                  className="block px-4 py-3 mb-2 bg-white/80 rounded-xl border border-slate-100 hover:bg-white transition active:scale-[0.98]"
+                >
                   <div className="flex items-center gap-3">
                     <div
                       className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
@@ -168,7 +172,7 @@ export default function SideDrawer() {
                     >
                       {initials}
                     </div>
-                    <div className="min-w-0">
+                    <div className="min-w-0 flex-1">
                       <p className="text-sm font-bold text-slate-700 truncate">
                         {profile?.display_name || user.email}
                       </p>
@@ -181,8 +185,9 @@ export default function SideDrawer() {
                         </span>
                       )}
                     </div>
+                    <span className="text-sm text-slate-300 flex-shrink-0">⚙️</span>
                   </div>
-                </div>
+                </Link>
                 <DrawerRow
                   href={houseHref}
                   icon="🏠"
@@ -206,14 +211,6 @@ export default function SideDrawer() {
             ))}
             {user ? (
               <>
-                <DrawerRow
-                  href="/profile"
-                  icon="⚙️"
-                  zh="设置"
-                  en="Settings"
-                  active={false}
-                  onClick={() => setOpen(false)}
-                />
                 <button
                   onClick={() => { setOpen(false); signOut() }}
                   className="w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 active:scale-[0.98] text-red-500 hover:bg-red-50"
