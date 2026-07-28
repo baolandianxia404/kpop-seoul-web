@@ -7,7 +7,7 @@ import { useAuth } from "@/components/auth/AuthProvider"
 import { useLang } from "@/components/LanguageProvider"
 import UserMenu from "@/components/auth/UserMenu"
 import PixelLogo from "@/components/PixelLogo"
-import StarTravelers from "@/components/ui/StarTravelers"
+import OnlineCounter from "@/components/home/OnlineCounter"
 
 export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false)
@@ -26,9 +26,7 @@ export default function Header() {
               <span className="text-blue-500">星旅</span>
               <span className="text-gray-400 font-normal text-xs ml-1">StarTrail</span>
             </span>
-            <span className="text-xs text-gray-400">
-              <StarTravelers />
-            </span>
+            <OnlineCounter />
           </Link>
 
           <nav className="hidden md:flex items-center gap-4">
