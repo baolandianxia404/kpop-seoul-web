@@ -6,6 +6,7 @@ import CheckInRanking from "@/components/home/CheckInRanking"
 import DailyPick from "@/components/home/DailyPick"
 import InstallGuide from "@/components/ui/InstallGuide"
 import CreatorFeedback from "@/components/home/CreatorFeedback"
+import OnlineCounter from "@/components/home/OnlineCounter"
 
 import QuickStart from "@/components/home/QuickStart"
 import DiscoveryCard from "@/components/home/DiscoveryCard"
@@ -88,6 +89,9 @@ export default function HomePage() {
           <p className="text-sm md:text-base text-gray-400 max-w-md mx-auto font-medium">
             {t("home_subtitle")}
           </p>
+          <div className="mt-2 flex justify-center">
+            <OnlineCounter />
+          </div>
         </div>
 
         {/* Map with pixel frame */}
