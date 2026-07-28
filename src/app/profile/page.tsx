@@ -140,10 +140,10 @@ export default function ProfilePage() {
       {/* Sign Out */}
       <div className="mt-6 pt-6 border-t border-slate-100">
         <button
-          onClick={() => { if (confirm(t("signout_confirm") || "确定退出登录？")) signOut() }}
+          onClick={() => { if (confirm("确定退出登录？")) signOut() }}
           className="w-full py-2.5 text-sm text-slate-400 hover:text-red-500 font-mono transition"
         >
-          {t("signout") || "退出登录"}
+          退出登录
         </button>
       </div>
 
