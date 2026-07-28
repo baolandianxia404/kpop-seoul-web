@@ -74,9 +74,9 @@ export default function DayRouteMap({ spots }: Props) {
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="/tiles/{z}/{x}/{y}.png"
+          url="/tiles/{z}/{x}/{y}.jpg"
           maxZoom={16}
-          maxNativeZoom={16}
+          maxNativeZoom={13}
         />
         <MapSizeFixer />
         <ZoomDisplay />

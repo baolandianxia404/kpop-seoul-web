@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Download ArcGIS tiles for Seoul area. Run ONCE with VPN, then deploy.
 Usage: python3 scripts/download_tiles.py
-Output: public/tiles/{z}/{x}/{y}.png
+Output: public/tiles/{z}/{x}/{y}.jpg
 """
 
 import os
@@ -43,7 +43,7 @@ def main():
 
         for x in range(x_min, x_max + 1):
             for y in range(y_min, y_max + 1):
-                out_path = os.path.join(OUTPUT_DIR, str(z), str(x), f"{y}.png")
+                out_path = os.path.join(OUTPUT_DIR, str(z), str(x), f"{y}.jpg")
                 if os.path.exists(out_path):
                     downloaded += 1
                     continue

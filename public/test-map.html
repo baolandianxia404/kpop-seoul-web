@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tile Test Map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  body { margin: 0; padding: 20px; font-family: monospace; }
+  #map { height: 500px; max-width: 800px; margin: 0 auto; border: 2px solid #333; }
+  h1 { text-align: center; font-size: 16px; }
+  .info { text-align: center; margin: 10px; font-size: 12px; color: #666; }
+</style>
+</head>
+<body>
+<h1>Tile Test — kpop-seoul-web.pages.dev</h1>
+<p class="info">If tiles load correctly, you should see a map of Seoul. If gray, tiles are broken.</p>
+<div id="map"></div>
+<p class="info" id="status">Loading...</p>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+var map = L.map('map', {
+  center: [37.57, 126.98],
+  zoom: 13,
+  maxZoom: 16
+});
+
+// Test 1: Our self-hosted tiles
+var ourTiles = L.tileLayer('/tiles/{z}/{x}/{y}.jpg', {
+  maxZoom: 16,
+  maxNativeZoom: 16,
+  attribution: 'Self-hosted tiles'
+}).addTo(map);
+
+// Test 2: Also add OSM tiles as comparison (will be blocked in China but useful for debugging)
+var osmTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 16,
+  attribution: 'OSM'
+});
+// Don't add OSM by default, but provide a button
+
+// Track tile loading
+var loaded = 0, failed = 0;
+ourTiles.on('tileload', function(e) {
+  loaded++;
+  document.getElementById('status').textContent = 'Loaded: ' + loaded + ' tiles';
+});
+ourTiles.on('tileerror', function(e) {
+  failed++;
+  document.getElementById('status').textContent = 'Loaded: ' + loaded + ' tiles, Failed: ' + failed;
+});
+
+// Show zoom level
+map.on('zoomend', function() {
+  document.getElementById('status').textContent =
+    'Zoom: ' + map.getZoom() + ' | Loaded: ' + loaded + ' | Failed: ' + failed;
+});
+
+// Add button to toggle OSM tiles
+var btn = document.createElement('button');
+btn.textContent = 'Toggle OSM tiles (VPN needed)';
+btn.style.cssText = 'display:block;margin:10px auto;padding:8px 16px;';
+btn.onclick = function() {
+  if (map.hasLayer(osmTiles)) {
+    map.removeLayer(osmTiles);
+    btn.textContent = 'Toggle OSM tiles (VPN needed)';
+  } else {
+    map.addLayer(osmTiles);
+    btn.textContent = 'Remove OSM tiles';
+  }
+};
+document.body.insertBefore(btn, document.getElementById('map').nextSibling);
+</script>
+</body>
+</html>
