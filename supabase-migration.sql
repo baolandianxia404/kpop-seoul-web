@@ -125,3 +125,25 @@ DROP POLICY IF EXISTS "favs_insert" ON user_favorites;
 CREATE POLICY "favs_insert" ON user_favorites FOR INSERT WITH CHECK (auth.uid() = user_id);
 DROP POLICY IF EXISTS "favs_delete" ON user_favorites;
 CREATE POLICY "favs_delete" ON user_favorites FOR DELETE USING (auth.uid() = user_id);
+
+-- =============================================
+-- Itineraries (cross-device sync)
+-- =============================================
+CREATE TABLE IF NOT EXISTS itineraries (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  data JSONB NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE itineraries ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "itineraries_select" ON itineraries;
+CREATE POLICY "itineraries_select" ON itineraries FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "itineraries_insert" ON itineraries;
+CREATE POLICY "itineraries_insert" ON itineraries FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "itineraries_update" ON itineraries;
+CREATE POLICY "itineraries_update" ON itineraries FOR UPDATE USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "itineraries_delete" ON itineraries;
+CREATE POLICY "itineraries_delete" ON itineraries FOR DELETE USING (auth.uid() = user_id);

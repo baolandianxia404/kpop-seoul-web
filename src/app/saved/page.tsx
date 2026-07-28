@@ -10,10 +10,13 @@ import type { Itinerary } from "@/types"
 import { locations } from "@/lib/data/locations"
 import PageGuide from "@/components/ui/PageGuide"
 import { useFavorites } from "@/lib/store/favorites"
+import { useAuth } from "@/components/auth/AuthProvider"
+import { loadItineraries, removeItinerary as removeItineraryStore } from "@/lib/store/itineraries"
 
 export default function SavedPage() {
   const { t } = useLang()
   const router = useRouter()
+  const { user } = useAuth()
   const { favorites, toggleFavorite } = useFavorites()
   const [pendingSpots, setPendingSpots] = useState<
     { locationId: string; locationName: string; locationType: string }[]
@@ -22,24 +25,25 @@ export default function SavedPage() {
   const [tab, setTab] = useState<"favorites" | "spots" | "itineraries">("favorites")
   const [mounted, setMounted] = useState(false)
 
-  const load = () => {
+  const load = async () => {
     try {
       setPendingSpots(JSON.parse(localStorage.getItem("kpop_pending_spots") || "[]"))
-      setItineraries(JSON.parse(localStorage.getItem("kpop_itineraries") || "[]"))
+      const itins = await loadItineraries(user?.id)
+      setItineraries(itins)
     } catch {}
   }
 
   useEffect(() => {
     load()
     setMounted(true)
-  }, [])
+  }, [user])
 
   const favoriteLocs = locations.filter((l) => favorites.includes(l.id))
 
   const removeItinerary = (title: string) => {
     const updated = itineraries.filter((i) => i.title !== title)
     setItineraries(updated)
-    localStorage.setItem("kpop_itineraries", JSON.stringify(updated))
+    removeItineraryStore(title, user?.id)
   }
 
   const removePending = (id: string) => {

@@ -7,6 +7,8 @@ import Link from "next/link"
 import type { Itinerary } from "@/types"
 import { LOCATION_TYPES } from "@/lib/utils/constants"
 import { groups } from "@/lib/data/groups"
+import { useAuth } from "@/components/auth/AuthProvider"
+import { saveItinerary as saveItineraryStore } from "@/lib/store/itineraries"
 
 const DayRouteMap = dynamic(() => import("@/components/itinerary/DayRouteMap"), {
   ssr: false,
@@ -27,6 +29,7 @@ const transportIcons: Record<string, string> = { walk: "🚶", subway: "🚇", b
 function ItineraryContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const { user } = useAuth()
   const [itinerary, setItinerary] = useState<Itinerary | null>(null)
   const [activeDay, setActiveDay] = useState(0)
   const [error, setError] = useState("")
@@ -73,11 +76,7 @@ function ItineraryContent() {
 
   const saveToLocal = (itin: Itinerary) => {
     try {
-      const stored = JSON.parse(localStorage.getItem("kpop_itineraries") || "[]")
-      if (!stored.some((s: Itinerary) => s.title === itin.title)) {
-        stored.unshift({ ...itin, createdAt: new Date().toISOString() })
-        localStorage.setItem("kpop_itineraries", JSON.stringify(stored.slice(0, 10)))
-      }
+      saveItineraryStore({ ...itin, createdAt: itin.createdAt || new Date().toISOString() }, user?.id)
     } catch {}
   }
 
