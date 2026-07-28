@@ -160,42 +160,31 @@ export default function SideDrawer() {
             {user && (
               <>
                 {/* User info card */}
-                <div className="px-4 py-3 mb-2 bg-white/80 rounded-xl border border-slate-100">
-                  <div className="flex items-center gap-3">
-                    <Link
-                      href="/profile"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center gap-3 flex-1 min-w-0"
-                    >
-                      <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
-                        style={{ backgroundColor: fanGroup?.color || "#3b82f6" }}
-                      >
-                        {initials}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="text-sm font-bold text-slate-700 truncate">
-                          {profile?.display_name || user.email}
-                        </p>
-                        {fanGroup && (
-                          <span
-                            className="inline-block mt-0.5 px-1.5 py-0.5 text-[10px] text-white font-mono"
-                            style={{ backgroundColor: fanGroup.color }}
-                          >
-                            {fanGroup.name}
-                          </span>
-                        )}
-                      </div>
-                    </Link>
-                    <Link
-                      href="/profile"
-                      onClick={() => setOpen(false)}
-                      className="text-sm text-slate-300 hover:text-slate-500 transition flex-shrink-0"
-                    >
-                      ⚙️
-                    </Link>
+                <Link
+                  href="/profile"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 mb-2 bg-white/80 rounded-xl border border-slate-100 hover:bg-white transition active:scale-[0.98]"
+                >
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
+                    style={{ backgroundColor: fanGroup?.color || "#3b82f6" }}
+                  >
+                    {initials}
                   </div>
-                </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-bold text-slate-700 truncate">
+                      {profile?.display_name || user.email}
+                    </p>
+                    {fanGroup && (
+                      <span
+                        className="inline-block mt-0.5 px-1.5 py-0.5 text-[10px] text-white font-mono"
+                        style={{ backgroundColor: fanGroup.color }}
+                      >
+                        {fanGroup.name}
+                      </span>
+                    )}
+                  </div>
+                </Link>
                 <DrawerRow
                   href={houseHref}
                   icon="🏠"
