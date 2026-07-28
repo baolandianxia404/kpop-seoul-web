@@ -72,14 +72,14 @@ export default function SideDrawer() {
       {/* Backdrop */}
       {open && (
         <div
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[999]"
           onClick={() => setOpen(false)}
         />
       )}
 
       {/* Drawer panel */}
       <div
-        className={`fixed top-0 bottom-0 right-0 w-60 z-50 transition-transform duration-300 ease-out shadow-2xl overflow-hidden ${
+        className={`fixed top-0 bottom-0 right-0 w-60 z-[1000] transition-transform duration-300 ease-out shadow-2xl overflow-hidden ${
           open ? "translate-x-0 rounded-l-2xl" : "translate-x-full"
         }`}
       >
@@ -247,7 +247,7 @@ export default function SideDrawer() {
       {/* Handle tab */}
       <button
         onClick={() => setOpen(true)}
-        className={`fixed right-0 top-1/2 -translate-y-1/2 z-40 w-7 h-14 bg-white/90 backdrop-blur rounded-l-xl shadow-lg border border-r-0 border-slate-200 flex items-center justify-center transition-all duration-300 active:bg-blue-50 ${
+        className={`fixed right-0 top-1/2 -translate-y-1/2 z-[999] w-7 h-14 bg-white/90 backdrop-blur rounded-l-xl shadow-lg border border-r-0 border-slate-200 flex items-center justify-center transition-all duration-300 active:bg-blue-50 ${
           open ? "opacity-0 pointer-events-none" : ""
         }`}
       >
