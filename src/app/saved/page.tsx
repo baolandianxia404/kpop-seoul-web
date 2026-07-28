@@ -12,6 +12,7 @@ import PageGuide from "@/components/ui/PageGuide"
 import { useFavorites } from "@/lib/store/favorites"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { loadItineraries, removeItinerary as removeItineraryStore } from "@/lib/store/itineraries"
+import { loadPendingSpots, removePendingSpot as removePendingSpotStore } from "@/lib/store/pending-spots"
 
 export default function SavedPage() {
   const { t } = useLang()
@@ -27,7 +28,8 @@ export default function SavedPage() {
 
   const load = async () => {
     try {
-      setPendingSpots(JSON.parse(localStorage.getItem("kpop_pending_spots") || "[]"))
+      const spots = await loadPendingSpots(user?.id)
+      setPendingSpots(spots)
       const itins = await loadItineraries(user?.id)
       setItineraries(itins)
     } catch {}
@@ -49,7 +51,7 @@ export default function SavedPage() {
   const removePending = (id: string) => {
     const updated = pendingSpots.filter((s) => s.locationId !== id)
     setPendingSpots(updated)
-    localStorage.setItem("kpop_pending_spots", JSON.stringify(updated))
+    removePendingSpotStore(id, user?.id)
   }
 
   const removeFav = (id: string) => {

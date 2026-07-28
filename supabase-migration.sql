@@ -147,3 +147,23 @@ DROP POLICY IF EXISTS "itineraries_update" ON itineraries;
 CREATE POLICY "itineraries_update" ON itineraries FOR UPDATE USING (auth.uid() = user_id);
 DROP POLICY IF EXISTS "itineraries_delete" ON itineraries;
 CREATE POLICY "itineraries_delete" ON itineraries FOR DELETE USING (auth.uid() = user_id);
+
+-- =============================================
+-- Pending Spots (cross-device sync for route planning)
+-- =============================================
+CREATE TABLE IF NOT EXISTS pending_spots (
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  location_id TEXT NOT NULL,
+  location_name TEXT NOT NULL,
+  location_type TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  PRIMARY KEY (user_id, location_id)
+);
+
+ALTER TABLE pending_spots ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "pspots_select" ON pending_spots;
+CREATE POLICY "pspots_select" ON pending_spots FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "pspots_insert" ON pending_spots;
+CREATE POLICY "pspots_insert" ON pending_spots FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "pspots_delete" ON pending_spots;
+CREATE POLICY "pspots_delete" ON pending_spots FOR DELETE USING (auth.uid() = user_id);

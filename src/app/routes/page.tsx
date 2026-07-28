@@ -9,6 +9,9 @@ import { LOCATION_TYPES } from "@/lib/utils/constants"
 import { getDistance } from "@/lib/utils/distance"
 import { generateFallbackItinerary } from "@/lib/ai/fallback"
 import PageGuide from "@/components/ui/PageGuide"
+import { useAuth } from "@/components/auth/AuthProvider"
+import { useFavorites } from "@/lib/store/favorites"
+import { addPendingSpot, loadPendingSpots } from "@/lib/store/pending-spots"
 
 interface RouteSpot {
   id: string
@@ -85,6 +88,8 @@ function buildRoutes(): Route[] {
 export default function RoutesPage() {
   const router = useRouter()
   const { t } = useLang()
+  const { user } = useAuth()
+  const { favorites } = useFavorites()
   const [addedSpots, setAddedSpots] = useState<Set<string>>(new Set())
   const [showToast, setShowToast] = useState(false)
   const [toastMsg, setToastMsg] = useState("")
@@ -94,6 +99,14 @@ export default function RoutesPage() {
 
   const routes = buildRoutes()
   const selectedRoute = routes.find((r) => r.district === openDistrict)
+
+  // Load already-added spots from Supabase/localStorage
+  useEffect(() => {
+    loadPendingSpots(user?.id).then((spots) => {
+      setAddedSpots(new Set(spots.map((s) => s.locationId)))
+      setSavedCount(spots.length)
+    })
+  }, [user])
 
   useEffect(() => {
     if (openDistrict) {
@@ -109,14 +122,11 @@ export default function RoutesPage() {
   }
 
   const addToPlan = (spot: RouteSpot) => {
-    try {
-      const stored = JSON.parse(localStorage.getItem("kpop_pending_spots") || "[]")
-      if (!stored.some((s: { locationId: string }) => s.locationId === spot.id)) {
-        stored.push({ locationId: spot.id, locationName: spot.name, locationType: spot.type })
-        localStorage.setItem("kpop_pending_spots", JSON.stringify(stored))
-      }
-    } catch {}
-
+    if (addedSpots.has(spot.id)) return
+    addPendingSpot(
+      { locationId: spot.id, locationName: spot.name, locationType: spot.type },
+      user?.id,
+    )
     setAddedSpots((prev) => new Set(prev).add(spot.id))
     setSavedCount((c) => c + 1)
     setToastMsg(spot.name)

@@ -10,14 +10,16 @@ import BudgetSelector from "@/components/planner/BudgetSelector"
 import PreferencePicker from "@/components/planner/PreferencePicker"
 import PendingSpots from "@/components/planner/PendingSpots"
 import PageGuide from "@/components/ui/PageGuide"
-import { getPendingSpots, removePendingSpot } from "@/lib/store/pending-spots"
+import { loadPendingSpots, removePendingSpot } from "@/lib/store/pending-spots"
 import { getLocationsByGroupIds } from "@/lib/data/locations"
 import { generateFallbackItinerary } from "@/lib/ai/fallback"
 import { useLang } from "@/components/LanguageProvider"
+import { useAuth } from "@/components/auth/AuthProvider"
 
 export default function PlanPage() {
   const router = useRouter()
   const { t } = useLang()
+  const { user } = useAuth()
 
   const [groupIds, setGroupIds] = useState<string[]>([])
   const [days, setDays] = useState(2)
@@ -34,11 +36,13 @@ export default function PlanPage() {
 
   useEffect(() => {
     setMounted(true)
-    setPendingSpotIds(getPendingSpots().map((s) => s.locationId))
-  }, [])
+    loadPendingSpots(user?.id).then((spots) => {
+      setPendingSpotIds(spots.map((s) => s.locationId))
+    })
+  }, [user])
 
   const handleRemoveSpot = (id: string) => {
-    removePendingSpot(id)
+    removePendingSpot(id, user?.id)
     setPendingSpotIds((prev) => prev.filter((sid) => sid !== id))
   }
 
