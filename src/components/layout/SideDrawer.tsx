@@ -23,6 +23,7 @@ const CORE_ITEMS: DrawerItemData[] = [
 const EXTRA_ITEMS: DrawerItemData[] = [
   { href: "/planner", icon: "📝", zh: "投稿", en: "Share" },
   { href: "/plan", icon: "🗺️", zh: "规划路线", en: "Plan" },
+  { href: "/routes", icon: "🧭", zh: "路线", en: "Routes" },
   { href: "/saved", icon: "⭐", zh: "收藏", en: "Saved" },
 ]
 
