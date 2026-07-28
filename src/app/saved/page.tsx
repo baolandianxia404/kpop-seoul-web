@@ -9,18 +9,12 @@ import { groups } from "@/lib/data/groups"
 import type { Itinerary } from "@/types"
 import { locations } from "@/lib/data/locations"
 import PageGuide from "@/components/ui/PageGuide"
-
-function removeFavorite(id: string) {
-  try {
-    const arr = JSON.parse(localStorage.getItem("kpop_favorites") || "[]")
-    localStorage.setItem("kpop_favorites", JSON.stringify(arr.filter((x: string) => x !== id)))
-  } catch {}
-}
+import { useFavorites } from "@/lib/store/favorites"
 
 export default function SavedPage() {
   const { t } = useLang()
   const router = useRouter()
-  const [favorites, setFavorites] = useState<string[]>([])
+  const { favorites, toggleFavorite } = useFavorites()
   const [pendingSpots, setPendingSpots] = useState<
     { locationId: string; locationName: string; locationType: string }[]
   >([])
@@ -30,7 +24,6 @@ export default function SavedPage() {
 
   const load = () => {
     try {
-      setFavorites(JSON.parse(localStorage.getItem("kpop_favorites") || "[]"))
       setPendingSpots(JSON.parse(localStorage.getItem("kpop_pending_spots") || "[]"))
       setItineraries(JSON.parse(localStorage.getItem("kpop_itineraries") || "[]"))
     } catch {}
@@ -56,8 +49,7 @@ export default function SavedPage() {
   }
 
   const removeFav = (id: string) => {
-    removeFavorite(id)
-    setFavorites((prev) => prev.filter((x) => x !== id))
+    toggleFavorite(id)
   }
 
   const viewItinerary = (itin: Itinerary) => {
