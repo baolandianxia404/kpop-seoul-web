@@ -160,34 +160,50 @@ export default function SideDrawer() {
             {user && (
               <>
                 {/* User info card */}
-                <Link
-                  href="/profile"
-                  onClick={() => setOpen(false)}
-                  className="block px-4 py-3 mb-2 bg-white/80 rounded-xl border border-slate-100 hover:bg-white transition active:scale-[0.98]"
-                >
+                <div className="px-4 py-3 mb-2 bg-white/80 rounded-xl border border-slate-100">
                   <div className="flex items-center gap-3">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
-                      style={{ backgroundColor: fanGroup?.color || "#3b82f6" }}
+                    <Link
+                      href="/profile"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 flex-1 min-w-0"
                     >
-                      {initials}
+                      <div
+                        className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
+                        style={{ backgroundColor: fanGroup?.color || "#3b82f6" }}
+                      >
+                        {initials}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-bold text-slate-700 truncate">
+                          {profile?.display_name || user.email}
+                        </p>
+                        {fanGroup && (
+                          <span
+                            className="inline-block mt-0.5 px-1.5 py-0.5 text-[10px] text-white font-mono"
+                            style={{ backgroundColor: fanGroup.color }}
+                          >
+                            {fanGroup.name}
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+                    <div className="flex items-center gap-1 flex-shrink-0">
+                      <Link
+                        href="/profile"
+                        onClick={() => setOpen(false)}
+                        className="w-7 h-7 flex items-center justify-center rounded-lg text-sm text-slate-300 hover:text-slate-500 hover:bg-slate-100 transition"
+                      >
+                        ⚙️
+                      </Link>
+                      <button
+                        onClick={() => { setOpen(false); signOut() }}
+                        className="w-7 h-7 flex items-center justify-center rounded-lg text-sm text-slate-300 hover:text-red-400 hover:bg-red-50 transition"
+                      >
+                        🚪
+                      </button>
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-bold text-slate-700 truncate">
-                        {profile?.display_name || user.email}
-                      </p>
-                      {fanGroup && (
-                        <span
-                          className="inline-block mt-0.5 px-1.5 py-0.5 text-[10px] text-white font-mono"
-                          style={{ backgroundColor: fanGroup.color }}
-                        >
-                          {fanGroup.name}
-                        </span>
-                      )}
-                    </div>
-                    <span className="text-sm text-slate-300 flex-shrink-0">⚙️</span>
                   </div>
-                </Link>
+                </div>
                 <DrawerRow
                   href={houseHref}
                   icon="🏠"
@@ -209,20 +225,7 @@ export default function SideDrawer() {
                 onClick={() => setOpen(false)}
               />
             ))}
-            {user ? (
-              <>
-                <button
-                  onClick={() => { setOpen(false); signOut() }}
-                  className="w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 active:scale-[0.98] text-red-500 hover:bg-red-50"
-                >
-                  <span className="text-xl">🚪</span>
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-sm font-bold">退出登录</span>
-                    <span className="text-[10px] text-slate-400 font-mono">· Sign Out</span>
-                  </div>
-                </button>
-              </>
-            ) : (
+            {!user && (
               <DrawerRow
                 href="/auth/register"
                 icon="🌟"
